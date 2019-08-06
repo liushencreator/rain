@@ -1,6 +1,7 @@
 package com.rao.bean.resource;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -11,6 +12,7 @@ import lombok.NoArgsConstructor;
  * @version 2.0
  */
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class ResourceVideo{

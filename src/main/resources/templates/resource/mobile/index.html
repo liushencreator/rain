@@ -1,0 +1,792 @@
+﻿<!doctype HTML>
+<html>
+<head>
+    <meta name="viewport" content="initial-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+    <meta content="black" name="apple-mobile-web-app-status-bar-style"/>
+    <meta content="telephone=no" name="format-detection"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>雨成帘资源-首页</title>
+    <meta content="本地资源" name="keywords"/>
+    <meta content="提供最新最专业的资讯" name="description"/>
+    <link rel="apple-touch-icon-precomposed" href="../www1.xiumei.com.cn/wap/2013/cms/img/lady_logo.png"/>
+    <link href="${base}/css/common.css" rel="stylesheet" type="text/css"/>
+    <style type="text/css">
+        .header-nav:after {
+            border: 0;
+        }
+
+        .header-nav {
+            height: 40px;
+            line-height: 40px;
+            background: #e1345f;
+            width: 100%;
+            display: -webkit-box;
+            display: -moz-box;
+            display: -ms-flexbox;
+            display: flexbox;
+        }
+
+        .header-nav a {
+            height: 40px;
+            line-height: 40px;
+            -moz-box-flex: 1;
+            -webkit-box-flex: 1;
+            -ms-flex: 1;
+            flex: 1;
+            position: relative;
+            font-family: 'Microsoft YaHei', 'simsun', 'Lucida Grande', 'Lucida Sans Unicode';
+            font-size: 18px;
+        }
+
+        .header-nav a.current {
+            color: #ff0;
+        }
+
+        .header-nav .icon-new::before {
+            background: #cc6698;
+        }
+
+        /*焦点图*/
+        .slider-top-pic {
+            max-width: 800%;
+            height: 100%;
+            min-height: 100%
+        }
+
+        .slider-top {
+            max-width: 640px;
+            overflow: hidden;
+            margin: 0 auto;
+            padding: 11px 0 0
+        }
+
+        .slider-top-wrap {
+            overflow: hidden;
+            margin: 0 5px
+        }
+
+        @media only screen and (max-width: 320px) {
+            .slider-top-wrap {
+                max-width: 320px;
+            }
+        }
+
+        .slider-top-pic {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .slider-top-pic li {
+            position: relative;
+            float: left;
+        }
+
+        .slider-top-pic li img {
+            width: 100%;
+            max-height: 315px
+        }
+
+        .slider-top-doc {
+            height: 10px;
+            text-align: center;
+            display: -webkit-box;
+            display: flexbox;
+            margin: 0 5px
+        }
+
+        .slider-top-doc i {
+            height: 5px;
+            background: #aaa;
+            display: block;
+            vertical-align: top;
+            -webkit-box-flex: 1;
+            flex: 1;
+        }
+
+        .slider-top-doc .current {
+            background: #e1345f;
+        }
+
+        /*查看更多*/
+        .btn-more {
+            border: 1px solid #d9d6d6;
+            border-radius: 5px;
+            background: #F5F5F5;
+            line-height: 36px;
+            margin: 10px 7px;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .btn-more a {
+            display: block;
+            height: 36px;
+            line-height: 36px;
+            color: #777;
+            font-size: 14px;
+        }
+
+        .btn-more a i {
+            display: inline-block;
+            width: 0;
+            height: 0;
+            border-width: 6px;
+            overflow: hidden;
+            border-color: #777 transparent transparent;
+            border-style: solid;
+            vertical-align: middle;
+            position: relative;
+            top: 2px;
+            margin-left: 5px;
+        }
+
+        .header-logo {
+            display: block;
+            width: 250px;
+            height: 26px;
+            margin: 8px 0px 0 10px;
+            background: url("${base}/images/logo.png") no-repeat;
+        }
+
+    </style>
+</head>
+
+<body>
+<!--<div class="header-top">-->
+<!--    <div class="header-left"> <a href="../www.xiumei.com/default.htm" class="header-logo" title="秀美时尚网"></a> </div>-->
+<!--</div>-->
+<!--导航-->
+<div class="header-nav">
+    <a href="${base}/web/resource/index.html" class="current">首页</a>
+    <a href="${base}/web/resource/resourceIndex.html">资源</a>
+    <a href="beauty/default.htm">美容</a>
+    <a href="reduce/default.htm">美体</a>
+    <a href="qinzi/default.htm">亲子</a>
+</div>
+<div class="header-nav">
+    <a href="health/default.htm">健康</a>
+    <a href="astro/default.htm">星座</a>
+    <a href="ent/default.htm">娱乐</a>
+    <a href="home/default.htm">家居</a>
+    <a href="${base}/web/collection/list.html">收藏</a>
+</div>
+
+<!--幻影灯-->
+<div class="slider-top">
+    <div class="slider-top-wrap" id="sliderTop" style="visibility: visible;">
+        <ul class="slider-top-pic" style="width: 3780px;">
+            <li data-index="0"><a href="javascript:void(0);"><img src="${base}/images/pc_bg_01.jpg"></a></li>
+            <li data-index="1"><a href="javascript:void(0);"><img src="${base}/images/pc_bg_02.jpg"></a></li>
+            <li data-index="2"><a href="javascript:void(0);"><img src="${base}/images/pc_bg_04.jpg"></a></li>
+        </ul>
+    </div>
+    <div class="slider-top-doc" id="sliderTop-doc"><i class=""></i><i class=""></i><i class=""></i><i
+            class="current"></i><i class=""></i><i class=""></i></div>
+</div>
+
+<!--内容列表-->
+
+<div class="main" id="main">
+    <section>
+        <a href="a/20140826/141229.shtml">
+            <dl>
+                <dt><img alt="第66届艾美奖红毯直击 女星华服争艳"
+                         src="http://img.xiumei.com/uploadfile/2014/0826/20140826090302741.jpg"></dt>
+                <dd>
+                    <h2>第66届艾美奖红毯直击 女星华服争艳</h2>
+                    <time>2014-08-26 08:39:22</time>
+                    <p>
+                        第66届艾美奖颁奖典礼北京时间今日（8月26日）一早举行，明星走红毯再次成了全世界瞩目的焦点。此次红毯上，女星们又是如何穿衣搭配，选择漂亮的礼服来装扮自己呢？想要在众多美丽的身影中脱颖而出，除了自身的气场外，礼服很重要，赶紧来欣赏吧。</p>
+                </dd>
+            </dl>
+        </a>
+        <a href="a/20140825/141183.shtml">
+            <dl>
+                <dt><img alt="汤唯王菲许晴 女星“大头照”满脸硬伤"
+                         src="http://img.xiumei.com/uploadfile/2014/0825/20140825045819339.jpg"></dt>
+                <dd>
+                    <h2>汤唯王菲许晴 女星“大头照”满脸硬伤</h2>
+                    <time>2014-08-25 16:56:47</time>
+                    <p>盘点女明星们的“大头照”，天后王菲大蒜鼻好醒目，女神汤唯皮肤蜡黄鱼尾纹，辣妈张柏芝一脸黑痣......图揭女明星面部“硬伤”，其实她们也不够完美哦！</p>
+                </dd>
+            </dl>
+        </a>
+        <a href="a/20140825/141129.shtml">
+            <dl>
+                <dt><img alt="MTV音乐大奖红毯 女星穿性感礼服抢镜"
+                         src="http://img.xiumei.com/uploadfile/2014/0825/20140825014911414.jpg"></dt>
+                <dd>
+                    <h2>MTV音乐大奖红毯 女星穿性感礼服抢镜</h2>
+                    <time>2014-08-25 13:23:43</time>
+                    <p>
+                        美国时间8月24日晚上，第31届MTV音乐录影带大奖颁奖礼在加州举行。红毯上可谓星光熠熠。每年都亮相的泰勒-斯威夫特一如既然大秀长腿，吸晴无数。水果姐凯蒂穿着牛仔裙尽显摇滚范儿。女星们为了抢夺闪光灯，可谓是使出浑身解数，各种袒胸露背，撅臀秀腿。</p>
+                </dd>
+            </dl>
+        </a>
+        <a href="a/20140825/141062.shtml">
+            <dl>
+                <dt><img alt="2014秋季首选发型 清新直发最显淑女气质"
+                         src="http://img.xiumei.com/uploadfile/2014/0825/20140825092625503.jpg"></dt>
+                <dd>
+                    <h2>2014秋季首选发型 清新直发最显淑女气质</h2>
+                    <time>2014-08-25 09:25:53</time>
+                    <p>2014年秋冬季节适合什么样的发型呢？爱美的女孩子发型总是很百变，秋天了，发型跟夏天也要有所不同，最新女生最爱气质直发发型推荐，甜美发型彰显迷人清新气质。</p>
+                </dd>
+            </dl>
+        </a>
+        <a href="a/20140824/141006.shtml">
+            <dl>
+                <dt><img alt="女星越整越恐怖为哪般 下巴歪了脸也瘫了"
+                         src="http://img.xiumei.com/uploadfile/2013/0418/20130418111020655.jpg"></dt>
+                <dd>
+                    <h2>女星越整越恐怖为哪般 下巴歪了脸也瘫了</h2>
+                    <time>2014-08-24 11:30:00</time>
+                    <p>刘晓庆这张照片完全让人不敢直视，拿来辟邪应该效果不错。都整成这样了还不承认，观众们可都不是三岁小孩！
+                    </p>
+                </dd>
+            </dl>
+        </a>
+        <a href="a/20140824/140984.shtml">
+            <dl>
+                <dt><img alt="命理解读：倒霉相的10大面相特征" src="http://img.xiumei.com/uploadfile/2014/0824/20140824084416415.jpg">
+                </dt>
+                <dd>
+                    <h2>命理解读：倒霉相的10大面相特征</h2>
+                    <time>2014-08-24 08:42:56</time>
+                    <p>人生在世，不如意的事十有八九，好运不会总在你家，同理，倒霉也只是暂时的，不可能一辈子倒霉，可我们时常听到倒霉相，那真有倒霉相一说吗？倒霉相是什么样的呢？下面我们为大家介绍，倒霉相的十大特征。
+                    </p>
+                </dd>
+            </dl>
+        </a>
+        <a href="a/20140822/140926.shtml">
+            <dl>
+                <dt><img alt="明星整容手术图：超女王梓人造假脸被批丑"
+                         src="http://img.xiumei.com/uploadfile/2014/0822/20140822051519156.jpg"></dt>
+                <dd>
+                    <h2>明星整容手术图：超女王梓人造假脸被批丑</h2>
+                    <time>2014-08-22 16:30:57</time>
+                    <p>如今娱乐圈承认整容的明星越来越多，前不久前超女王梓整容手术图公开，手术过程还是挺吓人，盘点明星整容前后对比照，看看谁成功变漂亮呢？</p>
+                </dd>
+            </dl>
+        </a>
+        <a href="a/20140822/140888.shtml">
+            <dl>
+                <dt><img alt="《卫子夫》热播 王珞丹汉服造型惊艳" src="http://img.xiumei.com/uploadfile/2014/0822/20140822024956325.jpg">
+                </dt>
+                <dd>
+                    <h2>《卫子夫》热播 王珞丹汉服造型惊艳</h2>
+                    <time>2014-08-22 14:09:00</time>
+                    <p>
+                        由王珞丹林峰领衔主演的电视剧《卫子夫》开播，作为一部古装历史剧，也是王珞丹首部古装剧，汉服造型让人惊艳不已。的确在服装的细节上别具匠心，让人着实感叹服装与配饰的精美。不过也有网友认为王珞丹不适合古装剧，被封为天然丑。
+                    </p>
+                </dd>
+            </dl>
+        </a>
+        <a href="a/20140822/140840.shtml">
+            <dl>
+                <dt><img alt="2014新款烫发发型 韩式发型甜美惹人爱"
+                         src="http://img.xiumei.com/uploadfile/2014/0822/20140822104801776.jpg"></dt>
+                <dd>
+                    <h2>2014新款烫发发型 韩式发型甜美惹人爱</h2>
+                    <time>2014-08-22 10:45:49</time>
+                    <p>韩国女星的发型总是时尚的风向标，下面小编就为大家盘点最新流行新潮烫发发型推荐，时尚烫发造型展现女生百变魅力。</p>
+                </dd>
+            </dl>
+        </a>
+        <a href="a/20140821/140810.shtml">
+            <dl>
+                <dt><img alt="明星“女大十八变” 旧照揭开整容隆胸真相"
+                         src="http://img.xiumei.com/uploadfile/2014/0821/20140821061525537.jpg"></dt>
+                <dd>
+                    <h2>明星“女大十八变” 旧照揭开整容隆胸真相</h2>
+                    <time>2014-08-21 18:19:10</time>
+                    <p>盘点女明星们走红前旧照，这几位今昔对比容貌差距似乎太大了，从脸型到身材，到底是“女大十八变”呢？还是动刀了？</p>
+                </dd>
+            </dl>
+        </a>
+    </section>
+</div>
+
+<!--点击查看更多-->
+<div class="btn-more" id="Jmore"><a>点击查看更多<i></i></a></div>
+<style type="text/css">
+    /*++收藏&添加到主屏幕++*/
+    .collectTip {
+        display: none;
+        width: 270px;
+        height: 90px;
+        position: fixed;
+        left: 50%;
+        margin-left: -140px;
+        bottom: 20px;
+        background: RGBA(0, 0, 0, .7);
+        border-radius: 10px;
+        z-index: 999;
+    }
+
+    .collectTip::after {
+        content: "";
+        display: block;
+        width: 0;
+        height: 0;
+        border-width: 10px;
+        overflow: hidden;
+        border-color: RGBA(0, 0, 0, .7) transparent transparent;
+        border-style: solid;
+        position: absolute;
+        bottom: -20px;
+        left: 125px;
+    }
+
+    .collectTipClose {
+        display: block;
+        width: 24px;
+        height: 24px;
+        color: #fff;
+        font-weight: bold;
+        text-align: center;
+        line-height: 22px;
+        font-size: 24px;
+        background: #000;
+        border-radius: 15px;
+        border: 3px solid #fff;
+        box-shadow: 1px 1px 2px #444;
+        cursor: pointer;
+        position: absolute;
+        top: -15px;
+        right: -15px;
+    }
+
+    .collectTipLogo {
+        width: 60px;
+        height: 60px;
+        background: url(../www1.xiumei.com.cn/wap/2013/cms/img/lady_logo.png) no-repeat;
+        background-size: 60px;
+        border-radius: 5px;
+        position: absolute;
+        top: 15px;
+        left: 15px;
+    }
+
+    .collectTipText {
+        width: 165px;
+        color: #fff;
+        line-height: 20px;
+        position: absolute;
+        top: 15px;
+        left: 90px;
+        font-size: 14px;
+    }
+
+    .collectTipText i {
+        display: inline-block;
+        width: 30px;
+        height: 20px;
+        background: url(images/sprite.png) no-repeat -92px -58px;
+        background-size: 150px;
+        vertical-align: middle;
+        margin-top: -2px;
+    }
+
+    /*添加到UC浏览器首页*/
+    .uccollectTip {
+        display: none;
+        width: 100%;
+        height: 80px;
+        position: fixed;
+        left: 0;
+        bottom: 0px;
+        background: RGBA(0, 0, 0, .7);
+        z-index: 999;
+        text-align: center;
+    }
+
+    .uccollectTipClose {
+        display: inline-block;
+        width: 24px;
+        height: 24px;
+        color: #fff;
+        text-align: center;
+        line-height: 24px;
+        font-size: 24px;
+        cursor: pointer;
+        position: absolute;
+        top: 0px;
+        right: 0px;
+    }
+
+    .uccollectTipLogo {
+        width: 60px;
+        height: 60px;
+        background: url(../www1.xiumei.com.cn/wap/2013/cms/img/lady_logo.png) no-repeat;
+        background-size: 60px;
+        border-radius: 5px;
+        display: inline-block;
+        margin-top: 10px;
+    }
+
+    .uccollectTipText {
+        width: 170px;
+        color: #fff;
+        line-height: 20px;
+        font-size: 14px;
+        display: inline-block;
+        margin: 15px 0 0 3px;
+        vertical-align: top;
+        text-align: left;
+    }
+
+    .uccollectTipText em {
+        color: #e50073
+    }
+
+    .uccollect-btn {
+        display: inline-block;
+        width: 70px;
+        height: 34px;
+        line-height: 34px;
+        background: #e50073;
+        color: #fff;
+        font-size: 17px;
+        margin-top: 22px;
+        vertical-align: top;
+        border-radius: 5px;
+    }
+
+    .uccollect-btn em {
+        font-size: 28px;
+        line-height: 30px;
+        height: 30px;
+        vertical-align: top;
+    }
+
+    .ucFrame {
+        display: none;
+        z-index: 150;
+        position: fixed;
+        width: 320px;
+        height: 200px;
+        top: 50%;
+        left: 50%;
+        margin: -100px 0 0 -160px
+    }
+
+    .ucFrame iframe {
+        overflow: hidden;
+        width: 320px;
+        height: 200px
+    }
+</style>
+
+<!--添加到主屏幕-->
+<div class="collectTip" id="JcollectTip"><span class="collectTipClose">&times;</span>
+    <div class="collectTipLogo"></div>
+    <div class="collectTipText">更加快捷进入秀美时尚网触屏版，请点击<i></i>后选择“添加至主屏幕”。</div>
+</div>
+<!--添加到UC浏览器首页-->
+<div class="uccollectTip" id="JuccollectTip"><span class="uccollectTipClose">&times;</span> <span
+        class="uccollectTipLogo"></span> <span class="uccollectTipText">添加“<em>秀美网</em>”到你的浏览器首页，访问更方便哦!</span> <a
+        target="_blank" class="uccollect-btn"><em>+</em> 添加</a></div>
+<div id="ucFrame" class="ucFrame"></div>
+<!--前端所用js-->
+
+<!--底部-->
+
+<div class="footer">
+    <p class="pTit-1"><em>触屏版</em> | <a href="../www.xiumei.com/default.htm">电脑版</a></p>
+    <p class="pTit-3"><em class="icon-group-small"></em>雨成帘资源网</p>
+    </span>
+    </p>
+</div>
+<script src="${base}/js/tu.js" charset="utf-8"></script>
+<script src="${base}/js/swipe.min.js" charset="utf-8"></script>
+<script type="text/javascript">
+    window.onload = function () {
+//焦点图
+        var pics = document.getElementById('sliderTop').getElementsByTagName('img');
+        for (var i = 1; i < pics.length; i++) {
+            var tmp = pics[i];
+            tmp.getAttribute('#lsrc') && (tmp.src = tmp.getAttribute('#lsrc'), tmp.removeAttribute('#lsrc'));
+        }
+
+        function slider(id) {
+            var elm = document.getElementById(id);
+            if (!elm) return;
+            var doc = document.getElementById(id + '-doc');
+            var slides = elm.children[0].children;
+            var temp = '';
+            var index = 0;
+            for (var i = 0, len = slides.length; i < len; i++) {
+                temp += '<i ' + (i == 0 ? 'class="current"' : '') + '></i>';
+            }
+            doc.innerHTML = temp;
+            var docs = doc.querySelectorAll('i');
+            new Swipe(elm, {
+                auto: 3500,
+                continuous: true,
+                callback: function (pos) {
+                    docs[index].className = '';
+                    docs[pos].className = 'current';
+                    index = pos;
+                }
+            })
+        }
+
+        slider("sliderTop");
+    }
+
+    if (window.location.hash == "") {
+        try {
+            window.scrollTo(0, 1);
+        } catch (e) {
+        }
+        ;
+    }
+    (function () {
+        window.onscroll = window.ontouchmove = window.onresize = function () {
+            if (document.documentElement.scrollTop + document.body.scrollTop > 800) {
+                document.querySelector(".toTop-btn").style.display = "block";
+            } else {
+                document.querySelector(".toTop-btn").style.display = "none";
+            }
+        }
+    })();
+
+    callback(
+        {
+            "articleList": [
+                {
+                    "title": '女生头发少适合什么发型 有烫发就够了',
+                    "url": "a/20140821/140714.shtml",
+                    "description": "女生头发少适合什么样的发型呢？发量太少，弄什么发型都会显得不好看，但烫发确实最适合她们的。最新几款烫发发型推荐，时尚蓬松烫发发型，助你改变少发的尴尬。",
+                    "image": "http://img.xiumei.com/uploadfile/2014/0821/20140821105428664.jpg",
+                    "date": "2014-08-21 10:52:23",
+                },
+                {
+                    "title": '丽媛Style再来袭 牡丹印花旗袍典雅美',
+                    "url": "a/20140821/140676.shtml",
+                    "description": "第一夫人彭丽媛出席第二届青奥会开幕式时，穿着中国牡丹花宝蓝色旗袍搭配珍珠耳环，立马能感受到她的惊艳与美丽。这不是彭丽媛第一次穿旗袍亮相，而在时尚界已经刮起了丽媛Style。",
+                    "image": "http://img.xiumei.com/uploadfile/2014/0821/20140821090208980.jpg",
+                    "date": "2014-08-21 08:54:29",
+                },
+                {
+                    "title": '周迅林心如王菲15年前旧照 她们都是包子脸！',
+                    "url": "a/20140820/140654.shtml",
+                    "description": "近期王菲、周迅、林心如多年前写真照纷纷曝光，林心如15年前的婚纱照好清纯，早年的王菲居然是包子脸哦！周迅锥子脸是天生的哦！一起来看看明星出道时的模样。",
+                    "image": "http://img.xiumei.com/uploadfile/2014/0820/20140820055316151.jpg",
+                    "date": "2014-08-20 17:50:18",
+                },
+                {
+                    "title": '汤唯穿Vera Wang出嫁啦 女神品味就是赞',
+                    "url": "a/20140820/140626.shtml",
+                    "description": "19日下午，汤唯与丈夫金泰勇婚纱照曝光，并宣布正式结为夫妻。汤唯穿着Vera Wang白色婚纱礼服，就跟她的人一样低调有内涵。不管是结婚还是出席活动，平日的穿着打扮，都非常简约。赶紧来欣赏女神汤唯的穿衣风格吧。",
+                    "image": "http://img.xiumei.com/uploadfile/2014/0820/20140820045254879.jpg",
+                    "date": "2014-08-20 16:51:58",
+                },
+                {
+                    "title": '柯震东发型图片 长得帅hold住各款短发',
+                    "url": "a/20140820/140550.shtml",
+                    "description": "柯震东吸毒被抓了，不过看网友的评论，简直就是看脸的世界。还说被抓了发型怎么还是那么帅。柯震东是当红偶像，自然他的一举一动备受关注，发型也成为美发界模仿的对象。",
+                    "image": "http://img.xiumei.com/uploadfile/2014/0820/20140820112253793.jpg",
+                    "date": "2014-08-20 11:20:32",
+                },
+                {
+                    "title": '范冰冰深V长裙高贵典雅 穿礼服零失误',
+                    "url": "a/20140819/140400.shtml",
+                    "description": "昨日（8月18日）范冰冰出席代言活动，穿着大红色深v长裙亮相高贵典雅，一贯的复古盘发更加美艳，让人目不暇接。素有时尚女王之称的范爷，自然在红毯上从未出过错。今天要为大家盘点范冰冰穿过的深v礼服，大秀美胸身材，性感逼人。",
+                    "image": "http://img.xiumei.com/uploadfile/2014/0819/20140819012420156.jpg",
+                    "date": "2014-08-19 11:53:04",
+                },
+                {
+                    "title": '女星自拍无丑女 高清抓拍照真实容貌要人命',
+                    "url": "a/20140819/140369.shtml",
+                    "description": "明星们都爱在微博晒自拍，而女明星们的自拍照更是美不胜收，白皙无瑕的肌肤，各种大眼瓜子脸，可是媒体抓拍到的生活照怎么就这么丑呢？一起来看看明星们的真实容貌吧！自拍与他拍照容貌差距太大了。",
+                    "image": "http://img.xiumei.com/uploadfile/2014/0819/20140819102239553.jpg",
+                    "date": "2014-08-19 10:20:10",
+                },
+                {
+                    "title": '2014秋季流行发型 9款美发值得借鉴',
+                    "url": "a/20140819/140354.shtml",
+                    "description": "换季的时候就要换款新发型，无论你是长发还是短发，每一个季节都有自己的流行美发。下面就为大家推荐2014秋季流行发型，9款美发值得借鉴。",
+                    "image": "http://img.xiumei.com/uploadfile/2014/0819/20140819102012197.jpg",
+                    "date": "2014-08-19 10:12:13",
+                },
+                {
+                    "title": '少女时代机场街拍 示范牛仔裤潮搭配',
+                    "url": "a/20140818/140213.shtml",
+                    "description": "在早秋时节里，少女时代成员们把机场当做了T台，尽情的展现自己的时尚品味，成员们更是不约而同的穿起了裤装，完美演绎牛仔裤搭配，也能教大家在换季时刻，如何做到轻松应对温差，还能不失时尚魅力。",
+                    "image": "http://img.xiumei.com/uploadfile/2014/0818/20140818105813741.jpg",
+                    "date": "2014-08-18 10:42:05",
+                },
+                {
+                    "title": '九月新风尚 大学生适合的9款时尚发型',
+                    "url": "a/20140818/140186.shtml",
+                    "description": "九月临近，一年的开学季又将再次到来，经过暑假的洗礼，赶紧来换个新造型迎接今秋吧。9款大学生适合的甜美发型推荐，时尚好看气质佳，完美修颜彰显个性青春。",
+                    "image": "http://img.xiumei.com/uploadfile/2014/0818/20140818093622191.jpg",
+                    "date": "2014-08-18 09:32:55",
+                },
+                {
+                    "title": '倪妮张雨绮穿搭气场足 谁是85后女王',
+                    "url": "a/20140817/140147.shtml",
+                    "description": "倪妮和张雨绮同是85后的小花旦，两人年轻轻气场却很强大，穿衣品味也备受好评，看她们出席活动时的造型风格，走的路线也类似，都是御姐女王气质，更巧的是生日也是同一天，那么哪位佳人才是小花中的气场女王呢？",
+                    "image": "http://img.xiumei.com/uploadfile/2014/0817/20140817015019891.jpg",
+                    "date": "2014-08-17 13:49:20",
+                },
+                {
+                    "title": '女星整容失败成面瘫 嘴也歪了下巴也凹了',
+                    "url": "a/20140817/140144.shtml",
+                    "description": "赵雅芝年轻的时候挺美，但为了“锁住青春”也走上了整容的道路，于是我们也看到了她“面瘫”的窘状。",
+                    "image": "http://img.xiumei.com/uploadfile/2014/0817/20140817115452204.jpg",
+                    "date": "2014-08-17 11:18:02",
+                },
+                {
+                    "title": '张歆艺刘诗诗不和 时尚衣品PK诗爷完胜',
+                    "url": "a/20140816/140097.shtml",
+                    "description": "张歆艺在微博上称赞电影《绣春刀》值得看，很不错，却只字没提刘诗诗，导致粉丝骂战。单从两人的时尚品味来讲，二姐张歆艺明显比不上刘诗诗，刘诗诗近两年穿衣搭配功力渐长，而张歆艺喜欢率性风格，比较随性。下面就和秀美网小编来看看两位女星的衣品。",
+                    "image": "http://img.xiumei.com/uploadfile/2014/0816/20140816032424857.jpg",
+                    "date": "2014-08-16 14:53:04",
+                },
+                {
+                    "title": '大S姚晨周迅婚后“增肥” 大脸双下巴不忍直视',
+                    "url": "a/20140816/140092.shtml",
+                    "description": "近年来不少女明星都嫁为人妻，婚后的美女明星们，满脸洋溢幸福甜蜜，可是婚后发福也挺恐怖，看看大S结婚后不断增肥的身形，还有周迅的双下巴，女明星结婚前后差距是不是太大了，看看哪些婚后“增肥”的女明星们，容貌都有哪些惊人变化？",
+                    "image": "http://img.xiumei.com/uploadfile/2014/0816/20140816024334298.jpg",
+                    "date": "2014-08-16 14:40:45",
+                },
+                {
+                    "title": '2014秋冬流行发型 短发长发随你喜欢',
+                    "url": "a/20140816/140066.shtml",
+                    "description": "每到了换季的时候，对时尚赋有敏感度的mm们，总能快速的找准下一季的潮流，比如美发。那2014年的秋冬在发型领域上又有哪些新潮呢？从下面这十款发型中你能看到新意。",
+                    "image": "http://img.xiumei.com/uploadfile/2014/0816/20140816104858146.jpg",
+                    "date": "2014-08-16 10:43:02",
+                },
+                {
+                    "title": '范冰冰整容了吗？ 图揭出道16年面部变化',
+                    "url": "a/20140815/140021.shtml",
+                    "description": "女神范冰冰出道16年，瓷白美肌还有精致的巴掌脸，让女人羡慕不已，可是霸气的范爷也一直被质疑整容，范冰冰曾亲自去整形医院证实容貌纯天然，为大家盘点范冰冰这16年面部的细微变化，看看女神真的整容了吗？",
+                    "image": "http://img.xiumei.com/uploadfile/2014/0815/20140815051518785.jpg",
+                    "date": "2014-08-15 17:07:38",
+                },
+                {
+                    "title": '少女时代街拍换季搭配 衬衫百搭LOOK',
+                    "url": "a/20140815/139977.shtml",
+                    "description": "衬衫是最基础单品，几乎每个人衣橱都有几件。尤其是秋天，穿着长袖衬衫可以搭配出不 同的风格。在最新的少女时代机场街拍中，就为大家上演了衬衫百搭LOOK，配裙子娇俏甜 美，配裤子干练优雅，赶紧来学学夏末初秋换季搭配。",
+                    "image": "http://img.xiumei.com/uploadfile/2014/0815/20140815024208879.jpg",
+                    "date": "2014-08-15 14:20:46",
+                },
+                {
+                    "title": '左耳女主陈都灵 清纯发型PK奶茶妹妹',
+                    "url": "a/20140815/139915.shtml",
+                    "description": "电影《左耳》已经开机，女主确认是南航校花陈都灵，这让之前盛传的奶茶妹妹出演的说法化为泡影。对比两人的造型，其实还是有几分相似之处，百变发型PK，你更喜欢谁呢？",
+                    "image": "http://img.xiumei.com/uploadfile/2014/0815/20140815093737997.jpg",
+                    "date": "2014-08-15 09:37:27",
+                },
+                {
+                    "title": '赵薇周迅汤唯 早年写真照“土肥黑”谁更丑？',
+                    "url": "a/20140814/139893.shtml",
+                    "description": "盘点9位女明星早年写真照，除了当年造型土气，曾经的女神们，原来也不是“白富美”啊！赵薇肉嘟嘟的方形大脸，女神汤唯当年完全就是屌丝啊！",
+                    "image": "http://img.xiumei.com/uploadfile/2014/0814/20140814071337146.jpg",
+                    "date": "2014-08-14 19:09:30",
+                },
+                {
+                    "title": '《一见不钟情》热播 跟杨丞琳学秋装搭配',
+                    "url": "a/20140814/139780.shtml",
+                    "description": "由杨丞琳领衔主演的《一见不钟情》火热播出，这是她阔别三年的复出之作，也能明显看出杨丞琳的变化，从甜心教主到如今时髦的都市女郎。剧中杨丞琳很好的为大家各种女生示范了秋季搭配，各种亮色系的秋装，引领时尚。一起来领略杨丞琳剧中潮流造型。",
+                    "image": "http://img.xiumei.com/uploadfile/2014/0814/20140814112937812.jpg",
+                    "date": "2014-08-14 11:28:38",
+                },
+                {
+                    "title": '2014秋冬发型流行趋势 中短发温暖回归',
+                    "url": "a/20140814/139742.shtml",
+                    "description": "临近夏末，市面上各种初秋的产品都已经开始上市了，发型也要早准备。最新秋冬流行发型推荐，时尚趋势解析，简约中短发造型强势回归。",
+                    "image": "http://img.xiumei.com/uploadfile/2014/0814/20140814095214892.jpg",
+                    "date": "2014-08-14 09:48:45",
+                },
+                {
+                    "title": '蔡琳李多海崔智友 3韩国女神整容失败引关注',
+                    "url": "a/20140813/139706.shtml",
+                    "description": "从2013年下半年崔智友出演《可疑的保姆》整容失败新闻引关注，今年李多海出演《酒店之王》僵硬容貌被传整容失败，还有前不久公开被求婚的蔡琳，接连3大韩国女神被传整容失败，和小编一起来看看她们整容之路吧！",
+                    "image": "http://img.xiumei.com/uploadfile/2014/0813/20140813055643888.jpg",
+                    "date": "2014-08-13 17:53:07",
+                },
+                {
+                    "title": '《离婚律师》姚晨造型 穿女仆装扮萝莉',
+                    "url": "a/20140813/139576.shtml",
+                    "description": "《离婚律师》正在热播，该剧曝光了姚晨cosplay的剧照，上演制服诱惑。兔耳朵萝莉装和性感女仆装，诱惑来袭，原来一直很御姐的姚晨也有如此妩媚的一面。下面就和秀美网小编来看看姚晨在剧中的造型，因为饰演律师，大多都是干练的职业装扮。",
+                    "image": "http://img.xiumei.com/uploadfile/2014/0813/20140813102432310.jpg",
+                    "date": "2014-08-13 09:57:56",
+                },
+                {
+                    "title": '明星减肥玩自虐 吃虫卵吃蚯蚓丧心病狂',
+                    "url": "a/20140813/139552.shtml",
+                    "description": "明星只要发胖，就会断送演艺事业，发胖的身材如果一发不可收拾，形象全毁。所以为了保持苗条身姿，会采用很极端的减肥手段。先让我们一起细数那些减肥不要命的女星吧。",
+                    "image": "http://img.xiumei.com/uploadfile/2014/0813/20140813084841890.jpg",
+                    "date": "2014-08-13 08:47:06",
+                },
+                {
+                    "title": '最新整容失败案例 田朴珺萧蔷柳岩下巴歪了',
+                    "url": "a/20140812/139519.shtml",
+                    "description": "近期王石女友田朴珺被指出整容失败导致嘴巴变歪，僵硬的容貌惊悚十足，盘点近期被曝光整容失败新案例，看看还有哪些女明星又中枪了？",
+                    "image": "http://img.xiumei.com/uploadfile/2014/0812/20140812052554787.jpg",
+                    "date": "2014-08-12 17:22:07",
+                },
+                {
+                    "title": '刘亦菲越来越美 女神裙装造型仙气十足',
+                    "url": "a/20140812/139454.shtml",
+                    "description": "女神回归！由其主演的电影《四大名捕大结局》即将上映，刘亦菲开始了如火如荼的宣传，同时女神着装也是时尚圈热门话题，喜欢穿各款裙子的她，真是仙气十足，不愧为神仙姐姐。",
+                    "image": "http://img.xiumei.com/uploadfile/2014/0812/20140812020656366.jpg",
+                    "date": "2014-08-12 13:42:08",
+                },
+                {
+                    "title": '吴镇宇老婆王丽萍海量美照 长发气质清纯',
+                    "url": "a/20140809/139171.shtml",
+                    "description": "《爸爸2》开播已经有一段时间了，唯独费曼的妈妈，也就是吴镇宇的老婆一直保持着神秘面纱。在《爸爸2》最新一期中，这位靓妈可算现身，海量美照曝光，年轻时也是大美人。",
+                    "image": "http://img.xiumei.com/uploadfile/2014/0809/20140809030143573.jpg",
+                    "date": "2014-08-09 14:59:40",
+                },
+                {
+                    "title": '拼脸还是拼气质 女星无刘海丑到爆',
+                    "url": "a/20140809/139165.shtml",
+                    "description": "告别刘海，女星会是什么样的呢？今年夏天很火的all back你是否像尝试一下呢？拼脸蛋还是拼气质，如何hold住这款发型？一不小心就是好莱坞巨星也中枪。",
+                    "image": "http://img.xiumei.com/uploadfile/2014/0809/20140809020310616.jpg",
+                    "date": "2014-08-09 14:01:10",
+                },
+                {
+                    "title": '有“痣”男女 如何辨别痣相吉凶',
+                    "url": "a/20140808/139128.shtml",
+                    "description": "人各有“痣”，痣痣不同。按照面相学的说法，通过一个人的“痣相”，是可以看出一个人的富贵吉凶，夭寿福祸，下面就来盘点不同“痣相”的吉凶预兆。",
+                    "image": "http://img.xiumei.com/uploadfile/2014/0808/20140808053250662.jpg",
+                    "date": "2014-08-08 17:29:51",
+                },
+                {
+                    "title": '《爸爸》5星妈正面照 吴镇宇黄磊老婆美Cry！',
+                    "url": "a/20140808/139106.shtml",
+                    "description": "在本周的《爸爸去哪儿》节目中，五位星妈首次集体露面，其中最为神秘的吴镇宇太太王丽萍也出镜了，盘点五位星妈正面照，小编最喜欢吴镇宇太太王丽萍，黄磊老婆孙莉长得好清秀，陆毅老婆身材完胜模特哦！",
+                    "image": "http://img.xiumei.com/uploadfile/2014/0808/20140808052129922.jpg",
+                    "date": "2014-08-08 17:17:39",
+                },
+            ]
+        }
+    )
+</script>
+<div onClick="window.scrollTo(0, 0);" title="回到顶部" class="toTop-btn"></div>
+<!--百度联盟//-->
+<script type="text/javascript">
+    /*手机源码演示页面*/
+    var cpro_id = "u2160319";
+</script>
+<script src="http://cpro.baidustatic.com/cpro/ui/cm.js" type="text/javascript"></script>
+
+<!--百度统计 //-->
+<script>
+    var _hmt = _hmt || [];
+    (function () {
+        var hm = document.createElement("script");
+        hm.src = "//hm.baidu.com/hm.js?cbf20f554ba43aeba396a009eb4ab5f7";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+</body>
+</html>
