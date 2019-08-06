@@ -41,4 +41,10 @@ public interface ResourceVideoDao{
      */
     Integer batchInsert(@Param("list") List<ResourceVideo> resourceVideos);
 
+    /**
+     * 根据资源id查询资源列表
+     * @param resourceIds
+     * @return
+     */
+    List<ResourceVideo> listByResoueceIds(@Param("list") List<Long> resourceIds);
 }

@@ -1,6 +1,7 @@
 package com.rao.service.resource;
 
 
+import com.rao.bean.resource.ResourceVideo;
 import com.rao.bean.resource.SourceCollections;
 
 import java.util.List;
@@ -43,4 +44,12 @@ public interface SourceCollectionsService {
      * 矫正收藏信息
      */
     void adjustCollection();
+
+    /**
+     * 分页查询列表
+     * @param pageNumber
+     * @param pageSize
+     * @return
+     */
+    List<ResourceVideo> listByPage(Integer pageNumber, Integer pageSize);
 }

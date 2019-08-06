@@ -173,7 +173,7 @@
 		limit ${pageBegin},${pageSize}
 	</select>
 
-	<!-- 批量保存 -->
+    <!-- 批量保存 -->
 	<insert id="batchInsert">
 		INSERT INTO RESOURCE_VIDEO ( <include refid="base_column" /> )
 		VALUES
@@ -184,5 +184,13 @@
 			)
 		</foreach>
 	</insert>
+
+	<!-- 根据资源id查询资源列表 -->
+	<select id="listByResoueceIds" resultType="com.rao.bean.resource.ResourceVideo">
+		SELECT	<include refid="base_column" />
+		FROM	RESOURCE_VIDEO
+		WHERE	ID IN
+		<foreach collection="list" item="id" index="index" open="(" separator="," close=")">#{id}</foreach>
+	</select>
 
 </mapper>

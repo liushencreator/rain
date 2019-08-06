@@ -3,6 +3,7 @@ package com.rao.controller.resource;
 import com.rao.Utils.AsynResult.ResultMessage;
 import com.rao.Utils.Paramap;
 import com.rao.Utils.TwiterIdUtil;
+import com.rao.Utils.common.CheckAgentUtil;
 import com.rao.bean.resource.ResourceVideo;
 import com.rao.bean.resource.SourceCollections;
 import com.rao.constants.CollectionConstant;
@@ -10,10 +11,7 @@ import com.rao.service.resource.ResourceVideoService;
 import com.rao.service.resource.SourceCollectionsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -41,21 +39,17 @@ public class WebCollectionController {
      * @return
      */
     @RequestMapping("/list")
-    public String list(@RequestParam(defaultValue = "1") Integer pageNumber,
+    public String list(@RequestHeader("User-Agent") String userAgent,
+                       @RequestParam(defaultValue = "1") Integer pageNumber,
                        @RequestParam(defaultValue = "100") Integer pageSize,
                        Model model){
-        Paramap paramap = Paramap.create();
-        paramap.put("collectionType", CollectionConstant.COLLECTION_TYPE_VIDEO);
-        List<SourceCollections> collectionsList = sourceCollectionsService.findByPage(paramap, pageNumber, pageSize);
-        List<ResourceVideo> page=new ArrayList<>();
-        for(SourceCollections collections:collectionsList){
-            ResourceVideo video=new ResourceVideo();
-            video.setId(collections.getResourceId());
-            video.setVideoName(collections.getCollectionName());
-            video.setVideoPath(collections.getCollectionPath());
-            page.add(video);
-        }
+        List<ResourceVideo> page = sourceCollectionsService.listByPage(pageNumber, pageSize);
         model.addAttribute("page",page);
+
+        boolean isMobile = CheckAgentUtil.checkAgentIsMobile(userAgent);
+        if(isMobile){
+            return "/resource/mobile/collection/collection_default";
+        }
         return "/resource/web/resourceList";
     }
 
