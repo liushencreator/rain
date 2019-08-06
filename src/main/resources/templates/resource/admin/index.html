@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>后台首页</title>
+    <script type="text/javascript" src="${base}/js/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="${base}/js/bootstrap.js"></script>
+    <script type="text/javascript" src="${base}/js/layer.js"></script>
+    <link rel="stylesheet" href="${base}/css/bootstrap.min.css">
+    <link rel="stylesheet" href="${base}/css/font-awesome.min.css">
+    <link rel="stylesheet" href="${base}/css/layer.css">
+    <style rel="stylesheet" type="text/css">
+        .a_label {
+            font-size: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-8 col-xs-offset-2">
+                <h2><i class="fa fa-spinner fa-pulse"></i> 资源管理</h2>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-xs-10 col-xs-offset-1">
+                <a href="${base}/admin/resource_locations_config/config_list.html" class="btn btn-sm btn-info"><i class="fa fa-superpowers"></i>
+                    <span class="a_label">本地映射地址配置</span>
+                </a>
+            </div>
+            <hr>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-xs-10 col-xs-offset-1">
+                <a href="${base}/admin/resource/serviceList.html" class="btn btn-sm btn-info"><i class="fa fa-superpowers"></i>
+                    <span class="a_label">服务列表</span>
+                </a>
+            </div>
+            <hr>
+        </div>
+        <hr>
+    </div>
+</body>
+</html>

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 删除苹果默认的工具栏和菜单栏 -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <!-- QQ强制全屏 -->
+    <meta name="x5-fullscreen" content="true">
+    <!-- UC强制全屏 -->
+    <meta name="full-screen" content="yes">
+    <title>web首页</title>
+    <script type="text/javascript" src="${base}/js/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="${base}/js/bootstrap.js"></script>
+    <script type="text/javascript" src="${base}/js/layer.js"></script>
+    <script type="text/javascript" src="${base}/js/customer.js"></script>
+    <link rel="stylesheet" href="${base}/css/bootstrap.min.css">
+    <link rel="stylesheet" href="${base}/css/font-awesome.min.css">
+    <link rel="stylesheet" href="${base}/css/layer.css">
+    <link rel="stylesheet" href="${base}/css/common.css">
+    <style type="text/css">
+        .context{
+            padding-left: 2%;
+            padding-right: 2%;
+            padding-bottom:20px;
+            padding-top:20px;
+            background-color: #ECEFEE;
+        }
+        .header{
+            padding-top:20px;
+            background-color: #ECEFEE;
+            padding-left: 5%;
+        }
+        .context_aa{
+            margin-left: 1%;
+
+        }
+        .header a{
+            font-size: 25px;
+            margin-right: 1%;
+            margin-left: 1%;
+
+        }
+        .show_path{
+            display:inline-block;
+            width: 75%;
+        }
+        .show_path input{
+            width: 100%;
+            height: 30px;
+            font-size: 20px;
+        }
+        a,.file-name-span{
+            font-size: 18px;
+            margin-bottom: 10px;
+            margin-left: 1%;
+            margin-right: 1%;
+            display:inline-block;
+        }
+        .file-name-span,.file-name-a{
+            width:70%;
+        }
+        .file-download-a{
+            width: 20%;
+        }
+    </style>
+</head>
+<body>
+<div class="container-fluid div-all">
+    <div class="row">
+        <div class="col-sm-12">
+            <h2>计算机${root?substring(0,1)}盘</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <hr>
+            <div class="header">
+                <#if prePath??>
+                    <a href="${base}/web/localFile/find.html?path=${prePath }"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i></a>
+                    <#else/>
+                    <a href="${base}/web/localFile/index.html"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i></a>
+                </#if>
+                <div class="show_path">
+                    <form action="find" method="post">
+                        <input type="text" value="${root }" name="path"/>
+                        <input type="hidden" name="oldPath" value="${root }"/>
+                    </form>
+                </div>
+                <a href="${base}/web/localFile/index.html"><i class="fa fa-home" aria-hidden="true"></i></a>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="context">
+                <#if dirs??&&(dirs?size > 0)>
+                    <h3>文件夹</h3>
+                    <div class="context_aa">
+                        <#list dirs as dir>
+                            <a href="${base}/web/localFile/find?path=${dir.filePath }" title="${dir.fileName }" class="file-name-a">
+                                <i class="fa fa-folder-open" aria-hidden="true"></i>
+                                <#if (dir.fileName)?length gt 15>
+                                    ${(dir.fileName)?substring(0,15)}...
+                                    <#else/>
+                                    ${dir.fileName}
+                                </#if>
+                            </a>
+                            <!--<a href="${base}/web/localFile/download.html?filePath=${dir.filePath}&fileName=${dir.fileName}" class="file-download-a btn btn-sm btn-info">下载</a>-->
+                            <br>
+                        </#list>
+                    </div>
+                </#if>
+                <#if emptyDirs??&&(emptyDirs?size > 0)>
+                    <h3>空文件夹</h3>
+                    <div class="context_aa">
+                        <#list emptyDirs as emptyDir>
+                            <a href="${base}/web/localFile/find?path=${emptyDir.filePath }" title="${emptyDir.fileName }" class="file-name-a">
+                                <i class="fa fa-file-text" aria-hidden="true"></i>
+                                <#if (emptyDir.fileName)?length gt 15>
+                                    ${(emptyDir.fileName)?substring(0,15)}...
+                                    <#else/>
+                                    ${emptyDir.fileName}
+                                </#if>
+                            </a>
+                            <br>
+                        </#list>
+                    </div>
+                </#if>
+                <#if files??&&(files?size > 0)>
+                    <h3>文件</h3>
+                    <div class="context_aa">
+                        <#list files as file>
+                            <span class="file-name-span"><i class="fa fa-file-text" aria-hidden="true"></i>
+                                <#if (file.fileName)?length gt 10>
+                                    ${(file.fileName)?substring(0,10)}...
+                                    <#else/>
+                                    ${file.fileName}
+                                </#if>
+                            </span>
+                            <a href="${base}/web/localFile/download.html?filePath=${file.filePath}&fileName=${file.fileName}" class="file-download-a btn btn-sm btn-warning">下载</a>
+                            <br>
+                        </#list>
+                    </div>
+                </#if>
+            </div>
+        </div>
+    </div>
+</div>
+<hr>
+<center>
+    <small>&copy;未来实创责任有限公司&trade;小思</small>
+</center>
+</body>
+<script type="text/javascript">
+    $(function(){
+//        background("pc_bg_01.jpg","mobile_bg_01.jpg");
+    });
+</script>
+</html>

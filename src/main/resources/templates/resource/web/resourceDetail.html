@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 删除苹果默认的工具栏和菜单栏 -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <!-- QQ强制全屏 -->
+    <meta name="x5-fullscreen" content="true">
+    <!-- UC强制全屏 -->
+    <meta name="full-screen" content="yes">
+    <title>资源详情</title>
+    <script type="text/javascript" src="${base}/js/customer.js"></script>
+    <script type="text/javascript" src="${base}/js/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="${base}/js/bootstrap.js"></script>
+    <script type="text/javascript" src="${base}/js/layer.js"></script>
+    <script type="text/javascript" src="${base}/js/ckplayer.js"></script>
+    <link rel="stylesheet" href="${base}/css/bootstrap.min.css">
+    <link rel="stylesheet" href="${base}/css/font-awesome.min.css">
+    <link rel="stylesheet" href="${base}/css/layer.css">
+    <link rel="stylesheet" href="${base}/css/customer.css">
+    <style type="text/css">
+        .divMessage{
+            margin: 30px 5px;
+            border: 1px dashed white;
+            border-radius:5px;
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+        .divContent{
+            margin: 10px 20px;
+        }
+        .divContent span{
+            color: orange;
+        }
+    </style>
+</head>
+<body>
+<div class="container-fluid div-all">
+    <!--<div class="row">
+        <div class="col-xs-2 col-xs-offset-1">
+            <h3><a href="${base}/web/resource/index.html" class="btn btn-sm btn-warning">返回首页</a></h3>
+        </div>
+        <div class="col-xs-6">
+            <h2><i class="fa fa-spinner fa-pulse"></i> 资源详情</h2>
+        </div>
+    </div>-->
+    <hr>
+    <div class="row">
+        <div class="col-xs-10 col-xs-offset-1">
+            <div class="panel panel-info">
+                <!--<div class="panel-heading">资源详情</div>-->
+                <div class="panel-body">
+                    <div id="video"></div>
+                </div>
+            </div>
+            <hr>
+            <div class="divMessage">
+                <div class="divContent">
+                    资源名称:<span>${video.videoName}(${(video.videoSize)!''})</span>
+                </div>
+                <div class="divContent">
+                    描述信息:<span>${video.videoDescribe}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-xs-3">
+            <div class="div-box div-box-xs">
+                <a href="javascript:history.back(-1)"><i class="fa fa-mail-reply"></i> 返回</a>
+            </div>
+        </div>
+        <div class="col-xs-3">
+            <div class="div-box div-box-xs">
+                <a href="javascript:void(0)" class="collection_a" onclick="collection_operation('${video.id?string(0)}')"><i class="fa fa-star"></i> 收藏</a>
+            </div>
+        </div>
+        <div class="col-xs-3">
+            <div class="div-box div-box-xs">
+                <a href="${base}/web/resource/index.html"><i class="fa fa-home"></i> 首页</a>
+            </div>
+        </div>
+        <div class="col-xs-3">
+            <div class="div-box div-box-xs">
+                <a href=""><i class="fa fa-refresh"></i> 刷新</a>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-3">
+            <div class="div-box div-box-xs">
+                <a href="${base}/web/resource/download.html?resourceId=${(video.id)?c}"><i class="fa fa-download"></i> 下载</a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script type="text/javascript">
+    var videoObject = {
+        container: '#video',//“#”代表容器的ID，“.”或“”代表容器的class
+        variable: 'player',//该属性必需设置，值等于下面的new chplayer()的对象
+        flashplayer:false,//如果强制使用flashplayer则设置成true
+        autoplay:false,//自动播放
+        mobileCkControls:true,
+        video:'${base}/source/${video.videoPath}'//视频地址
+    };
+    var player=new ckplayer(videoObject);
+
+    $(function(){
+        background("pc_bg_03.jpg","mobile_bg_03.jpg");
+        var hasCollection="${hasCollection}";
+        if(hasCollection==1){
+            $(".collection_a").css("color","#ff9417");
+        }
+    });
+
+    function collection_operation(resourceId){
+        $.ajax({
+            url:"${base}/web/collection/collectionOperation.html",
+            type:"post",
+            dataType:"json",
+            data:{
+                resourceId:resourceId
+            },
+            success:function(result){
+                if(result.core==100){
+                    layer.msg(result.message,{icon:1,time:1000},function(){
+                        window.location.reload();
+                    });
+                }else{
+                    layer.msg(result.message,{icon:5,time:1000},function(){
+                        window.location.reload();
+                    });
+                }
+            }
+        });
+
+    }
+</script>
+</html>

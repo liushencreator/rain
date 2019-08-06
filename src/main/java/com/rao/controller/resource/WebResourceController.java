@@ -1,0 +1,104 @@
+package com.rao.controller.resource;
+
+import com.rao.Utils.Paramap;
+import com.rao.Utils.fileUtils.DownLoadUtil;
+import com.rao.bean.resource.ResourceVideo;
+import com.rao.bean.resource.ServicePath;
+import com.rao.service.resource.ResourceVideoService;
+import com.rao.service.resource.ServicePathService;
+import com.rao.service.resource.SourceCollectionsService;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.util.List;
+
+/**
+ * 资源 controller
+ * Created by Lenovo on 2018/8/16.
+ */
+@Controller
+@RequestMapping("/web/resource")
+public class WebResourceController {
+
+    @Resource
+    private ResourceVideoService resourceVideoService;
+    @Resource
+    private ServicePathService servicePathService;
+    @Resource
+    private SourceCollectionsService sourceCollectionsService;
+
+    @RequestMapping("/index")
+    public String index(){
+        return "/resource/web/index";
+    }
+
+
+    @RequestMapping("/resourceIndex")
+    public String resourceIndex(Model model) {
+        List<ServicePath> servicePaths = servicePathService.findAll();
+        model.addAttribute("servicePaths",servicePaths);
+        return "/resource/web/resourceIndex";
+    }
+
+
+    /**
+     * 根据路径资源列表
+     * @param serviceId
+     * @param model
+     * @return
+     */
+    @RequestMapping("/resourceList")
+    public String resourceList(@RequestParam Long serviceId,
+                               @RequestParam(defaultValue = "1") Integer pageNumber,
+                               @RequestParam(defaultValue = "100") Integer pageSize,
+                               Model model){
+        Paramap paramap = Paramap.create();
+        paramap.put("serviceId",serviceId);
+        List<ResourceVideo> page = resourceVideoService.findByPage(paramap, pageNumber, pageSize);
+        model.addAttribute("page",page);
+        return "/resource/web/resourceList";
+    }
+
+
+    /**
+     * 资源详情
+     * @return
+     */
+    @RequestMapping("/resourceDetail")
+    public String resourceDetail(@RequestParam Long id,
+                                 Model model){
+        ResourceVideo video = resourceVideoService.find(id);
+        Integer count = sourceCollectionsService.count(Paramap.create().put("resourceId", id));
+        model.addAttribute("video",video);
+        model.addAttribute("hasCollection",count>0?1:2);
+        return "/resource/web/resourceDetail";
+    }
+
+
+    /**
+     * 资源下载
+     */
+    @RequestMapping("/download")
+    public String downloadFile(Long resourceId,HttpServletResponse response) throws Exception {
+        ResourceVideo video = resourceVideoService.find(resourceId);//获取资源信息
+        if(video == null){
+            return null;
+        }
+        ServicePath servicePath = servicePathService.find(video.getServiceId());//获取文件地址信息
+        String fileName=video.getVideoName();
+        String dataAddress=servicePath.getPathDir()+"/"+fileName;
+
+        File file = new File(dataAddress);//设置文件路径
+        // 如果文件名存在，则进行下载
+        if (file.exists()) {
+            DownLoadUtil.downLoad(response,file,fileName);
+        }
+        return null;
+    }
+
+}
