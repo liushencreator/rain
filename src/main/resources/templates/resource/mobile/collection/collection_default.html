@@ -9,8 +9,11 @@
     <meta name="keywords" content="服饰搭配,流行服饰,服饰搭配图片,服饰搭配技巧"/>
     <meta name="description" content="秀美服饰提供最新流行服饰搭配技巧，解读明星服装搭配技巧和最新流行服饰动态，引导流行服饰消费，是时尚女性穿衣打扮最佳时尚风向标。"/>
     <script src="www.pconline.com.cn/_hux_/online/default/index.js"></script>
+    <script type="text/javascript" src="${base}/js/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="${base}/js/layer/layui.js"></script>
     <link href="${base}/css/lady.css" rel="stylesheet" type="text/css"/>
     <link href="${base}/css/common.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="${base}/css/layer/sub_css/layui.css">
 </head>
 <body>
 <div id="ivy_div" style="display: none;"></div>
@@ -54,33 +57,9 @@
         var cpro_id = "u1628070";
     </script>
     <script src="../../cpro.baidustatic.com/cpro/ui/cm.js" type="text/javascript"></script>
-    <div class="main">
-        <section>
-            <#list page as video>
-                <a href="${base}/web/resource/resourceDetail.html?id=${video.id?string('0')}">
-                    <dl>
-                        <dt><img alt="" src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2537629903,2400247907&fm=26&gp=0.jpg"></dt>
-                        <dd>
-                            <h2>${video.videoName}</h2>
-                            <time>${video.createTime?string('yyyy-MM-dd HH:mm:ss')}</time>
-                            <p>${video.videoDescribe}</p>
-                        </dd>
-                    </dl>
-                </a>
-            </#list>
-        </section>
+    <div class="main" id="list_flow">
+        <section></section>
     </div>
-    <div class="artNav-page"><span class="prev">上一页</span><a href="2.shtml" class="next">下一页</a> <i
-            class="pageViewGuidedd">
-        <select name="" id="pages" onChange="changeForm(this.value)">
-            <option value="default.htm" selected> 第1页</option>
-            <option value="2.shtml"> 第2页</option>
-            <option value="3.shtml"> 第3页</option>
-            <option value="4.shtml"> 第4页</option>
-            <option value="5.shtml"> 第5页</option>
-            <option value="6.shtml"> 第6页</option>
-        </select>
-    </i></div>
     <!-- 公共底部 -->
     <div class="footer">
         <p class="pTit-1"><em>触屏版</em> | <a href="../default.htm">电脑版</a></p>
@@ -109,6 +88,52 @@
         function changeForm(url) {
             window.location.href = url;
         }
+
+        /**
+         * 流失加载列表
+         */
+        layui.use('flow', function(){
+            var $ = layui.jquery;
+            var flow = layui.flow;
+            flow.load({
+                elem: '#list_flow', //指定列表容器
+                scrollElem:'#list_flow',
+                isAuto:false,
+                done: function(page, next){ //到达临界点（默认滚动触发），触发下一页
+                    //以jQuery的Ajax请求为例，请求下一页数据（注意：page是从2开始返回）
+                    $.ajax({
+                        url:"${base}/web/collection/flow_list.jhtml",
+                        type:"post",
+                        dataType:"json",
+                        data:{
+                            pageNumber: page,
+                            pageSize: 5
+                        },
+                        success:function(result){
+                            if (result.core == 100){
+                                var single_nodes = "";
+                                $.each(result.map.list, function(i,item){
+                                    var single_node = '<a href="${base}/web/resource/resourceDetail.html?id=' + item.id + '">' +
+                                        '<dl>' +
+                                        '<dt><img alt="" src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2537629903,2400247907&fm=26&gp=0.jpg"></dt>' +
+                                        '<dd>' +
+                                        '<h2>' + item.videoName + '</h2>' +
+                                        '<time>' + item.createTime + '</time>' +
+                                        '<p>' + item.videoDescribe + '</p>' +
+                                        '</dd>' +
+                                        '</dl>' +
+                                        '</a>';
+                                    single_nodes += single_node;
+                                });
+                                next('', page < result.map.totalPages);
+                                $("#list_flow section").append(single_nodes);
+                            }
+                        }
+                    });
+                }
+            });
+        });
+
     </script>
 </div>
 </body>
