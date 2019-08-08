@@ -55,6 +55,22 @@ public class WebCollectionController {
 
 
     /**
+     * 移动端收藏列表
+     * @param pageNumber
+     * @param pageSize
+     * @return
+     */
+    @ResponseBody
+    @PostMapping("/flow_list")
+    public ResultMessage mobileList(@RequestParam(defaultValue = "1") Integer pageNumber,
+                                    @RequestParam(defaultValue = "10") Integer pageSize){
+        List<ResourceVideo> page = sourceCollectionsService.listByPage(pageNumber, pageSize);
+        Integer total = sourceCollectionsService.count(null);
+        return ResultMessage.success().add("list", page).add("totalPages", total / pageSize);
+    }
+
+
+    /**
      * 收藏或取消收藏操作
      * @param resourceId
      * @return

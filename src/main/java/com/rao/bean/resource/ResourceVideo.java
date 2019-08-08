@@ -1,5 +1,7 @@
 package com.rao.bean.resource;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,6 +22,7 @@ public class ResourceVideo{
 	private static final long serialVersionUID = 5081846432919091193L;
 
 	/**  */
+	@JsonSerialize(using= ToStringSerializer.class)
 	private Long id;
 	
 	/** 视频名字 */
@@ -41,6 +44,7 @@ public class ResourceVideo{
 	private Integer praiseNumber;
 
 	/* 服务ID*/
+	@JsonSerialize(using=ToStringSerializer.class)
 	private Long serviceId;
 	
 	/**  */
