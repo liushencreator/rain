@@ -1,15 +1,21 @@
 package com.rao.service.impl.resource;
 
+import com.rao.Utils.common.PageParamsUtil;
 import com.rao.Utils.common.Paramap;
 import com.rao.bean.resource.ResourceVideo;
+import com.rao.constants.DateFormatEnum;
 import com.rao.dao.resource.ResourceVideoDao;
+import com.rao.pojo.vo.ResourceVideoVO;
 import com.rao.service.resource.ResourceVideoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
+import java.text.SimpleDateFormat;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 
 /**
@@ -24,33 +30,8 @@ public class ResourceVideoServiceImpl implements ResourceVideoService {
 	private ResourceVideoDao resourceVideoDao;
 
 	@Override
-	public Integer save(ResourceVideo param) {
-		return resourceVideoDao.insert(param);
-	}
-
-	@Override
-	public Integer update(ResourceVideo param) {
-		return resourceVideoDao.update(param);
-	}
-
-	@Override
-	public Integer delete(Long pk) {
-		return resourceVideoDao.delete(pk);
-	}
-
-	@Override
-	public Integer deleteByServiceId(Long serviceId) {
-		return resourceVideoDao.deleteByServiceId(serviceId);
-	}
-
-	@Override
 	public Integer count() {
 		return resourceVideoDao.count(Paramap.create());
-	}
-
-	@Override
-	public Integer count(Map<String, Object> params) {
-		return resourceVideoDao.count(params);
 	}
 
 	@Override
@@ -59,33 +40,38 @@ public class ResourceVideoServiceImpl implements ResourceVideoService {
 	}
 
 	@Override
-	public List<ResourceVideo> findAll() {
-		return resourceVideoDao.findAll();
-	}
-
-	@Override
-	public ResourceVideo find(String propertyName, Object propertyValue) {
-		List<ResourceVideo> byParams = resourceVideoDao.findByParams(Paramap.create().put(propertyName, propertyValue));
-		if(CollectionUtils.isEmpty(byParams)){
-			return null;
-		}
-		return byParams.get(0);
-	}
-
-	@Override
-	public List<ResourceVideo> findList(String propertyName, Object propertyValue) {
-		return resourceVideoDao.findByParams(Paramap.create().put(propertyName,propertyValue));
-	}
-
-	@Override
-	public List<ResourceVideo> findList(Map<String, Object> params) {
-		return resourceVideoDao.findByParams(params);
-	}
-
-	@Override
 	public List<ResourceVideo> findByPage(Map<String, Object> params, Integer pageNumber, Integer pageSize) {
 		params.put("pageBegin",(pageNumber-1)*pageSize);
 		params.put("pageSize",pageSize);
 		return resourceVideoDao.findByPage(params);
+	}
+
+	@Override
+	public List<ResourceVideoVO> listFavourite(Integer pageNumber, Integer pageSize) {
+		String orderByRule = "praise_number desc ,broadcast_number desc ,click_number desc";
+		Paramap paramap = PageParamsUtil.baseParam(pageNumber, pageSize, orderByRule);
+		List<ResourceVideo> resourceVideoList = resourceVideoDao.findByPage(paramap);
+
+		SimpleDateFormat dateFormat = new SimpleDateFormat(DateFormatEnum.FORMAT_SYMBOL_EXTEND.getFormatString());
+		return resourceVideoList.stream().map(item -> {
+			return ResourceVideoVO.builder()
+					.id(item.getId())
+					.videoName(item.getVideoName())
+					.videoDescribe(item.getVideoDescribe())
+					.videoSize(item.getVideoSize())
+					.createTime(dateFormat.format(item.getCreateTime()))
+					.build();
+		}).collect(Collectors.toList());
+	}
+
+	@Override
+	public ResourceVideo resourceDetail(Long id) {
+		ResourceVideo video = resourceVideoDao.find(id);
+		// 点赞数量 +1
+		Map<String, Object> incrParam = new HashMap<>(1);
+		incrParam.put("id", id);
+		incrParam.put("clickNumber", 1);
+		resourceVideoDao.increaseStatisticsNumber(incrParam);
+		return video;
 	}
 }

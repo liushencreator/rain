@@ -113,6 +113,7 @@ public class ServicePathServiceImpl implements ServicePathService {
             video.setVideoDescribe("");
             video.setBroadcastNumber(0);
             video.setPraiseNumber(0);
+            video.setClickNumber(0);
             video.setServiceId(path.getId());
             video.setCreateTime(resourceVo.getLastModifyTime());
             video.setUpdateTime(new Date());

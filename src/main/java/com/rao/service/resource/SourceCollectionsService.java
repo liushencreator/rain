@@ -3,6 +3,7 @@ package com.rao.service.resource;
 
 import com.rao.bean.resource.ResourceVideo;
 import com.rao.bean.resource.SourceCollections;
+import com.rao.pojo.vo.ResourceVideoVO;
 
 import java.util.List;
 import java.util.Map;
@@ -51,5 +52,5 @@ public interface SourceCollectionsService {
      * @param pageSize
      * @return
      */
-    List<ResourceVideo> listByPage(Integer pageNumber, Integer pageSize);
+    List<ResourceVideoVO> listByPage(Integer pageNumber, Integer pageSize);
 }

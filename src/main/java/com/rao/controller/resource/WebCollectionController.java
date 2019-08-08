@@ -6,6 +6,7 @@ import com.rao.Utils.common.CheckAgentUtil;
 import com.rao.bean.resource.ResourceVideo;
 import com.rao.bean.resource.SourceCollections;
 import com.rao.constants.CollectionConstant;
+import com.rao.pojo.vo.ResourceVideoVO;
 import com.rao.service.resource.ResourceVideoService;
 import com.rao.service.resource.SourceCollectionsService;
 import org.springframework.stereotype.Controller;
@@ -41,12 +42,12 @@ public class WebCollectionController {
                        @RequestParam(defaultValue = "1") Integer pageNumber,
                        @RequestParam(defaultValue = "100") Integer pageSize,
                        Model model){
-        List<ResourceVideo> page = sourceCollectionsService.listByPage(pageNumber, pageSize);
+        List<ResourceVideoVO> page = sourceCollectionsService.listByPage(pageNumber, pageSize);
         model.addAttribute("page",page);
 
         boolean isMobile = CheckAgentUtil.checkAgentIsMobile(userAgent);
         if(isMobile){
-            return "/resource/mobile/collection/collection_default";
+            return "/resource/mobile/collection/collection_list";
         }
         return "/resource/web/resourceList";
     }
@@ -62,9 +63,11 @@ public class WebCollectionController {
     @PostMapping("/flow_list")
     public ResultMessage mobileList(@RequestParam(defaultValue = "1") Integer pageNumber,
                                     @RequestParam(defaultValue = "10") Integer pageSize){
-        List<ResourceVideo> page = sourceCollectionsService.listByPage(pageNumber, pageSize);
-        Integer total = sourceCollectionsService.count(null);
-        return ResultMessage.success().add("list", page).add("totalPages", total / pageSize);
+        List<ResourceVideoVO> page = sourceCollectionsService.listByPage(pageNumber, pageSize);
+        Integer totalSize = sourceCollectionsService.count(null);
+        return ResultMessage.success()
+                .add("list", page)
+                .add("totalPages", totalSize / pageSize);
     }
 
 

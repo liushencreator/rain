@@ -3,18 +3,17 @@ package com.rao.controller.resource;
 import com.rao.Utils.common.Paramap;
 import com.rao.Utils.common.CheckAgentUtil;
 import com.rao.Utils.file.DownLoadUtil;
+import com.rao.Utils.result.ResultMessage;
 import com.rao.bean.resource.ResourceVideo;
 import com.rao.bean.resource.ServicePath;
+import com.rao.pojo.vo.ResourceVideoVO;
 import com.rao.service.resource.ResourceVideoService;
 import com.rao.service.resource.ServicePathService;
 import com.rao.service.resource.SourceCollectionsService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
@@ -50,6 +49,24 @@ public class WebResourceController {
             return "/resource/mobile/index";
         }
         return "/resource/web/index";
+    }
+
+    /**
+     * 受欢迎的资源列表
+     *
+     * @param pageNumber
+     * @param pageSize
+     * @return
+     */
+    @ResponseBody
+    @PostMapping("/list_favourite")
+    public ResultMessage listFavourite(@RequestParam(defaultValue = "1") Integer pageNumber,
+                                       @RequestParam(defaultValue = "10") Integer pageSize){
+        List<ResourceVideoVO> resourceVideoVOList = resourceVideoService.listFavourite(pageNumber, pageSize);
+        Integer totalSize = resourceVideoService.count();
+        return ResultMessage.success()
+                .add("list", resourceVideoVOList)
+                .add("totalPages", totalSize / pageSize);
     }
 
     /**
@@ -98,7 +115,7 @@ public class WebResourceController {
     public String resourceDetail(@RequestHeader("User-Agent") String userAgent,
                                  @RequestParam Long id,
                                  Model model) {
-        ResourceVideo video = resourceVideoService.find(id);
+        ResourceVideo video = resourceVideoService.resourceDetail(id);
         Integer count = sourceCollectionsService.count(Paramap.create().put("resourceId", id));
         model.addAttribute("video", video);
         model.addAttribute("hasCollection", count > 0 ? 1 : 2);
