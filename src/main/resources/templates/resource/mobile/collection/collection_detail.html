@@ -1,6 +1,12 @@
 ﻿<!doctype HTML>
 <html>
 <head>
+    <!-- 删除苹果默认的工具栏和菜单栏 -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <!-- QQ强制全屏 -->
+    <meta name="x5-fullscreen" content="true">
+    <!-- UC强制全屏 -->
+    <meta name="full-screen" content="yes">
     <meta name="viewport" content="initial-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
     <meta content="black" name="apple-mobile-web-app-status-bar-style"/>
     <meta content="telephone=no" name="format-detection"/>
@@ -17,14 +23,14 @@
 <div id="ivy_div" style="display: none;"></div>
 <div class="body bodyA"><span class="spanclass"> </span>
     <div class="header-top">
-        <div class="header-top-left"><a href="../../default.htm" class="header-top-left-logo" title="秀美女性网"><img src="${base}/images/logo.png"/></a></div>
+        <div class="header-top-left"><a href="${base}/web/resource/index.html" class="header-top-left-logo" title="秀美女性网"><img src="${base}/images/logo.png"/></a></div>
         <div class="header-top-mid JheaderTopMid"></div>
 <!--        <div class="htr fr"><a href="../../../www.xiumei.com/default.htm">PC版>></a></div>-->
     </div>
     <div class="header-nav JheaderNav" style="display:none">
         <div class="header-nav-a">
-            <a href="../../default.htm">首页</a>
-            <a href="../../fashion/default.htm">服饰</a>
+            <a href="${base}/web/resource/index.html" class="current">首页</a>
+            <a href="${base}/web/resource/resourceIndex.html">资源</a>
             <a href="../../beauty/default.htm">美容</a>
             <a href="../../reduce/default.htm">美体</a>
             <a href="../../qinzi/default.htm">亲子</a>
@@ -34,7 +40,7 @@
             <a href="../../astro/default.htm">星座</a>
             <a href="../../ent/default.htm">娱乐</a>
             <a href="../../home/default.htm">家居</a>
-            <a href="../../gallery/default.htm" class="icon-new">图库</a>
+            <a href="${base}/web/collection/list.html" class="icon-new">收藏</a>
         </div>
     </div>
     <script type="text/javascript">

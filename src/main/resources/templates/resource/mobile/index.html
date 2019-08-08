@@ -1,6 +1,12 @@
 ﻿<!doctype HTML>
 <html>
 <head>
+    <!-- 删除苹果默认的工具栏和菜单栏 -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <!-- QQ强制全屏 -->
+    <meta name="x5-fullscreen" content="true">
+    <!-- UC强制全屏 -->
+    <meta name="full-screen" content="yes">
     <meta name="viewport" content="initial-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
     <meta content="black" name="apple-mobile-web-app-status-bar-style"/>
     <meta content="telephone=no" name="format-detection"/>
@@ -10,6 +16,9 @@
     <meta content="提供最新最专业的资讯" name="description"/>
     <link rel="apple-touch-icon-precomposed" href="../www1.xiumei.com.cn/wap/2013/cms/img/lady_logo.png"/>
     <link href="${base}/css/common.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="${base}/css/layer/sub_css/layui.css">
+    <script type="text/javascript" src="${base}/js/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="${base}/js/layer/layui.js"></script>
     <style type="text/css">
         .header-nav:after {
             border: 0;
@@ -18,7 +27,7 @@
         .header-nav {
             height: 40px;
             line-height: 40px;
-            background: #e1345f;
+            background: rgba(0, 0, 0, 0.98);
             width: 100%;
             display: -webkit-box;
             display: -moz-box;
@@ -43,7 +52,7 @@
         }
 
         .header-nav .icon-new::before {
-            background: #cc6698;
+            background: rgba(0, 0, 0, 0.73);
         }
 
         /*焦点图*/
@@ -104,7 +113,7 @@
         }
 
         .slider-top-doc .current {
-            background: #e1345f;
+            background: #000000;
         }
 
         /*查看更多*/
@@ -168,7 +177,7 @@
     <a href="astro/default.htm">星座</a>
     <a href="ent/default.htm">娱乐</a>
     <a href="home/default.htm">家居</a>
-    <a href="${base}/web/collection/list.html">收藏</a>
+    <a href="${base}/web/collection/list.html" class="icon-new">收藏</a>
 </div>
 
 <!--幻影灯-->
@@ -180,318 +189,22 @@
             <li data-index="2"><a href="javascript:void(0);"><img src="${base}/images/pc_bg_04.jpg"></a></li>
         </ul>
     </div>
-    <div class="slider-top-doc" id="sliderTop-doc"><i class=""></i><i class=""></i><i class=""></i><i
-            class="current"></i><i class=""></i><i class=""></i></div>
+    <div class="slider-top-doc" id="sliderTop-doc">
+        <i class=""></i>
+        <i class=""></i>
+        <i class=""></i>
+        <i class="current"></i>
+        <i class=""></i>
+        <i class=""></i>
+    </div>
 </div>
 
 <!--内容列表-->
-
-<div class="main" id="main">
-    <section>
-        <a href="a/20140826/141229.shtml">
-            <dl>
-                <dt><img alt="第66届艾美奖红毯直击 女星华服争艳"
-                         src="http://img.xiumei.com/uploadfile/2014/0826/20140826090302741.jpg"></dt>
-                <dd>
-                    <h2>第66届艾美奖红毯直击 女星华服争艳</h2>
-                    <time>2014-08-26 08:39:22</time>
-                    <p>
-                        第66届艾美奖颁奖典礼北京时间今日（8月26日）一早举行，明星走红毯再次成了全世界瞩目的焦点。此次红毯上，女星们又是如何穿衣搭配，选择漂亮的礼服来装扮自己呢？想要在众多美丽的身影中脱颖而出，除了自身的气场外，礼服很重要，赶紧来欣赏吧。</p>
-                </dd>
-            </dl>
-        </a>
-        <a href="a/20140825/141183.shtml">
-            <dl>
-                <dt><img alt="汤唯王菲许晴 女星“大头照”满脸硬伤"
-                         src="http://img.xiumei.com/uploadfile/2014/0825/20140825045819339.jpg"></dt>
-                <dd>
-                    <h2>汤唯王菲许晴 女星“大头照”满脸硬伤</h2>
-                    <time>2014-08-25 16:56:47</time>
-                    <p>盘点女明星们的“大头照”，天后王菲大蒜鼻好醒目，女神汤唯皮肤蜡黄鱼尾纹，辣妈张柏芝一脸黑痣......图揭女明星面部“硬伤”，其实她们也不够完美哦！</p>
-                </dd>
-            </dl>
-        </a>
-        <a href="a/20140825/141129.shtml">
-            <dl>
-                <dt><img alt="MTV音乐大奖红毯 女星穿性感礼服抢镜"
-                         src="http://img.xiumei.com/uploadfile/2014/0825/20140825014911414.jpg"></dt>
-                <dd>
-                    <h2>MTV音乐大奖红毯 女星穿性感礼服抢镜</h2>
-                    <time>2014-08-25 13:23:43</time>
-                    <p>
-                        美国时间8月24日晚上，第31届MTV音乐录影带大奖颁奖礼在加州举行。红毯上可谓星光熠熠。每年都亮相的泰勒-斯威夫特一如既然大秀长腿，吸晴无数。水果姐凯蒂穿着牛仔裙尽显摇滚范儿。女星们为了抢夺闪光灯，可谓是使出浑身解数，各种袒胸露背，撅臀秀腿。</p>
-                </dd>
-            </dl>
-        </a>
-        <a href="a/20140825/141062.shtml">
-            <dl>
-                <dt><img alt="2014秋季首选发型 清新直发最显淑女气质"
-                         src="http://img.xiumei.com/uploadfile/2014/0825/20140825092625503.jpg"></dt>
-                <dd>
-                    <h2>2014秋季首选发型 清新直发最显淑女气质</h2>
-                    <time>2014-08-25 09:25:53</time>
-                    <p>2014年秋冬季节适合什么样的发型呢？爱美的女孩子发型总是很百变，秋天了，发型跟夏天也要有所不同，最新女生最爱气质直发发型推荐，甜美发型彰显迷人清新气质。</p>
-                </dd>
-            </dl>
-        </a>
-        <a href="a/20140824/141006.shtml">
-            <dl>
-                <dt><img alt="女星越整越恐怖为哪般 下巴歪了脸也瘫了"
-                         src="http://img.xiumei.com/uploadfile/2013/0418/20130418111020655.jpg"></dt>
-                <dd>
-                    <h2>女星越整越恐怖为哪般 下巴歪了脸也瘫了</h2>
-                    <time>2014-08-24 11:30:00</time>
-                    <p>刘晓庆这张照片完全让人不敢直视，拿来辟邪应该效果不错。都整成这样了还不承认，观众们可都不是三岁小孩！
-                    </p>
-                </dd>
-            </dl>
-        </a>
-        <a href="a/20140824/140984.shtml">
-            <dl>
-                <dt><img alt="命理解读：倒霉相的10大面相特征" src="http://img.xiumei.com/uploadfile/2014/0824/20140824084416415.jpg">
-                </dt>
-                <dd>
-                    <h2>命理解读：倒霉相的10大面相特征</h2>
-                    <time>2014-08-24 08:42:56</time>
-                    <p>人生在世，不如意的事十有八九，好运不会总在你家，同理，倒霉也只是暂时的，不可能一辈子倒霉，可我们时常听到倒霉相，那真有倒霉相一说吗？倒霉相是什么样的呢？下面我们为大家介绍，倒霉相的十大特征。
-                    </p>
-                </dd>
-            </dl>
-        </a>
-        <a href="a/20140822/140926.shtml">
-            <dl>
-                <dt><img alt="明星整容手术图：超女王梓人造假脸被批丑"
-                         src="http://img.xiumei.com/uploadfile/2014/0822/20140822051519156.jpg"></dt>
-                <dd>
-                    <h2>明星整容手术图：超女王梓人造假脸被批丑</h2>
-                    <time>2014-08-22 16:30:57</time>
-                    <p>如今娱乐圈承认整容的明星越来越多，前不久前超女王梓整容手术图公开，手术过程还是挺吓人，盘点明星整容前后对比照，看看谁成功变漂亮呢？</p>
-                </dd>
-            </dl>
-        </a>
-        <a href="a/20140822/140888.shtml">
-            <dl>
-                <dt><img alt="《卫子夫》热播 王珞丹汉服造型惊艳" src="http://img.xiumei.com/uploadfile/2014/0822/20140822024956325.jpg">
-                </dt>
-                <dd>
-                    <h2>《卫子夫》热播 王珞丹汉服造型惊艳</h2>
-                    <time>2014-08-22 14:09:00</time>
-                    <p>
-                        由王珞丹林峰领衔主演的电视剧《卫子夫》开播，作为一部古装历史剧，也是王珞丹首部古装剧，汉服造型让人惊艳不已。的确在服装的细节上别具匠心，让人着实感叹服装与配饰的精美。不过也有网友认为王珞丹不适合古装剧，被封为天然丑。
-                    </p>
-                </dd>
-            </dl>
-        </a>
-        <a href="a/20140822/140840.shtml">
-            <dl>
-                <dt><img alt="2014新款烫发发型 韩式发型甜美惹人爱"
-                         src="http://img.xiumei.com/uploadfile/2014/0822/20140822104801776.jpg"></dt>
-                <dd>
-                    <h2>2014新款烫发发型 韩式发型甜美惹人爱</h2>
-                    <time>2014-08-22 10:45:49</time>
-                    <p>韩国女星的发型总是时尚的风向标，下面小编就为大家盘点最新流行新潮烫发发型推荐，时尚烫发造型展现女生百变魅力。</p>
-                </dd>
-            </dl>
-        </a>
-        <a href="a/20140821/140810.shtml">
-            <dl>
-                <dt><img alt="明星“女大十八变” 旧照揭开整容隆胸真相"
-                         src="http://img.xiumei.com/uploadfile/2014/0821/20140821061525537.jpg"></dt>
-                <dd>
-                    <h2>明星“女大十八变” 旧照揭开整容隆胸真相</h2>
-                    <time>2014-08-21 18:19:10</time>
-                    <p>盘点女明星们走红前旧照，这几位今昔对比容貌差距似乎太大了，从脸型到身材，到底是“女大十八变”呢？还是动刀了？</p>
-                </dd>
-            </dl>
-        </a>
-    </section>
+<div class="main" id="list_flow">
+    <section></section>
 </div>
-
-<!--点击查看更多-->
-<div class="btn-more" id="Jmore"><a>点击查看更多<i></i></a></div>
-<style type="text/css">
-    /*++收藏&添加到主屏幕++*/
-    .collectTip {
-        display: none;
-        width: 270px;
-        height: 90px;
-        position: fixed;
-        left: 50%;
-        margin-left: -140px;
-        bottom: 20px;
-        background: RGBA(0, 0, 0, .7);
-        border-radius: 10px;
-        z-index: 999;
-    }
-
-    .collectTip::after {
-        content: "";
-        display: block;
-        width: 0;
-        height: 0;
-        border-width: 10px;
-        overflow: hidden;
-        border-color: RGBA(0, 0, 0, .7) transparent transparent;
-        border-style: solid;
-        position: absolute;
-        bottom: -20px;
-        left: 125px;
-    }
-
-    .collectTipClose {
-        display: block;
-        width: 24px;
-        height: 24px;
-        color: #fff;
-        font-weight: bold;
-        text-align: center;
-        line-height: 22px;
-        font-size: 24px;
-        background: #000;
-        border-radius: 15px;
-        border: 3px solid #fff;
-        box-shadow: 1px 1px 2px #444;
-        cursor: pointer;
-        position: absolute;
-        top: -15px;
-        right: -15px;
-    }
-
-    .collectTipLogo {
-        width: 60px;
-        height: 60px;
-        background: url(../www1.xiumei.com.cn/wap/2013/cms/img/lady_logo.png) no-repeat;
-        background-size: 60px;
-        border-radius: 5px;
-        position: absolute;
-        top: 15px;
-        left: 15px;
-    }
-
-    .collectTipText {
-        width: 165px;
-        color: #fff;
-        line-height: 20px;
-        position: absolute;
-        top: 15px;
-        left: 90px;
-        font-size: 14px;
-    }
-
-    .collectTipText i {
-        display: inline-block;
-        width: 30px;
-        height: 20px;
-        background: url(images/sprite.png) no-repeat -92px -58px;
-        background-size: 150px;
-        vertical-align: middle;
-        margin-top: -2px;
-    }
-
-    /*添加到UC浏览器首页*/
-    .uccollectTip {
-        display: none;
-        width: 100%;
-        height: 80px;
-        position: fixed;
-        left: 0;
-        bottom: 0px;
-        background: RGBA(0, 0, 0, .7);
-        z-index: 999;
-        text-align: center;
-    }
-
-    .uccollectTipClose {
-        display: inline-block;
-        width: 24px;
-        height: 24px;
-        color: #fff;
-        text-align: center;
-        line-height: 24px;
-        font-size: 24px;
-        cursor: pointer;
-        position: absolute;
-        top: 0px;
-        right: 0px;
-    }
-
-    .uccollectTipLogo {
-        width: 60px;
-        height: 60px;
-        background: url(../www1.xiumei.com.cn/wap/2013/cms/img/lady_logo.png) no-repeat;
-        background-size: 60px;
-        border-radius: 5px;
-        display: inline-block;
-        margin-top: 10px;
-    }
-
-    .uccollectTipText {
-        width: 170px;
-        color: #fff;
-        line-height: 20px;
-        font-size: 14px;
-        display: inline-block;
-        margin: 15px 0 0 3px;
-        vertical-align: top;
-        text-align: left;
-    }
-
-    .uccollectTipText em {
-        color: #e50073
-    }
-
-    .uccollect-btn {
-        display: inline-block;
-        width: 70px;
-        height: 34px;
-        line-height: 34px;
-        background: #e50073;
-        color: #fff;
-        font-size: 17px;
-        margin-top: 22px;
-        vertical-align: top;
-        border-radius: 5px;
-    }
-
-    .uccollect-btn em {
-        font-size: 28px;
-        line-height: 30px;
-        height: 30px;
-        vertical-align: top;
-    }
-
-    .ucFrame {
-        display: none;
-        z-index: 150;
-        position: fixed;
-        width: 320px;
-        height: 200px;
-        top: 50%;
-        left: 50%;
-        margin: -100px 0 0 -160px
-    }
-
-    .ucFrame iframe {
-        overflow: hidden;
-        width: 320px;
-        height: 200px
-    }
-</style>
-
-<!--添加到主屏幕-->
-<div class="collectTip" id="JcollectTip"><span class="collectTipClose">&times;</span>
-    <div class="collectTipLogo"></div>
-    <div class="collectTipText">更加快捷进入秀美时尚网触屏版，请点击<i></i>后选择“添加至主屏幕”。</div>
-</div>
-<!--添加到UC浏览器首页-->
-<div class="uccollectTip" id="JuccollectTip"><span class="uccollectTipClose">&times;</span> <span
-        class="uccollectTipLogo"></span> <span class="uccollectTipText">添加“<em>秀美网</em>”到你的浏览器首页，访问更方便哦!</span> <a
-        target="_blank" class="uccollect-btn"><em>+</em> 添加</a></div>
-<div id="ucFrame" class="ucFrame"></div>
-<!--前端所用js-->
 
 <!--底部-->
-
 <div class="footer">
     <p class="pTit-1"><em>触屏版</em> | <a href="../www.xiumei.com/default.htm">电脑版</a></p>
     <p class="pTit-3"><em class="icon-group-small"></em>雨成帘资源网</p>
@@ -502,7 +215,7 @@
 <script src="${base}/js/swipe.min.js" charset="utf-8"></script>
 <script type="text/javascript">
     window.onload = function () {
-//焦点图
+        //焦点图
         var pics = document.getElementById('sliderTop').getElementsByTagName('img');
         for (var i = 1; i < pics.length; i++) {
             var tmp = pics[i];
@@ -551,6 +264,52 @@
             }
         }
     })();
+
+
+    /**
+     * 流失加载列表
+     */
+    layui.use('flow', function(){
+        var $ = layui.jquery;
+        var flow = layui.flow;
+        flow.load({
+            elem: '#list_flow', //指定列表容器
+            // scrollElem:'#list_flow',
+            isAuto:true,
+            done: function(page, next){ //到达临界点（默认滚动触发），触发下一页
+                //以jQuery的Ajax请求为例，请求下一页数据（注意：page是从2开始返回）
+                $.ajax({
+                    url:"${base}/web/resource/list_favourite.jhtml",
+                    type:"post",
+                    dataType:"json",
+                    data:{
+                        pageNumber: page,
+                        pageSize: 10
+                    },
+                    success:function(result){
+                        if (result.core == 100){
+                            var single_nodes = "";
+                            $.each(result.map.list, function(i,item){
+                                var single_node = '<a href="${base}/web/resource/resourceDetail.html?id=' + item.id + '">' +
+                                    '<dl>' +
+                                    '<dt><img alt="" src="http://img0.imgtn.bdimg.com/it/u=2482030568,4226239736&fm=26&gp=0.jpg"></dt>' +
+                                    '<dd>' +
+                                    '<h2>' + item.videoName + '</h2>' +
+                                    '<time>' + item.createTime + '</time>' +
+                                    '<p>' + item.videoDescribe + '</p>' +
+                                    '</dd>' +
+                                    '</dl>' +
+                                    '</a>';
+                                single_nodes += single_node;
+                            });
+                            next('', page < result.map.totalPages);
+                            $("#list_flow section").append(single_nodes);
+                        }
+                    }
+                });
+            }
+        });
+    });
 
 </script>
 <div onClick="window.scrollTo(0, 0);" title="回到顶部" class="toTop-btn"></div>
