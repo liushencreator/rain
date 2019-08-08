@@ -1,6 +1,6 @@
 package com.rao.service.impl.resource;
 
-import com.rao.Utils.Paramap;
+import com.rao.Utils.common.Paramap;
 import com.rao.bean.resource.ResourceVideo;
 import com.rao.bean.resource.SourceCollections;
 import com.rao.constants.CollectionConstant;

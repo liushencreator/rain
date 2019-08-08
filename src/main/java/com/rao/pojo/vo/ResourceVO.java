@@ -1,4 +1,4 @@
-package com.rao.vo;
+package com.rao.pojo.vo;
 
 import lombok.Data;
 

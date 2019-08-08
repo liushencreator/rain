@@ -1,4 +1,4 @@
-package com.rao.Utils;
+package com.rao.Utils.common;
 
 import java.util.HashMap;
 import java.util.Map;

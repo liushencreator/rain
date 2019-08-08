@@ -1,6 +1,6 @@
-package com.rao.Utils.pathUtils;
+package com.rao.Utils.file;
 
-import com.rao.vo.ResourceVO;
+import com.rao.pojo.vo.ResourceVO;
 
 import java.io.File;
 import java.util.Date;

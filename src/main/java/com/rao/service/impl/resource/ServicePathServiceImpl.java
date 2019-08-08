@@ -1,8 +1,8 @@
 package com.rao.service.impl.resource;
 
-import com.rao.Utils.Paramap;
-import com.rao.Utils.TwiterIdUtil;
-import com.rao.Utils.pathUtils.PathUtils;
+import com.rao.Utils.common.Paramap;
+import com.rao.Utils.common.TwiterIdUtil;
+import com.rao.Utils.file.PathUtils;
 import com.rao.bean.resource.ResourceLocationsConfig;
 import com.rao.bean.resource.ResourceVideo;
 import com.rao.bean.resource.ServicePath;
@@ -10,7 +10,7 @@ import com.rao.dao.resource.ResourceLocationsConfigDao;
 import com.rao.dao.resource.ResourceVideoDao;
 import com.rao.dao.resource.ServicePathDao;
 import com.rao.service.resource.ServicePathService;
-import com.rao.vo.ResourceVO;
+import com.rao.pojo.vo.ResourceVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;

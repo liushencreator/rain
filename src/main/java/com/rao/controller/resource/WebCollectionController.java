@@ -1,8 +1,7 @@
 package com.rao.controller.resource;
 
-import com.rao.Utils.AsynResult.ResultMessage;
-import com.rao.Utils.Paramap;
-import com.rao.Utils.TwiterIdUtil;
+import com.rao.Utils.result.ResultMessage;
+import com.rao.Utils.common.TwiterIdUtil;
 import com.rao.Utils.common.CheckAgentUtil;
 import com.rao.bean.resource.ResourceVideo;
 import com.rao.bean.resource.SourceCollections;
@@ -14,7 +13,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 

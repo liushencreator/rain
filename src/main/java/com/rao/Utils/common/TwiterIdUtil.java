@@ -1,4 +1,4 @@
-package com.rao.Utils;
+package com.rao.Utils.common;
 
 import org.springframework.beans.factory.annotation.Value;
 

@@ -1,6 +1,6 @@
 package com.rao.service.impl.resource;
 
-import com.rao.Utils.Paramap;
+import com.rao.Utils.common.Paramap;
 import com.rao.bean.resource.ResourceLocationsConfig;
 import com.rao.dao.resource.ResourceLocationsConfigDao;
 import com.rao.service.resource.ResourceLocationsConfigService;

@@ -1,6 +1,6 @@
 package com.rao.controller.resource;
 
-import com.rao.Utils.AsynResult.ResultMessage;
+import com.rao.Utils.result.ResultMessage;
 import com.rao.bean.resource.ResourceLocationsConfig;
 import com.rao.bean.resource.ServicePath;
 import com.rao.service.resource.ResourceLocationsConfigService;

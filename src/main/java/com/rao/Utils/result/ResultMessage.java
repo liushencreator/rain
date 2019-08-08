@@ -1,4 +1,4 @@
-package com.rao.Utils.AsynResult;
+package com.rao.Utils.result;
 
 import lombok.Data;
 

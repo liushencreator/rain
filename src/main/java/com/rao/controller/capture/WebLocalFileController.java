@@ -1,7 +1,7 @@
 package com.rao.controller.capture;
 
-import com.rao.Utils.fileUtils.DownLoadUtil;
-import com.rao.vo.LocalFilePathNameVO;
+import com.rao.Utils.file.DownLoadUtil;
+import com.rao.pojo.vo.LocalFilePathNameVO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -1,4 +1,4 @@
-package com.rao.Utils.fileUtils;
+package com.rao.Utils.file;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
