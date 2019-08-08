@@ -1,17 +1,21 @@
 package com.rao.service.impl.resource;
 
+import com.rao.Utils.common.PageParamsUtil;
 import com.rao.Utils.common.Paramap;
 import com.rao.bean.resource.ResourceVideo;
 import com.rao.bean.resource.SourceCollections;
 import com.rao.constants.CollectionConstant;
+import com.rao.constants.DateFormatEnum;
 import com.rao.dao.resource.ResourceVideoDao;
 import com.rao.dao.resource.SourceCollectionsDao;
+import com.rao.pojo.vo.ResourceVideoVO;
 import com.rao.service.resource.SourceCollectionsService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -71,17 +75,14 @@ public class SourceCollectionsServiceImpl implements SourceCollectionsService {
     }
 
     @Override
-    public List<ResourceVideo> listByPage(Integer pageNumber, Integer pageSize) {
+    public List<ResourceVideoVO> listByPage(Integer pageNumber, Integer pageSize) {
         // 构建分页和筛选条件
-        Paramap paramap = Paramap.create();
-        paramap.put("pageBegin", (pageNumber - 1) * pageSize);
-        paramap.put("pageSize", pageSize);
+        Paramap paramap = PageParamsUtil.baseParam(pageNumber, pageSize, "create_time desc");
         paramap.put("collectionType", CollectionConstant.COLLECTION_TYPE_VIDEO);
 
         List<SourceCollections> collectionsList = sourceCollectionsDao.findByPage(paramap);
-        List<ResourceVideo> page = new ArrayList<>();
         if(CollectionUtils.isEmpty(collectionsList)){
-            return page;
+            return new ArrayList<>();
         }
 
         // 查询资源信息
@@ -89,24 +90,17 @@ public class SourceCollectionsServiceImpl implements SourceCollectionsService {
         Map<Long, ResourceVideo> resourceIdToResourceMap = resourceVideoDao.listByResoueceIds(resourceIds)
                 .stream().collect(Collectors.toMap(ResourceVideo::getId, Function.identity()));
 
-
-        for (SourceCollections collections : collectionsList) {
-            ResourceVideo video = new ResourceVideo();
-            video.setId(collections.getResourceId());
-            video.setVideoName(collections.getCollectionName());
-            video.setVideoPath(collections.getCollectionPath());
-            video.setCreateTime(collections.getCreateTime());
-            page.add(video);
-        }
-
         // 构建返回参数
+        SimpleDateFormat dateFormat = new SimpleDateFormat(DateFormatEnum.FORMAT_SYMBOL_EXTEND.getFormatString());
         return collectionsList.stream().map(item -> {
             ResourceVideo resourceVideo = resourceIdToResourceMap.get(item.getResourceId());
-            ResourceVideo resourceVO = new ResourceVideo();
-            BeanUtils.copyProperties(resourceVideo, resourceVO);
-            resourceVO.setVideoName(item.getCollectionName());
-            resourceVO.setCreateTime(item.getCreateTime());
-            return resourceVO;
+            return ResourceVideoVO.builder()
+                    .id(resourceVideo.getId())
+                    .videoName(item.getCollectionName())
+                    .videoDescribe(resourceVideo.getVideoDescribe())
+                    .videoSize(resourceVideo.getVideoSize())
+                    .createTime(dateFormat.format(item.getCreateTime()))
+                    .build();
         }).collect(Collectors.toList());
     }
 }

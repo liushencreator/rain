@@ -13,6 +13,7 @@
 		<result property="videoDescribe" column="video_describe" />
 		<result property="broadcastNumber" column="broadcast_number" />
 		<result property="praiseNumber" column="praise_number" />
+		<result property="clickNumber" column="click_number"/>
 		<result property="serviceId" column="service_id"/>
 		<result property="createTime" column="create_time" />
 		<result property="updateTime" column="update_time" />
@@ -20,11 +21,11 @@
 	
 	<!-- 定义可重用的SQL代码段，可以包含在其他语句中 -->
 	<sql id="base_column">
-		 id ,video_name ,video_path ,video_size ,video_describe ,broadcast_number ,praise_number ,service_id ,create_time ,update_time
+		 id ,video_name ,video_path ,video_size ,video_describe ,broadcast_number ,praise_number ,click_number, service_id ,create_time ,update_time
 	</sql>
 	
 	<sql id="base_value_column">
-		 #{id},#{videoName},#{videoPath},#{videoSize},#{videoDescribe},#{broadcastNumber},#{praiseNumber},#{serviceId},#{createTime},#{updateTime}
+		 #{id},#{videoName},#{videoPath},#{videoSize},#{videoDescribe},#{broadcastNumber},#{praiseNumber},#{clickNumber},#{serviceId},#{createTime},#{updateTime}
 	</sql>
 	
 	<!-- 定义可重用的WHERE SQL公共代码段，可以包含在其他语句中 -->
@@ -49,6 +50,9 @@
 		</if>
 		<if test="praiseNumber != null">
 			AND praise_number = #{praiseNumber,jdbcType=INTEGER}
+		</if>
+		<if test="clickNumber != null">
+			AND click_number = #{clickNumber, jdbcType=INTEGER}
 		</if>
 		<if test="serviceId != null">
 			AND service_id = #{serviceId}
@@ -83,6 +87,9 @@
 		</if>
 		<if test="praiseNumber != null">
 			praise_number = #{praiseNumber,jdbcType=INTEGER},
+		</if>
+		<if test="clickNumber != null">
+			click_number = #{clickNumber, jdbcType=INTEGER},
 		</if>
 		<if test="serviceId != null">
 			service_id = #{serviceId},
@@ -131,7 +138,7 @@
 		</set>
 		WHERE	ID = #{id,jdbcType=BIGINT}
 	</update>
-	
+
 	<!-- 删除单条记录 -->
 	<delete id="delete">
 		DELETE	FROM RESOURCE_VIDEO
@@ -160,7 +167,7 @@
 			<include refid="where_column" />
 		</where>
 	</select>
-	
+
 	<!-- 分页查询-->
 	<select id="findByPage" resultMap="ResourceVideoResultMap">
 		SELECT
@@ -169,8 +176,10 @@
 		<where> 1=1
 			<include refid="where_column" />
 		</where>
-		ORDER BY create_time DESC
-		limit ${pageBegin},${pageSize}
+		<if test="orderByRule != null and orderByRule != ''">
+			ORDER BY ${orderByRule}
+		</if>
+		limit #{pageBegin}, #{pageSize}
 	</select>
 
     <!-- 批量保存 -->
@@ -180,7 +189,7 @@
 		<foreach collection="list" item="resource" index="index" separator=",">
 			(
 				#{resource.id},#{resource.videoName},#{resource.videoPath},#{resource.videoSize},#{resource.videoDescribe},#{resource.broadcastNumber},
-				#{resource.praiseNumber},#{resource.serviceId},#{resource.createTime},#{resource.updateTime}
+				#{resource.praiseNumber},#{resource.clickNumber},#{resource.serviceId},#{resource.createTime},#{resource.updateTime}
 			)
 		</foreach>
 	</insert>
@@ -192,5 +201,22 @@
 		WHERE	ID IN
 		<foreach collection="list" item="id" index="index" open="(" separator="," close=")">#{id}</foreach>
 	</select>
+
+	<!-- 增加资源统计数量 -->
+	<update id="increaseStatisticsNumber">
+		UPDATE RESOURCE_VIDEO
+		<set>
+			<if test="broadcastNumber != null">
+				broadcast_number = broadcast_number + #{broadcastNumber,jdbcType=INTEGER},
+			</if>
+			<if test="praiseNumber != null">
+				praise_number = praise_number + #{praiseNumber,jdbcType=INTEGER},
+			</if>
+			<if test="clickNumber != null">
+				click_number = click_number + #{clickNumber, jdbcType=INTEGER},
+			</if>
+		</set>
+		WHERE ID = #{id,jdbcType=BIGINT}
+	</update>
 
 </mapper>

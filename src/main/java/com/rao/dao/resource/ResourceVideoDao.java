@@ -1,5 +1,6 @@
 package com.rao.dao.resource;
 
+import com.rao.Utils.common.Paramap;
 import com.rao.bean.resource.ResourceVideo;
 import org.apache.ibatis.annotations.Param;
 
@@ -47,4 +48,11 @@ public interface ResourceVideoDao{
      * @return
      */
     List<ResourceVideo> listByResoueceIds(@Param("list") List<Long> resourceIds);
+
+    /**
+     * 增加资源统计数量
+     * @param paramap
+     * @return
+     */
+    Integer increaseStatisticsNumber(Map<String, Object> paramap);
 }

@@ -1,6 +1,12 @@
 <!doctype HTML>
 <html>
 <head>
+    <!-- 删除苹果默认的工具栏和菜单栏 -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <!-- QQ强制全屏 -->
+    <meta name="x5-fullscreen" content="true">
+    <!-- UC强制全屏 -->
+    <meta name="full-screen" content="yes">
     <meta name="viewport" content="initial-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
     <meta content="black" name="apple-mobile-web-app-status-bar-style"/>
     <meta content="telephone=no" name="format-detection"/>
@@ -20,7 +26,7 @@
 <div class="body">
     <!-- 公共头部 -->
     <div class="header-top">
-        <div class="header-top-left"><a href="../default.htm" class="header-top-left-logo" title="秀美女性网"><img src="${base}/images/logo.png"/></a></div>
+        <div class="header-top-left"><a href="${base}/web/resource/index.html" class="header-top-left-logo" title="秀美女性网"><img src="${base}/images/logo.png"/></a></div>
         <div class="header-top-mid JheaderTopMid"></div>
 <!--        <div class="htr fr"><a href="../../www.xiumei.com/default.htm">PC版>></a></div>-->
     </div>
@@ -49,8 +55,8 @@
             }, false);
         })()
     </script>
-    <div class="header-bg"><a href="../default.htm" class="header-home" title="秀美女性网"></a>
-        <div class="header-title"><span class="header-title-nav"><a href="default.htm">收藏</a> > </span></div>
+    <div class="header-bg"><a href="${base}/web/resource/index.html" class="header-home" title="秀美女性网"></a>
+        <div class="header-title"><span class="header-title-nav"><a href="">收藏</a> > </span></div>
     </div>
     <script type="text/javascript">
         /*秀美网手机顶部位*/
@@ -97,8 +103,8 @@
             var flow = layui.flow;
             flow.load({
                 elem: '#list_flow', //指定列表容器
-                scrollElem:'#list_flow',
-                isAuto:false,
+                // scrollElem:'#list_flow',
+                // isAuto:true,
                 done: function(page, next){ //到达临界点（默认滚动触发），触发下一页
                     //以jQuery的Ajax请求为例，请求下一页数据（注意：page是从2开始返回）
                     $.ajax({
@@ -107,7 +113,7 @@
                         dataType:"json",
                         data:{
                             pageNumber: page,
-                            pageSize: 5
+                            pageSize: 10
                         },
                         success:function(result){
                             if (result.core == 100){
@@ -115,7 +121,7 @@
                                 $.each(result.map.list, function(i,item){
                                     var single_node = '<a href="${base}/web/resource/resourceDetail.html?id=' + item.id + '">' +
                                         '<dl>' +
-                                        '<dt><img alt="" src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2537629903,2400247907&fm=26&gp=0.jpg"></dt>' +
+                                        '<dt><img alt="" src="http://img0.imgtn.bdimg.com/it/u=2482030568,4226239736&fm=26&gp=0.jpg"></dt>' +
                                         '<dd>' +
                                         '<h2>' + item.videoName + '</h2>' +
                                         '<time>' + item.createTime + '</time>' +

@@ -143,8 +143,10 @@
 		<where> 1=1
 			<include refid="where_column" />
 		</where>
-		ORDER BY create_time DESC
-		limit ${pageBegin},${pageSize}
+		<if test="orderByRule != null and orderByRule != ''">
+			ORDER BY ${orderByRule}
+		</if>
+		limit #{pageBegin}, #{pageSize}
 	</select>
 
 	<!-- 矫正收藏信息 -->

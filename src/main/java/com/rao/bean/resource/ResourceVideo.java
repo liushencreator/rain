@@ -7,6 +7,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 /**
  * Entity - 本地视频
  * 
@@ -17,12 +19,11 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ResourceVideo{
+public class ResourceVideo implements Serializable {
 
 	private static final long serialVersionUID = 5081846432919091193L;
 
 	/**  */
-	@JsonSerialize(using= ToStringSerializer.class)
 	private Long id;
 	
 	/** 视频名字 */
@@ -43,8 +44,10 @@ public class ResourceVideo{
 	/** 点赞次数 */
 	private Integer praiseNumber;
 
+	/* 点击次数 */
+	private Integer clickNumber;
+
 	/* 服务ID*/
-	@JsonSerialize(using=ToStringSerializer.class)
 	private Long serviceId;
 	
 	/**  */
