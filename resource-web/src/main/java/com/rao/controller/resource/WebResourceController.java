@@ -64,9 +64,11 @@ public class WebResourceController {
                                        @RequestParam(defaultValue = "10") Integer pageSize){
         List<ResourceVideoVO> resourceVideoVOList = resourceVideoService.listFavourite(pageNumber, pageSize);
         Integer totalSize = resourceVideoService.count();
+
+        int totalPages = totalSize / pageSize;
         return ResultMessage.success()
                 .add("list", resourceVideoVOList)
-                .add("totalPages", totalSize / pageSize);
+                .add("totalPages", totalSize % pageSize == 0 ? totalPages : totalPages + 1);
     }
 
     /**

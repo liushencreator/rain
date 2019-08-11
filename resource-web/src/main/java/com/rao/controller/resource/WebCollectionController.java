@@ -65,9 +65,11 @@ public class WebCollectionController {
                                     @RequestParam(defaultValue = "10") Integer pageSize){
         List<ResourceVideoVO> page = sourceCollectionsService.listByPage(pageNumber, pageSize);
         Integer totalSize = sourceCollectionsService.count(null);
+
+        int totalPages = totalSize / pageSize;
         return ResultMessage.success()
                 .add("list", page)
-                .add("totalPages", totalSize / pageSize);
+                .add("totalPages", totalSize % pageSize == 0 ? totalPages : totalPages + 1);
     }
 
 
