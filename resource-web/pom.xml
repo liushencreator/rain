@@ -4,11 +4,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.rao</groupId>
-	<artifactId>local_web</artifactId>
+	<artifactId>resource-web</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>local_web</name>
+	<name>resource-web</name>
 	<description>Demo project for Spring Boot</description>
 
 	<parent>
