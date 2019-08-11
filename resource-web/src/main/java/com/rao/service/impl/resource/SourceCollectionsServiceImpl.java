@@ -1,18 +1,17 @@
 package com.rao.service.impl.resource;
 
-import com.rao.Utils.common.PageParamsUtil;
-import com.rao.Utils.common.Paramap;
-import com.rao.bean.resource.ResourceVideo;
-import com.rao.bean.resource.SourceCollections;
-import com.rao.constants.CollectionConstant;
-import com.rao.constants.DateFormatEnum;
 import com.rao.dao.resource.ResourceVideoDao;
 import com.rao.dao.resource.SourceCollectionsDao;
-import com.rao.pojo.vo.ResourceVideoVO;
-import com.rao.service.resource.SourceCollectionsService;
-import org.springframework.beans.BeanUtils;
+import com.rao.util.common.PageParamsUtil;
+import com.rao.util.common.Paramap;
+import constant.common.DateFormatEnum;
+import constant.resource.CollectionConstant;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
+import pojo.entity.resource.ResourceVideo;
+import pojo.entity.resource.SourceCollections;
+import pojo.vo.resource.ResourceVideoVO;
+import service.resource.SourceCollectionsService;
 
 import javax.annotation.Resource;
 import java.text.SimpleDateFormat;

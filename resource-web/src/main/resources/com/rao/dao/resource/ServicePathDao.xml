@@ -5,7 +5,7 @@
 <!-- namespace必须指向Dao接口 -->
 <mapper namespace="com.rao.dao.resource.ServicePathDao">
 	
-	<resultMap id="ServicePathResultMap" type="com.rao.bean.resource.ServicePath">
+	<resultMap id="ServicePathResultMap" type="pojo.entity.resource.ServicePath">
 		<id property="id" column="id"  />
 		<result property="configId" column="config_id"></result>
 		<result property="serviceName" column="service_name" />
@@ -96,14 +96,14 @@
 	</select>
 	
 	<!-- 插入 -->
-	<insert id="insert" parameterType="com.rao.bean.resource.ServicePath">
+	<insert id="insert" parameterType="pojo.entity.resource.ServicePath">
 		INSERT SERVICE_PATH
 				(<include refid="base_column" /> )
 		VALUES	(<include refid="base_value_column" />)
 	</insert>
 	
 	<!-- 修改 -->
-	<update id="update" parameterType="com.rao.bean.resource.ServicePath">
+	<update id="update" parameterType="pojo.entity.resource.ServicePath">
 		UPDATE	SERVICE_PATH
 		<set>
 			<include refid="set_column" />

@@ -1,7 +1,7 @@
 package com.rao.dao.resource;
 
 
-import com.rao.bean.resource.ResourceLocationsConfig;
+import pojo.entity.resource.ResourceLocationsConfig;
 
 import java.util.List;
 import java.util.Map;

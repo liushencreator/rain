@@ -1,8 +1,6 @@
 package com.rao.config;
 
 import com.rao.Interceptor.BaseInterceptor;
-import com.rao.bean.resource.ResourceLocationsConfig;
-import com.rao.service.resource.ResourceLocationsConfigService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -10,6 +8,8 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import pojo.entity.resource.ResourceLocationsConfig;
+import service.resource.ResourceLocationsConfigService;
 
 import javax.annotation.Resource;
 import java.util.List;

@@ -1,17 +1,17 @@
 package com.rao.controller.resource;
 
-import com.rao.Utils.result.ResultMessage;
-import com.rao.Utils.common.TwiterIdUtil;
-import com.rao.Utils.common.CheckAgentUtil;
-import com.rao.bean.resource.ResourceVideo;
-import com.rao.bean.resource.SourceCollections;
-import com.rao.constants.CollectionConstant;
-import com.rao.pojo.vo.ResourceVideoVO;
-import com.rao.service.resource.ResourceVideoService;
-import com.rao.service.resource.SourceCollectionsService;
+import com.rao.util.common.CheckAgentUtil;
+import com.rao.util.common.TwiterIdUtil;
+import com.rao.util.result.ResultMessage;
+import constant.resource.CollectionConstant;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import pojo.entity.resource.ResourceVideo;
+import pojo.entity.resource.SourceCollections;
+import pojo.vo.resource.ResourceVideoVO;
+import service.resource.ResourceVideoService;
+import service.resource.SourceCollectionsService;
 
 import javax.annotation.Resource;
 import java.util.Date;

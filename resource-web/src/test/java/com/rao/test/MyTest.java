@@ -1,12 +1,12 @@
 package com.rao.test;
 
-import com.rao.Utils.capture.CaptureImageUtils;
-import com.rao.bean.capture.CaptureNode;
+import com.rao.util.capture.CaptureImageUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.junit.Test;
+import pojo.bo.capture.CaptureNodeBO;
 
 import java.io.*;
 import java.net.URL;
@@ -67,7 +67,7 @@ public class MyTest {
 
     @Test
     public void test003() throws Exception {
-        List<CaptureNode> nodeList = CaptureImageUtils.captureImage();
+        List<CaptureNodeBO> nodeList = CaptureImageUtils.captureImage();
         URL url = new URL(nodeList.get(0).getAnode());
 
         DataInputStream dataInputStream = new DataInputStream(url.openStream());

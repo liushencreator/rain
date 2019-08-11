@@ -1,16 +1,16 @@
 package com.rao.controller.resource;
 
-import com.rao.Utils.result.ResultMessage;
-import com.rao.bean.resource.ResourceLocationsConfig;
-import com.rao.bean.resource.ServicePath;
-import com.rao.service.resource.ResourceLocationsConfigService;
-import com.rao.service.resource.ServicePathService;
+import com.rao.util.result.ResultMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import pojo.entity.resource.ResourceLocationsConfig;
+import pojo.entity.resource.ServicePath;
+import service.resource.ResourceLocationsConfigService;
+import service.resource.ServicePathService;
 
 import java.util.List;
 

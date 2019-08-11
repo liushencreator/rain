@@ -1,8 +1,7 @@
 package com.rao.dao.resource;
 
-import com.rao.Utils.common.Paramap;
-import com.rao.bean.resource.ResourceVideo;
 import org.apache.ibatis.annotations.Param;
+import pojo.entity.resource.ResourceVideo;
 
 import java.util.List;
 import java.util.Map;
