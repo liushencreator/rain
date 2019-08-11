@@ -5,15 +5,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.rao</groupId>
-    <artifactId>resource-common-util</artifactId>
+    <artifactId>resource-parent</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
 
-    <dependencies>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>1.16.22</version>
-        </dependency>
-    </dependencies>
-    
+
 </project>
