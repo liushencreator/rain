@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 /**
  * Entity - 服务地址
  * 
@@ -15,7 +17,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ServicePath {
+public class ServicePath implements Serializable {
 
 	private static final long serialVersionUID = 5081846432919091193L;
 

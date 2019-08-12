@@ -1,0 +1,30 @@
+server:
+  port: 8081
+  servlet:
+    context-path: /admin
+  tomcat:
+    uri-encoding: utf-8
+
+spring:
+  mvc:
+    pathmatch:
+      use-suffix-pattern: true
+    view:
+      suffix: .html
+
+  freemarker:
+    suffix: .html
+    cache: false
+    request-context-attribute: request
+
+  datasource:
+    username: root
+    password: mysql
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/local_resource_data
+
+mybatis:
+  mapper-locations: classpath:mapper/**/*.xml
+  type-aliases-package: pojo.entity
+  configuration:
+    map-underscore-to-camel-case: true

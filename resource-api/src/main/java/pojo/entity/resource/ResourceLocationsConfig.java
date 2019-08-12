@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 /**
  * Entity - 本地映射路径配置
  * 
@@ -15,7 +17,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ResourceLocationsConfig {
+public class ResourceLocationsConfig implements Serializable {
 
 	private static final long serialVersionUID = 5081846432919091193L;
 

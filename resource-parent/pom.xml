@@ -24,6 +24,8 @@
         <mybatis.version>1.3.2</mybatis.version>
         <fileupload.version>1.3.3</fileupload.version>
         <jsoup.version>1.11.3</jsoup.version>
+        <shiro.version>1.4.0</shiro.version>
+        <resource.api.version>1.0-SNAPSHOT</resource.api.version>
     </properties>
 
     <dependencyManagement>
@@ -45,6 +47,18 @@
                 <groupId>org.jsoup</groupId>
                 <artifactId>jsoup</artifactId>
                 <version>${jsoup.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.rao</groupId>
+                <artifactId>resource-api</artifactId>
+                <version>${resource.api.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.shiro</groupId>
+                <artifactId>shiro-spring</artifactId>
+                <version>${shiro.version}</version>
             </dependency>
 
         </dependencies>
