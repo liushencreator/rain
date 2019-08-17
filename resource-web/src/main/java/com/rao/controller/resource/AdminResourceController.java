@@ -1,5 +1,6 @@
 package com.rao.controller.resource;
 
+import com.rao.config.LocalOssConfig;
 import com.rao.util.common.Paramap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -32,6 +33,8 @@ public class AdminResourceController {
     private ResourceVideoService resourceVideoService;
     @Autowired
     private ResourceLocationsConfigService resourceLocationsConfigService;
+    @Autowired
+    private LocalOssConfig localOssConfig;
 
 
     @RequestMapping("/index")
@@ -68,6 +71,9 @@ public class AdminResourceController {
         Paramap paramap = Paramap.create();
         paramap.put("serviceId", serviceId);
         List<ResourceVideo> resourceList = resourceVideoService.findByPage(paramap, pageNumber, pageSize);
+        resourceList.forEach(item -> {
+            item.setVideoImage(localOssConfig.getFullPath(item.getVideoImage()));
+        });
         model.addAttribute("resourceList", resourceList);
         return "/resource/admin/resource_list";
     }
