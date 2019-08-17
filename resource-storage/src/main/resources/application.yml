@@ -1,0 +1,23 @@
+server:
+  port: 8082
+  servlet:
+    context-path: /storage
+    tomcat:
+      uri-encoding: utf-8
+
+spring:
+  mvc:
+    pathmatch:
+      use-suffix-pattern: true
+    view:
+      suffix: .html
+
+  freemarker:
+    suffix: .html
+    cache: false
+    request-context-attribute: request
+
+
+file-path:
+  wd-base-path: E:/H/storage/kindeditor-4.1.11-zh-CN02/kindeditor/plugins/file/
+  lm-base-path: /usr/local/storage/kindeditor-4.1.11-zh-CN02/kindeditor/plugins/file/

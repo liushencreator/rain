@@ -2,7 +2,6 @@ package com.rao.controller.resource;
 
 import com.rao.util.common.CheckAgentUtil;
 import com.rao.util.common.TwiterIdUtil;
-import com.rao.util.result.ResultMessage;
 import constant.resource.CollectionConstant;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +11,7 @@ import pojo.entity.resource.SourceCollections;
 import pojo.vo.resource.ResourceVideoVO;
 import service.resource.ResourceVideoService;
 import service.resource.SourceCollectionsService;
+import util.result.ResultMessage;
 
 import javax.annotation.Resource;
 import java.util.Date;

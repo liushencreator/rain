@@ -3,7 +3,6 @@ package com.rao.controller.resource;
 import com.rao.util.common.CheckAgentUtil;
 import com.rao.util.common.Paramap;
 import com.rao.util.file.DownLoadUtil;
-import com.rao.util.result.ResultMessage;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +13,7 @@ import pojo.vo.resource.ResourceVideoVO;
 import service.resource.ResourceVideoService;
 import service.resource.ServicePathService;
 import service.resource.SourceCollectionsService;
+import util.result.ResultMessage;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;

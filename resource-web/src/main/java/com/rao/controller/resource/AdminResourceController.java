@@ -1,6 +1,5 @@
 package com.rao.controller.resource;
 
-import com.rao.util.result.ResultMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,6 +10,7 @@ import pojo.entity.resource.ResourceLocationsConfig;
 import pojo.entity.resource.ServicePath;
 import service.resource.ResourceLocationsConfigService;
 import service.resource.ServicePathService;
+import util.result.ResultMessage;
 
 import java.util.List;
 

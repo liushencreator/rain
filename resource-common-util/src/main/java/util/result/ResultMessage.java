@@ -1,4 +1,4 @@
-package com.rao.util.result;
+package util.result;
 
 import lombok.Data;
 
