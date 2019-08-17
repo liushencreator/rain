@@ -110,6 +110,7 @@ public class ServicePathServiceImpl implements ServicePathService {
             video.setVideoName(pathResult);
             video.setVideoPath(pathResult);
             video.setVideoSize(resourceVo.getFileSize());
+            video.setVideoImage("http://192.168.137.1:8082/storage/storage/jpg/20190817/1566054899360.jpg");
             video.setVideoDescribe("");
             video.setBroadcastNumber(0);
             video.setPraiseNumber(0);

@@ -50,7 +50,8 @@
                                             <td>${(path.createTime?string("yyyy-MM-dd HH:mm:ss"))!"无"}</td>
                                             <td>${(path.updateTime?string("yyyy-MM-dd HH:mm:ss"))!"无"}</td>
                                             <td>
-                                                <a href="${base}/admin/resource/viewService.html?id=${path.id?string('0')}" class="btn btn-xs btn-info"><i class="fa fa-mail-reply"></i> 查看服务</a>
+                                                <a href="${base}/admin/resource/resourceList.html?serviceId=${path.id?string('0')}" class="btn btn-xs btn-info"><i class="fa fa-file"></i> 服务下资源列表</a>
+                                                <a href="${base}/admin/resource/viewService.html?id=${path.id?string('0')}" class="btn btn-xs btn-info"><i class="fa fa-street-view"></i> 查看服务</a>
                                                 <a class="btn btn-success btn-xs" href="${base}/admin/resource/forwordService.html?id=${path.id?string('0')}"><i class="fa fa-check"></i> 修改服务</a>
                                                 <button type="button" class="btn btn-danger btn-xs" onclick="delResource('${path.id?string(0)}')"><i class="fa fa-times"></i> 删除服务</button>
                                                 <button type="button" class="btn btn-xs btn-success" onclick="initResource('${path.id?string(0)}')"><i class="fa fa-check"></i> 初始化地址</button>

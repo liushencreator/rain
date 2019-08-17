@@ -1,14 +1,18 @@
 package com.rao.controller.resource;
 
+import com.rao.util.common.Paramap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import pojo.entity.resource.ResourceLocationsConfig;
+import pojo.entity.resource.ResourceVideo;
 import pojo.entity.resource.ServicePath;
 import service.resource.ResourceLocationsConfigService;
+import service.resource.ResourceVideoService;
 import service.resource.ServicePathService;
 import util.result.ResultMessage;
 
@@ -24,6 +28,8 @@ public class AdminResourceController {
 
     @Autowired
     private ServicePathService servicePathService;
+    @Autowired
+    private ResourceVideoService resourceVideoService;
     @Autowired
     private ResourceLocationsConfigService resourceLocationsConfigService;
 
@@ -47,6 +53,24 @@ public class AdminResourceController {
         return "/resource/admin/serviceList";
     }
 
+    /**
+     * 根据服务id获取资源列表
+     *
+     * @param serviceId
+     * @param model
+     * @return
+     */
+    @GetMapping("/resourceList")
+    public String resourceList(@RequestParam Long serviceId,
+                               @RequestParam(defaultValue = "1") Integer pageNumber,
+                               @RequestParam(defaultValue = "100") Integer pageSize,
+                               Model model) {
+        Paramap paramap = Paramap.create();
+        paramap.put("serviceId", serviceId);
+        List<ResourceVideo> resourceList = resourceVideoService.findByPage(paramap, pageNumber, pageSize);
+        model.addAttribute("resourceList", resourceList);
+        return "/resource/admin/resource_list";
+    }
 
     /**
      * 服务详情

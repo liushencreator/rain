@@ -32,6 +32,9 @@ public class ResourceVideo implements Serializable {
 	
 	/** 视频大小 */
 	private String videoSize;
+
+	/* 视频展示图片 */
+	private String videoImage;
 	
 	/** 视频描述信息 */
 	private String videoDescribe;
