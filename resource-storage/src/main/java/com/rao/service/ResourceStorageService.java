@@ -1,5 +1,6 @@
 package com.rao.service;
 
+import com.rao.pojo.vo.FileUploadVO;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -11,10 +12,11 @@ import org.springframework.web.multipart.MultipartFile;
 public interface ResourceStorageService {
 
     /**
+     * 资源上传
      *
      * @param file
      * @return
      */
-    String fileUpload(MultipartFile file) throws Exception;
+    FileUploadVO fileUpload(MultipartFile file, String projectUrl) throws Exception;
 
 }

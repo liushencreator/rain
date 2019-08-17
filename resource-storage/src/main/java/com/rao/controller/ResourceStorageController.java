@@ -1,5 +1,6 @@
 package com.rao.controller;
 
+import com.rao.pojo.vo.FileUploadVO;
 import com.rao.service.ResourceStorageService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,9 +34,16 @@ public class ResourceStorageController {
      */
     @PostMapping("/file_upload")
     public ResultMessage fileUpload(@RequestParam(value = "file") MultipartFile file,
-                                    HttpServletRequest request) throws Exception {
-        String filePath = resourceStorageService.fileUpload(file);
-        return ResultMessage.success().add("filePath", filePath);
+                                    HttpServletRequest request) {
+        try {
+            String projectUrl = request.getScheme() + "://" + InetAddress.getLocalHost().getHostAddress() + ":" +
+                    request.getServerPort() + request.getContextPath() + "/storage";
+
+            FileUploadVO filePath = resourceStorageService.fileUpload(file, projectUrl);
+            return ResultMessage.success().add("uploadInfo", filePath);
+        }catch (Exception e){
+            return ResultMessage.fail().addMessage("文件上传失败");
+        }
     }
 
 }

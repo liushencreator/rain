@@ -1,6 +1,7 @@
 package com.rao.service.impl;
 
 import com.rao.config.ResourceFileConfig;
+import com.rao.pojo.vo.FileUploadVO;
 import com.rao.service.ResourceStorageService;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -25,7 +26,7 @@ public class ResourceStorageServiceImpl implements ResourceStorageService {
     private ResourceFileConfig resourceFileConfig;
 
     @Override
-    public String fileUpload(MultipartFile file) throws Exception {
+    public FileUploadVO fileUpload(MultipartFile file, String projectUrl) throws Exception {
 
         // 根据当前系统，拿到文件存储基础路径
         String os = System.getProperty("os.name");
@@ -50,6 +51,8 @@ public class ResourceStorageServiceImpl implements ResourceStorageService {
         // 除去基础存储路径的文件地址
         long currentTime = System.currentTimeMillis();
         String filePath = childDirPath + "/" + currentTime + "." + type;
+        // 文件访问地址
+        String fileUrl = projectUrl + filePath;
         // 文件完整的存储地址
         String fileAddress = basePath + filePath;
         // 上传操作
@@ -59,6 +62,9 @@ public class ResourceStorageServiceImpl implements ResourceStorageService {
         } else {
             throw new RuntimeException("文件为空，上传失败");
         }
-        return filePath;
+        return FileUploadVO.builder()
+                .fileUrl(fileUrl)
+                .filePath(filePath)
+                .build();
     }
 }
