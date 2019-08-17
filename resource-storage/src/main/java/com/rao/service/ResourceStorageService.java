@@ -15,6 +15,6 @@ public interface ResourceStorageService {
      * @param file
      * @return
      */
-    String fileUpload(MultipartFile file, String projectUrl) throws Exception;
+    String fileUpload(MultipartFile file) throws Exception;
 
 }

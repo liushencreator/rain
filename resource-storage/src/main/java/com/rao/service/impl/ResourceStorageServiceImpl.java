@@ -25,7 +25,7 @@ public class ResourceStorageServiceImpl implements ResourceStorageService {
     private ResourceFileConfig resourceFileConfig;
 
     @Override
-    public String fileUpload(MultipartFile file, String projectUrl) throws Exception {
+    public String fileUpload(MultipartFile file) throws Exception {
 
         // 根据当前系统，拿到文件存储基础路径
         String os = System.getProperty("os.name");
@@ -41,7 +41,7 @@ public class ResourceStorageServiceImpl implements ResourceStorageService {
         String ymd = sdf.format(new Date());
 
         // 拼接子目录，根据文件类型和日期
-        String childDirPath = type + "/" + ymd;
+        String childDirPath = "/" + type + "/" + ymd;
         File fileDir = new File(basePath, childDirPath);
         if (!fileDir.exists()) {
             fileDir.mkdirs();
@@ -59,6 +59,6 @@ public class ResourceStorageServiceImpl implements ResourceStorageService {
         } else {
             throw new RuntimeException("文件为空，上传失败");
         }
-        return projectUrl + filePath;
+        return filePath;
     }
 }

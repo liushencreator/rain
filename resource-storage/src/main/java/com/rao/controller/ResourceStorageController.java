@@ -34,10 +34,7 @@ public class ResourceStorageController {
     @PostMapping("/file_upload")
     public ResultMessage fileUpload(@RequestParam(value = "file") MultipartFile file,
                                     HttpServletRequest request) throws Exception {
-        String projectUrl = request.getScheme() + "://" + InetAddress.getLocalHost().getHostAddress() + ":" +
-                request.getServerPort() + request.getContextPath() + "/storage/";
-
-        String filePath = resourceStorageService.fileUpload(file, projectUrl);
+        String filePath = resourceStorageService.fileUpload(file);
         return ResultMessage.success().add("filePath", filePath);
     }
 

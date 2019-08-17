@@ -19,5 +19,5 @@ spring:
 
 
 file-path:
-  wd-base-path: E:/H/storage/kindeditor-4.1.11-zh-CN02/kindeditor/plugins/file/
-  lm-base-path: /usr/local/storage/kindeditor-4.1.11-zh-CN02/kindeditor/plugins/file/
+  wd-base-path: E:/H/storage/kindeditor-4.1.11-zh-CN02/kindeditor/plugins/file
+  lm-base-path: /usr/local/storage/kindeditor-4.1.11-zh-CN02/kindeditor/plugins/file
