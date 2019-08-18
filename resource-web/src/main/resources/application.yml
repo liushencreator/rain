@@ -1,3 +1,5 @@
 local-oss:
   wd-url: http://192.168.137.1:8082/storage/storage
   lm-url: http://192.168.137.1:8082/storage/storage
+  wd-rest-api: http://192.168.137.1:8082/storage/resource/storage/file_upload.html
+  lm-rest-api: http://192.168.137.1:8082/storage/resource/storage/file_upload.html

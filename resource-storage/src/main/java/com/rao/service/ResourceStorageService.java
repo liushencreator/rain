@@ -1,7 +1,7 @@
 package com.rao.service;
 
-import com.rao.pojo.vo.FileUploadVO;
 import org.springframework.web.multipart.MultipartFile;
+import pojo.vo.file.FileUploadVO;
 
 /**
  * 文件上传 service

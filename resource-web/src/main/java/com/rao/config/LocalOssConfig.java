@@ -26,6 +26,16 @@ public class LocalOssConfig {
      */
     private String lmUrl;
 
+    /**
+     * windows OSS文件上传接口地址
+     */
+    private String wdRestApi;
+
+    /**
+     * linux 或 Mac OSS文件上传接口地址
+     */
+    private String lmRestApi;
+
     public String getFullPath(String path){
         if(StringUtil.isBlank(path)){
             return "";

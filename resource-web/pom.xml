@@ -61,6 +61,11 @@
 			<artifactId>jsoup</artifactId>
 		</dependency>
 
+		<dependency>
+			<groupId>cn.hutool</groupId>
+			<artifactId>hutool-all</artifactId>
+		</dependency>
+
 		<!-- 本地 jar -->
 		<dependency>
 			<groupId>com.rao</groupId>

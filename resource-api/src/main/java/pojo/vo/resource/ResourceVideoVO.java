@@ -7,6 +7,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 /**
  * 资源列表视图模型
  * @author raojing
@@ -16,7 +18,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ResourceVideoVO {
+public class ResourceVideoVO implements Serializable {
 
     /** id */
     @JsonSerialize(using= ToStringSerializer.class)
@@ -27,6 +29,12 @@ public class ResourceVideoVO {
 
     /** 视频描述信息 */
     private String videoDescribe;
+
+    /* 展示图片 */
+    private String videoImage;
+
+    /* 展示图片URL */
+    private String videoImageUrl;
 
     /** 视频大小 */
     private String videoSize;

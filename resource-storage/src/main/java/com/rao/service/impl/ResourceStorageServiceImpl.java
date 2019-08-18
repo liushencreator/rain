@@ -1,17 +1,15 @@
 package com.rao.service.impl;
 
 import com.rao.config.ResourceFileConfig;
-import com.rao.pojo.vo.FileUploadVO;
 import com.rao.service.ResourceStorageService;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import pojo.vo.file.FileUploadVO;
 
 import javax.annotation.Resource;
 import java.io.File;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.UUID;
 
 /**
  * 文件上传 service impl

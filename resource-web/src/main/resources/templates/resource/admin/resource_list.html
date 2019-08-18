@@ -41,13 +41,13 @@
                                     </tr>
                                     <#list resourceList as resource>
                                         <tr>
-                                            <td style="vertical-align: middle;"><img src="${resource.videoImage}" alt="" width="100%;"></td>
+                                            <td style="vertical-align: middle;"><img src="${resource.videoImageUrl}" alt="" width="100%;"></td>
                                             <td>
                                                 <input type="text" name="videoName" value="${resource.videoName}" class="form-control" size="100%;" placeholder="资源名称">
                                                 <br>
                                                 <br>
                                                 <button type="button" class="layui-btn myfiles"><i class="layui-icon">&#xe67c;</i>上传图片</button>
-                                                <input type="hidden" name="certificateLogo" class="certificateLogo" value="">
+                                                <input type="hidden" name="videoImage" class="videoImage" value="${resource.videoImage}">
                                                 <br>
                                                 <br>
 
@@ -72,13 +72,14 @@
         var upload = layui.upload;
         var uploadInst = upload.render({
             elem: '.myfiles' //绑定元素
-            ,field:"myfiles"
-            ,url: '${base}/admin/fileupload/uploadImage.jhtml' //上传接口
+            ,field:"file"
+            ,url: '${base}/resource/manager/file_upload.html' //上传接口
             ,done: function(res, index, upload){
+                console.log(res);
                 //上传完毕回调
                 var item = this.item;
-                $(item).nextAll(".certificateLogo").val(res.result);
-                $(item).nextAll(".certificateLogoImage").attr("src",res.result);
+                $(item).nextAll(".videoImage").val(res.map.uploadInfo.filePath);
+                $(item).parent("td").prev("td").children("img").attr("src", res.map.uploadInfo.fileUrl);
                 layer.msg("上传成功",{icon:1})
             }
             ,error: function(){}

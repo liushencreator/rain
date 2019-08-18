@@ -2,6 +2,7 @@ package com.rao.controller.resource;
 
 import com.rao.config.LocalOssConfig;
 import com.rao.util.common.Paramap;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,12 +13,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import pojo.entity.resource.ResourceLocationsConfig;
 import pojo.entity.resource.ResourceVideo;
 import pojo.entity.resource.ServicePath;
+import pojo.vo.resource.ResourceVideoVO;
 import service.resource.ResourceLocationsConfigService;
 import service.resource.ResourceVideoService;
 import service.resource.ServicePathService;
 import util.result.ResultMessage;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 资源管理后台 controller
@@ -71,10 +74,15 @@ public class AdminResourceController {
         Paramap paramap = Paramap.create();
         paramap.put("serviceId", serviceId);
         List<ResourceVideo> resourceList = resourceVideoService.findByPage(paramap, pageNumber, pageSize);
-        resourceList.forEach(item -> {
-            item.setVideoImage(localOssConfig.getFullPath(item.getVideoImage()));
-        });
-        model.addAttribute("resourceList", resourceList);
+
+        List<ResourceVideoVO> resourceVideoVOS = resourceList.stream().map(item -> {
+            ResourceVideoVO resourceVideoVO = new ResourceVideoVO();
+            BeanUtils.copyProperties(item, resourceVideoVO);
+            resourceVideoVO.setVideoImageUrl(localOssConfig.getFullPath(item.getVideoImage()));
+            return resourceVideoVO;
+        }).collect(Collectors.toList());
+
+        model.addAttribute("resourceList", resourceVideoVOS);
         return "/resource/admin/resource_list";
     }
 

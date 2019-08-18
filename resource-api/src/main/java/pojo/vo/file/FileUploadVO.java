@@ -1,9 +1,11 @@
-package com.rao.pojo.vo;
+package pojo.vo.file;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.io.Serializable;
 
 /**
  * 文件上传 视图模型
@@ -15,7 +17,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class FileUploadVO {
+public class FileUploadVO implements Serializable {
 
     /**
      * 文件URL
