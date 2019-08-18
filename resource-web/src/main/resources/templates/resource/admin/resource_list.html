@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="${base}/css/layer/sub_css/layui.css">
 </head>
 <body>
+    <br>
     <div class="container-fluid">
         <div class="row">
             <div class="col-xs-2 col-xs-offset-1">
@@ -41,20 +42,22 @@
                                     </tr>
                                     <#list resourceList as resource>
                                         <tr>
-                                            <td style="vertical-align: middle;"><img src="${resource.videoImageUrl}" alt="" width="100%;"></td>
+                                            <td style="vertical-align: middle;">
+                                                <a href="${base}/web/resource/resourceDetail.html?id=${resource.id?string(0)}" target="_blank"><img src="${resource.videoImageUrl}" alt="" width="100%;"></a>
+                                            </td>
                                             <td>
-                                                <input type="text" name="videoName" value="${resource.videoName}" class="form-control" size="100%;" placeholder="资源名称">
+                                                <input type="text" name="videoName" value="${resource.videoName}" class="form-control videoName" size="100%;" placeholder="资源名称">
                                                 <br>
                                                 <br>
                                                 <button type="button" class="layui-btn myfiles"><i class="layui-icon">&#xe67c;</i>上传图片</button>
                                                 <input type="hidden" name="videoImage" class="videoImage" value="${resource.videoImage}">
                                                 <br>
                                                 <br>
-
-                                                <textarea class="form-control" name="videoDescribe" rows="10" style="width: 100%;" placeholder="资源描述信息">${resource.videoDescribe}</textarea>
+                                                <textarea class="form-control videoDescribe" name="videoDescribe" rows="10" style="width: 100%;"
+                                                          placeholder="资源描述信息">${resource.videoDescribe}</textarea>
                                             </td>
                                             <td style="vertical-align: bottom;">
-                                                <button type="button" class="btn btn-md btn-warning">确认修改</button>
+                                                <button type="button" class="btn btn-md btn-warning" onclick="updateResource(this, '${resource.id?string(0)}')">确认修改</button>
                                             </td>
                                         </tr>
                                     </#list>
@@ -68,6 +71,7 @@
     </div>
 </body>
 <script>
+
     layui.use('upload', function(){
         var upload = layui.upload;
         var uploadInst = upload.render({
@@ -79,11 +83,53 @@
                 //上传完毕回调
                 var item = this.item;
                 $(item).nextAll(".videoImage").val(res.map.uploadInfo.filePath);
-                $(item).parent("td").prev("td").children("img").attr("src", res.map.uploadInfo.fileUrl);
+                $(item).parent("td").prev("td").children("a").children("img").attr("src", res.map.uploadInfo.fileUrl);
                 layer.msg("上传成功",{icon:1})
             }
             ,error: function(){}
         });
     });
+
+
+    $(function(){
+        $(".videoDescribe").each(function(index, item){
+            var videoDescribe = $(item).text();
+            videoDescribe = videoDescribe.replace(/<br\/>/g,'\r\n');
+            $(item).text(videoDescribe);
+            $(item).val(videoDescribe);
+        });
+    });
+
+    function updateResource(node, id){
+        var node_td = $(node).parent("td").prev("td");
+        var videoName = node_td.children("[name='videoName']").val();
+        var videoImage = node_td.children(".videoImage").val();
+        var videoDescribe = node_td.children("[name='videoDescribe']").val();
+
+        console.log(videoDescribe);
+
+        videoDescribe = videoDescribe.replace(/\r\n/g, '<br/>').replace(/\n/g, '<br/>').replace(/\s/g, ' ');
+
+        console.log(videoDescribe);
+
+        $.ajax({
+            url: "${base}/admin/resource/update_resource.html",
+            type: "post",
+            dataType: "json",
+            data: {
+                "id": id,
+                "videoName": videoName,
+                "videoImage": videoImage,
+                "videoDescribe": videoDescribe
+            },
+            success: function(result){
+                console.log(result);
+            }
+        });
+
+
+
+    }
+
 </script>
 </html>

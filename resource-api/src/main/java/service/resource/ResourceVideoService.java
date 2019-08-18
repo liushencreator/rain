@@ -1,6 +1,7 @@
 package service.resource;
 
 
+import pojo.dto.resource.UpdateResourceDTO;
 import pojo.entity.resource.ResourceVideo;
 import pojo.vo.resource.ResourceVideoVO;
 
@@ -44,4 +45,11 @@ public interface ResourceVideoService {
      * @return
      */
     ResourceVideo resourceDetail(Long id);
+
+    /**
+     * 修改资源信息
+     * @param updateResourceDTO
+     * @return
+     */
+    Integer updateResource(UpdateResourceDTO updateResourceDTO);
 }

@@ -6,10 +6,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import pojo.dto.resource.UpdateResourceDTO;
 import pojo.entity.resource.ResourceLocationsConfig;
 import pojo.entity.resource.ResourceVideo;
 import pojo.entity.resource.ServicePath;
@@ -84,6 +82,19 @@ public class AdminResourceController {
 
         model.addAttribute("resourceList", resourceVideoVOS);
         return "/resource/admin/resource_list";
+    }
+
+    /**
+     * 修改资源信息
+     *
+     * @param updateResourceDTO
+     * @return
+     */
+    @ResponseBody
+    @PostMapping("/update_resource")
+    public ResultMessage updateResource(UpdateResourceDTO updateResourceDTO){
+        resourceVideoService.updateResource(updateResourceDTO);
+        return ResultMessage.success();
     }
 
     /**
