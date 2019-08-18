@@ -7,6 +7,7 @@
     <script type="text/javascript" src="${base}/js/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="${base}/js/bootstrap.js"></script>
     <script type="text/javascript" src="${base}/js/layer/layui.js"></script>
+    <script type="text/javascript" src="${base}/js/layer/layer.js"></script>
     <script type="text/javascript" src="${base}/js/customer.js"></script>
 
     <link rel="stylesheet" href="${base}/css/bootstrap.min.css">
@@ -84,7 +85,7 @@
                 var item = this.item;
                 $(item).nextAll(".videoImage").val(res.map.uploadInfo.filePath);
                 $(item).parent("td").prev("td").children("a").children("img").attr("src", res.map.uploadInfo.fileUrl);
-                layer.msg("上传成功",{icon:1})
+                layer.msg(result.message,{icon:1})
             }
             ,error: function(){}
         });
@@ -124,6 +125,7 @@
             },
             success: function(result){
                 console.log(result);
+                layer.msg(result.message,{icon:1})
             }
         });
 

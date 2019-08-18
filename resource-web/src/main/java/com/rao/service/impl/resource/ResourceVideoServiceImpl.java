@@ -15,6 +15,7 @@ import pojo.vo.resource.ResourceVideoVO;
 import service.resource.ResourceVideoService;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -87,6 +88,7 @@ public class ResourceVideoServiceImpl implements ResourceVideoService {
 	public Integer updateResource(UpdateResourceDTO updateResourceDTO) {
 		ResourceVideo updateResource = new ResourceVideo();
 		BeanUtils.copyProperties(updateResourceDTO, updateResource);
+		updateResource.setUpdateTime(new Date());
 		return resourceVideoDao.update(updateResource);
 	}
 }
