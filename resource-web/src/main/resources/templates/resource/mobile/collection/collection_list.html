@@ -121,7 +121,7 @@
                                 $.each(result.map.list, function(i,item){
                                     var single_node = '<a href="${base}/web/resource/resourceDetail.html?id=' + item.id + '">' +
                                         '<dl>' +
-                                        '<dt><img alt="" src="http://img0.imgtn.bdimg.com/it/u=2482030568,4226239736&fm=26&gp=0.jpg"></dt>' +
+                                        '<dt><img alt="" src="' + item.videoImageUrl + '"></dt>' +
                                         '<dd>' +
                                         '<h2>' + item.videoName + '</h2>' +
                                         '<time>' + item.createTime + '</time>' +

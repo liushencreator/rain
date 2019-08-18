@@ -1,11 +1,13 @@
 package com.rao.service.impl.resource;
 
+import com.rao.config.LocalOssConfig;
 import com.rao.dao.resource.ResourceVideoDao;
 import com.rao.dao.resource.SourceCollectionsDao;
 import com.rao.util.common.PageParamsUtil;
 import com.rao.util.common.Paramap;
 import constant.common.DateFormatEnum;
 import constant.resource.CollectionConstant;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import pojo.entity.resource.ResourceVideo;
@@ -35,6 +37,8 @@ public class SourceCollectionsServiceImpl implements SourceCollectionsService {
     private SourceCollectionsDao sourceCollectionsDao;
     @Resource
     private ResourceVideoDao resourceVideoDao;
+    @Resource
+    private LocalOssConfig localOssConfig;
 
 
     @Override
@@ -97,6 +101,8 @@ public class SourceCollectionsServiceImpl implements SourceCollectionsService {
                     .id(resourceVideo.getId())
                     .videoName(item.getCollectionName())
                     .videoDescribe(resourceVideo.getVideoDescribe())
+                    .videoImage(resourceVideo.getVideoImage())
+                    .videoImageUrl(localOssConfig.getFullPath(resourceVideo.getVideoImage()))
                     .videoSize(resourceVideo.getVideoSize())
                     .createTime(dateFormat.format(item.getCreateTime()))
                     .build();

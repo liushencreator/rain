@@ -1,5 +1,6 @@
 package com.rao.service.impl.resource;
 
+import com.rao.config.LocalOssConfig;
 import com.rao.dao.resource.ResourceVideoDao;
 import com.rao.util.common.PageParamsUtil;
 import com.rao.util.common.Paramap;
@@ -30,6 +31,9 @@ public class ResourceVideoServiceImpl implements ResourceVideoService {
 	
 	@Autowired
 	private ResourceVideoDao resourceVideoDao;
+	@Autowired
+	private LocalOssConfig localOssConfig;
+
 
 	@Override
 	public Integer count() {
@@ -60,6 +64,8 @@ public class ResourceVideoServiceImpl implements ResourceVideoService {
 					.id(item.getId())
 					.videoName(item.getVideoName())
 					.videoDescribe(item.getVideoDescribe())
+					.videoImage(item.getVideoImage())
+					.videoImageUrl(localOssConfig.getFullPath(item.getVideoImage()))
 					.videoSize(item.getVideoSize())
 					.createTime(dateFormat.format(item.getCreateTime()))
 					.build();
