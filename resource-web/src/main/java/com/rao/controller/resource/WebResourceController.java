@@ -7,9 +7,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import pojo.entity.resource.ResourceLocationsConfig;
 import pojo.entity.resource.ResourceVideo;
 import pojo.entity.resource.ServicePath;
 import pojo.vo.resource.ResourceVideoVO;
+import service.resource.ResourceLocationsConfigService;
 import service.resource.ResourceVideoService;
 import service.resource.ServicePathService;
 import service.resource.SourceCollectionsService;
@@ -35,6 +37,8 @@ public class WebResourceController {
     private ServicePathService servicePathService;
     @Resource
     private SourceCollectionsService sourceCollectionsService;
+    @Resource
+    private ResourceLocationsConfigService resourceLocationsConfigService;
 
     /**
      * 根据终端类型返回对应视图
@@ -135,15 +139,24 @@ public class WebResourceController {
      */
     @RequestMapping("/download")
     public String downloadFile(Long resourceId, HttpServletResponse response) throws Exception {
-        ResourceVideo video = resourceVideoService.find(resourceId);//获取资源信息
+        //获取资源信息
+        ResourceVideo video = resourceVideoService.find(resourceId);
         if (video == null) {
             return null;
         }
-        ServicePath servicePath = servicePathService.find(video.getServiceId());//获取文件地址信息
-        String fileName = video.getVideoName();
-        String dataAddress = servicePath.getPathDir() + "/" + fileName;
+        //获取文件地址信息
+        ServicePath servicePath = servicePathService.find(video.getServiceId());
+        ResourceLocationsConfig config = resourceLocationsConfigService.find(servicePath.getConfigId());
+        String fileName = video.getVideoPath();
 
-        File file = new File(dataAddress);//设置文件路径
+        String os = System.getProperty("os.name");
+        log.info("当前的系统为:{}", os);
+        String basePath = os.toLowerCase().startsWith("win") ? config.getWdLocationPath() : config.getLmLocationPath();
+        log.info("资源文件所在的路径:{}", basePath);
+        String dataAddress = basePath + "/" + fileName;
+
+        //设置文件路径
+        File file = new File(dataAddress);
         // 如果文件名存在，则进行下载
         if (file.exists()) {
             DownLoadUtil.downLoad(response, file, fileName);

@@ -2,11 +2,11 @@
 <html>
 <head>
     <!-- 删除苹果默认的工具栏和菜单栏 -->
-    <meta name="apple-mobile-web-app-capable" content="yes" />
+<!--    <meta name="apple-mobile-web-app-capable" content="yes" />-->
     <!-- QQ强制全屏 -->
-    <meta name="x5-fullscreen" content="true">
+<!--    <meta name="x5-fullscreen" content="true">-->
     <!-- UC强制全屏 -->
-    <meta name="full-screen" content="yes">
+<!--    <meta name="full-screen" content="yes">-->
     <meta name="viewport" content="initial-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
     <meta content="black" name="apple-mobile-web-app-status-bar-style"/>
     <meta content="telephone=no" name="format-detection"/>
@@ -16,8 +16,31 @@
     <meta name="description" content=""/>
     <link href="${base}/css/lady.css" rel="stylesheet" type="text/css"/>
     <link href="${base}/css/common.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="${base}/css/layer/sub_css/layui.css">
+    <script type="text/javascript" src="${base}/js/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="${base}/js/layer/layui.js"></script>
     <script type="text/javascript" src="${base}/js/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="${base}/js/ckplayer.js"></script>
+    <style type="text/css">
+        .collect{
+            font-weight: bold;
+            font-size: 16px;
+            margin-left: 8px;
+        }
+        .collect-add{
+            color: #E1345F;
+        }
+        .collect-cancel{
+            color: #ff952f;
+        }
+        .download-resource{
+            font-weight: bold;
+            margin-left: 8px;
+            color: #8b6e1e !important;
+            text-decoration: none;
+            border-bottom: none !important;
+        }
+    </style>
 </head>
 <body>
 <div id="ivy_div" style="display: none;"></div>
@@ -67,9 +90,23 @@
     </script>
     <script src="../../../cpro.baidustatic.com/cpro/ui/cm.js" type="text/javascript"></script>
     <div class="artWrap">
-        <h1 class="artTitle">${video.videoName}</h1>
-        <p class="artInfo"><span class="sInfo-1">${video.createTime?string('yyyy-MM-dd HH:mm:ss')}</span> <span class="sInfo-2"> 管理员 </span> <span
-                class="sInfo-4" id="Jfont">A<em>+</em></span></p>
+        <div style="width: 100%;">
+            <br>
+            <span class="artTitle">${video.videoName}</span>
+        </div>
+<!--        <h1 class="artTitle">${video.videoName}</h1>-->
+        <p class="artInfo">
+            <span class="sInfo-1">${video.createTime?string('yyyy-MM-dd HH:mm:ss')}</span>
+            <span class="sInfo-2"> 管理员 </span>
+            <span class="sInfo-4" id="Jfont">A<em>+</em></span>
+            <span>
+                <#if hasCollection == 1>
+                    <a href="javascript:void(0)" class="collect collect-cancel" onclick="collection_operation('${video.id?string(0)}')">取消收藏</a>
+                    <#else>
+                        <a href="javascript:void(0)" class="collect collect-add" onclick="collection_operation('${video.id?string(0)}')">添加收藏</a>
+                </#if>
+            </span>
+        </p>
         <div class="tag"><em>专题：</em>
             <a href="javascript:void(0);">张曼玉</a>
             <a href="javascript:void(0);">关之琳</a>
@@ -84,50 +121,13 @@
             <p style="text-align: center">
 <!--                <img alt="" src="http://img4.imgtn.bdimg.com/it/u=1348631487,3145363397&fm=26&gp=0.jpg"/>-->
             </p>
-            <p>　　${video.videoDescribe}</p>
+            <p>${video.videoDescribe}<span><a href="${base}/web/resource/download.html?resourceId=${(video.id)?string(0)}" class="download-resource">下载资源</a></span>
+            </p>
         </div>
         <div style="padding-top:10px; text-align:center">
             <script language="JavaScript" src="../../otherhtml/top.js"></script>
         </div>
     </div>
-<!--    <div class="artNav-page">-->
-<!--        <a href="141284.shtml" class="prev">上一页</a>-->
-<!--        <a href="141284_2.shtml" class="next">下一页</a>-->
-<!--        <i class="pageViewGuidedd">-->
-<!--            <select name="" id="" onchange="changeForm(this.value)">-->
-<!--                <option selected="" value="141284.shtml">第1页</option>-->
-<!--                <option value="141284_2.shtml">第2页</option>-->
-<!--                <option value="141284_3.shtml">第3页</option>-->
-<!--            </select>-->
-<!--        </i>-->
-<!--    </div>-->
-<!--    <div class="shareBox">-->
-<!--        <p class="pTit">分享到：</p>-->
-<!--        &lt;!&ndash; Baidu Button BEGIN &ndash;&gt;-->
-<!--        <div id="bdshare_warp">-->
-<!--            <div class="bdshare_t bds_tools get-codes-bdshare" id="bdshare"><a href="javascript:;" class="bds_twx"-->
-<!--                                                                               title="分享到微信">微信</a><a-->
-<!--                    href="javascript:;" class="bds_qzone" title="分享到QQ空间">QQ空间</a><a href="javascript:;"-->
-<!--                                                                                     class="bds_tsina" title="分享到新浪微博">新浪微博</a><a-->
-<!--                    href="javascript:;" class="bds_tqq" title="分享到腾讯微博">腾讯微博</a></div>-->
-<!--            <script data="" id="bdshare_js" type="text/javascript"></script>-->
-<!--            <script data="" id="bdshare_js" type="text/javascript"-->
-<!--                    src="../../../bdimg.share.baidu.com/static/js/bds_s_v2.js@cdnversion=388395"></script>-->
-<!--        </div>-->
-<!--        &lt;!&ndash; Baidu Button END &ndash;&gt;-->
-<!--    </div>-->
-<!--    <div class="section"><span class="mark">相关文章</span></div>-->
-<!--    <ul class="l-uList line" id="uList">-->
-<!--        <li><a href="../../fashion/dress/life/default.htm" class="c1">[明星装扮]</a> <a href="141262.shtml">姚晨《离婚律师》31套造型品牌大揭秘...</a>-->
-<!--        </li>-->
-<!--        <li><a href="../../fashion/dress/life/default.htm" class="c1">[明星装扮]</a> <a href="141261.shtml">刘诗诗明朝华服造型-->
-<!--            演绎古典风情</a></li>-->
-<!--        <li><a href="../../fashion/dress/red/default.htm" class="c1">[明星装扮]</a> <a href="141229.shtml">第66届艾美奖红毯直击-->
-<!--            女星华服争艳...</a></li>-->
-<!--        <li><a href="../../fashion/dress/life/default.htm" class="c1">[明星装扮]</a> <a href="../20140825/141145.shtml">孔孝真《没关系是爱情啊》示范百变穿搭...</a>-->
-<!--        </li>-->
-<!--    </ul>-->
-    <!-- 公共底部 -->
     <div class="footer">
         <p class="pTit-1">
             <script charset="gbk" src="../../../p.tanx.com/ex@i=mm_33556857_3419556_23470656&m=1"></script>
@@ -213,7 +213,21 @@
     };
     var player=new ckplayer(videoObject);
 
-
+    function collection_operation(resourceId){
+        $.ajax({
+            url:"${base}/web/collection/collectionOperation.html",
+            type:"post",
+            dataType:"json",
+            data:{
+                resourceId:resourceId
+            },
+            success:function(result){
+                if(result.core==100){
+                    window.location.reload();
+                }
+            }
+        });
+    }
 
 </script>
 </body>
