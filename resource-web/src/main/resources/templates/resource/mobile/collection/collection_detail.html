@@ -1,18 +1,12 @@
 ﻿<!doctype HTML>
 <html>
 <head>
-    <!-- 删除苹果默认的工具栏和菜单栏 -->
-<!--    <meta name="apple-mobile-web-app-capable" content="yes" />-->
-    <!-- QQ强制全屏 -->
-<!--    <meta name="x5-fullscreen" content="true">-->
-    <!-- UC强制全屏 -->
-<!--    <meta name="full-screen" content="yes">-->
     <meta name="viewport" content="initial-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
     <meta content="black" name="apple-mobile-web-app-status-bar-style"/>
     <meta content="telephone=no" name="format-detection"/>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>${video.videoName}(${video.videoPath})</title>
-    <meta name="keywords" content="张曼玉,关之琳,明星装扮,女神"/>
+    <meta name="keywords" content=""/>
     <meta name="description" content=""/>
     <link href="${base}/css/lady.css" rel="stylesheet" type="text/css"/>
     <link href="${base}/css/common.css" rel="stylesheet" type="text/css"/>
@@ -48,11 +42,10 @@
     <div class="header-top">
         <div class="header-top-left"><a href="${base}/web/resource/index.html" class="header-top-left-logo" title="秀美女性网"><img src="${base}/images/logo.png"/></a></div>
         <div class="header-top-mid JheaderTopMid"></div>
-<!--        <div class="htr fr"><a href="../../../www.xiumei.com/default.htm">PC版>></a></div>-->
     </div>
     <div class="header-nav JheaderNav" style="display:none">
         <div class="header-nav-a">
-            <a href="${base}/web/resource/index.html" class="current">首页</a>
+            <a href="${base}/web/resource/index.html">首页</a>
             <a href="${base}/web/resource/resourceIndex.html">资源</a>
             <a href="../../beauty/default.htm">美容</a>
             <a href="../../reduce/default.htm">美体</a>
@@ -63,7 +56,7 @@
             <a href="../../astro/default.htm">星座</a>
             <a href="../../ent/default.htm">娱乐</a>
             <a href="../../home/default.htm">家居</a>
-            <a href="${base}/web/collection/list.html" class="icon-new">收藏</a>
+            <a href="${base}/web/collection/list.html" class="icon-new current">收藏</a>
         </div>
     </div>
     <script type="text/javascript">
@@ -88,16 +81,14 @@
         /*秀美网手机顶部位*/
         var cpro_id = "u1628070";
     </script>
-    <script src="../../../cpro.baidustatic.com/cpro/ui/cm.js" type="text/javascript"></script>
     <div class="artWrap">
         <div style="width: 100%;">
             <br>
             <span class="artTitle">${video.videoName}</span>
         </div>
-<!--        <h1 class="artTitle">${video.videoName}</h1>-->
         <p class="artInfo">
             <span class="sInfo-1">${video.createTime?string('yyyy-MM-dd HH:mm:ss')}</span>
-            <span class="sInfo-2"> 管理员 </span>
+            <span class="sInfo-2"> 槲寄生 </span>
             <span class="sInfo-4" id="Jfont">A<em>+</em></span>
             <span>
                 <#if hasCollection == 1>
@@ -107,7 +98,7 @@
                 </#if>
             </span>
         </p>
-        <div class="tag"><em>专题：</em>
+        <div class="tag"><em>类型：</em>
             <a href="javascript:void(0);">张曼玉</a>
             <a href="javascript:void(0);">关之琳</a>
             <a href="javascript:void(0);">女神</a>
@@ -131,7 +122,6 @@
     <div class="footer">
         <p class="pTit-1">
             <script charset="gbk" src="../../../p.tanx.com/ex@i=mm_33556857_3419556_23470656&m=1"></script>
-            <br><em>触屏版</em> | <a href="../../../www.xiumei.com/default.htm">电脑版</a></p>
         <p class="pTit-3"><em class="icon-group-small"></em>雨成帘资源网</p>
         <p></p>
     </div>

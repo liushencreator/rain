@@ -19,7 +19,7 @@ public interface ResourceVideoService {
     /**
      * 查询实体对象数量
      */
-    Integer count();
+    Integer count(String searchKeyWord);
 
     /**
      * 根据主键查询数据
@@ -37,7 +37,7 @@ public interface ResourceVideoService {
      * @param pageSize
      * @return
      */
-    List<ResourceVideoVO> listFavourite(Integer pageNumber, Integer pageSize);
+    List<ResourceVideoVO> listFavourite(Integer pageNumber, Integer pageSize, String searchKeyWord);
 
     /**
      * 资源详情 （增加）

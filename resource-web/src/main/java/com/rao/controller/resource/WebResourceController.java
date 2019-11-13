@@ -65,9 +65,11 @@ public class WebResourceController {
     @ResponseBody
     @PostMapping("/list_favourite")
     public ResultMessage listFavourite(@RequestParam(defaultValue = "1") Integer pageNumber,
-                                       @RequestParam(defaultValue = "10") Integer pageSize){
-        List<ResourceVideoVO> resourceVideoVOList = resourceVideoService.listFavourite(pageNumber, pageSize);
-        Integer totalSize = resourceVideoService.count();
+                                       @RequestParam(defaultValue = "10") Integer pageSize,
+                                       @RequestParam(value = "searchKeyWord", required = false) String searchKeyWord){
+        log.info("页码:{}, 页大小:{}, 关键字:{}", pageNumber, pageSize, searchKeyWord);
+        List<ResourceVideoVO> resourceVideoVOList = resourceVideoService.listFavourite(pageNumber, pageSize, searchKeyWord);
+        Integer totalSize = resourceVideoService.count(searchKeyWord);
 
         int totalPages = totalSize / pageSize;
         return ResultMessage.success()

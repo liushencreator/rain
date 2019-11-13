@@ -27,7 +27,7 @@
         .header-nav {
             height: 40px;
             line-height: 40px;
-            background: rgba(0, 0, 0, 0.98);
+            background: rgba(0, 162, 162, 0.98);
             width: 100%;
             display: -webkit-box;
             display: -moz-box;
@@ -55,34 +55,10 @@
             background: rgba(0, 0, 0, 0.73);
         }
 
-        /*焦点图*/
-        .slider-top-pic {
-            max-width: 800%;
-            height: 100%;
-            min-height: 100%
-        }
-
-        .slider-top {
-            max-width: 640px;
-            overflow: hidden;
-            margin: 0 auto;
-            padding: 11px 0 0
-        }
-
-        .slider-top-wrap {
-            overflow: hidden;
-            margin: 0 5px
-        }
-
         @media only screen and (max-width: 320px) {
             .slider-top-wrap {
                 max-width: 320px;
             }
-        }
-
-        .slider-top-pic {
-            position: relative;
-            overflow: hidden;
         }
 
         .slider-top-pic li {
@@ -93,14 +69,6 @@
         .slider-top-pic li img {
             width: 100%;
             max-height: 315px
-        }
-
-        .slider-top-doc {
-            height: 10px;
-            text-align: center;
-            display: -webkit-box;
-            display: flexbox;
-            margin: 0 5px
         }
 
         .slider-top-doc i {
@@ -114,17 +82,6 @@
 
         .slider-top-doc .current {
             background: #000000;
-        }
-
-        /*查看更多*/
-        .btn-more {
-            border: 1px solid #d9d6d6;
-            border-radius: 5px;
-            background: #F5F5F5;
-            line-height: 36px;
-            margin: 10px 7px;
-            text-align: center;
-            cursor: pointer;
         }
 
         .btn-more a {
@@ -149,26 +106,18 @@
             margin-left: 5px;
         }
 
-        .header-logo {
-            display: block;
-            width: 250px;
-            height: 26px;
-            margin: 8px 0px 0 10px;
-            background: url("${base}/images/logo.png") no-repeat;
+        #search-panel{
+            margin: 10px 2px 2px 2px;
         }
-
     </style>
 </head>
 
 <body>
-<!--<div class="header-top">-->
-<!--    <div class="header-left"> <a href="../www.xiumei.com/default.htm" class="header-logo" title="秀美时尚网"></a> </div>-->
-<!--</div>-->
 <!--导航-->
 <div class="header-nav">
     <a href="${base}/web/resource/index.html" class="current">首页</a>
     <a href="${base}/web/resource/resourceIndex.html">资源</a>
-    <a href="beauty/default.htm">美容</a>
+    <a href="${base}/web/page/mobile/link/link_list.html">网链</a>
     <a href="reduce/default.htm">美体</a>
     <a href="qinzi/default.htm">亲子</a>
 </div>
@@ -180,22 +129,13 @@
     <a href="${base}/web/collection/list.html" class="icon-new">收藏</a>
 </div>
 
-<!--幻影灯-->
-<div class="slider-top">
-    <div class="slider-top-wrap" id="sliderTop" style="visibility: visible;">
-        <ul class="slider-top-pic" style="width: 3780px;">
-            <li data-index="0"><a href="javascript:void(0);"><img src="${base}/images/pc_bg_01.jpg"></a></li>
-            <li data-index="1"><a href="javascript:void(0);"><img src="${base}/images/pc_bg_02.jpg"></a></li>
-            <li data-index="2"><a href="javascript:void(0);"><img src="${base}/images/pc_bg_04.jpg"></a></li>
-        </ul>
+<!--搜索框-->
+<div class="layui-row" id="search-panel">
+    <div class="layui-col-xs9">
+        <input type="text" name="searchKeyWord" class="layui-input" placeholder="输入关键词">
     </div>
-    <div class="slider-top-doc" id="sliderTop-doc">
-        <i class=""></i>
-        <i class=""></i>
-        <i class=""></i>
-        <i class="current"></i>
-        <i class=""></i>
-        <i class=""></i>
+    <div class="layui-col-xs3">
+        <button type="button" class="layui-btn" style="width: 98%;" id="search-btn" onclick="search_keyword_data()">搜索一下</button>
     </div>
 </div>
 
@@ -206,7 +146,6 @@
 
 <!--底部-->
 <div class="footer">
-    <p class="pTit-1"><em>触屏版</em> | <a href="../www.xiumei.com/default.htm">电脑版</a></p>
     <p class="pTit-3"><em class="icon-group-small"></em>雨成帘资源网</p>
     </span>
     </p>
@@ -214,57 +153,6 @@
 <script src="${base}/js/tu.js" charset="utf-8"></script>
 <script src="${base}/js/swipe.min.js" charset="utf-8"></script>
 <script type="text/javascript">
-    window.onload = function () {
-        //焦点图
-        var pics = document.getElementById('sliderTop').getElementsByTagName('img');
-        for (var i = 1; i < pics.length; i++) {
-            var tmp = pics[i];
-            tmp.getAttribute('#lsrc') && (tmp.src = tmp.getAttribute('#lsrc'), tmp.removeAttribute('#lsrc'));
-        }
-
-        function slider(id) {
-            var elm = document.getElementById(id);
-            if (!elm) return;
-            var doc = document.getElementById(id + '-doc');
-            var slides = elm.children[0].children;
-            var temp = '';
-            var index = 0;
-            for (var i = 0, len = slides.length; i < len; i++) {
-                temp += '<i ' + (i == 0 ? 'class="current"' : '') + '></i>';
-            }
-            doc.innerHTML = temp;
-            var docs = doc.querySelectorAll('i');
-            new Swipe(elm, {
-                auto: 3500,
-                continuous: true,
-                callback: function (pos) {
-                    docs[index].className = '';
-                    docs[pos].className = 'current';
-                    index = pos;
-                }
-            })
-        }
-
-        slider("sliderTop");
-    }
-
-    if (window.location.hash == "") {
-        try {
-            window.scrollTo(0, 1);
-        } catch (e) {
-        }
-        ;
-    }
-    (function () {
-        window.onscroll = window.ontouchmove = window.onresize = function () {
-            if (document.documentElement.scrollTop + document.body.scrollTop > 800) {
-                document.querySelector(".toTop-btn").style.display = "block";
-            } else {
-                document.querySelector(".toTop-btn").style.display = "none";
-            }
-        }
-    })();
-
 
     /**
      * 流失加载列表
@@ -274,7 +162,6 @@
         var flow = layui.flow;
         flow.load({
             elem: '#list_flow', //指定列表容器
-            // scrollElem:'#list_flow',
             isAuto:true,
             done: function(page, next){ //到达临界点（默认滚动触发），触发下一页
                 //以jQuery的Ajax请求为例，请求下一页数据（注意：page是从2开始返回）
@@ -284,7 +171,8 @@
                     dataType:"json",
                     data:{
                         pageNumber: page,
-                        pageSize: 10
+                        pageSize: 10,
+                        searchKeyWord: $("input[name='searchKeyWord']").val()
                     },
                     success:function(result){
                         if (result.core == 100){
@@ -310,6 +198,54 @@
             }
         });
     });
+
+    function search_keyword_data() {
+        var searchKeyWord = $("input[name='searchKeyWord']").val();
+        $("#list_flow").empty();
+        $("#list_flow").append("<section></section>");
+
+        layui.use('flow', function(){
+            var $ = layui.jquery;
+            var flow = layui.flow;
+            flow.load({
+                elem: '#list_flow', //指定列表容器
+                isAuto:true,
+                done: function(page, next){ //到达临界点（默认滚动触发），触发下一页
+                    //以jQuery的Ajax请求为例，请求下一页数据（注意：page是从2开始返回）
+                    $.ajax({
+                        url:"${base}/web/resource/list_favourite.jhtml",
+                        type:"post",
+                        dataType:"json",
+                        data:{
+                            pageNumber: page,
+                            pageSize: 10,
+                            searchKeyWord: $("input[name='searchKeyWord']").val()
+                        },
+                        success:function(result){
+                            if (result.core == 100){
+                                var single_nodes = "";
+                                $.each(result.map.list, function(i,item){
+                                    var single_node = '<a href="${base}/web/resource/resourceDetail.html?id=' + item.id + '">' +
+                                        '<dl>' +
+                                        '<dt><img alt="" src="' + item.videoImageUrl + '"></dt>' +
+                                        '<dd>' +
+                                        '<h2>' + item.videoName + '</h2>' +
+                                        '<time>' + item.createTime + '</time>' +
+                                        '<p>' + item.videoDescribe + '</p>' +
+                                        '</dd>' +
+                                        '</dl>' +
+                                        '</a>';
+                                    single_nodes += single_node;
+                                });
+                                next('', page < result.map.totalPages);
+                                $("#list_flow section").append(single_nodes);
+                            }
+                        }
+                    });
+                }
+            });
+        });
+    }
 
 </script>
 <div onClick="window.scrollTo(0, 0);" title="回到顶部" class="toTop-btn"></div>

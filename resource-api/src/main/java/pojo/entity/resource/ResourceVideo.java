@@ -56,5 +56,8 @@ public class ResourceVideo implements Serializable {
 	
 	/**  */
 	private java.util.Date updateTime;
+
+	/** 关键字*/
+	private String keyWord;
 	
 }

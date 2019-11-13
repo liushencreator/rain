@@ -37,8 +37,10 @@ public class ResourceVideoServiceImpl implements ResourceVideoService {
 
 
 	@Override
-	public Integer count() {
-		return resourceVideoDao.count(Paramap.create());
+	public Integer count(String searchKeyWord) {
+		Paramap paramap = Paramap.create();
+		paramap.put("keyWord", searchKeyWord);
+		return resourceVideoDao.count(paramap);
 	}
 
 	@Override
@@ -54,9 +56,10 @@ public class ResourceVideoServiceImpl implements ResourceVideoService {
 	}
 
 	@Override
-	public List<ResourceVideoVO> listFavourite(Integer pageNumber, Integer pageSize) {
+	public List<ResourceVideoVO> listFavourite(Integer pageNumber, Integer pageSize, String searchKeyWord) {
 		String orderByRule = "praise_number desc ,broadcast_number desc ,click_number desc";
 		Paramap paramap = PageParamsUtil.baseParam(pageNumber, pageSize, orderByRule);
+		paramap.put("keyWord", searchKeyWord);
 		List<ResourceVideo> resourceVideoList = resourceVideoDao.findByPage(paramap);
 
 		SimpleDateFormat dateFormat = new SimpleDateFormat(DateFormatEnum.FORMAT_SYMBOL_EXTEND.getFormatString());

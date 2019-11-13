@@ -35,7 +35,7 @@
 			AND id = #{id,jdbcType=BIGINT}
 		</if>
 		<if test="videoName != null and videoName != ''">
-			AND video_name = #{videoName,jdbcType=VARCHAR}
+			AND video_name like concat('%', #{videoName,jdbcType=VARCHAR}, '%')
 		</if>
 		<if test="videoPath != null and videoPath != ''">
 			AND video_path = #{videoPath,jdbcType=VARCHAR}
@@ -66,6 +66,10 @@
 		</if>
 		<if test="updateTime != null">
 			AND update_time = #{updateTime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="keyWord != null and keyWord != ''">
+			AND video_name like concat('%', #{keyWord, jdbcType=VARCHAR}, '%')
+			OR video_describe like concat('%', #{keyWord, jdbcType=VARCHAR}, '%')
 		</if>
 	</sql>
 	

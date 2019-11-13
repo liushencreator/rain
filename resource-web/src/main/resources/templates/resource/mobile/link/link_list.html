@@ -14,6 +14,17 @@
     <link href="${base}/css/lady.css" rel="stylesheet" type="text/css"/>
     <link href="${base}/css/common.css" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" href="${base}/css/layer/sub_css/layui.css">
+    <style type="text/css">
+        .network_link_item{
+            margin: 5px 2px 5px 2px;
+        }
+        .network_link_item_title{
+
+        }
+        .network_link_item_content{
+            margin-top: 10px;
+        }
+    </style>
 </head>
 <body>
 <div id="ivy_div" style="display: none;"></div>
@@ -27,7 +38,7 @@
         <div class="header-nav-a">
             <a href="${base}/web/resource/index.html">首页</a>
             <a href="${base}/web/resource/resourceIndex.html">资源</a>
-            <a href="../beauty/default.htm">美容</a>
+            <a href="${base}/web/page/mobile/link/link_list.html" class="current">网链</a>
             <a href="../reduce/default.htm">美体</a>
             <a href="../qinzi/default.htm">亲子</a>
         </div>
@@ -36,7 +47,7 @@
             <a href="../astro/default.htm">星座</a>
             <a href="../ent/default.htm">娱乐</a>
             <a href="../home/default.htm">家居</a>
-            <a href="${base}/web/collection/list.html" class="icon-new current">收藏</a>
+            <a href="${base}/web/collection/list.html" class="icon-new">收藏</a>
         </div>
     </div>
     <script type="text/javascript">
@@ -49,7 +60,7 @@
         })()
     </script>
     <div class="header-bg"><a href="${base}/web/resource/index.html" class="header-home" title="秀美女性网"></a>
-        <div class="header-title"><span class="header-title-nav"><a href="">收藏</a> > </span></div>
+        <div class="header-title"><span class="header-title-nav"><a href="">网链</a> > </span></div>
     </div>
     <script type="text/javascript">
         /*秀美网手机顶部位*/
@@ -58,7 +69,18 @@
 
     <!-- 列表数据 -->
     <div class="main" id="list_flow">
-        <section></section>
+        <div class="network_link_item">
+            <div class="network_link_item_title">这是标题</div>
+            <div class="network_link_item_content">
+                <iframe width="100%" height="185" src="http://www.baidu.com" frameborder="0" allowfullscreen id="iFrame"></iframe>
+            </div>
+        </div>
+        <div class="network_link_item">
+            <div class="network_link_item_title">这是标题</div>
+            <div class="network_link_item_content">
+                <iframe width="100%" height="185" src="http://taobao.com" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </div>
     </div>
 
     <!-- 公共底部 -->
@@ -85,53 +107,41 @@
             }
         })();
 
-        function changeForm(url) {
-            window.location.href = url;
-        }
-
-        /**
-         * 流失加载列表
-         */
-        layui.use('flow', function(){
-            var $ = layui.jquery;
-            var flow = layui.flow;
-            flow.load({
-                elem: '#list_flow', //指定列表容器
-                scrollElem:'#list_flow',
-                isAuto:true,
-                done: function(page, next){ //到达临界点（默认滚动触发），触发下一页
-                    //以jQuery的Ajax请求为例，请求下一页数据（注意：page是从2开始返回）
-                    $.ajax({
-                        url:"${base}/web/collection/flow_list.jhtml",
-                        type:"post",
-                        dataType:"json",
-                        data:{
-                            pageNumber: page,
-                            pageSize: 10
-                        },
-                        success:function(result){
-                            if (result.core == 100){
-                                var single_nodes = "";
-                                $.each(result.map.list, function(i,item){
-                                    var single_node = '<a href="${base}/web/resource/resourceDetail.html?id=' + item.id + '">' +
-                                        '<dl>' +
-                                        '<dt><img alt="" src="' + item.videoImageUrl + '"></dt>' +
-                                        '<dd>' +
-                                        '<h2>' + item.videoName + '</h2>' +
-                                        '<time>' + item.createTime + '</time>' +
-                                        '<p>' + item.videoDescribe + '</p>' +
-                                        '</dd>' +
-                                        '</dl>' +
-                                        '</a>';
-                                    single_nodes += single_node;
-                                });
-                                next('', page < result.map.totalPages);
-                                $("#list_flow section").append(single_nodes);
-                            }
-                        }
-                    });
+        var IframeOnClick = {
+            resolution: 200,
+            iframes: [],
+            interval: null,
+            Iframe: function() {
+                this.element = arguments[0];
+                this.cb = arguments[1];
+                this.hasTracked = false;
+            },
+            track: function(element, cb) {
+                this.iframes.push(new this.Iframe(element, cb));
+                if (!this.interval) {
+                    var _this = this;
+                    this.interval = setInterval(function() { _this.checkClick(); }, this.resolution);
                 }
-            });
+            },
+            checkClick: function() {
+                if (document.activeElement) {
+                    var activeElement = document.activeElement;
+                    for (var i in this.iframes) {
+                        if (activeElement === this.iframes[i].element) { // user is in this Iframe
+                            if (this.iframes[i].hasTracked == false) {
+                                this.iframes[i].cb.apply(window, []);
+                                this.iframes[i].hasTracked = true;
+                            }
+                        } else {
+                            this.iframes[i].hasTracked = false;
+                        }
+                    }
+                }
+            }
+        };
+
+        IframeOnClick.track(document.getElementById("iFrame"), function() {
+            location.href="${base}/web/resource/index.html";
         });
 
     </script>

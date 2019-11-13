@@ -8,7 +8,9 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import java.net.InetAddress;
+import java.net.NetworkInterface;
 import java.net.UnknownHostException;
+import java.util.Enumeration;
 
 /**
  * 本地 OSS 服务地址
@@ -52,13 +54,13 @@ public class LocalOssConfig {
     private void initConfig(){
         if(localOss){
             try {
-                String hostAddress = InetAddress.getLocalHost().getHostAddress();
+                String hostAddress = getHostAddress();
 
                 wdUrl = "http://" + hostAddress + ":8082/storage/storage";
                 lmUrl = "http://" + hostAddress + ":8082/storage/storage";
                 wdRestApi = "http://" + hostAddress + ":8082/storage/resource/storage/file_upload.html";
                 lmRestApi = "http://" + hostAddress + ":8082/storage/resource/storage/file_upload.html";
-            } catch (UnknownHostException e) {
+            } catch (Exception e) {
                 log.error("初始化oss失败");
             }
         }
@@ -74,6 +76,24 @@ public class LocalOssConfig {
         }
         String os = System.getProperty("os.name");
         return (os.toLowerCase().startsWith("win") ? wdUrl : lmUrl) + path;
+    }
+
+    public String getHostAddress() throws Exception {
+        Enumeration<NetworkInterface> netInterfaces = NetworkInterface.getNetworkInterfaces();;
+        while (netInterfaces.hasMoreElements()) {
+            NetworkInterface ni = netInterfaces.nextElement();
+            Enumeration<InetAddress> addresses = ni.getInetAddresses();
+            InetAddress ip;
+            while (addresses.hasMoreElements()) {
+                ip = addresses.nextElement();
+                if (!ip.isLoopbackAddress() && ip.getHostAddress().indexOf(':') == -1) {
+                    if("wlan2".equalsIgnoreCase(ni.getName())){
+                        return ip.getHostAddress();
+                    }
+                }
+            }
+        }
+        return "";
     }
 
 }
