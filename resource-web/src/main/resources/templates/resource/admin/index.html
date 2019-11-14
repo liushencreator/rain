@@ -6,21 +6,77 @@
     <title>后台首页</title>
     <script type="text/javascript" src="${base}/js/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="${base}/js/bootstrap.js"></script>
-    <script type="text/javascript" src="${base}/js/layer.js"></script>
+    <script type="text/javascript" src="${base}/js/layer/layui.js"></script>
     <link rel="stylesheet" href="${base}/css/bootstrap.min.css">
     <link rel="stylesheet" href="${base}/css/font-awesome.min.css">
-    <link rel="stylesheet" href="${base}/css/layer.css">
+    <link rel="stylesheet" href="${base}/css/layer/sub_css/layui.css">
+    <link rel="stylesheet" href="${base}/css/layer/sub_css/global.css">
+
     <style rel="stylesheet" type="text/css">
         .a_label {
             font-size: 30px;
         }
+        .component-title{
+            font-size: 22px;
+            width: 400px;
+            color: rgba(0, 162, 162, 0.88);
+        }
+        .tree-title{
+            line-height: 36px;
+            border-left: 5px solid #009E94;
+            margin: 15px 0 5px;
+            padding: 0 10px;
+            background-color: #f2f2f2;
+        }
     </style>
 </head>
 <body>
+<div class="layui-header header header-doc" winter1="">
+    <div class="layui-main">
+        <a class="logo" href="">
+            <img src="${base}/images/logo.png" alt="layui">
+        </a>
+        <div class="component component-title"><i class="fa fa-globe fa-pulse"></i> 资源管理</div>
+        <ul class="layui-nav">
+            <li class="layui-nav-item layui-this">
+                <a href="">管理</a>
+            </li>
+        </ul>
+    </div>
+</div>
     <div class="container-fluid">
+        <div class="layui-main site-inline">
+            <div class="site-tree">
+                <ul class="layui-tree">
+                    <h2 class="tree-title">资源管理</h2>
+                    <li class="site-tree-noicon layui-this">
+                        <a href="${base}/admin/resource_locations_config/config_list.html">
+                            <i class="layui-icon layui-icon-face-smile" style="top: 3px;"></i><cite>首页</cite>
+                        </a>
+                    </li>
+                    <li class="">
+                        <a href="${base}/admin/resource_locations_config/config_list.html">
+                            <i class="layui-icon" style="top: 3px;"></i><cite>本地映射地址配置</cite>
+                        </a>
+                    </li>
+                    <li class="">
+                        <a href="${base}/admin/resource/serviceList.html">
+                            <i class="layui-icon" style="top: 3px;"></i><cite>服务列表</cite>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="site-content">
+                <h1 class="site-h1">开始使用 - 入门指南</h1>
+                <blockquote class="layui-elem-quote">
+                    layui（谐音：类UI) 是一款采用自身模块规范编写的前端 UI 框架，遵循原生 HTML/CSS/JS 的书写与组织形式，门槛极低，拿来即用。其外在极简，却又不失饱满的内在，体积轻盈，组件丰盈，从核心代码到 API 的每一处细节都经过精心雕琢，非常适合界面的快速开发。layui  首个版本发布于 2016 年金秋，她区别于那些基于 MVVM 底层的 UI 框架，却并非逆道而行，而是信奉返璞归真之道。准确地说，她更多是为服务端程序员量身定做，你无需涉足各种前端工具的复杂配置，只需面对浏览器本身，让一切你所需要的元素与交互，从这里信手拈来。
+                </blockquote>
+            </div>
+        </div>
+
         <div class="row">
             <div class="col-xs-8 col-xs-offset-2">
-                <h2><i class="fa fa-spinner fa-pulse"></i> 资源管理</h2>
+                <h2><i class="fa fa-globe fa-pulse"></i> 资源管理</h2>
             </div>
         </div>
         <hr>
