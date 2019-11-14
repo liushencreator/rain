@@ -5,7 +5,7 @@
     <meta content="black" name="apple-mobile-web-app-status-bar-style"/>
     <meta content="telephone=no" name="format-detection"/>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>收藏</title>
+    <title>网链</title>
     <meta name="keywords" content=""/>
     <meta name="description" content=""/>
     <script src="www.pconline.com.cn/_hux_/online/default/index.js"></script>
@@ -15,14 +15,47 @@
     <link href="${base}/css/common.css" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" href="${base}/css/layer/sub_css/layui.css">
     <style type="text/css">
+        
+        .main{
+            padding: 0px 2px 0px;
+        }
+        
         .network_link_item{
-            margin: 5px 2px 5px 2px;
+            padding: 0px 5px 0px 5px;
+            margin: 10px 0px 10px 0px;
+            border-style: solid; 
+            border-width: 1px 1px 1px 1px;
+            border-color: rgba(0, 162, 162, 0.20);
         }
         .network_link_item_title{
-
+            padding: 15px 5px 15px 5px;
+            margin: 2px 0px 2px 0px;
+            font-size: 16px;
+            font-weight: bold;
+            color: rgba(0, 162, 162, 0.86);
+            background-color: rgba(227, 234, 234, 0.15)
         }
         .network_link_item_content{
+            position: relative;
             margin-top: 10px;
+            height: 185px;
+        }
+        
+        .iframe-linkurl {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+        
+        .mask-content {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0 , 0.02);
+            z-index: 2;
         }
     </style>
 </head>
@@ -70,16 +103,20 @@
     <!-- 列表数据 -->
     <div class="main" id="list_flow">
         <div class="network_link_item">
-            <div class="network_link_item_title">这是标题</div>
-            <div class="network_link_item_content">
-                <iframe width="100%" height="185" src="http://www.baidu.com" frameborder="0" allowfullscreen id="iFrame"></iframe>
+            <div class="network_link_item_title">百度标题标题标题标题标题标题标题标题</div>
+            <div class="network_link_item_content" data-val="https://baidu.com">
+                <iframe width="100%" height="185" scrolling="no" src="https://baidu.com" frameborder="0" allowfullscreen class="iframe-linkurl"></iframe>
+                <div class="mask-content"></div>
             </div>
+            <hr>
         </div>
         <div class="network_link_item">
-            <div class="network_link_item_title">这是标题</div>
-            <div class="network_link_item_content">
-                <iframe width="100%" height="185" src="http://taobao.com" frameborder="0" allowfullscreen></iframe>
+            <div class="network_link_item_title">淘宝标题标题标题标题标题标题标题标题</div>
+            <div class="network_link_item_content" data-val="https://taobao.com">
+                <iframe width="100%" height="185" scrolling="no" src="https://taobao.com" frameborder="0" allowfullscreen class="iframe-linkurl"></iframe>
+                <div class="mask-content"></div>
             </div>
+            <hr>
         </div>
     </div>
 
@@ -107,41 +144,12 @@
             }
         })();
 
-        var IframeOnClick = {
-            resolution: 200,
-            iframes: [],
-            interval: null,
-            Iframe: function() {
-                this.element = arguments[0];
-                this.cb = arguments[1];
-                this.hasTracked = false;
-            },
-            track: function(element, cb) {
-                this.iframes.push(new this.Iframe(element, cb));
-                if (!this.interval) {
-                    var _this = this;
-                    this.interval = setInterval(function() { _this.checkClick(); }, this.resolution);
-                }
-            },
-            checkClick: function() {
-                if (document.activeElement) {
-                    var activeElement = document.activeElement;
-                    for (var i in this.iframes) {
-                        if (activeElement === this.iframes[i].element) { // user is in this Iframe
-                            if (this.iframes[i].hasTracked == false) {
-                                this.iframes[i].cb.apply(window, []);
-                                this.iframes[i].hasTracked = true;
-                            }
-                        } else {
-                            this.iframes[i].hasTracked = false;
-                        }
-                    }
-                }
-            }
-        };
-
-        IframeOnClick.track(document.getElementById("iFrame"), function() {
-            location.href="${base}/web/resource/index.html";
+        /**
+         * 外链的点击事件
+         */
+        $(".mask-content").click(function(){
+            var dataVal = $(this).parent(".network_link_item_content").attr("data-val");
+            location.href = dataVal;
         });
 
     </script>
