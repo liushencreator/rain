@@ -16,6 +16,7 @@
     <meta content="提供最新最专业的资讯" name="description"/>
     <link rel="apple-touch-icon-precomposed" href="../www1.xiumei.com.cn/wap/2013/cms/img/lady_logo.png"/>
     <link href="${base}/css/common.css" rel="stylesheet" type="text/css"/>
+    <link href="${base}/css/customer.css" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" href="${base}/css/layer/sub_css/layui.css">
     <script type="text/javascript" src="${base}/js/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="${base}/js/layer/layui.js"></script>
@@ -106,13 +107,13 @@
             margin-left: 5px;
         }
 
-        #search-panel{
-            margin: 10px 2px 2px 2px;
-        }
+        /*#search-panel{*/
+        /*    margin: 10px 2px 2px 2px;*/
+        /*}*/
         
-        #search-btn{
-            background-color: rgba(0, 162, 162, 0.88);
-        }
+        /*#search-btn{*/
+        /*    background-color: rgba(0, 162, 162, 0.88);*/
+        /*}*/
     </style>
 </head>
 
@@ -170,7 +171,7 @@
             done: function(page, next){ //到达临界点（默认滚动触发），触发下一页
                 //以jQuery的Ajax请求为例，请求下一页数据（注意：page是从2开始返回）
                 $.ajax({
-                    url:"${base}/web/resource/list_favourite.jhtml",
+                    url:"${base}/web/resource/list_favourite.html",
                     type:"post",
                     dataType:"json",
                     data:{
@@ -180,22 +181,8 @@
                     },
                     success:function(result){
                         if (result.core == 100){
-                            var single_nodes = "";
-                            $.each(result.map.list, function(i,item){
-                                var single_node = '<a href="${base}/web/resource/resourceDetail.html?id=' + item.id + '">' +
-                                    '<dl>' +
-                                    '<dt><img alt="" src="' + item.videoImageUrl + '"></dt>' +
-                                    '<dd>' +
-                                    '<h2>' + item.videoName + '</h2>' +
-                                    '<time>' + item.createTime + '</time>' +
-                                    '<p>' + item.videoDescribe + '</p>' +
-                                    '</dd>' +
-                                    '</dl>' +
-                                    '</a>';
-                                single_nodes += single_node;
-                            });
+                            buildNode(result);
                             next('', page < result.map.totalPages);
-                            $("#list_flow section").append(single_nodes);
                         }
                     }
                 });
@@ -227,28 +214,36 @@
                         },
                         success:function(result){
                             if (result.core == 100){
-                                var single_nodes = "";
-                                $.each(result.map.list, function(i,item){
-                                    var single_node = '<a href="${base}/web/resource/resourceDetail.html?id=' + item.id + '">' +
-                                        '<dl>' +
-                                        '<dt><img alt="" src="' + item.videoImageUrl + '"></dt>' +
-                                        '<dd>' +
-                                        '<h2>' + item.videoName + '</h2>' +
-                                        '<time>' + item.createTime + '</time>' +
-                                        '<p>' + item.videoDescribe + '</p>' +
-                                        '</dd>' +
-                                        '</dl>' +
-                                        '</a>';
-                                    single_nodes += single_node;
-                                });
+                                buildNode(result);
                                 next('', page < result.map.totalPages);
-                                $("#list_flow section").append(single_nodes);
                             }
                         }
                     });
                 }
             });
         });
+    }
+
+    /**
+     * 解析返回结果 node
+     * @param result
+     */
+    function buildNode(result) {
+        var single_nodes = "";
+        $.each(result.map.list, function(i,item){
+            var single_node = '<a href="${base}/web/resource/resourceDetail.html?id=' + item.id + '">' +
+                '<dl>' +
+                '<dt><img alt="" src="' + item.videoImageUrl + '"></dt>' +
+                '<dd>' +
+                '<h2>' + item.videoName + '</h2>' +
+                '<time>' + item.createTime + '</time>' +
+                '<p>' + item.videoDescribe + '</p>' +
+                '</dd>' +
+                '</dl>' +
+                '</a>';
+            single_nodes += single_node;
+        });
+        $("#list_flow section").append(single_nodes);
     }
 
 </script>

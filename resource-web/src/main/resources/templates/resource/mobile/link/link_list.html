@@ -13,6 +13,7 @@
     <script type="text/javascript" src="${base}/js/layer/layui.js"></script>
     <link href="${base}/css/lady.css" rel="stylesheet" type="text/css"/>
     <link href="${base}/css/common.css" rel="stylesheet" type="text/css"/>
+    <link href="${base}/css/customer.css" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" href="${base}/css/layer/sub_css/layui.css">
     <style type="text/css">
         
@@ -28,7 +29,7 @@
             border-color: rgba(0, 162, 162, 0.20);
         }
         .network_link_item_title{
-            padding: 15px 5px 15px 5px;
+            padding: 10px 5px 10px 5px;
             margin: 2px 0px 2px 0px;
             font-size: 16px;
             font-weight: bold;
@@ -100,24 +101,19 @@
         var cpro_id = "u1628070";
     </script>
 
+    <!--搜索框-->
+    <div class="layui-row" id="search-panel">
+        <div class="layui-col-xs9">
+            <input type="text" name="searchKeyWord" class="layui-input" placeholder="输入关键词">
+        </div>
+        <div class="layui-col-xs3">
+            <button type="button" class="layui-btn" style="width: 98%;" id="search-btn" onclick="search_keyword_data()">搜索一下</button>
+        </div>
+    </div>
+
     <!-- 列表数据 -->
     <div class="main" id="list_flow">
-        <div class="network_link_item">
-            <div class="network_link_item_title">百度标题标题标题标题标题标题标题标题</div>
-            <div class="network_link_item_content" data-val="https://baidu.com">
-                <iframe width="100%" height="185" scrolling="no" src="https://baidu.com" frameborder="0" allowfullscreen class="iframe-linkurl"></iframe>
-                <div class="mask-content"></div>
-            </div>
-            <hr>
-        </div>
-        <div class="network_link_item">
-            <div class="network_link_item_title">淘宝标题标题标题标题标题标题标题标题</div>
-            <div class="network_link_item_content" data-val="https://taobao.com">
-                <iframe width="100%" height="185" scrolling="no" src="https://taobao.com" frameborder="0" allowfullscreen class="iframe-linkurl"></iframe>
-                <div class="mask-content"></div>
-            </div>
-            <hr>
-        </div>
+        <div></div>
     </div>
 
     <!-- 公共底部 -->
@@ -147,10 +143,95 @@
         /**
          * 外链的点击事件
          */
-        $(".mask-content").click(function(){
+        $("body").on("click", ".mask-content", function(){
             var dataVal = $(this).parent(".network_link_item_content").attr("data-val");
             location.href = dataVal;
         });
+
+        /**
+         * 流失加载列表
+         */
+        layui.use('flow', function(){
+            var $ = layui.jquery;
+            var flow = layui.flow;
+            flow.load({
+                elem: '#list_flow', //指定列表容器
+                isAuto:true,
+                done: function(page, next){ //到达临界点（默认滚动触发），触发下一页
+                    //以jQuery的Ajax请求为例，请求下一页数据（注意：page是从2开始返回）
+                    $.ajax({
+                        url:"${base}/web/network_link/list.html",
+                        type:"post",
+                        dataType:"json",
+                        data:{
+                            pageNumber: page,
+                            pageSize: 10,
+                            searchKeyWord: $("input[name='searchKeyWord']").val()
+                        },
+                        success:function(result){
+                            if (result.core == 100){
+                                buildNode(result);
+                                next('', page < result.map.totalPages);
+                            }
+                        }
+                    });
+                }
+            });
+        });
+
+        /**
+         * 解析返回结果 node
+         * @param result
+         */
+        function buildNode(result) {
+            var single_nodes = "";
+            $.each(result.map.list, function(i,item){
+                var single_node = '<div class="network_link_item">' +
+                    '<div class="network_link_item_title">' + item.linkName + '</div>' +
+                    '<div class="network_link_item_content" data-val="' + item.linkPath + '">' +
+                    '<iframe width="100%" height="185" scrolling="no" src="' + item.linkPath + '" frameborder="0" allowfullscreen class="iframe-linkurl"></iframe>' +
+                    '<div class="mask-content"></div>' +
+                    '</div>' +
+                    '</div>' +
+                    '<hr>';
+                single_nodes += single_node;
+            });
+            $("#list_flow div").append(single_nodes);
+        }
+
+        function search_keyword_data() {
+            var searchKeyWord = $("input[name='searchKeyWord']").val();
+            $("#list_flow").empty();
+            $("#list_flow").append("<div></div>");
+
+            layui.use('flow', function(){
+                var $ = layui.jquery;
+                var flow = layui.flow;
+                flow.load({
+                    elem: '#list_flow', //指定列表容器
+                    isAuto:true,
+                    done: function(page, next){ //到达临界点（默认滚动触发），触发下一页
+                        //以jQuery的Ajax请求为例，请求下一页数据（注意：page是从2开始返回）
+                        $.ajax({
+                            url:"${base}/web/network_link/list.html",
+                            type:"post",
+                            dataType:"json",
+                            data:{
+                                pageNumber: page,
+                                pageSize: 10,
+                                searchKeyWord: $("input[name='searchKeyWord']").val()
+                            },
+                            success:function(result){
+                                if (result.core == 100){
+                                    buildNode(result);
+                                    next('', page < result.map.totalPages);
+                                }
+                            }
+                        });
+                    }
+                });
+            });
+        }
 
     </script>
 </div>

@@ -63,6 +63,10 @@
 		<if test="updateTime != null">
 			AND update_time = #{updateTime,jdbcType=TIMESTAMP}
 		</if>
+		<if test="keyWord != null and keyWord != ''">
+			AND link_name like concat('%', #{keyWord, jdbcType=VARCHAR}, '%')
+			OR link_describe like concat('%', #{keyWord, jdbcType=VARCHAR}, '%')
+		</if>
 	</sql>
 	
 	<!-- 设置语句 -->
@@ -174,6 +178,10 @@
 		<where> 1=1
 			<include refid="where_column" />
 		</where>
+		<if test="orderByRule != null and orderByRule != ''">
+			ORDER BY ${orderByRule}
+		</if>
+		limit #{pageBegin}, #{pageSize}
 	</select>
 
 	<!-- insertSelective -->
