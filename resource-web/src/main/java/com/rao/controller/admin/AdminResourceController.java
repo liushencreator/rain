@@ -1,4 +1,4 @@
-package com.rao.controller.resource;
+package com.rao.controller.admin;
 
 import com.rao.config.LocalOssConfig;
 import com.rao.util.common.Paramap;

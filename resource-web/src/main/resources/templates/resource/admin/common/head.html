@@ -12,29 +12,3 @@
         </ul>
     </div>
 </div>
-
-<script type="text/javascript">
-    $.ajax({
-        url:"${base}/admin/menu/menu_tree.html",
-        type:"post",
-        dataType:"json",
-        success:function(result){
-            var ul_node = $(".site-tree .layui-tree");
-            var menu_tree = result.map.menu_tree;
-            $.each(menu_tree, function(index, item){
-                ul_node.append('<h2 class="tree-title">' + item.menuName + '</h2>');
-                $.each(item.menuVOList, function(index, subItem){
-                    var li_css = "";
-                    if(subItem.id == menuId){
-                        li_css = "layui-this";
-                    }
-                    ul_node.append('<li class="site-tree-noicon ' + li_css + '">' +
-                        '<a href="${base}' + subItem.linkPath + '?menuId=' + subItem.id + '">' +
-                        '<i class="' + subItem.menulogo + '" style="top: 3px;"></i><cite>' + subItem.menuName + '</cite>' +
-                        '</a>' +
-                        '</li>');
-                });
-            })
-        }
-    });
-</script>

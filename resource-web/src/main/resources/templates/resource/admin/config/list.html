@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>后台首页</title>
+    <title>本地映射地址配置</title>
     
     <!-- js -->
     <#include "/resource/admin/common/script.html">
@@ -29,55 +29,15 @@
     <#include "/resource/admin/common/menu_tree.html">
     
     <div class="site-content">
-        <h1 class="site-h1">开始使用 - 雨成帘</h1>
-        <div class="layui-carousel" id="test1" lay-anim="" lay-indicator="inside" lay-arrow="always" style="width: 100%; height: 280px;">
-            <div carousel-item="">
-                <div class="layui-this"><img src="${base}/images/pc_bg_04.jpg" alt=""></div>
-                <div class=""><img src="${base}/images/pc_bg_02.jpg" alt=""></div>
-            </div>
-        </div>
-        <div class="site-title">
-            <fieldset><legend><a name="define">定义模块</a></legend></fieldset>
-        </div>
-        <blockquote class="layui-elem-quote">
-            <p>如果我有一千万，我就能买一栋房子。</p>
-            <p>我有一千万吗？没有。</p>
-            <p>所以我仍然没有房子。</p>
-            <p>如果我有翅膀，我就能飞。</p>
-            <p>我有翅膀吗？没有。</p>
-            <p>所以我也没办法飞。</p>
-            <p>如果把整个太平洋的水倒出，也浇不熄我对你爱情的火。</p>
-            <p>整个太平洋的水全部倒得出吗？不行。</p>
-            <p>所以我并不爱你。</p>
-        </blockquote>
-        <blockquote class="layui-elem-quote">
-            <p>如果我还有一天寿命，那天我要做你女友。</p>
-            <p>我还有一天的命吗？……没有。</p>
-            <p>所以，很可惜。我今生仍然不是你的女友。</p>
-            <p>如果我有翅膀，我要从天堂飞下来看你。</p>
-            <p>我有翅膀吗？……没有。</p>
-            <p>所以，很遗憾。我从此无法再看到你。</p>
-            <p>如果把整个浴缸的水倒出，也浇不熄我对你爱情的火。</p>
-            <p>整个浴缸的水全部倒得出吗？……可以。</p>
-            <p>所以，是的。我爱你……</p>
-        </blockquote>
+        
     </div>
 </div>
+
+<!-- footer -->
+<#include "/resource/admin/common/footer.html">
+
 </body>
 <script type="text/javascript">
-    
-    layui.use('carousel', function(){
-        var carousel = layui.carousel;
-        //建造实例
-        carousel.render({
-            elem: '#test1'
-            ,width: '100%' //设置容器宽度
-            ,arrow: 'always' //始终显示箭头
-            //,anim: 'updown' //切换动画方式
-        });
-    });
-    
-    var menuId = "11";
     
 </script>
 </html>

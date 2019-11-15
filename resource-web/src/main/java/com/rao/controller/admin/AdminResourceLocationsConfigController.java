@@ -1,4 +1,4 @@
-package com.rao.controller.resource;
+package com.rao.controller.admin;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

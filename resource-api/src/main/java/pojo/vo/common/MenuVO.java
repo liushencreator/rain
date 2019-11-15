@@ -56,19 +56,19 @@ public class MenuVO {
         MenuVO firstSubOne = MenuVO.builder()
                 .id("11")
                 .menuName("首页")
-                .linkPath("/admin/resource/index.html")
+                .linkPath("/page/resource/admin/index.html")
                 .menulogo("layui-icon layui-icon-home")
                 .build();
         MenuVO firstSubTwo = MenuVO.builder()
                 .id("12")
                 .menuName("本地映射地址配置")
-                .linkPath("/admin/resource_locations_config/config_list.html")
+                .linkPath("/page/resource/admin/config/list.html")
                 .menulogo("layui-icon layui-icon-set")
                 .build();
         MenuVO firstSubThree = MenuVO.builder()
                 .id("13")
                 .menuName("服务列表")
-                .linkPath("/admin/resource/serviceList.html")
+                .linkPath("/page/resource/admin/server/list.html")
                 .menulogo("layui-icon layui-icon-home")
                 .menulogo("layui-icon layui-icon-senior")
                 .build();
@@ -78,7 +78,32 @@ public class MenuVO {
         firstSubList.add(firstSubThree);
         firstParent.setMenuVOList(firstSubList);
 
+
+        MenuVO secondParent = MenuVO.builder()
+                .id("2")
+                .menuName("菜单管理")
+                .linkPath("#")
+                .build();
+
+        List<MenuVO> secondSubList = new ArrayList<>();
+        MenuVO secondSubOne = MenuVO.builder()
+                .id("21")
+                .menuName("菜单列表")
+                .linkPath("/page/resource/admin/index.html")
+                .menulogo("layui-icon layui-icon-home")
+                .build();
+        MenuVO secondSubTwo = MenuVO.builder()
+                .id("22")
+                .menuName("角色配置")
+                .linkPath("/page/resource/admin/config/list.html")
+                .menulogo("layui-icon layui-icon-set")
+                .build();
+        secondSubList.add(secondSubOne);
+        secondSubList.add(secondSubTwo);
+        secondParent.setMenuVOList(secondSubList);
+        
         categoryVOList.add(firstParent);
+        categoryVOList.add(secondParent);
         return categoryVOList;
     }
 
