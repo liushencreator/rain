@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>资源列表</title>
+    <script type="text/javascript" src="${base}/js/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="${base}/js/bootstrap.js"></script>
+    <script type="text/javascript" src="${base}/js/layer/layui.js"></script>
+    <script type="text/javascript" src="${base}/js/layer/layer.js"></script>
+    <script type="text/javascript" src="${base}/js/customer.js"></script>
+
+    <link rel="stylesheet" href="${base}/css/bootstrap.min.css">
+    <link rel="stylesheet" href="${base}/css/font-awesome.min.css">
+    <link rel="stylesheet" href="${base}/css/layer/sub_css/layui.css">
+</head>
+<body>
+    <br>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-2 col-xs-offset-1">
+                <h3><button type="button" onclick="javascript:history.back(-1);" class="btn btn-sm btn-info">返回上一页</button></h3>
+            </div>
+            <div class="col-xs-6 col-xs-offset-1">
+                <h2><i class="fa fa-futbol-o fa-spinner fa-pulse"></i> 资源列表管理</h2>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-sm-10 col-sm-offset-1">
+                <div class="ibox float-e-margins">
+                    <form id="listForm" action="list.jhtml" method="post">
+                        <div class="ibox-title">
+                            <div class="ibox-tools"></div>
+                        </div>
+                        <div class="ibox-content">
+                            <div class="dataTables_wrapper form-inline">
+                                <table class="table table-striped table-hover dataTables-example dataTable">
+                                    <tr>
+                                        <th style="width: 15%;">展示图片</th>
+                                        <th style="width: 80%;">资源信息</th>
+                                        <th style="width: 5%;"></th>
+                                    </tr>
+                                    <#list resourceList as resource>
+                                        <tr>
+                                            <td style="vertical-align: middle;">
+                                                <a href="${base}/web/resource/resourceDetail.html?id=${resource.id?string(0)}" target="_blank"><img src="${resource.videoImageUrl}" alt="" width="100%;"></a>
+                                            </td>
+                                            <td>
+                                                <input type="text" name="videoName" value="${resource.videoName}" class="form-control videoName" size="100%;" placeholder="资源名称">
+                                                <br>
+                                                <br>
+                                                <button type="button" class="layui-btn myfiles"><i class="layui-icon">&#xe67c;</i>上传图片</button>
+                                                <input type="hidden" name="videoImage" class="videoImage" value="${resource.videoImage}">
+                                                <br>
+                                                <br>
+                                                <textarea class="form-control videoDescribe" name="videoDescribe" rows="10" style="width: 100%;"
+                                                          placeholder="资源描述信息">${resource.videoDescribe}</textarea>
+                                            </td>
+                                            <td style="vertical-align: bottom;">
+                                                <button type="button" class="btn btn-md btn-warning" onclick="updateResource(this, '${resource.id?string(0)}')">确认修改</button>
+                                            </td>
+                                        </tr>
+                                    </#list>
+                                </table>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+
+    layui.use('upload', function(){
+        var upload = layui.upload;
+        var uploadInst = upload.render({
+            elem: '.myfiles' //绑定元素
+            ,field:"file"
+            ,url: '${base}/resource/manager/file_upload.html' //上传接口
+            ,done: function(res, index, upload){
+                console.log(res);
+                //上传完毕回调
+                var item = this.item;
+                $(item).nextAll(".videoImage").val(res.map.uploadInfo.filePath);
+                $(item).parent("td").prev("td").children("a").children("img").attr("src", res.map.uploadInfo.fileUrl);
+                layer.msg(result.message,{icon:1})
+            }
+            ,error: function(){}
+        });
+    });
+
+
+    $(function(){
+        $(".videoDescribe").each(function(index, item){
+            var videoDescribe = $(item).text();
+            videoDescribe = videoDescribe.replace(/<br\/>/g,'\r\n');
+            $(item).text(videoDescribe);
+            $(item).val(videoDescribe);
+        });
+    });
+
+    function updateResource(node, id){
+        var node_td = $(node).parent("td").prev("td");
+        var videoName = node_td.children("[name='videoName']").val();
+        var videoImage = node_td.children(".videoImage").val();
+        var videoDescribe = node_td.children("[name='videoDescribe']").val();
+
+        console.log(videoDescribe);
+
+        videoDescribe = videoDescribe.replace(/\r\n/g, '<br/>').replace(/\n/g, '<br/>').replace(/\s/g, ' ');
+
+        console.log(videoDescribe);
+
+        $.ajax({
+            url: "${base}/admin/resource/update_resource.html",
+            type: "post",
+            dataType: "json",
+            data: {
+                "id": id,
+                "videoName": videoName,
+                "videoImage": videoImage,
+                "videoDescribe": videoDescribe
+            },
+            success: function(result){
+                console.log(result);
+                layer.msg(result.message,{icon:1})
+            }
+        });
+
+
+
+    }
+
+</script>
+</html>

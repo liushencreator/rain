@@ -11,11 +11,14 @@ spring:
       use-suffix-pattern: true
     view:
       suffix: .html
+    static-path-pattern: /**
 
   freemarker:
     suffix: .html
     cache: false
     request-context-attribute: request
+    settings:
+      classic_compatible: true
 
   datasource:
     username: root
@@ -23,8 +26,12 @@ spring:
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://localhost:3306/local_resource_data
 
+  resources:
+    static-locations: classpath:/META-INF/resources/,classpath:/resources/, classpath:/static/, classpath:/public/
+
 mybatis:
   mapper-locations: classpath:mapper/**/*.xml
   type-aliases-package: pojo.entity
   configuration:
     map-underscore-to-camel-case: true
+
