@@ -22,7 +22,7 @@ public class AdminMenuController {
     @PostMapping("/menu_tree")
     public ResultMessage menuTree(){
         
-        return ResultMessage.success().add("menu_tree", MenuVO.buildTree());
+        return ResultMessage.success().add("menu_tree", null);
     }
     
 }
