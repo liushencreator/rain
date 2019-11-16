@@ -1,12 +1,12 @@
 package com.rao.service.impl.resource;
 
 import com.rao.dao.resource.ResourceNetworkLinkDao;
-import com.rao.util.common.PageParamsUtil;
-import com.rao.util.common.Paramap;
 import org.springframework.stereotype.Service;
 import pojo.entity.resource.ResourceNetworkLink;
 import pojo.vo.resource.NetworkLinkVO;
 import service.resource.ResourceNetworkLinkService;
+import util.common.PageParamsUtil;
+import util.common.Paramap;
 
 import javax.annotation.Resource;
 import java.util.List;

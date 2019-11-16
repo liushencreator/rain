@@ -1,14 +1,11 @@
-package com.rao.util.common;
-
-import org.springframework.beans.factory.annotation.Value;
+package util.common;
 
 /**
  * Created by Lenovo on 2018/9/10.
  */
 public class TwiterIdUtil {
 
-    @Value("1")
-    private static int node;
+    private static int node = 1;
     public static final int NODE_SHIFT = 10;
     public static final int SEQ_SHIFT = 12;
 

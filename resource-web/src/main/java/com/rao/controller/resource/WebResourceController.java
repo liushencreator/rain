@@ -1,7 +1,5 @@
 package com.rao.controller.resource;
 
-import com.rao.util.common.CheckAgentUtil;
-import com.rao.util.common.Paramap;
 import com.rao.util.file.DownLoadUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -15,6 +13,8 @@ import service.resource.ResourceLocationsConfigService;
 import service.resource.ResourceVideoService;
 import service.resource.ServicePathService;
 import service.resource.SourceCollectionsService;
+import util.common.CheckAgentUtil;
+import util.common.Paramap;
 import util.result.ResultMessage;
 
 import javax.annotation.Resource;

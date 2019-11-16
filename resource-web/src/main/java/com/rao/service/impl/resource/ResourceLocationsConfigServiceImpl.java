@@ -1,12 +1,12 @@
 package com.rao.service.impl.resource;
 
 import com.rao.dao.resource.ResourceLocationsConfigDao;
-import com.rao.util.common.Paramap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import pojo.entity.resource.ResourceLocationsConfig;
 import service.resource.ResourceLocationsConfigService;
+import util.common.Paramap;
 
 import java.util.Date;
 import java.util.List;

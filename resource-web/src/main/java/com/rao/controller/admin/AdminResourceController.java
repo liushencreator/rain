@@ -1,7 +1,6 @@
 package com.rao.controller.admin;
 
 import com.rao.config.LocalOssConfig;
-import com.rao.util.common.Paramap;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,6 +14,7 @@ import pojo.vo.resource.ResourceVideoVO;
 import service.resource.ResourceLocationsConfigService;
 import service.resource.ResourceVideoService;
 import service.resource.ServicePathService;
+import util.common.Paramap;
 import util.result.ResultMessage;
 
 import java.util.List;

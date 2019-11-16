@@ -1,4 +1,4 @@
-package com.rao.util.common;
+package util.common;
 
 /**
  * 分页参数工具类
