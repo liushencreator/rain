@@ -1,6 +1,9 @@
 package service.system;
 
-import pojo.vo.common.MenuVO;
+import pojo.entity.system.RainSystemMenu;
+import pojo.vo.system.FirstLevelMenuVO;
+import pojo.vo.system.MenuTreeVO;
+import pojo.vo.system.MenuVO;
 
 import java.util.List;
 
@@ -17,4 +20,22 @@ public interface RainSystemMenuService {
      */
     List<MenuVO> menuTree();
 
+    /**
+     * 菜单树
+     * @return
+     */
+    List<MenuTreeVO> menuTreeConfig();
+
+    /**
+     * 根据 id 获取菜单配置
+     * @param id
+     * @return
+     */
+    RainSystemMenu getMenuConfig(Long id);
+
+    /**
+     * 获取一级菜单列表
+     * @return
+     */
+    List<FirstLevelMenuVO> listFirstLevelMenu();
 }

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>菜单配置</title>
+
+        <!-- js -->
+        <#include "/admin/common/script.html">
+        <!-- css -->
+        <#include "/admin/common/style.html">
+
+        <style rel="stylesheet" type="text/css">
+            .layui-tree-entry{
+                height: 30px;
+            }
+            .layui-tree-entry:hover{
+                background-color: rgba(255, 204, 192, 0.17);
+            }
+
+            #menu_tree_config{
+                float: left;
+                width: 30%;
+            }
+            #menu_config{
+                float: right;
+                width: 70%;
+                display: none;
+            }
+            #menu_icon_i{
+                margin: 0 20px;
+            }
+            #save_menu_btn{
+                float: right;
+            }
+        </style>
+    </head>
+    <body>
+
+        <!-- head -->
+        <#include "/admin/common/head.html">
+
+        <div class="layui-main site-inline">
+
+            <!-- 左侧菜单栏 -->
+            <#include "/admin/common/menu_tree.html">
+
+            <div class="site-content">
+                <div id="menu_tree_config"></div>
+                <div id="menu_config">
+                    <form class="layui-form layui-form-pane" action="">
+                        <input type="hidden" name="id">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">菜单名称</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="menuName" required  lay-verify="required" placeholder="请输入菜单名称" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">菜单链接</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="menuUrl" required lay-verify="required" placeholder="请输入菜单链接" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">上级菜单</label>
+                            <div class="layui-input-block">
+                                <select name="parentId" id="parentId" lay-verify="required">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">菜单图标</label>
+                            <div class="layui-input-inline">
+                                <input type="hidden" name="menuIcon" placeholder="请输入菜单图标" autocomplete="off" class="layui-input">
+                                <div>
+                                    <i id="menu_icon_i"></i>
+                                    <button type="button" class="layui-btn layui-btn-normal">设置图标</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">权重</label>
+                            <div class="layui-input-block">
+                                <input type="number" name="sort" required  lay-verify="required" placeholder="请输入菜单权重" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">状态</label>
+                            <div class="layui-input-block">
+                                <input type="checkbox" name="status" lay-skin="switch" lay-text="启用|禁用" value="1" checked>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-input-block">
+                                <button class="layui-btn layui-btn-danger" lay-submit lay-filter="saveMenu" id="save_menu_btn"><i class="layui-icon">&#xe608;</i> 保存菜单配置</button>
+                            </div>
+                        </div>
+                    </form>
+                    <hr>
+                    <div class="tip-text site-text layui-text">
+                        <div class="tip-icon"><i class="layui-icon layui-icon-tips"></i> </div>
+                        <div class="tip-content">
+                            1. 系统支持两级菜单，一级菜单的上级菜单默认为无，菜单链接设置为 # 符号，菜单链接不必设置，否则会很难看哦<br>
+                            2. 菜单链接请以 / 开头，否则链接跳转失败哦，菜单链接请和管理员确认后进行配置，避免发生不必要的错误<br>
+                            3. 权重是菜单显示排序值，如你所见，权重越小显示越前面呢
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- footer -->
+        <#include "/admin/common/footer.html">
+
+    </body>
+    <script type="text/javascript">
+
+        var form = layui.form;
+        layui.use('form', function(){
+            form.render();
+
+            //监听提交
+            form.on('submit(saveMenu)', function(data){
+                alert(JSON.stringify(data.field))
+                return false;
+            });
+        });
+
+        layui.use('tree', function () {
+            var tree = layui.tree;
+            $.ajax({
+                url: "${base}/admin/menu/menu_tree_config.html",
+                type: "post",
+                dataType: "json",
+                success: function (result) {
+                    tree.render({
+                        elem: '#menu_tree_config',  //绑定元素
+                        // edit: ['add', 'update', 'del'],
+                        showLine: false,
+                        // onlyIconControl: true,
+                        accordion: true,
+                        data: result.map.menu_tree,
+                        click: function(obj){
+                            show_menu_config(obj.data.id);
+                        }
+                    });
+                }
+            });
+        });
+
+        /**
+         * 显示菜单配置
+         * @param id
+         */
+        function show_menu_config(id){
+            $("#menu_config").show();
+            $("#menu_icon_i").removeClass();
+
+            // 渲染数据
+            var data = {'id': id};
+            $.when(post_args_request("${base}/admin/menu/get_menu_config.html", data)).done(function(result){
+                var menu_config = result.map.menu_config;
+
+                $("input[name='id']").val(menu_config.id);
+                $("input[name='menuName']").val(menu_config.menuName);
+                $("input[name='menuUrl']").val(menu_config.menuUrl);
+                $("#parentId").val(menu_config.parentId);
+                $("input[name='sort']").val(menu_config.sort);
+                $("#menu_icon_i").addClass(menu_config.menuIcon);
+                form.render();
+            });
+        }
+
+        /**
+         * 加载一级菜单
+         */
+        $(function(){
+            $.when(post_request("${base}/admin/menu/first_level_menu.html")).done(function(result){
+                var option_nodes = '<option value="0">无</option>';
+                $.each(result.map.first_level_menu, function(index, item){
+                    option_nodes += '<option value="' + item.id + '">' + item.menuName + '</option>';
+                });
+                $("#parentId").append(option_nodes);
+                form.render();
+            });
+        });
+
+
+
+    </script>
+</html>

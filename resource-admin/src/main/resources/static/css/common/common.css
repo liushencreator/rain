@@ -1,0 +1,29 @@
+.tree-title {
+    cursor: pointer;
+}
+.component-title{
+    font-size: 22px;
+    letter-spacing: 3px;
+    width: 400px;
+    color: rgba(0, 162, 162, 0.88);
+}
+.tree-title{
+    line-height: 36px;
+    border-left: 5px solid #009E94;
+    margin: 15px 0 5px;
+    padding: 0 10px;
+    background-color: #f2f2f2;
+}
+
+.tip-text{
+    font-size: 13px;
+    color: #7e7e7e;
+}
+.tip-icon{
+    float: left;
+}
+.tip-content{
+    float: left;
+    width: 85%;
+    margin-left: 5px;
+}

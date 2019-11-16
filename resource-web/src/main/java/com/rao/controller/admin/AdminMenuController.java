@@ -3,7 +3,6 @@ package com.rao.controller.admin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import pojo.vo.common.MenuVO;
 import util.result.ResultMessage;
 
 /**
