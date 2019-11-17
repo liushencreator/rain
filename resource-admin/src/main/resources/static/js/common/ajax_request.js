@@ -7,7 +7,7 @@
 function post_args_request(url, data){
     var defer = $.Deferred();
     $.ajax({
-        url: url,
+        url: base + url,
         type: "post",
         dataType: "json",
         data: data,
@@ -27,7 +27,7 @@ function post_args_request(url, data){
 function post_request(url){
     var defer = $.Deferred();
     $.ajax({
-        url: url,
+        url: base + url,
         type: "post",
         dataType: "json",
         success: function (result) {
