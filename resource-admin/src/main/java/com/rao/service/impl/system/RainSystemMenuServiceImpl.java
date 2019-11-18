@@ -104,7 +104,7 @@ public class RainSystemMenuServiceImpl implements RainSystemMenuService {
         }else{
             // 修改
             rainSystemMenuDao.update(systemMenu);
-        }        
+        }
     }
 
 }
