@@ -1,9 +1,9 @@
 package com.rao.controller.system;
 
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import com.rao.annotation.BeanValid;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.*;
+import pojo.dto.system.MenuConfigDTO;
 import pojo.entity.system.RainSystemMenu;
 import pojo.vo.system.FirstLevelMenuVO;
 import pojo.vo.system.MenuTreeVO;
@@ -19,6 +19,7 @@ import java.util.List;
  * @author raojing
  * @date 2019/11/15 12:37
  */
+@Slf4j
 @RestController
 @RequestMapping("/admin/menu")
 public class AdminMenuController {
@@ -65,6 +66,17 @@ public class AdminMenuController {
     public ResultMessage firstLevelMenu(){
         List<FirstLevelMenuVO> firstLevelMenuVOList = rainSystemMenuService.listFirstLevelMenu();
         return ResultMessage.success().add("first_level_menu", firstLevelMenuVOList);
+    }
+
+    /**
+     * 保存菜单配置（修改或新增）
+     * @param menuConfigDTO
+     * @return
+     */
+    @PostMapping("/save_config")
+    public ResultMessage saveConfig(@BeanValid @RequestBody MenuConfigDTO menuConfigDTO){
+        log.info("参数:" + menuConfigDTO);
+        return ResultMessage.success();
     }
 
 

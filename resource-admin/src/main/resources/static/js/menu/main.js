@@ -5,7 +5,10 @@ layui.use('form', function(){
 
     //监听提交
     form.on('submit(saveMenu)', function(data){
-        alert(JSON.stringify(data.field))
+        var field_json = JSON.stringify(data.field);
+        console.log("json :" + field_json);
+        $.when(post_json_request("/admin/menu/save_config.html", field_json)).done(function(result){
+        });
         return false;
     });
 });
