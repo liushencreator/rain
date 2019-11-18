@@ -19,7 +19,7 @@ public interface ResourceNetworkLinkDao {
 
     Integer count(Map<String, Object> var1);
 
-    Integer insert(ResourceNetworkLink video);
+    Long insert(ResourceNetworkLink video);
 
     Integer update(ResourceNetworkLink video);
 
@@ -36,6 +36,6 @@ public interface ResourceNetworkLinkDao {
      * @param resourceNetworkLink
      * @return
      */
-    Integer insertSelective(ResourceNetworkLink resourceNetworkLink);
+    Long insertSelective(ResourceNetworkLink resourceNetworkLink);
 
 }

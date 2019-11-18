@@ -19,7 +19,7 @@ public interface RainSystemMenuDao {
 
     Integer count(Map<String, Object> var1);
 
-    Integer insert(RainSystemMenu video);
+    Long insert(RainSystemMenu video);
 
     Integer update(RainSystemMenu video);
 
@@ -36,6 +36,6 @@ public interface RainSystemMenuDao {
      * @param rainSystemMenu
      * @return
      */
-    Integer insertSelective(RainSystemMenu rainSystemMenu);
+    Long insertSelective(RainSystemMenu rainSystemMenu);
 
 }

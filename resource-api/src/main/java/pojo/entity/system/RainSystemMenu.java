@@ -1,5 +1,7 @@
 package pojo.entity.system;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -22,6 +24,7 @@ public class RainSystemMenu implements Serializable {
 	private static final long serialVersionUID = 5081846432919091193L;
 
 	/** id */
+	@JsonSerialize(using= ToStringSerializer.class)
 	private Long id;
 	
 	/** 菜单名称 */
@@ -40,6 +43,7 @@ public class RainSystemMenu implements Serializable {
 	private Integer sort;
 	
 	/** 父菜单id(一级菜单为0) */
+	@JsonSerialize(using= ToStringSerializer.class)
 	private Long parentId;
 	
 	/** 状态 1-启用 2-禁用 */

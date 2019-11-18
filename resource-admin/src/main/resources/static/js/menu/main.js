@@ -6,8 +6,14 @@ layui.use('form', function(){
     //监听提交
     form.on('submit(saveMenu)', function(data){
         var field_json = JSON.stringify(data.field);
-        console.log("json :" + field_json);
         $.when(post_json_request("/admin/menu/save_config.html", field_json)).done(function(result){
+            if(result.core == 100){
+                layer.msg(result.message, {time: 1000}, function(){
+                    location.reload();
+                });                
+            }else{
+                layer.msg(result.message);
+            }
         });
         return false;
     });

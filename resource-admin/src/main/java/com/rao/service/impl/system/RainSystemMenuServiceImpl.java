@@ -1,16 +1,21 @@
 package com.rao.service.impl.system;
 
 import com.rao.dao.system.RainSystemMenuDao;
+import constant.common.StateConstants;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import pojo.dto.system.MenuConfigDTO;
 import pojo.entity.system.RainSystemMenu;
 import pojo.vo.system.FirstLevelMenuVO;
 import pojo.vo.system.MenuTreeVO;
 import pojo.vo.system.MenuVO;
 import service.system.RainSystemMenuService;
 import util.common.Paramap;
+import util.common.TwiterIdUtil;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -76,6 +81,30 @@ public class RainSystemMenuServiceImpl implements RainSystemMenuService {
                     .menuName(item.getMenuName())
                     .build();
         }).collect(Collectors.toList());
+    }
+
+    @Override
+    public void saveConfig(MenuConfigDTO menuConfigDTO) {
+        Date now = new Date();
+        // 赋值
+        RainSystemMenu systemMenu = new RainSystemMenu();
+        BeanUtils.copyProperties(menuConfigDTO, systemMenu);
+        systemMenu.setUpdateTime(now);
+        // 如果状态为空，设置为 禁用
+        if(menuConfigDTO.getStatus() == null){
+            systemMenu.setStatus(StateConstants.STATE_FORBID);
+        }
+        
+        Long id = menuConfigDTO.getId();
+        if(id == null){
+            // 新增
+            systemMenu.setId(TwiterIdUtil.getTwiterId());
+            systemMenu.setCreateTime(now);
+            rainSystemMenuDao.insertSelective(systemMenu);
+        }else{
+            // 修改
+            rainSystemMenuDao.update(systemMenu);
+        }        
     }
 
 }

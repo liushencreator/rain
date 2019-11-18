@@ -75,8 +75,12 @@ public class AdminMenuController {
      */
     @PostMapping("/save_config")
     public ResultMessage saveConfig(@BeanValid @RequestBody MenuConfigDTO menuConfigDTO){
-        log.info("参数:" + menuConfigDTO);
-        return ResultMessage.success();
+        try{
+            rainSystemMenuService.saveConfig(menuConfigDTO);
+        }catch (Exception e){
+            return ResultMessage.fail();
+        }
+        return ResultMessage.success().addMessage("保存配置成功");
     }
 
 

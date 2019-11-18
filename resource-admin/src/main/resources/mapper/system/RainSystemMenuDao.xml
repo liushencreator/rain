@@ -118,7 +118,7 @@
 	
 	<!-- 插入 -->
 	<insert id="insert" parameterType="pojo.entity.system.RainSystemMenu">
-		<selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+		<selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
 			SELECT LAST_INSERT_ID()
 		</selectKey>
 		INSERT RAIN_SYSTEM_MENU
@@ -171,7 +171,7 @@
 
 	<!-- insertSelective -->
 	<insert id="insertSelective" parameterType="pojo.entity.system.RainSystemMenu">
-		<selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+		<selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
 			SELECT LAST_INSERT_ID()
 		</selectKey>
 		insert into RAIN_SYSTEM_MENU

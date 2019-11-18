@@ -1,5 +1,6 @@
 package service.system;
 
+import pojo.dto.system.MenuConfigDTO;
 import pojo.entity.system.RainSystemMenu;
 import pojo.vo.system.FirstLevelMenuVO;
 import pojo.vo.system.MenuTreeVO;
@@ -38,4 +39,10 @@ public interface RainSystemMenuService {
      * @return
      */
     List<FirstLevelMenuVO> listFirstLevelMenu();
+
+    /**
+     * 保存菜单配置信息
+     * @param menuConfigDTO
+     */
+    void saveConfig(MenuConfigDTO menuConfigDTO);
 }
