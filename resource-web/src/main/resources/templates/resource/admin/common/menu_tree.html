@@ -34,7 +34,7 @@
         dataType:"json",
         success:function(result){
             var ul_node = $(".site-tree .layui-tree");
-            var menu_tree = result.map.menu_tree;
+            var menu_tree = result.data.menu_tree;
             $.each(menu_tree, function(index, item){
                 var i_class = "layui-icon layui-icon-up";
                 if(index != 0){

@@ -81,7 +81,7 @@
                 layer.msg("初始化中",{icon:4});
             },
             success:function(result){
-                if(result.core==100){
+                if(result.code == 200){
                     layer.msg(result.message,{icon:1});
                 }else{
                     layer.msg(result.message,{icon:5});

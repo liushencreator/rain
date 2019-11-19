@@ -124,7 +124,7 @@
                 resourceId:resourceId
             },
             success:function(result){
-                if(result.core==100){
+                if(result.code==200){
                     layer.msg(result.message,{icon:1,time:1000},function(){
                         window.location.reload();
                     });

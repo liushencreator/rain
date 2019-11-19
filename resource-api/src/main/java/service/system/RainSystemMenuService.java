@@ -45,4 +45,10 @@ public interface RainSystemMenuService {
      * @param menuConfigDTO
      */
     void saveConfig(MenuConfigDTO menuConfigDTO);
+
+    /**
+     * 删除菜单
+     * @param id
+     */
+    void delMenu(Long id);
 }

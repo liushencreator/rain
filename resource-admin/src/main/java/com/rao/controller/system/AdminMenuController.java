@@ -1,6 +1,7 @@
 package com.rao.controller.system;
 
 import com.rao.annotation.BeanValid;
+import com.rao.annotation.SimpleValid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import pojo.dto.system.MenuConfigDTO;
@@ -12,6 +13,7 @@ import service.system.RainSystemMenuService;
 import util.result.ResultMessage;
 
 import javax.annotation.Resource;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
@@ -83,5 +85,15 @@ public class AdminMenuController {
         return ResultMessage.success().addMessage("保存配置成功");
     }
 
+    /**
+     * 删除菜单
+     * @param id
+     * @return
+     */
+    @PostMapping("/del_menu")
+    public ResultMessage delMenu(@SimpleValid @NotNull @RequestParam Long id){
+        rainSystemMenuService.delMenu(id);
+        return ResultMessage.success().addMessage("保存配置成功");
+    }
 
 }

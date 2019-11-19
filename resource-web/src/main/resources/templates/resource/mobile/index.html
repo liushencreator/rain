@@ -180,9 +180,9 @@
                         searchKeyWord: $("input[name='searchKeyWord']").val()
                     },
                     success:function(result){
-                        if (result.core == 100){
+                        if (result.code == 200){
                             buildNode(result);
-                            next('', page < result.map.totalPages);
+                            next('', page < result.data.totalPages);
                         }
                     }
                 });
@@ -213,9 +213,9 @@
                             searchKeyWord: $("input[name='searchKeyWord']").val()
                         },
                         success:function(result){
-                            if (result.core == 100){
+                            if (result.code == 200){
                                 buildNode(result);
-                                next('', page < result.map.totalPages);
+                                next('', page < result.data.totalPages);
                             }
                         }
                     });
@@ -230,7 +230,7 @@
      */
     function buildNode(result) {
         var single_nodes = "";
-        $.each(result.map.list, function(i,item){
+        $.each(result.data.list, function(i,item){
             var single_node = '<a href="${base}/web/resource/resourceDetail.html?id=' + item.id + '">' +
                 '<dl>' +
                 '<dt><img alt="" src="' + item.videoImageUrl + '"></dt>' +

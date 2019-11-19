@@ -110,9 +110,9 @@
                             pageSize: 10
                         },
                         success:function(result){
-                            if (result.core == 100){
+                            if (result.code == 200){
                                 var single_nodes = "";
-                                $.each(result.map.list, function(i,item){
+                                $.each(result.data.list, function(i,item){
                                     var single_node = '<a href="${base}/web/resource/resourceDetail.html?id=' + item.id + '">' +
                                         '<dl>' +
                                         '<dt><img alt="" src="' + item.videoImageUrl + '"></dt>' +
@@ -125,7 +125,7 @@
                                         '</a>';
                                     single_nodes += single_node;
                                 });
-                                next('', page < result.map.totalPages);
+                                next('', page < result.data.totalPages);
                                 $("#list_flow section").append(single_nodes);
                             }
                         }
