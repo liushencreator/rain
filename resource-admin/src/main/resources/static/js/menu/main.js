@@ -38,17 +38,13 @@ layui.use('tree', function () {
                 var data = obj.data; //得到当前节点的数据
                 var elem = obj.elem; //得到当前节点元素
 
-                var id = data.id; //得到节点索引
-                console.log(type)
-                console.log(data)
-
-                console.log(id)
                 //删除节点
+                var id = data.id; //得到节点索引
                 if(type === 'del'){
                     $.when(post_args_request("/admin/menu/del_menu.html", {id: id})).done(function(result){
                         if(result.code == 200){
                             elem.remove();
-                            layer.msg("删除成功");
+                            layer.msg(result.message);
                         }else{
                             layer.msg(result.message);
                         }
@@ -77,6 +73,7 @@ function show_menu_config(id){
         $("input[name='menuUrl']").val(menu_config.menuUrl);
         $("#parentId").val(menu_config.parentId);
         $("input[name='sort']").val(menu_config.sort);
+        $("input[name='status']").attr("checked", menu_config.status == 1);
         $("input[name='menuIcon']").val(menu_config.menuIcon);
         $("#menu_icon_i").addClass(menu_config.menuIcon);
         form.render();

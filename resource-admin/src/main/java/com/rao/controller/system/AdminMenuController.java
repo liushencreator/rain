@@ -93,7 +93,7 @@ public class AdminMenuController {
     @PostMapping("/del_menu")
     public ResultMessage delMenu(@SimpleValid @NotNull @RequestParam Long id){
         rainSystemMenuService.delMenu(id);
-        return ResultMessage.success().addMessage("保存配置成功");
+        return ResultMessage.success().addMessage("菜单删除成功");
     }
 
 }

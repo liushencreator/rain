@@ -53,7 +53,6 @@ public class MenuConfigDTO {
      * 状态 1-启用 2-禁用
      */
     @Range(min = 1, max = 2, message = "状态值只能为1 或者 2")
-    @NotNull(message = "状态不能为空")
     private Integer status;
     
 }

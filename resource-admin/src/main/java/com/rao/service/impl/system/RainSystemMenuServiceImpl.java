@@ -3,6 +3,7 @@ package com.rao.service.impl.system;
 import com.rao.dao.system.RainSystemMenuDao;
 import constant.common.StateConstants;
 import exception.BusinessException;
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import pojo.dto.system.MenuConfigDTO;
@@ -51,7 +52,6 @@ public class RainSystemMenuServiceImpl implements RainSystemMenuService {
     @Override
     public List<MenuTreeVO> menuTreeConfig() {
         Paramap paramap = Paramap.create();
-        paramap.put("status", 1);
         List<RainSystemMenu> systemMenuList = rainSystemMenuDao.findByParams(paramap);
 
         List<MenuTreeVO> menuTreeVOList = new ArrayList<>();
@@ -73,7 +73,6 @@ public class RainSystemMenuServiceImpl implements RainSystemMenuService {
     @Override
     public List<FirstLevelMenuVO> listFirstLevelMenu() {
         Paramap paramap = Paramap.create();
-        paramap.put("status", 1);
         paramap.put("parentId", 0);
         List<RainSystemMenu> systemMenuList = rainSystemMenuDao.findByParams(paramap);
         return systemMenuList.stream().map(item -> {
@@ -111,7 +110,12 @@ public class RainSystemMenuServiceImpl implements RainSystemMenuService {
     @Override
     public void delMenu(Long id) {
         // 如果是一级菜单，没有子菜单才可以删除
-        throw BusinessException.operate("菜单删除失败");
+        Paramap paramap = Paramap.create().put("parentId", id);
+        List<RainSystemMenu> systemMenuList = rainSystemMenuDao.findByParams(paramap);
+        if(CollectionUtils.isNotEmpty(systemMenuList)){
+            throw BusinessException.operate("菜单下有子菜单，请先删除子菜单");
+        }
+        rainSystemMenuDao.delete(id);
     }
 
 }
