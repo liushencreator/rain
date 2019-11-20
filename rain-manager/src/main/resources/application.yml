@@ -1,0 +1,39 @@
+server:
+  port: 8083
+  servlet:
+    context-path: /manager
+    tomcat:
+      uri-encoding: utf-8
+      
+spring:
+  mvc:
+    pathmatch:
+      use-suffix-pattern: true
+  
+  # eureka 注册名称  
+  application:
+    name: rain-manager
+  jackson:
+    date-format: yyyy-MM-dd
+    time-zone: GMT+8
+
+  # 数据源  
+  datasource:
+    username: root
+    password: mysql
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/local_resource_data
+
+# mybatis
+mybatis:
+  mapper-locations: classpath:mapper/**/*.xml
+  type-aliases-package: pojo.entity
+  configuration:
+    map-underscore-to-camel-case: true
+
+# eureka    
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8080/eureka/    
+    

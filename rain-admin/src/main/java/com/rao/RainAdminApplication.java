@@ -6,9 +6,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @MapperScan(value = "com.rao.dao")
 @SpringBootApplication
-public class ResourceWebApplication {
+public class RainAdminApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(ResourceWebApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(RainAdminApplication.class, args);
+    }
+
 }
