@@ -1,4 +1,4 @@
-package com.rao.controller.system;
+package com.rao.controller.admin;
 
 import com.rao.annotation.BeanValid;
 import com.rao.annotation.SimpleValid;

@@ -1,4 +1,4 @@
-package com.rao.controller.system;
+package com.rao.controller.admin;
 
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;

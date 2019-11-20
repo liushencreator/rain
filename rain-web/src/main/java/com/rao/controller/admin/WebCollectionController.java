@@ -1,4 +1,4 @@
-package com.rao.controller.system;
+package com.rao.controller.admin;
 
 import constant.resource.CollectionConstant;
 import org.springframework.stereotype.Controller;
