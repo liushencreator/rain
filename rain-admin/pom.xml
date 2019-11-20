@@ -4,17 +4,17 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.rao</groupId>
-    <artifactId>resource-admin</artifactId>
+    <artifactId>rain-admin</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>resource-admin</name>
+    <name>rain-admin</name>
     <description>Demo project for Spring Boot</description>
 
     <!-- 父工程 -->
     <parent>
         <groupId>com.rao</groupId>
-        <artifactId>resource-parent</artifactId>
+        <artifactId>rain-parent</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 
@@ -82,7 +82,7 @@
         <!-- 本地 jar -->
         <dependency>
             <groupId>com.rao</groupId>
-            <artifactId>resource-api</artifactId>
+            <artifactId>rain-api</artifactId>
         </dependency>
 
     </dependencies>

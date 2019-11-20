@@ -5,17 +5,17 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.rao</groupId>
-    <artifactId>resource-eurake</artifactId>
+    <artifactId>rain-eurake</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>resource-eureka</name>
+    <name>rain-eureka</name>
     <description>Demo project for Spring Boot</description>
 
     <!-- 父工程 -->
     <parent>
         <groupId>com.rao</groupId>
-        <artifactId>resource-parent</artifactId>
+        <artifactId>rain-parent</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 
