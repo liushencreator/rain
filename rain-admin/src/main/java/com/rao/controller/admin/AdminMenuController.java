@@ -1,7 +1,7 @@
 package com.rao.controller.admin;
 
-import com.rao.annotation.BeanValid;
-import com.rao.annotation.SimpleValid;
+import annotation.BeanValid;
+import annotation.SimpleValid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import pojo.dto.system.MenuConfigDTO;

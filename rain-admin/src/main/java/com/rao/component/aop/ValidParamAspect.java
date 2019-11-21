@@ -6,8 +6,8 @@
 
 package com.rao.component.aop;
 
-import com.rao.annotation.BeanValid;
-import com.rao.annotation.SimpleValid;
+import annotation.BeanValid;
+import annotation.SimpleValid;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;

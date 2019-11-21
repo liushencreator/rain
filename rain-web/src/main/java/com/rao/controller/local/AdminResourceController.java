@@ -1,4 +1,4 @@
-package com.rao.controller.menu;
+package com.rao.controller.local;
 
 import com.rao.config.LocalOssConfig;
 import org.springframework.beans.BeanUtils;

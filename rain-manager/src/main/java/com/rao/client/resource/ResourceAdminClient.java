@@ -1,5 +1,6 @@
 package com.rao.client.resource;
 
+import com.rao.client.resource.fallback.ResourceAdminClientFallback;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -10,7 +11,7 @@ import util.result.ResultMessage;
  * @author raojing
  * @date 2019/11/20 20:36
  */
-@FeignClient(name = "rain-resource")
+@FeignClient(value = "rain-resource", fallbackFactory = ResourceAdminClientFallback.class)
 public interface ResourceAdminClient {
 
     @RequestMapping(value = "/resource/admin/local/test_local", method = RequestMethod.POST)

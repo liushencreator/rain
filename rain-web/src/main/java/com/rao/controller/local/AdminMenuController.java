@@ -1,4 +1,4 @@
-package com.rao.controller.menu;
+package com.rao.controller.local;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

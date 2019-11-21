@@ -1,4 +1,4 @@
-package com.rao.controller.menu;
+package com.rao.controller.local;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

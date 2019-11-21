@@ -1,4 +1,4 @@
-package com.rao.controller.menu;
+package com.rao.controller.local;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +16,7 @@ public class LocalResourceAdminController {
     @PostMapping("/test_local")
     public ResultMessage testLocal(){
         
+        int i = 10 / 0;
         return ResultMessage.success().add("info", "resource_server");
     }
     
