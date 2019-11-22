@@ -1,0 +1,41 @@
+# 服务端口
+server:
+  port: 9000
+
+# 服务名称
+spring:
+  application:
+    name: rain-gateway
+
+  # 网关配置    
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+
+      routes:
+      - id: rain-manager
+        uri: lb://rain-manager
+        predicates:
+        - Path=/manager/**
+        
+      - id: rain-resource
+        uri: lb://rain-resource
+        predicates:
+          - Path=/resource/**
+
+# 注册中心地址
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8080/eureka/
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}@${spring.cloud.client.ip-address}@${server.port}
+
+management:
+  endpoint:
+    conditions:
+      enabled: true
