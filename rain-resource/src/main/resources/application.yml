@@ -22,7 +22,7 @@ spring:
     username: root
     password: mysql
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/local_resource_data
+    url: jdbc:mysql://localhost:3306/rain_resource_dev
 
 # mybatis
 mybatis:
@@ -36,4 +36,11 @@ eureka:
   client:
     serviceUrl:
       defaultZone: http://localhost:8080/eureka/    
-    
+
+# 本地 oss 配置
+local-oss:
+  wd-url: http://127.0.0.1:8082/storage/storage
+  lm-url: http://127.0.0.1:8082/storage/storage
+  wd-rest-api: http://127.0.0.1:8082/storage/resource/storage/file_upload.html
+  lm-rest-api: http://127.0.0.1:8082/storage/resource/storage/file_upload.html
+  local-oss: true

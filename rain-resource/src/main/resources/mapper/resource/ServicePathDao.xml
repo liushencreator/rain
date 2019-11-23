@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.rao.dao.resource.ServicePathDao">
+	
+	<resultMap id="ServicePathResultMap" type="pojo.entity.resource.ServicePath">
+		<id property="id" column="id"  />
+		<result property="configId" column="config_id"></result>
+		<result property="serviceName" column="service_name" />
+		<result property="pathDir" column="path_dir" />
+		<result property="serviceDesc" column="service_desc" />
+		<result property="createTime" column="create_time" />
+		<result property="updateTime" column="update_time" />
+	</resultMap>
+	
+	<!-- 定义可重用的SQL代码段，可以包含在其他语句中 -->
+	<sql id="base_column">
+		 id ,config_id ,service_name ,path_dir ,service_desc ,create_time ,update_time
+	</sql>
+	
+	<sql id="base_value_column">
+		 #{id},#{configId},#{serviceName},#{pathDir},#{serviceDesc},#{createTime},#{updateTime}
+	</sql>
+	
+	<!-- 定义可重用的WHERE SQL公共代码段，可以包含在其他语句中 -->
+	<sql id="where_column">
+		<if test="id != null">
+			AND id = #{id,jdbcType=BIGINT}
+		</if>
+		<if test="configId != null">
+			AND config_id = #{configId, jdbcType=INTEGER}
+		</if>
+		<if test="serviceName != null and serviceName != ''">
+			AND service_name = #{serviceName,jdbcType=VARCHAR}
+		</if>
+		<if test="pathDir != null and pathDir != ''">
+			AND path_dir = #{pathDir,jdbcType=VARCHAR}
+		</if>
+		<if test="serviceDesc != null and serviceDesc != ''">
+			AND service_desc = #{serviceDesc,jdbcType=VARCHAR}
+		</if>
+		<if test="createTime != null">
+			AND create_time = #{createTime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="updateTime != null">
+			AND update_time = #{updateTime,jdbcType=TIMESTAMP}
+		</if>
+	</sql>
+	
+	<!-- 设置语句 -->
+	<sql id="set_column">
+		<if test="id != null">
+			id = #{id,jdbcType=BIGINT},
+		</if>
+		<if test="configId != null">
+			config_id = #{configId, jdbcType=INTEGER},
+		</if>
+		<if test="serviceName != null and serviceName != ''">
+			service_name = #{serviceName,jdbcType=VARCHAR},
+		</if>
+		<if test="pathDir != null and pathDir != ''">
+			path_dir = #{pathDir,jdbcType=VARCHAR},
+		</if>
+		<if test="serviceDesc != null and serviceDesc != ''">
+			service_desc = #{serviceDesc,jdbcType=VARCHAR},
+		</if>
+		<if test="createTime != null">
+			create_time = #{createTime,jdbcType=TIMESTAMP},
+		</if>
+		<if test="updateTime != null">
+			update_time = #{updateTime,jdbcType=TIMESTAMP},
+		</if>
+	</sql>
+
+	<!-- 根据ID查询 -->
+	<select id="find" resultMap="ServicePathResultMap">
+		SELECT	<include refid="base_column" />
+		FROM	SERVICE_PATH
+		WHERE	ID=#{id,jdbcType=BIGINT}
+	</select>
+	
+	<!-- 查询所有 -->
+	<select id="findAll" resultMap="ServicePathResultMap">
+		SELECT	<include refid="base_column" />
+		FROM	SERVICE_PATH
+	</select>
+	
+	<!-- 统计记录数 -->
+	<select id="count" resultType="int">
+		SELECT COUNT(*) FROM SERVICE_PATH
+		<where> 
+			<include refid="where_column" />
+		</where>
+	</select>
+	
+	<!-- 插入 -->
+	<insert id="insert" parameterType="pojo.entity.resource.ServicePath">
+		INSERT SERVICE_PATH
+				(<include refid="base_column" /> )
+		VALUES	(<include refid="base_value_column" />)
+	</insert>
+	
+	<!-- 修改 -->
+	<update id="update" parameterType="pojo.entity.resource.ServicePath">
+		UPDATE	SERVICE_PATH
+		<set>
+			<include refid="set_column" />
+		</set>
+		WHERE	ID = #{id,jdbcType=BIGINT}
+	</update>
+	
+	<!-- 删除单条记录 -->
+	<delete id="delete">
+		DELETE	FROM SERVICE_PATH
+		WHERE	ID = #{id,jdbcType=BIGINT}
+	</delete>
+	
+	<!-- 删除多条记录-->
+	<delete id="deleteAll">
+		DELETE	FROM SERVICE_PATH
+		WHERE	ID	IN
+    	<foreach item="ServicePathId" index="index" collection="ids" open="(" separator="," close=")">
+	  		#{ServicePathId} 
+		</foreach>
+	</delete>
+	
+	<!-- 根据参数查询列表-->
+	<select id="findByParams" resultMap="ServicePathResultMap">
+		SELECT	<include refid="base_column" />
+		FROM 	SERVICE_PATH
+		<where> 1=1
+			<include refid="where_column" />
+		</where>
+	</select>
+	
+	<!-- 分页查询-->
+	<!--<select id="findByPage" resultMap="ServicePathResultMap">-->
+		<!--SELECT-->
+		<!--<include refid="base_column" />-->
+		<!--FROM SERVICE_PATH-->
+		<!--<where> 1=1-->
+			<!--<include refid="where_column" />-->
+		<!--</where>-->
+	<!--</select>-->
+	
+</mapper> 

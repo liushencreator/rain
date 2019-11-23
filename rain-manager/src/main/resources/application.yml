@@ -22,7 +22,7 @@ spring:
     username: root
     password: mysql
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/local_resource_data
+    url: jdbc:mysql://localhost:3306/rain_manager_dev
 
 # mybatis
 mybatis:
