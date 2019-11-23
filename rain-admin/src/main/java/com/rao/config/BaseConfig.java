@@ -26,11 +26,6 @@ public class BaseConfig implements WebMvcConfigurer{
         return new BaseInterceptor();
     }
 
-    @Bean
-    public RestTemplate getRestTemplate(){
-        return new RestTemplate();
-    }
-
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(getBaseHandler()).addPathPatterns("/**");
