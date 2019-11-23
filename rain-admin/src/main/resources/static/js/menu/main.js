@@ -6,7 +6,7 @@ layui.use('form', function(){
     //监听提交
     form.on('submit(saveMenu)', function(data){
         var field_json = JSON.stringify(data.field);
-        $.when(post_json_request("/admin/menu/save_config.html", field_json)).done(function(result){
+        $.when(post_json_request(application_name_manager + "/admin/menu/save_config.html", field_json)).done(function(result){
             if(result.code == 200){
                 layer.msg(result.message, {time: 1000}, function(){
                     location.reload();
@@ -22,7 +22,7 @@ layui.use('form', function(){
 // layui 树结构
 layui.use('tree', function () {
     var tree = layui.tree;
-    $.when(post_request("/admin/menu/menu_tree_config.html")).done(function(result){
+    $.when(post_request(application_name_manager + "/admin/menu/menu_tree_config.html")).done(function(result){
         tree.render({
             elem: '#menu_tree_config',  //绑定元素
             edit: ['del'],
@@ -41,7 +41,7 @@ layui.use('tree', function () {
                 //删除节点
                 var id = data.id; //得到节点索引
                 if(type === 'del'){
-                    $.when(post_args_request("/admin/menu/del_menu.html", {id: id})).done(function(result){
+                    $.when(post_args_request(application_name_manager + "/admin/menu/del_menu.html", {id: id})).done(function(result){
                         if(result.code == 200){
                             elem.remove();
                             layer.msg(result.message);
@@ -65,7 +65,7 @@ function show_menu_config(id){
 
     // 渲染数据
     var data = {'id': id};
-    $.when(post_args_request("/admin/menu/get_menu_config.html", data)).done(function(result){
+    $.when(post_args_request(application_name_manager + "/admin/menu/get_menu_config.html", data)).done(function(result){
         var menu_config = result.data.menu_config;
 
         $("input[name='id']").val(menu_config.id);
@@ -84,7 +84,7 @@ function show_menu_config(id){
  * 加载一级菜单
  */
 $(function(){
-    $.when(post_request("/admin/menu/first_level_menu.html")).done(function(result){
+    $.when(post_request(application_name_manager + "/admin/menu/first_level_menu.html")).done(function(result){
         var option_nodes = '<option value="0">无</option>';
         $.each(result.data.first_level_menu, function(index, item){
             option_nodes += '<option value="' + item.id + '">' + item.menuName + '</option>';

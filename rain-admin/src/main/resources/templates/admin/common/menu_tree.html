@@ -27,53 +27,47 @@
 <script type="text/javascript">
     // 从 request 域中获取 menuId 参数
     var menuId = '${menuId}';
-    
-    $.ajax({
-        url:"${base}/admin/menu/menu_tree.html",
-        type:"post",
-        dataType:"json",
-        success:function(result){
-            var ul_node = $(".site-tree .layui-tree");
-            var menu_tree = result.data.menu_tree;
-            $.each(menu_tree, function(index, item){
-                var i_class = "layui-icon layui-icon-up";
-                if(index != 0){
-                    i_class = "layui-icon layui-icon-down";
-                }
-                ul_node.append('<h2 class="tree-title">' + item.menuName + '<span style="float: right;"><i class="' + i_class + '"></i></span></h2>');
 
-                // 看看当前 菜单id 是否在当前一级菜单内
-                var current = 0;
-                $.each(item.menuVOList, function(index, subItem){
-                    if(subItem.id == menuId){
-                        current = 1;
-                    }
-                });
-                
-                var dev_node = '<div class="tree-node-dev">';
-                if(index != 0 && current == 0){
-                    dev_node = '<div class="tree-node-dev" style="display: none;">';
-                }
-                $.each(item.menuVOList, function(index, subItem){
-                    var li_css = "";
-                    if(subItem.id == menuId){
-                        li_css = "layui-this";
-                    }
-                    
-                    dev_node += '<li class="site-tree-noicon ' + li_css + '">' +
-                                    '<a href="${base}' + subItem.linkPath + '?menuId=' + subItem.id + '">' +
-                                        '<i class="' + subItem.menuIcon + '" style="top: 3px;"></i><cite>' + subItem.menuName + '</cite>' +
-                                    '</a>' +
-                                '</li>'
-                });
-                dev_node += '</div>';
-                
-                ul_node.append(dev_node);
-            })
-        }
-    });
-    
+    $.when(post_request(application_name_manager + "/admin/menu/menu_tree.html")).done(function(result){
+        var ul_node = $(".site-tree .layui-tree");
+        var menu_tree = result.data.menu_tree;
+        $.each(menu_tree, function(index, item){
+            var i_class = "layui-icon layui-icon-up";
+            if(index != 0){
+                i_class = "layui-icon layui-icon-down";
+            }
+            ul_node.append('<h2 class="tree-title">' + item.menuName + '<span style="float: right;"><i class="' + i_class + '"></i></span></h2>');
 
+            // 看看当前 菜单id 是否在当前一级菜单内
+            var current = 0;
+            $.each(item.menuVOList, function(index, subItem){
+                if(subItem.id == menuId){
+                    current = 1;
+                }
+            });
+
+            var dev_node = '<div class="tree-node-dev">';
+            if(index != 0 && current == 0){
+                dev_node = '<div class="tree-node-dev" style="display: none;">';
+            }
+            $.each(item.menuVOList, function(index, subItem){
+                var li_css = "";
+                if(subItem.id == menuId){
+                    li_css = "layui-this";
+                }
+
+                dev_node += '<li class="site-tree-noicon ' + li_css + '">' +
+                    '<a href="${base}' + subItem.linkPath + '?menuId=' + subItem.id + '">' +
+                    '<i class="' + subItem.menuIcon + '" style="top: 3px;"></i><cite>' + subItem.menuName + '</cite>' +
+                    '</a>' +
+                    '</li>'
+            });
+            dev_node += '</div>';
+
+            ul_node.append(dev_node);
+        });
+    })
+    
     $("body").on("click", ".tree-title", function() {
         var i_node = $(this).find('i');
         if(i_node.hasClass('layui-icon-down')){

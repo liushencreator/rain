@@ -16,6 +16,7 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
+ * 管理后台菜单配置 controller
  * @author raojing
  * @date 2019/11/20 20:46
  */
