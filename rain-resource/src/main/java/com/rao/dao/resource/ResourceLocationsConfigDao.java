@@ -2,6 +2,7 @@ package com.rao.dao.resource;
 
 
 import pojo.entity.resource.ResourceLocationsConfig;
+import util.common.Paramap;
 
 import java.util.List;
 import java.util.Map;
@@ -37,4 +38,10 @@ public interface ResourceLocationsConfigDao{
      */
     Integer insertSelective(ResourceLocationsConfig resourceLocationsConfig);
 
+    /**
+     * 分页查询
+     * @param paramap
+     * @return
+     */
+    List<ResourceLocationsConfig> findByPage(Paramap paramap);
 }

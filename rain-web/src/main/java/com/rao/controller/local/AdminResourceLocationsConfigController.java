@@ -31,8 +31,8 @@ public class AdminResourceLocationsConfigController {
      */
     @GetMapping("/config_list")
     public String configList(Model model){
-        List<ResourceLocationsConfig> configList = resourceLocationsConfigService.findAll();
-        model.addAttribute("configList", configList);
+//        List<ResourceLocationsConfig> configList = resourceLocationsConfigService.findAll();
+//        model.addAttribute("configList", configList);
         return "/resource/config/config_list";
     }
 
@@ -44,10 +44,10 @@ public class AdminResourceLocationsConfigController {
      */
     @GetMapping("/config_forword")
     public String configForword(@RequestParam(required = false)Integer id, Model model){
-        if(id != null){
-            ResourceLocationsConfig config = resourceLocationsConfigService.find(id);
-            model.addAttribute("config", config);
-        }
+//        if(id != null){
+//            ResourceLocationsConfig config = resourceLocationsConfigService.find(id);
+//            model.addAttribute("config", config);
+//        }
         return "/resource/config/config_forword";
     }
 
@@ -58,8 +58,8 @@ public class AdminResourceLocationsConfigController {
      */
     @PostMapping("/config_save")
     public String configSave(ResourceLocationsConfig config){
-        System.out.println("配置信息:" + config);
-        resourceLocationsConfigService.saveOrUpdate(config);
+//        System.out.println("配置信息:" + config);
+//        resourceLocationsConfigService.saveOrUpdate(config);
         return "redirect:config_list.html";
     }
 
@@ -71,8 +71,8 @@ public class AdminResourceLocationsConfigController {
      */
     @GetMapping("/config_detail")
     public String configDetail(@RequestParam Integer id, Model model){
-        ResourceLocationsConfig config = resourceLocationsConfigService.find(id);
-        model.addAttribute("config", config);
+//        ResourceLocationsConfig config = resourceLocationsConfigService.find(id);
+//        model.addAttribute("config", config);
         return "/resource/config/config_detail";
     }
 

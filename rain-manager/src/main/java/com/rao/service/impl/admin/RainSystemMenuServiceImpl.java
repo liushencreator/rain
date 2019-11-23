@@ -36,6 +36,9 @@ public class RainSystemMenuServiceImpl implements RainSystemMenuService {
     public List<MenuVO> menuTree() {
         Paramap paramap = Paramap.create();
         paramap.put("status", 1);
+        String orderByRule = "sort desc";
+        paramap.put("orderByRule", orderByRule);
+
         List<RainSystemMenu> systemMenuList = rainSystemMenuDao.findByParams(paramap);
 
         List<MenuVO> menuVOList = new ArrayList<>();
@@ -52,6 +55,8 @@ public class RainSystemMenuServiceImpl implements RainSystemMenuService {
     @Override
     public List<MenuTreeVO> menuTreeConfig() {
         Paramap paramap = Paramap.create();
+        String orderByRule = "sort desc";
+        paramap.put("orderByRule", orderByRule);
         List<RainSystemMenu> systemMenuList = rainSystemMenuDao.findByParams(paramap);
 
         List<MenuTreeVO> menuTreeVOList = new ArrayList<>();

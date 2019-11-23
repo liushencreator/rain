@@ -17,8 +17,6 @@ public class ResultMessage {
 	
 	private static DefaultSuccessMsgEnum successMsgEnum = DefaultSuccessMsgEnum.SUCCESS;
 	private static DefaultErrorMsgEnum errorMsgEnum = DefaultErrorMsgEnum.FAIL;
-	
-	
 
 	/**
 	 * code
@@ -31,9 +29,24 @@ public class ResultMessage {
 	private String message;
 
 	/**
+	 * 记录数(分页使用)
+	 */
+	private Integer count;
+
+	/**
+	 * 分页数据(分页使用)
+	 */
+	private Object pageData;
+
+	/**
 	 * 视图数据
 	 */
 	private Map<String,Object> data = new HashMap<String,Object>();
+
+	/**
+	 * 私有化构造器
+	 */
+	private ResultMessage(){};
 
 	/**
 	 * 成功
@@ -78,6 +91,12 @@ public class ResultMessage {
 	 */
 	public ResultMessage add(String key, Object value){
 		this.getData().put(key, value);
+		return this;
+	}
+
+	public ResultMessage page(Integer count, Object pageDataa){
+		this.count = count;
+		this.pageData = pageDataa;
 		return this;
 	}
 

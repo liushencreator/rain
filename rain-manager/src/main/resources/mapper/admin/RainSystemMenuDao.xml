@@ -59,6 +59,9 @@
 		<if test="updateTime != null">
 			AND update_time = #{updateTime,jdbcType=TIMESTAMP}
 		</if>
+		<if test="orderByRule != null and orderByRule != ''">
+			ORDER BY ${orderByRule}
+		</if>
 	</sql>
 	
 	<!-- 设置语句 -->

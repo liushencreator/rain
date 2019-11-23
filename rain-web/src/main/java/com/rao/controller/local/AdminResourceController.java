@@ -104,10 +104,10 @@ public class AdminResourceController {
      */
     @RequestMapping("/viewService")
     public String viewService(Long id, Model model) {
-        ServicePath path = servicePathService.find(id);
-        ResourceLocationsConfig config = resourceLocationsConfigService.find(path.getConfigId());
-        model.addAttribute("path", path);
-        model.addAttribute("config", config);
+//        ServicePath path = servicePathService.find(id);
+//        ResourceLocationsConfig config = resourceLocationsConfigService.find(path.getConfigId());
+//        model.addAttribute("path", path);
+//        model.addAttribute("config", config);
         return "/resource/admin/serviceView";
     }
 
@@ -119,12 +119,12 @@ public class AdminResourceController {
      */
     @RequestMapping("/forwordService")
     public String addService(@RequestParam(required = false) Long id, Model model) {
-        List<ResourceLocationsConfig> configList = resourceLocationsConfigService.findAll();
-        model.addAttribute("configList", configList);
-        if (id != null) {
-            ServicePath path = servicePathService.find(id);
-            model.addAttribute("path", path);
-        }
+//        List<ResourceLocationsConfig> configList = resourceLocationsConfigService.findAll();
+//        model.addAttribute("configList", configList);
+//        if (id != null) {
+//            ServicePath path = servicePathService.find(id);
+//            model.addAttribute("path", path);
+//        }
         return "/resource/admin/forwordService";
     }
 

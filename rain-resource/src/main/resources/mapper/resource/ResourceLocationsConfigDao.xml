@@ -187,5 +187,16 @@
 				</if>
 		</trim>
 	</insert>
+
+	<!-- 分页查询-->
+	<select id="findByPage" resultMap="ResourceLocationsConfigResultMap">
+		SELECT
+		<include refid="base_column" />
+		FROM RESOURCE_LOCATIONS_CONFIG
+		<where> 1=1
+			<include refid="where_column" />
+		</where>
+		limit #{pageBegin}, #{pageSize}
+	</select>
 	
 </mapper> 

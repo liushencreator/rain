@@ -54,5 +54,8 @@ public class RainSystemMenu implements Serializable {
 	
 	/** 修改时间 */
 	private java.util.Date updateTime;
+
+	/** 排序规则 */
+	private String orderByRule;
 	
 }

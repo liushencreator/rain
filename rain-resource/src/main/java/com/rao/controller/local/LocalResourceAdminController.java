@@ -1,9 +1,15 @@
 package com.rao.controller.local;
 
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import pojo.entity.resource.ResourceLocationsConfig;
+import service.resource.ResourceLocationsConfigService;
 import util.result.ResultMessage;
+
+import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @author raojing
@@ -12,12 +18,15 @@ import util.result.ResultMessage;
 @RestController
 @RequestMapping("/admin/local")
 public class LocalResourceAdminController {
-    
-    @PostMapping("/test_local")
-    public ResultMessage testLocal(){
-        
-        int i = 10 / 0;
-        return ResultMessage.success().add("info", "resource_server");
+
+    @Resource
+    private ResourceLocationsConfigService resourceLocationsConfigService;
+
+    @GetMapping("/list")
+    public ResultMessage configList(@RequestParam(defaultValue = "1") Integer pageNumber,
+                                    @RequestParam(defaultValue = "10") Integer pageSize){
+        List<ResourceLocationsConfig> locationsConfigList = resourceLocationsConfigService.listConfigByPage(pageNumber, pageSize);
+        int totalSize = resourceLocationsConfigService.count();
+        return ResultMessage.success().page(totalSize, locationsConfigList);
     }
-    
 }

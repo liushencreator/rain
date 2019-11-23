@@ -57,7 +57,7 @@ public class ResourceVideoServiceImpl implements ResourceVideoService {
 	@Override
 	public List<ResourceVideoVO> listFavourite(Integer pageNumber, Integer pageSize, String searchKeyWord) {
 		String orderByRule = "praise_number desc ,broadcast_number desc ,click_number desc";
-		Paramap paramap = PageParamsUtil.baseParam(pageNumber, pageSize, orderByRule);
+		Paramap paramap = PageParamsUtil.buildPageParamAndSort(pageNumber, pageSize, orderByRule);
 		paramap.put("keyWord", searchKeyWord);
 		List<ResourceVideo> resourceVideoList = resourceVideoDao.findByPage(paramap);
 

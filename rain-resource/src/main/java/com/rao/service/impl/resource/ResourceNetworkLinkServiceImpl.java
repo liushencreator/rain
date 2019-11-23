@@ -26,7 +26,7 @@ public class ResourceNetworkLinkServiceImpl implements ResourceNetworkLinkServic
     @Override
     public List<NetworkLinkVO> listNetworkLink(Integer pageNumber, Integer pageSize, String searchKeyWord) {
         String orderByRule = "praise_number desc ,broadcast_number desc ,click_number desc";
-        Paramap paramap = PageParamsUtil.baseParam(pageNumber, pageSize, orderByRule);
+        Paramap paramap = PageParamsUtil.buildPageParamAndSort(pageNumber, pageSize, orderByRule);
         paramap.put("status", 1);
         paramap.put("keyWord", searchKeyWord);
         List<ResourceNetworkLink> networkLinkList = resourceNetworkLinkDao.findByPage(paramap);

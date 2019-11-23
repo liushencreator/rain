@@ -141,28 +141,28 @@ public class WebResourceController {
      */
     @RequestMapping("/download")
     public String downloadFile(Long resourceId, HttpServletResponse response) throws Exception {
-        //获取资源信息
-        ResourceVideo video = resourceVideoService.find(resourceId);
-        if (video == null) {
-            return null;
-        }
-        //获取文件地址信息
-        ServicePath servicePath = servicePathService.find(video.getServiceId());
-        ResourceLocationsConfig config = resourceLocationsConfigService.find(servicePath.getConfigId());
-        String fileName = video.getVideoPath();
-
-        String os = System.getProperty("os.name");
-        log.info("当前的系统为:{}", os);
-        String basePath = os.toLowerCase().startsWith("win") ? config.getWdLocationPath() : config.getLmLocationPath();
-        log.info("资源文件所在的路径:{}", basePath);
-        String dataAddress = basePath + "/" + fileName;
-
-        //设置文件路径
-        File file = new File(dataAddress);
-        // 如果文件名存在，则进行下载
-        if (file.exists()) {
-            DownLoadUtil.downLoad(response, file, fileName);
-        }
+//        //获取资源信息
+//        ResourceVideo video = resourceVideoService.find(resourceId);
+//        if (video == null) {
+//            return null;
+//        }
+//        //获取文件地址信息
+//        ServicePath servicePath = servicePathService.find(video.getServiceId());
+//        ResourceLocationsConfig config = resourceLocationsConfigService.find(servicePath.getConfigId());
+//        String fileName = video.getVideoPath();
+//
+//        String os = System.getProperty("os.name");
+//        log.info("当前的系统为:{}", os);
+//        String basePath = os.toLowerCase().startsWith("win") ? config.getWdLocationPath() : config.getLmLocationPath();
+//        log.info("资源文件所在的路径:{}", basePath);
+//        String dataAddress = basePath + "/" + fileName;
+//
+//        //设置文件路径
+//        File file = new File(dataAddress);
+//        // 如果文件名存在，则进行下载
+//        if (file.exists()) {
+//            DownLoadUtil.downLoad(response, file, fileName);
+//        }
         return null;
     }
 
