@@ -79,7 +79,7 @@ public class SourceCollectionsServiceImpl implements SourceCollectionsService {
     @Override
     public List<ResourceVideoVO> listByPage(Integer pageNumber, Integer pageSize) {
         // 构建分页和筛选条件
-        Paramap paramap = PageParamsUtil.baseParam(pageNumber, pageSize, "create_time desc");
+        Paramap paramap = PageParamsUtil.buildPageParamAndSort(pageNumber, pageSize, "create_time desc");
         paramap.put("collectionType", CollectionConstant.COLLECTION_TYPE_VIDEO);
 
         List<SourceCollections> collectionsList = sourceCollectionsDao.findByPage(paramap);

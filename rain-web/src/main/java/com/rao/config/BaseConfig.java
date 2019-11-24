@@ -36,19 +36,19 @@ public class BaseConfig implements WebMvcConfigurer{
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        ResourceHandlerRegistration resourceHandlerRegistration = registry.addResourceHandler("/source/**");
-        List<ResourceLocationsConfig> servicePaths = resourceLocationsConfigService.findAll();
-
-        String os = System.getProperty("os.name");
-        if(os.toLowerCase().startsWith("win")){
-            servicePaths.forEach(item -> {
-                resourceHandlerRegistration.addResourceLocations("file:" + item.getWdLocationPath());
-            });
-        }else{
-            servicePaths.forEach(item -> {
-                resourceHandlerRegistration.addResourceLocations("file:" + item.getLmLocationPath());
-            });
-        }
+//        ResourceHandlerRegistration resourceHandlerRegistration = registry.addResourceHandler("/source/**");
+//        List<ResourceLocationsConfig> servicePaths = resourceLocationsConfigService.findAll();
+//
+//        String os = System.getProperty("os.name");
+//        if(os.toLowerCase().startsWith("win")){
+//            servicePaths.forEach(item -> {
+//                resourceHandlerRegistration.addResourceLocations("file:" + item.getWdLocationPath());
+//            });
+//        }else{
+//            servicePaths.forEach(item -> {
+//                resourceHandlerRegistration.addResourceLocations("file:" + item.getLmLocationPath());
+//            });
+//        }
     }
 
     @Override
