@@ -14,8 +14,8 @@ import java.lang.annotation.Target;
 /**
  * Bean验证注解
  *
- * @author xwencong@163.com
- * @date 2018/7/5 11:14
+ * @author raojing
+ * @date 2019/7/5 11:14
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.PARAMETER})
