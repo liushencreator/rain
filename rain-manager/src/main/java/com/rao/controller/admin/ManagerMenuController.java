@@ -8,7 +8,7 @@ import pojo.entity.system.RainSystemMenu;
 import pojo.vo.system.FirstLevelMenuVO;
 import pojo.vo.system.MenuTreeVO;
 import pojo.vo.system.MenuVO;
-import service.system.RainSystemMenuService;
+import com.rao.service.system.RainSystemMenuService;
 import util.result.ResultMessage;
 
 import javax.annotation.Resource;

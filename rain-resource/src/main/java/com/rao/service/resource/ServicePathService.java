@@ -1,4 +1,4 @@
-package service.resource;
+package com.rao.service.resource;
 
 
 import pojo.entity.resource.ServicePath;

@@ -3,6 +3,7 @@ package com.rao.service.impl.resource;
 import com.rao.dao.resource.ResourceLocationsConfigDao;
 import com.rao.dao.resource.ResourceVideoDao;
 import com.rao.dao.resource.ServicePathDao;
+import com.rao.service.resource.ServicePathService;
 import com.rao.util.file.PathUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -11,7 +12,6 @@ import pojo.entity.resource.ResourceLocationsConfig;
 import pojo.entity.resource.ResourceVideo;
 import pojo.entity.resource.ServicePath;
 import pojo.vo.resource.ResourceVO;
-import service.resource.ServicePathService;
 import util.common.Paramap;
 import util.common.TwiterIdUtil;
 

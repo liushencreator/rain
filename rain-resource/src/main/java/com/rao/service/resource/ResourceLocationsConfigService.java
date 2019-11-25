@@ -1,9 +1,8 @@
-package service.resource;
+package com.rao.service.resource;
 
 import pojo.entity.resource.ResourceLocationsConfig;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * SERVICE - ResourceLocationsConfig(本地映射路径配置)

@@ -1,25 +1,22 @@
 package com.rao.controller.admin;
 
-import com.rao.util.file.DownLoadUtil;
+import com.rao.service.resource.ResourceLocationsConfigService;
+import com.rao.service.resource.ResourceVideoService;
+import com.rao.service.resource.ServicePathService;
+import com.rao.service.resource.SourceCollectionsService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import pojo.entity.resource.ResourceLocationsConfig;
 import pojo.entity.resource.ResourceVideo;
 import pojo.entity.resource.ServicePath;
 import pojo.vo.resource.ResourceVideoVO;
-import service.resource.ResourceLocationsConfigService;
-import service.resource.ResourceVideoService;
-import service.resource.ServicePathService;
-import service.resource.SourceCollectionsService;
 import util.common.CheckAgentUtil;
 import util.common.Paramap;
 import util.result.ResultMessage;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
 import java.util.List;
 
 /**

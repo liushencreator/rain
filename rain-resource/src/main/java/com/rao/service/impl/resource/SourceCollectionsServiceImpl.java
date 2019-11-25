@@ -3,6 +3,7 @@ package com.rao.service.impl.resource;
 import com.rao.config.LocalOssConfig;
 import com.rao.dao.resource.ResourceVideoDao;
 import com.rao.dao.resource.SourceCollectionsDao;
+import com.rao.service.resource.SourceCollectionsService;
 import constant.common.DateFormatEnum;
 import constant.resource.CollectionConstant;
 import org.springframework.stereotype.Service;
@@ -10,7 +11,6 @@ import org.springframework.util.CollectionUtils;
 import pojo.entity.resource.ResourceVideo;
 import pojo.entity.resource.SourceCollections;
 import pojo.vo.resource.ResourceVideoVO;
-import service.resource.SourceCollectionsService;
 import util.common.PageParamsUtil;
 import util.common.Paramap;
 

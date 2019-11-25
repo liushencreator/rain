@@ -1,5 +1,7 @@
 package com.rao.controller.admin;
 
+import com.rao.service.resource.ResourceVideoService;
+import com.rao.service.resource.SourceCollectionsService;
 import constant.resource.CollectionConstant;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -7,8 +9,6 @@ import org.springframework.web.bind.annotation.*;
 import pojo.entity.resource.ResourceVideo;
 import pojo.entity.resource.SourceCollections;
 import pojo.vo.resource.ResourceVideoVO;
-import service.resource.ResourceVideoService;
-import service.resource.SourceCollectionsService;
 import util.common.CheckAgentUtil;
 import util.common.TwiterIdUtil;
 import util.result.ResultMessage;

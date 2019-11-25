@@ -1,7 +1,7 @@
-package com.rao.service.impl.admin;
+package com.rao.service.impl.system;
 
 import org.springframework.stereotype.Service;
-import service.system.RainSystemUserService;
+import com.rao.service.system.RainSystemUserService;
 
 /**
  * 系统用户 service 实现

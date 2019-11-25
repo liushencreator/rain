@@ -1,19 +1,18 @@
 package com.rao.controller.local;
 
 import com.rao.config.LocalOssConfig;
+import com.rao.service.resource.ResourceLocationsConfigService;
+import com.rao.service.resource.ResourceVideoService;
+import com.rao.service.resource.ServicePathService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import pojo.dto.resource.UpdateResourceDTO;
-import pojo.entity.resource.ResourceLocationsConfig;
 import pojo.entity.resource.ResourceVideo;
 import pojo.entity.resource.ServicePath;
 import pojo.vo.resource.ResourceVideoVO;
-import service.resource.ResourceLocationsConfigService;
-import service.resource.ResourceVideoService;
-import service.resource.ServicePathService;
 import util.common.Paramap;
 import util.result.ResultMessage;
 

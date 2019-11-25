@@ -1,4 +1,4 @@
-package com.rao.service.impl.admin;
+package com.rao.service.impl.system;
 
 import com.rao.dao.admin.RainSystemMenuDao;
 import constant.common.StateConstants;
@@ -11,7 +11,7 @@ import pojo.entity.system.RainSystemMenu;
 import pojo.vo.system.FirstLevelMenuVO;
 import pojo.vo.system.MenuTreeVO;
 import pojo.vo.system.MenuVO;
-import service.system.RainSystemMenuService;
+import com.rao.service.system.RainSystemMenuService;
 import util.common.Paramap;
 import util.common.TwiterIdUtil;
 
