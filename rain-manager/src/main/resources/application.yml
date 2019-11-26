@@ -31,6 +31,13 @@ mybatis:
   configuration:
     map-underscore-to-camel-case: true
 
+# dao 的日志        
+logging:
+  level:
+    com: 
+      rao:
+        dao: debug
+
 # eureka    
 eureka:
   client:
@@ -39,4 +46,4 @@ eureka:
 
 feign:
   hystrix:
-    enabled: true    
+    enabled: true
