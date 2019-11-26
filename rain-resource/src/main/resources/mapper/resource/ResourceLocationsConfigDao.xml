@@ -5,7 +5,7 @@
 <!-- namespace必须指向Dao接口 -->
 <mapper namespace="com.rao.dao.resource.ResourceLocationsConfigDao">
 	
-	<resultMap id="ResourceLocationsConfigResultMap" type="pojo.entity.resource.ResourceLocationsConfig">
+	<resultMap id="ResourceLocationsConfigResultMap" type="com.rao.pojo.entity.resource.ResourceLocationsConfig">
 		<id property="id" column="id"  />
 		<result property="configName" column="config_name"/>
 		<result property="lmLocationPath" column="lm_location_path" />
@@ -96,7 +96,7 @@
 	</select>
 	
 	<!-- 插入 -->
-	<insert id="insert" parameterType="pojo.entity.resource.ResourceLocationsConfig">
+	<insert id="insert" parameterType="com.rao.pojo.entity.resource.ResourceLocationsConfig">
 		<selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
 			SELECT LAST_INSERT_ID()
 		</selectKey>
@@ -106,7 +106,7 @@
 	</insert>
 	
 	<!-- 修改 -->
-	<update id="update" parameterType="pojo.entity.resource.ResourceLocationsConfig">
+	<update id="update" parameterType="com.rao.pojo.entity.resource.ResourceLocationsConfig">
 		UPDATE	RESOURCE_LOCATIONS_CONFIG
 		<set>
 			<include refid="set_column" />
@@ -139,7 +139,7 @@
 	</select>
 	
 	<!-- insertSelective -->
-	<insert id="insertSelective" parameterType="pojo.entity.resource.ResourceLocationsConfig">
+	<insert id="insertSelective" parameterType="com.rao.pojo.entity.resource.ResourceLocationsConfig">
 		<selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
 			SELECT LAST_INSERT_ID()
 		</selectKey>

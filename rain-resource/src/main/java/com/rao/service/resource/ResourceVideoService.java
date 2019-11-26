@@ -1,9 +1,9 @@
 package com.rao.service.resource;
 
 
-import pojo.dto.resource.UpdateResourceDTO;
-import pojo.entity.resource.ResourceVideo;
-import pojo.vo.resource.ResourceVideoVO;
+import com.rao.pojo.entity.resource.ResourceVideo;
+import com.rao.pojo.dto.resource.UpdateResourceDTO;
+import com.rao.pojo.vo.resource.ResourceVideoVO;
 
 import java.util.List;
 import java.util.Map;

@@ -1,6 +1,6 @@
 package com.rao.dao.resource;
 
-import pojo.entity.resource.ServicePath;
+import com.rao.pojo.entity.resource.ServicePath;
 
 import java.util.List;
 import java.util.Map;

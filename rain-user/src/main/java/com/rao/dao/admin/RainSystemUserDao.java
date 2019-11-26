@@ -1,7 +1,6 @@
 package com.rao.dao.admin;
 
-import pojo.entity.system.RainSystemUser;
-import pojo.entity.system.RainSystemUser;
+import com.rao.pojo.entity.system.RainSystemUser;
 
 import java.util.List;
 import java.util.Map;

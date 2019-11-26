@@ -1,6 +1,6 @@
 package com.rao.dao.resource;
 
-import pojo.entity.resource.ResourceNetworkLink;
+import com.rao.pojo.entity.resource.ResourceNetworkLink;
 
 import java.util.List;
 import java.util.Map;

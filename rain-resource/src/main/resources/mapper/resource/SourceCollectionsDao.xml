@@ -5,7 +5,7 @@
 <!-- namespace必须指向Dao接口 -->
 <mapper namespace="com.rao.dao.resource.SourceCollectionsDao">
 	
-	<resultMap id="SourceCollectionsResultMap" type="pojo.entity.resource.SourceCollections">
+	<resultMap id="SourceCollectionsResultMap" type="com.rao.pojo.entity.resource.SourceCollections">
 		<result property="id" column="id" />
 		<result property="collectionName" column="collection_name" />
 		<result property="collectionPath" column="collection_path" />
@@ -96,14 +96,14 @@
 	</select>
 	
 	<!-- 插入 -->
-	<insert id="insert" parameterType="pojo.entity.resource.SourceCollections">
+	<insert id="insert" parameterType="com.rao.pojo.entity.resource.SourceCollections">
 		INSERT SOURCE_COLLECTIONS
 				(<include refid="base_column" /> )
 		VALUES	(<include refid="base_value_column" />)
 	</insert>
 	
 	<!-- 修改 -->
-	<update id="update" parameterType="pojo.entity.resource.SourceCollections">
+	<update id="update" parameterType="com.rao.pojo.entity.resource.SourceCollections">
 		UPDATE	SOURCE_COLLECTIONS
 		<set>
 			<include refid="set_column" />

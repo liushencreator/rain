@@ -1,7 +1,6 @@
 package com.rao.dao.resource;
 
-import pojo.entity.resource.SourceCollections;
-
+import com.rao.pojo.entity.resource.SourceCollections;
 import java.util.List;
 import java.util.Map;
 

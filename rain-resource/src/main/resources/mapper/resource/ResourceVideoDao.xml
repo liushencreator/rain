@@ -5,7 +5,7 @@
 <!-- namespace必须指向Dao接口 -->
 <mapper namespace="com.rao.dao.resource.ResourceVideoDao">
 	
-	<resultMap id="ResourceVideoResultMap" type="pojo.entity.resource.ResourceVideo">
+	<resultMap id="ResourceVideoResultMap" type="com.rao.pojo.entity.resource.ResourceVideo">
 		<id property="id" column="id"  />
 		<result property="videoName" column="video_name" />
 		<result property="videoPath" column="video_path" />
@@ -135,14 +135,14 @@
 	</select>
 	
 	<!-- 插入 -->
-	<insert id="insert" parameterType="pojo.entity.resource.ResourceVideo">
+	<insert id="insert" parameterType="com.rao.pojo.entity.resource.ResourceVideo">
 		INSERT RESOURCE_VIDEO
 				(<include refid="base_column" /> )
 		VALUES	(<include refid="base_value_column" />)
 	</insert>
 
 	<!-- 修改 -->
-	<update id="update" parameterType="pojo.entity.resource.ResourceVideo">
+	<update id="update" parameterType="com.rao.pojo.entity.resource.ResourceVideo">
 		UPDATE	RESOURCE_VIDEO
 		<set>
 			<include refid="set_column" />
@@ -206,7 +206,7 @@
 	</insert>
 
 	<!-- 根据资源id查询资源列表 -->
-	<select id="listByResoueceIds" resultType="pojo.entity.resource.ResourceVideo">
+	<select id="listByResoueceIds" resultType="com.rao.pojo.entity.resource.ResourceVideo">
 		SELECT	<include refid="base_column" />
 		FROM	RESOURCE_VIDEO
 		WHERE	ID IN

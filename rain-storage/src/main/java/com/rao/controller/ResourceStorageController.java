@@ -1,12 +1,12 @@
 package com.rao.controller;
 
+import com.rao.pojo.vo.file.FileUploadVO;
 import com.rao.service.ResourceStorageService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-import pojo.vo.file.FileUploadVO;
 import util.result.ResultMessage;
 
 import javax.annotation.Resource;

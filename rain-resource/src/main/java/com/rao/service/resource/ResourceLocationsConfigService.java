@@ -1,7 +1,6 @@
 package com.rao.service.resource;
 
-import pojo.entity.resource.ResourceLocationsConfig;
-
+import com.rao.pojo.entity.resource.ResourceLocationsConfig;
 import java.util.List;
 
 /**

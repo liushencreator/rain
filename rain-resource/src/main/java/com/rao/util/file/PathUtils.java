@@ -1,7 +1,7 @@
 package com.rao.util.file;
 
 
-import pojo.vo.resource.ResourceVO;
+import com.rao.pojo.vo.resource.ResourceVO;
 
 import java.io.File;
 import java.util.Date;

@@ -1,11 +1,11 @@
 package com.rao.controller.local;
 
+import com.rao.pojo.entity.resource.ResourceLocationsConfig;
 import com.rao.service.resource.ResourceLocationsConfigService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import pojo.entity.resource.ResourceLocationsConfig;
 import util.result.ResultMessage;
 
 import javax.annotation.Resource;

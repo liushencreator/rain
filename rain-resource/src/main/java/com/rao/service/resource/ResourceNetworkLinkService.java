@@ -1,6 +1,6 @@
 package com.rao.service.resource;
 
-import pojo.vo.resource.NetworkLinkVO;
+import com.rao.pojo.vo.resource.NetworkLinkVO;
 
 import java.util.List;
 

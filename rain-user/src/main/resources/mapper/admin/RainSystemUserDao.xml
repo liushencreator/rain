@@ -5,7 +5,7 @@
 <!-- namespace必须指向Dao接口 -->
 <mapper namespace="com.rao.dao.admin.RainSystemUserDao">
 	
-	<resultMap id="RainSystemUserResultMap" type="pojo.entity.system.RainSystemUser">
+	<resultMap id="RainSystemUserResultMap" type="com.rao.pojo.entity.system.RainSystemUser">
 		<id property="id" column="id"  />
 		<result property="userName" column="user_name" />
 		<result property="phone" column="phone" />
@@ -124,7 +124,7 @@
 	</select>
 	
 	<!-- 插入 -->
-	<insert id="insert" parameterType="pojo.entity.system.RainSystemUser">
+	<insert id="insert" parameterType="com.rao.pojo.entity.system.RainSystemUser">
 		<selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
 			SELECT LAST_INSERT_ID()
 		</selectKey>
@@ -134,7 +134,7 @@
 	</insert>
 	
 	<!-- 修改 -->
-	<update id="update" parameterType="pojo.entity.system.RainSystemUser">
+	<update id="update" parameterType="com.rao.pojo.entity.system.RainSystemUser">
 		UPDATE	RAIN_SYSTEM_USER
 		<set>
 			<include refid="set_column" />
@@ -177,7 +177,7 @@
 	</select>
 
 	<!-- insertSelective -->
-	<insert id="insertSelective" parameterType="pojo.entity.system.RainSystemUser">
+	<insert id="insertSelective" parameterType="com.rao.pojo.entity.system.RainSystemUser">
 		<selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
 			SELECT LAST_INSERT_ID()
 		</selectKey>

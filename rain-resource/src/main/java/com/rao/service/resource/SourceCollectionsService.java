@@ -1,9 +1,7 @@
 package com.rao.service.resource;
 
-
-
-import pojo.entity.resource.SourceCollections;
-import pojo.vo.resource.ResourceVideoVO;
+import com.rao.pojo.entity.resource.SourceCollections;
+import com.rao.pojo.vo.resource.ResourceVideoVO;
 
 import java.util.List;
 import java.util.Map;

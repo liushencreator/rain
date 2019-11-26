@@ -5,7 +5,7 @@
 <!-- namespace必须指向Dao接口 -->
 <mapper namespace="com.rao.dao.admin.RainSystemMenuDao">
 	
-	<resultMap id="RainSystemMenuResultMap" type="pojo.entity.system.RainSystemMenu">
+	<resultMap id="RainSystemMenuResultMap" type="com.rao.pojo.entity.system.RainSystemMenu">
 		<id property="id" column="id"  />
 		<result property="menuName" column="menu_name" />
 		<result property="menuUrl" column="menu_url" />
@@ -120,7 +120,7 @@
 	</select>
 	
 	<!-- 插入 -->
-	<insert id="insert" parameterType="pojo.entity.system.RainSystemMenu">
+	<insert id="insert" parameterType="com.rao.pojo.entity.system.RainSystemMenu">
 		<selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
 			SELECT LAST_INSERT_ID()
 		</selectKey>
@@ -130,7 +130,7 @@
 	</insert>
 	
 	<!-- 修改 -->
-	<update id="update" parameterType="pojo.entity.system.RainSystemMenu">
+	<update id="update" parameterType="com.rao.pojo.entity.system.RainSystemMenu">
 		UPDATE	RAIN_SYSTEM_MENU
 		<set>
 			<include refid="set_column" />
@@ -173,7 +173,7 @@
 	</select>
 
 	<!-- insertSelective -->
-	<insert id="insertSelective" parameterType="pojo.entity.system.RainSystemMenu">
+	<insert id="insertSelective" parameterType="com.rao.pojo.entity.system.RainSystemMenu">
 		<selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
 			SELECT LAST_INSERT_ID()
 		</selectKey>

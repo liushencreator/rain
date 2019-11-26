@@ -1,9 +1,9 @@
 package com.rao.service.impl.resource;
 
 import com.rao.dao.resource.ResourceLocationsConfigDao;
+import com.rao.pojo.entity.resource.ResourceLocationsConfig;
 import com.rao.service.resource.ResourceLocationsConfigService;
 import org.springframework.stereotype.Service;
-import pojo.entity.resource.ResourceLocationsConfig;
 import util.common.PageParamsUtil;
 import util.common.Paramap;
 

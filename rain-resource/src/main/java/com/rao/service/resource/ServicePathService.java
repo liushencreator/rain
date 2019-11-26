@@ -1,7 +1,7 @@
 package com.rao.service.resource;
 
 
-import pojo.entity.resource.ServicePath;
+import com.rao.pojo.entity.resource.ServicePath;
 
 import java.util.List;
 

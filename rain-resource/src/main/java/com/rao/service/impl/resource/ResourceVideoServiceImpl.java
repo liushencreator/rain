@@ -2,17 +2,16 @@ package com.rao.service.impl.resource;
 
 import com.rao.config.LocalOssConfig;
 import com.rao.dao.resource.ResourceVideoDao;
+import com.rao.pojo.entity.resource.ResourceVideo;
 import com.rao.service.resource.ResourceVideoService;
 import constant.common.DateFormatEnum;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pojo.dto.resource.UpdateResourceDTO;
-import pojo.entity.resource.ResourceVideo;
-import pojo.vo.resource.ResourceVideoVO;
+import com.rao.pojo.dto.resource.UpdateResourceDTO;
+import com.rao.pojo.vo.resource.ResourceVideoVO;
 import util.common.PageParamsUtil;
 import util.common.Paramap;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
