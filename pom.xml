@@ -22,6 +22,7 @@
         <module>rain-common-util</module>
         <module>rain-eureka</module>
         <module>rain-gateway</module>
+        <module>rain-security-auth</module>
         <module>rain-manager</module>
         <module>rain-resource</module>
         <module>rain-user</module>
