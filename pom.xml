@@ -17,16 +17,15 @@
     </parent>
 
     <modules>
-        <module>rain-admin</module>
         <module>rain-api</module>
         <module>rain-common-util</module>
+        <module>rain-storage</module>
         <module>rain-eureka</module>
         <module>rain-gateway</module>
         <module>rain-security-auth</module>
         <module>rain-manager</module>
         <module>rain-resource</module>
         <module>rain-user</module>
-        <module>rain-web</module>
     </modules>
 
     <properties>
