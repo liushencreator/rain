@@ -1,0 +1,24 @@
+server:
+  port: 8085
+  servlet:
+    context-path: /auth
+    tomcat:
+      uri-encoding: utf-8
+
+spring:
+  mvc:
+    pathmatch:
+      use-suffix-pattern: true
+      
+  # eureka 注册名称
+  application:
+    name: rain-resource
+  jackson:
+    date-format: yyyy-MM-dd
+    time-zone: GMT+8
+    
+# eureka    
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8080/eureka/    
