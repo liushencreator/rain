@@ -28,9 +28,9 @@ public class RainSystemUserController {
      * @return
      */
     @GetMapping("{account}")
-    public ResultMessage findByAccount(@PathVariable("account") String account){
+    public ResultMessage<SystemUserVO> findByAccount(@PathVariable("account") String account){
         SystemUserVO systemUserVO = rainSystemUserService.findByAccount(account);
-        return ResultMessage.success().add("systemUserVO", systemUserVO);
+        return ResultMessage.success(systemUserVO);
     }
     
 }

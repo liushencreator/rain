@@ -3,6 +3,7 @@ package com.rao.client.user.fallback;
 import com.rao.client.user.SystemUserClient;
 import feign.hystrix.FallbackFactory;
 import org.springframework.stereotype.Component;
+import pojo.vo.user.SystemUserVO;
 import util.result.ResultMessage;
 
 /**
@@ -18,7 +19,7 @@ public class SystemUserClientFallback implements FallbackFactory<SystemUserClien
         return new SystemUserClient(){
 
             @Override
-            public ResultMessage findByAccount(String account) {
+            public ResultMessage<SystemUserVO> findByAccount(String account) {
                 return ResultMessage.fail().addMessage("获取用户信息失败");
             }
         };

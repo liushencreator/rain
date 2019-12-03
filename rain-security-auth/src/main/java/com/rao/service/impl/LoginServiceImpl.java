@@ -4,6 +4,7 @@ import com.rao.pojo.bo.OauthTokenResponse;
 import com.rao.pojo.dto.LoginDTO;
 import com.rao.service.LoginService;
 import exception.BusinessException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -21,6 +22,7 @@ import javax.annotation.Resource;
  * @author raojing
  * @date 2019/12/2 14:53
  */
+@Slf4j
 @Service
 public class LoginServiceImpl implements LoginService {
 
@@ -35,11 +37,13 @@ public class LoginServiceImpl implements LoginService {
     public String loginAdmin(LoginDTO loginDTO) {
         // 认证
         UserDetails userDetails = userDetailsService.loadUserByUsername(loginDTO.getUsername());
-        if (userDetails == null || !passwordEncoder.matches(loginDTO.getPassword(), userDetails.getPassword())) {
+        if(userDetails == null){
+            throw BusinessException.operate("用户不存在");
+        }else if(!passwordEncoder.matches(loginDTO.getPassword(), userDetails.getPassword())){
             throw BusinessException.operate("密码错误，请重试");
         }
 
-        String url = "http://localhost:8085/auth/oauth/token";
+        String url = "http://localhost:8086/auth/oauth/token";
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
 
@@ -56,6 +60,7 @@ public class LoginServiceImpl implements LoginService {
             OauthTokenResponse response = restTemplate.postForObject(url, request, OauthTokenResponse.class);
             return response.getAccess_token();
         }catch (Exception e){
+            log.info("授权失败:{}", e.getMessage());
             throw BusinessException.operate("授权失败");
         }
     }

@@ -2,13 +2,13 @@ package com.rao.controller;
 
 import com.rao.pojo.dto.LoginDTO;
 import com.rao.service.LoginService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.oauth2.common.OAuth2AccessToken;
+import org.springframework.security.oauth2.provider.token.TokenStore;
+import org.springframework.web.bind.annotation.*;
 import util.result.ResultMessage;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * 登录管理
@@ -21,16 +21,31 @@ public class LoginAdminController {
 
     @Resource
     private LoginService loginService;
+    @Resource
+    private TokenStore tokenStore;
 
     /**
      * 后台用户登录
      * @param loginDTO
      * @return
      */
-    @PostMapping(value = "login")
-    public ResultMessage login(@RequestBody LoginDTO loginDTO) {
+    @PostMapping(value = "/login")
+    public ResultMessage<String> login(@RequestBody LoginDTO loginDTO) {
         String accessToken = loginService.loginAdmin(loginDTO);
-        return ResultMessage.success().addMessage("登录成功").add("access_token", accessToken);
+        return ResultMessage.success(accessToken).addMessage("登录成功");
+    }
+
+    /**
+     * 注销
+     * @param request
+     * @return
+     */
+    @PostMapping(value = "/logout")
+    public ResultMessage logout(HttpServletRequest request){
+        String token = request.getParameter("access_token");
+        OAuth2AccessToken oAuth2AccessToken = tokenStore.readAccessToken(token);
+        tokenStore.removeAccessToken(oAuth2AccessToken);
+        return ResultMessage.success().addMessage("用户注销成功");
     }
     
 }

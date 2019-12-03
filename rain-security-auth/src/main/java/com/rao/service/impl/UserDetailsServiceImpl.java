@@ -28,15 +28,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-
-        ResultMessage resultMessage = systemUserClient.findByAccount(userName);
-
-        LinkedHashMap map =  (LinkedHashMap)resultMessage.getData().get("systemUserVO");
-
-        System.out.println(map);
-
-        SystemUserVO systemUser = (SystemUserVO)resultMessage.getData().get("systemUserVO");
-
+        ResultMessage<SystemUserVO> byAccount = systemUserClient.findByAccount(userName);
+        SystemUserVO systemUser = byAccount.getData();
         if (systemUser != null) {
             // 用户名匹配
             List<GrantedAuthority> grantedAuthorities = Lists.newArrayList();

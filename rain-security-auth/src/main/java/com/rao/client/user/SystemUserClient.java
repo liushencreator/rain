@@ -5,6 +5,7 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import pojo.vo.user.SystemUserVO;
 import util.result.ResultMessage;
 
 /**
@@ -21,6 +22,6 @@ public interface SystemUserClient {
      * @return
      */
     @RequestMapping(value = "/user/system/user/{account}", method = RequestMethod.GET)
-    ResultMessage findByAccount(@PathVariable("account") String account);
+    ResultMessage<SystemUserVO> findByAccount(@PathVariable("account") String account);
     
 }
