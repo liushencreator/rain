@@ -19,7 +19,6 @@ public class ResourceAdminClientFallback implements FallbackFactory<ResourceAdmi
             
             @Override
             public ResultMessage testLocal() {
-                System.out.println(throwable.getMessage());
                 return ResultMessage.fail().addMessage("获取资源失败");
             }
             

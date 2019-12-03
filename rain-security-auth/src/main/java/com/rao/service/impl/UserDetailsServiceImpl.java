@@ -1,13 +1,19 @@
 package com.rao.service.impl;
 
 import com.google.common.collect.Lists;
+import com.rao.client.user.SystemUserClient;
+import org.springframework.beans.BeanUtils;
+import pojo.vo.user.SystemUserVO;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import util.result.ResultMessage;
 
+import javax.annotation.Resource;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 /**
@@ -17,21 +23,28 @@ import java.util.List;
  */
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-    private static final String USERNAME = "admin";
-    private static final String PASSWORD = "$2a$10$WhCuqmyCsYdqtJvM0/J4seCU.xZQHe2snNE5VFUuBGUZWPbtdl3GG";
+    @Resource
+    private SystemUserClient systemUserClient;
     
     @Override
-    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        // 用户名匹配
-        if (s.equals(USERNAME)) {
+    public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
+
+        ResultMessage resultMessage = systemUserClient.findByAccount(userName);
+
+        LinkedHashMap map =  (LinkedHashMap)resultMessage.getData().get("systemUserVO");
+
+        System.out.println(map);
+
+        SystemUserVO systemUser = (SystemUserVO)resultMessage.getData().get("systemUserVO");
+
+        if (systemUser != null) {
+            // 用户名匹配
             List<GrantedAuthority> grantedAuthorities = Lists.newArrayList();
             GrantedAuthority grantedAuthority = new SimpleGrantedAuthority("USER");
             grantedAuthorities.add(grantedAuthority);
-            return new User(USERNAME, PASSWORD, grantedAuthorities);
-        }
-
-        // 用户名不匹配
-        else {
+            return new User(userName, systemUser.getPassword(), grantedAuthorities);
+        }else {
+            // 用户名不匹配
             return null;
         }
     }

@@ -1,6 +1,7 @@
 package com.rao.dao.admin;
 
 import com.rao.pojo.entity.system.RainSystemUser;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Map;
@@ -38,4 +39,11 @@ public interface RainSystemUserDao {
      */
     Integer insertSelective(RainSystemUser rainSystemUser);
 
+    /**
+     * 通过用户名或手机号码查询用户信息
+     * @param account
+     * @return
+     */
+    RainSystemUser findByUserNameOrPhone(@Param("account") String account);
+    
 }

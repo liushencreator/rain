@@ -26,6 +26,16 @@ spring:
         predicates:
           - Path=/resource/**
 
+      - id: rain-user
+        uri: lb://rain-user
+        predicates:
+          - Path=/user/**
+          
+      - id: rain-auth
+        uri: lb://rain-auth
+        predicates:
+          - Path=/auth/**    
+
 # 注册中心地址
 eureka:
   client:

@@ -1,5 +1,5 @@
 server:
-  port: 8085
+  port: 8086
   servlet:
     context-path: /auth
     tomcat:
@@ -12,7 +12,7 @@ spring:
       
   # eureka 注册名称
   application:
-    name: rain-resource
+    name: rain-auth
   jackson:
     date-format: yyyy-MM-dd
     time-zone: GMT+8
