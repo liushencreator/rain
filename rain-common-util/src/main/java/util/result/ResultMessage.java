@@ -13,7 +13,7 @@ import java.util.Map;
  * @date 2019/11/15 12:37
  */
 @Data
-public class ResultMessage {
+public class ResultMessage<T> {
 	
 	private static DefaultSuccessMsgEnum successMsgEnum = DefaultSuccessMsgEnum.SUCCESS;
 	private static DefaultErrorMsgEnum errorMsgEnum = DefaultErrorMsgEnum.FAIL;
@@ -29,24 +29,15 @@ public class ResultMessage {
 	private String message;
 
 	/**
-	 * 记录数(分页使用)
-	 */
-	private Integer count;
-
-	/**
-	 * 分页数据(分页使用)
-	 */
-	private Object pageData;
-
-	/**
 	 * 视图数据
 	 */
-	private Map<String,Object> data = new HashMap<String,Object>();
+	private T data;
 
 	/**
 	 * 私有化构造器
 	 */
 	private ResultMessage(){};
+
 
 	/**
 	 * 成功
@@ -56,6 +47,18 @@ public class ResultMessage {
 		ResultMessage message=new ResultMessage();
 		message.setCode(successMsgEnum.getCode());
 		message.setMessage(successMsgEnum.getMsg());
+		return message;
+	}
+	
+	/**
+	 * 成功
+	 * @return
+	 */
+	public static<T> ResultMessage<T> success(T data){
+		ResultMessage<T> message=new ResultMessage<>();
+		message.setCode(successMsgEnum.getCode());
+		message.setMessage(successMsgEnum.getMsg());
+		message.setData(data);
 		return message;
 	}
 
@@ -77,27 +80,24 @@ public class ResultMessage {
 	 * @return
 	 */
 	public static ResultMessage build(Integer code, String msg){
-		ResultMessage message=new ResultMessage();
+		ResultMessage message=new ResultMessage<>();
 		message.setCode(code);
 		message.setMessage(msg);
 		return message;
 	}
-
+	
 	/**
-	 * 返回视图数据
-	 * @param key
-	 * @param value
+	 * 构建自定义信息
+	 * @param code
+	 * @param msg
 	 * @return
 	 */
-	public ResultMessage add(String key, Object value){
-		this.getData().put(key, value);
-		return this;
-	}
-
-	public ResultMessage page(Integer count, Object pageDataa){
-		this.count = count;
-		this.pageData = pageDataa;
-		return this;
+	public static<T> ResultMessage<T> build(Integer code, String msg, T data){
+		ResultMessage<T> message=new ResultMessage<>();
+		message.setCode(code);
+		message.setMessage(msg);
+		message.setData(data);
+		return message;
 	}
 
 	/**

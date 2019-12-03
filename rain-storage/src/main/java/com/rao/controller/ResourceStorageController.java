@@ -33,14 +33,14 @@ public class ResourceStorageController {
      * @return
      */
     @PostMapping("/file_upload")
-    public ResultMessage fileUpload(@RequestParam(value = "file") MultipartFile file,
+    public ResultMessage<FileUploadVO> fileUpload(@RequestParam(value = "file") MultipartFile file,
                                     HttpServletRequest request) {
         try {
             String projectUrl = request.getScheme() + "://" + InetAddress.getLocalHost().getHostAddress() + ":" +
                     request.getServerPort() + request.getContextPath() + "/storage";
 
             FileUploadVO filePath = resourceStorageService.fileUpload(file, projectUrl);
-            return ResultMessage.success().add("uploadInfo", filePath);
+            return ResultMessage.success(filePath);
         }catch (Exception e){
             return ResultMessage.fail().addMessage("文件上传失败");
         }

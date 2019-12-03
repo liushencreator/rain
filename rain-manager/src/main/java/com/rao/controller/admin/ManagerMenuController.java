@@ -32,9 +32,9 @@ public class ManagerMenuController {
      * @return
      */
     @PostMapping("/menu_tree")
-    public ResultMessage menuTree(){
+    public ResultMessage<List<MenuVO>> menuTree(){
         List<MenuVO> menuVOList = rainSystemMenuService.menuTree();
-        return ResultMessage.success().add("menu_tree", menuVOList);
+        return ResultMessage.success(menuVOList);
     }
 
     /**
@@ -42,9 +42,9 @@ public class ManagerMenuController {
      * @return
      */
     @PostMapping("/menu_tree_config")
-    public ResultMessage menuTreeConfig(){
+    public ResultMessage<List<MenuTreeVO>> menuTreeConfig(){
         List<MenuTreeVO> menuTreeVOList = rainSystemMenuService.menuTreeConfig();
-        return ResultMessage.success().add("menu_tree", menuTreeVOList);
+        return ResultMessage.success(menuTreeVOList);
     }
 
     /**
@@ -53,9 +53,9 @@ public class ManagerMenuController {
      * @return
      */
     @PostMapping("/get_menu_config")
-    public ResultMessage getMenuConfig(@RequestParam Long id){
+    public ResultMessage<RainSystemMenu> getMenuConfig(@RequestParam Long id){
         RainSystemMenu systemMenu = rainSystemMenuService.getMenuConfig(id);
-        return ResultMessage.success().add("menu_config", systemMenu);
+        return ResultMessage.success(systemMenu);
     }
 
     /**
@@ -63,9 +63,9 @@ public class ManagerMenuController {
      * @return
      */
     @PostMapping("/first_level_menu")
-    public ResultMessage firstLevelMenu(){
+    public ResultMessage<List<FirstLevelMenuVO>> firstLevelMenu(){
         List<FirstLevelMenuVO> firstLevelMenuVOList = rainSystemMenuService.listFirstLevelMenu();
-        return ResultMessage.success().add("first_level_menu", firstLevelMenuVOList);
+        return ResultMessage.success(firstLevelMenuVOList);
     }
 
     /**
