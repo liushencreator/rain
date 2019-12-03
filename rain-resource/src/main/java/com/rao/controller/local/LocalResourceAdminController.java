@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import util.result.PageResult;
 import util.result.ResultMessage;
 
 import javax.annotation.Resource;
@@ -23,10 +24,11 @@ public class LocalResourceAdminController {
     private ResourceLocationsConfigService resourceLocationsConfigService;
 
     @GetMapping("/list")
-    public ResultMessage configList(@RequestParam(defaultValue = "1") Integer pageNumber,
+    public ResultMessage<PageResult<ResourceLocationsConfig>> configList(@RequestParam(defaultValue = "1") Integer pageNumber,
                                     @RequestParam(defaultValue = "10") Integer pageSize){
         List<ResourceLocationsConfig> locationsConfigList = resourceLocationsConfigService.listConfigByPage(pageNumber, pageSize);
         int totalSize = resourceLocationsConfigService.count();
-        return ResultMessage.success().page(totalSize, locationsConfigList);
+        PageResult<ResourceLocationsConfig> pageResult = PageResult.build(totalSize, locationsConfigList);
+        return ResultMessage.success(pageResult);
     }
 }
