@@ -22,14 +22,22 @@ spring:
     username: root
     password: mysql
     driver-class-name: com.mysql.jdbc.Driver
-    jdbc-url: jdbc:mysql://localhost:3306/rain_auth_dev  
-      
+    jdbc-url: jdbc:mysql://localhost:3306/rain_auth_dev
+  
+  # redis  
+  redis:
+    host: localhost
+    port: 6379
+    password: redis
+    database: 0
+    
 # eureka    
 eureka:
   client:
     serviceUrl:
       defaultZone: http://localhost:8080/eureka/
-      
+
+# 熔断器      
 feign:
   hystrix:
     enabled: true
