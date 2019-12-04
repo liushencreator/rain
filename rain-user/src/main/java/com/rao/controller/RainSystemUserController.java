@@ -1,6 +1,7 @@
 package com.rao.controller;
 
 import com.rao.service.system.RainSystemUserService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,6 +29,7 @@ public class RainSystemUserController {
      * @return
      */
     @GetMapping("{account}")
+    @PreAuthorize("hasAnyRole('USER')")
     public ResultMessage<SystemUserVO> findByAccount(@PathVariable("account") String account){
         SystemUserVO systemUserVO = rainSystemUserService.findByAccount(account);
         return ResultMessage.success(systemUserVO);

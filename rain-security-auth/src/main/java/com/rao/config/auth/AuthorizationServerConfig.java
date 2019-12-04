@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
@@ -17,6 +18,7 @@ import org.springframework.security.oauth2.provider.ClientDetailsService;
 import org.springframework.security.oauth2.provider.client.JdbcClientDetailsService;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 
+import javax.annotation.Resource;
 import javax.sql.DataSource;
 
 /**
@@ -35,6 +37,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     private AuthenticationManager authenticationManager;
     @Autowired
     private RedisConnectionFactory redisConnectionFactory;
+    
 
     @Bean
     @Primary
@@ -78,23 +81,6 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
      */
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-//        clients
-//                // 使用内存设置
-//                .inMemory()
-//                // client_id
-//                .withClient("client")
-//                // client_secret
-//                .secret(passwordEncoder.encode("secret"))
-//                // 授权类型，密码模式和刷新令牌
-//                .authorizedGrantTypes("password", "refresh_token")
-//                // 授权范围
-//                .scopes("backend")
-//                // 可以设置对哪些资源有访问权限，不设置则全部资源都可以访问
-//                .resourceIds("backend-resources")
-//                // 设置访问令牌的有效期，这里是 1 天
-//                .accessTokenValiditySeconds(60 * 60 * 24)
-//                // 设置刷新令牌的有效期，这里是 30 天
-//                .refreshTokenValiditySeconds(60 * 60 * 24 * 30);
         clients.withClientDetails(jdbcClientDetailsService());
     }
 }
