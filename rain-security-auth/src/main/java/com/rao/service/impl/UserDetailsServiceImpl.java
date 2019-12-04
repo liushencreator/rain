@@ -1,19 +1,16 @@
 package com.rao.service.impl;
 
-import com.google.common.collect.Lists;
-import com.rao.client.user.SystemUserClient;
-import org.springframework.beans.BeanUtils;
-import pojo.vo.user.SystemUserVO;
+import com.rao.dao.RainSystemUserDao;
+import com.rao.pojo.entity.RainSystemUser;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import util.result.ResultMessage;
 
 import javax.annotation.Resource;
-import java.util.LinkedHashMap;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -24,15 +21,14 @@ import java.util.List;
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Resource
-    private SystemUserClient systemUserClient;
+    private RainSystemUserDao rainSystemUserDao;
     
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-        ResultMessage<SystemUserVO> byAccount = systemUserClient.findByAccount(userName);
-        SystemUserVO systemUser = byAccount.getData();
+        RainSystemUser systemUser = rainSystemUserDao.findByUserNameOrPhone(userName);
         if (systemUser != null) {
             // 用户名匹配
-            List<GrantedAuthority> grantedAuthorities = Lists.newArrayList();
+            List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
             GrantedAuthority grantedAuthority = new SimpleGrantedAuthority("USER");
             grantedAuthorities.add(grantedAuthority);
             return new User(userName, systemUser.getPassword(), grantedAuthorities);

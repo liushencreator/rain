@@ -22,7 +22,8 @@ spring:
     username: root
     password: mysql
     driver-class-name: com.mysql.jdbc.Driver
-    jdbc-url: jdbc:mysql://localhost:3306/rain_auth_dev
+    jdbc-url: jdbc:mysql://localhost:3306/rain_user_dev
+    url: jdbc:mysql://localhost:3306/rain_user_dev
   
   # redis  
   redis:
@@ -30,14 +31,23 @@ spring:
     port: 6379
     password: redis
     database: 0
+
+# mybatis
+mybatis:
+  mapper-locations: classpath:mapper/**/*.xml
+  type-aliases-package: com.rao.pojo.entity
+  configuration:
+    map-underscore-to-camel-case: true
+
+# dao 的日志        
+logging:
+  level:
+    com:
+      rao:
+        dao: debug
     
 # eureka    
 eureka:
   client:
     serviceUrl:
       defaultZone: http://localhost:8080/eureka/
-
-# 熔断器      
-feign:
-  hystrix:
-    enabled: true
