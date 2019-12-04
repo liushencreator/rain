@@ -58,7 +58,7 @@ security:
       client-secret: secret
       access-token-uri: http://localhost:8086/auth/oauth/token
       user-authorization-uri: http://localhost:8086/auth/oauth/authorize
+      grant-type: password,refresh_token
+      scope: backend
     resource:
-      token-info-uri: http://localhost:8086/auth/oauth/check_token
-    authorization:
-      check-token-access: http://localhost:8086/auth/oauth/check_token  
+      user-info-uri: http://localhost:8086/auth/user/info

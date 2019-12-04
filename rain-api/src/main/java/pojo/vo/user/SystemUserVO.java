@@ -26,11 +26,6 @@ public class SystemUserVO {
     private String phone;
 
     /**
-     * 登录密码
-     */
-    private String password;
-
-    /**
      * 用户昵称
      */
     private String nickName;
