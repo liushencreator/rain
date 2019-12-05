@@ -40,7 +40,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
     @Override
     public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
         // 配置资源 ID
-        resources.resourceId("backend-resources");
+        resources.resourceId("backend-resources").stateless(true);
     }
 
 }

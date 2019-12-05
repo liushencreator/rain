@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.rao.dao.client.OauthClientDetailsDao">
+	
+	<resultMap id="OauthClientDetailsResultMap" type="com.rao.pojo.entity.client.OauthClientDetails">
+		<id property="clientId" column="client_id"  />
+		<result property="resourceIds" column="resource_ids" />
+		<result property="clientSecret" column="client_secret" />
+		<result property="scope" column="scope" />
+		<result property="authorizedGrantTypes" column="authorized_grant_types" />
+		<result property="webServerRedirectUri" column="web_server_redirect_uri" />
+		<result property="authorities" column="authorities" />
+		<result property="accessTokenValidity" column="access_token_validity" />
+		<result property="refreshTokenValidity" column="refresh_token_validity" />
+		<result property="additionalInformation" column="additional_information" />
+		<result property="autoapprove" column="autoapprove" />
+	</resultMap>
+	
+	<!-- 定义可重用的SQL代码段，可以包含在其他语句中 -->
+	<sql id="base_column">
+		 client_id ,resource_ids ,client_secret ,scope ,authorized_grant_types ,web_server_redirect_uri ,authorities ,access_token_validity ,refresh_token_validity ,additional_information ,autoapprove 
+	</sql>
+	
+	<sql id="base_value_column">
+		 #{clientId},#{resourceIds},#{clientSecret},#{scope},#{authorizedGrantTypes},#{webServerRedirectUri},#{authorities},#{accessTokenValidity},#{refreshTokenValidity},#{additionalInformation},#{autoapprove}
+	</sql>
+	
+	<!-- 定义可重用的WHERE SQL公共代码段，可以包含在其他语句中 -->
+	<sql id="where_column">
+		<if test="clientId != null and clientId != ''">
+			AND client_id = #{clientId,jdbcType=VARCHAR}
+		</if>
+		<if test="resourceIds != null and resourceIds != ''">
+			AND resource_ids = #{resourceIds,jdbcType=VARCHAR}
+		</if>
+		<if test="clientSecret != null and clientSecret != ''">
+			AND client_secret = #{clientSecret,jdbcType=VARCHAR}
+		</if>
+		<if test="scope != null and scope != ''">
+			AND scope = #{scope,jdbcType=VARCHAR}
+		</if>
+		<if test="authorizedGrantTypes != null and authorizedGrantTypes != ''">
+			AND authorized_grant_types = #{authorizedGrantTypes,jdbcType=VARCHAR}
+		</if>
+		<if test="webServerRedirectUri != null and webServerRedirectUri != ''">
+			AND web_server_redirect_uri = #{webServerRedirectUri,jdbcType=VARCHAR}
+		</if>
+		<if test="authorities != null and authorities != ''">
+			AND authorities = #{authorities,jdbcType=VARCHAR}
+		</if>
+		<if test="accessTokenValidity != null">
+			AND access_token_validity = #{accessTokenValidity,jdbcType=INTEGER}
+		</if>
+		<if test="refreshTokenValidity != null">
+			AND refresh_token_validity = #{refreshTokenValidity,jdbcType=INTEGER}
+		</if>
+		<if test="additionalInformation != null and additionalInformation != ''">
+			AND additional_information = #{additionalInformation,jdbcType=VARCHAR}
+		</if>
+		<if test="autoapprove != null and autoapprove != ''">
+			AND autoapprove = #{autoapprove,jdbcType=VARCHAR}
+		</if>
+	</sql>
+	
+	<!-- 设置语句 -->
+	<sql id="set_column">
+		<if test="clientId != null and clientId != ''">
+			client_id = #{clientId,jdbcType=VARCHAR},
+		</if>
+		<if test="resourceIds != null and resourceIds != ''">
+			resource_ids = #{resourceIds,jdbcType=VARCHAR},
+		</if>
+		<if test="clientSecret != null and clientSecret != ''">
+			client_secret = #{clientSecret,jdbcType=VARCHAR},
+		</if>
+		<if test="scope != null and scope != ''">
+			scope = #{scope,jdbcType=VARCHAR},
+		</if>
+		<if test="authorizedGrantTypes != null and authorizedGrantTypes != ''">
+			authorized_grant_types = #{authorizedGrantTypes,jdbcType=VARCHAR},
+		</if>
+		<if test="webServerRedirectUri != null and webServerRedirectUri != ''">
+			web_server_redirect_uri = #{webServerRedirectUri,jdbcType=VARCHAR},
+		</if>
+		<if test="authorities != null and authorities != ''">
+			authorities = #{authorities,jdbcType=VARCHAR},
+		</if>
+		<if test="accessTokenValidity != null">
+			access_token_validity = #{accessTokenValidity,jdbcType=INTEGER},
+		</if>
+		<if test="refreshTokenValidity != null">
+			refresh_token_validity = #{refreshTokenValidity,jdbcType=INTEGER},
+		</if>
+		<if test="additionalInformation != null and additionalInformation != ''">
+			additional_information = #{additionalInformation,jdbcType=VARCHAR},
+		</if>
+		<if test="autoapprove != null and autoapprove != ''">
+			autoapprove = #{autoapprove,jdbcType=VARCHAR},
+		</if>
+	</sql>
+
+	<!-- 根据ID查询 -->
+	<select id="find" resultMap="OauthClientDetailsResultMap">
+		SELECT	<include refid="base_column" />
+		FROM	OAUTH_CLIENT_DETAILS
+		WHERE	ID=#{id,jdbcType=BIGINT}
+	</select>
+	
+	<!-- 查询所有 -->
+	<select id="findAll" resultMap="OauthClientDetailsResultMap">
+		SELECT	<include refid="base_column" />
+		FROM	OAUTH_CLIENT_DETAILS
+	</select>
+	
+	<!-- 统计记录数 -->
+	<select id="count" resultType="int">
+		SELECT COUNT(*) FROM OAUTH_CLIENT_DETAILS
+		<where> 
+			<include refid="where_column" />
+		</where>
+	</select>
+	
+	<!-- 插入 -->
+	<insert id="insert" parameterType="com.rao.pojo.entity.client.OauthClientDetails">
+		<selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		INSERT OAUTH_CLIENT_DETAILS
+				(<include refid="base_column" /> )
+		VALUES	(<include refid="base_value_column" />)
+	</insert>
+	
+	<!-- 修改 -->
+	<update id="update" parameterType="com.rao.pojo.entity.client.OauthClientDetails">
+		UPDATE	OAUTH_CLIENT_DETAILS
+		<set>
+			<include refid="set_column" />
+		</set>
+		WHERE	ID = #{id,jdbcType=BIGINT}
+	</update>
+	
+	<!-- 删除单条记录 -->
+	<delete id="delete">
+		DELETE	FROM OAUTH_CLIENT_DETAILS
+		WHERE	ID = #{id,jdbcType=BIGINT}
+	</delete>
+	
+	<!-- 删除多条记录-->
+	<delete id="deleteAll">
+		DELETE	FROM OAUTH_CLIENT_DETAILS
+		WHERE	ID	IN
+    	<foreach item="OauthClientDetailsId" index="index" collection="ids" open="(" separator="," close=")">
+	  		#{OauthClientDetailsId} 
+		</foreach>
+	</delete>
+	
+	<!-- 根据参数查询列表-->
+	<select id="findByParams" resultMap="OauthClientDetailsResultMap">
+		SELECT	<include refid="base_column" />
+		FROM 	OAUTH_CLIENT_DETAILS
+		<where> 1=1
+			<include refid="where_column" />
+		</where>
+	</select>
+	
+	<!-- 分页查询-->
+	<select id="findByPage" resultMap="OauthClientDetailsResultMap">
+		SELECT
+		<include refid="base_column" />
+		FROM OAUTH_CLIENT_DETAILS
+		<where> 1=1
+			<include refid="where_column" />
+		</where>
+	</select>
+
+	<!-- insertSelective -->
+	<insert id="insertSelective" parameterType="com.rao.pojo.entity.client.OauthClientDetails">
+		<selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into OAUTH_CLIENT_DETAILS
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+				client_id,
+				<if test="resourceIds != null and resourceIds != ''">
+					resource_ids,
+				</if>
+				<if test="clientSecret != null and clientSecret != ''">
+					client_secret,
+				</if>
+				<if test="scope != null and scope != ''">
+					scope,
+				</if>
+				<if test="authorizedGrantTypes != null and authorizedGrantTypes != ''">
+					authorized_grant_types,
+				</if>
+				<if test="webServerRedirectUri != null and webServerRedirectUri != ''">
+					web_server_redirect_uri,
+				</if>
+				<if test="authorities != null and authorities != ''">
+					authorities,
+				</if>
+				<if test="accessTokenValidity != null">
+					access_token_validity,
+				</if>
+				<if test="refreshTokenValidity != null">
+					refresh_token_validity,
+				</if>
+				<if test="additionalInformation != null and additionalInformation != ''">
+					additional_information,
+				</if>
+				<if test="autoapprove != null and autoapprove != ''">
+					autoapprove,
+				</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+				#{clientId,jdbcType=VARCHAR},
+				<if test="resourceIds != null and resourceIds != ''">
+					#{resourceIds,jdbcType=VARCHAR},
+				</if>
+				<if test="clientSecret != null and clientSecret != ''">
+					#{clientSecret,jdbcType=VARCHAR},
+				</if>
+				<if test="scope != null and scope != ''">
+					#{scope,jdbcType=VARCHAR},
+				</if>
+				<if test="authorizedGrantTypes != null and authorizedGrantTypes != ''">
+					#{authorizedGrantTypes,jdbcType=VARCHAR},
+				</if>
+				<if test="webServerRedirectUri != null and webServerRedirectUri != ''">
+					#{webServerRedirectUri,jdbcType=VARCHAR},
+				</if>
+				<if test="authorities != null and authorities != ''">
+					#{authorities,jdbcType=VARCHAR},
+				</if>
+				<if test="accessTokenValidity != null">
+					#{accessTokenValidity,jdbcType=INTEGER},
+				</if>
+				<if test="refreshTokenValidity != null">
+					#{refreshTokenValidity,jdbcType=INTEGER},
+				</if>
+				<if test="additionalInformation != null and additionalInformation != ''">
+					#{additionalInformation,jdbcType=VARCHAR},
+				</if>
+				<if test="autoapprove != null and autoapprove != ''">
+					#{autoapprove,jdbcType=VARCHAR},
+				</if>
+		</trim>
+	</insert>
+	
+</mapper> 

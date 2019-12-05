@@ -1,4 +1,4 @@
-package com.rao.pojo.entity.system;
+package com.rao.pojo.entity.user;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;

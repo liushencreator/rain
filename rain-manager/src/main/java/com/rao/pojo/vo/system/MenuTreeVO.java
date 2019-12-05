@@ -2,7 +2,7 @@ package com.rao.pojo.vo.system;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
-import com.rao.pojo.entity.system.RainSystemMenu;
+import com.rao.pojo.entity.user.RainSystemMenu;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

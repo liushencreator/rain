@@ -1,6 +1,6 @@
-package com.rao.dao.admin;
+package com.rao.dao.user;
 
-import com.rao.pojo.entity.system.RainSystemUser;
+import com.rao.pojo.entity.user.RainSystemUser;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

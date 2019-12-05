@@ -3,9 +3,9 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- namespace必须指向Dao接口 -->
-<mapper namespace="com.rao.dao.admin.RainSystemUserDao">
+<mapper namespace="com.rao.dao.user.RainSystemUserDao">
 	
-	<resultMap id="RainSystemUserResultMap" type="com.rao.pojo.entity.system.RainSystemUser">
+	<resultMap id="RainSystemUserResultMap" type="com.rao.pojo.entity.user.RainSystemUser">
 		<id property="id" column="id"  />
 		<result property="userName" column="user_name" />
 		<result property="phone" column="phone" />
@@ -124,7 +124,7 @@
 	</select>
 	
 	<!-- 插入 -->
-	<insert id="insert" parameterType="com.rao.pojo.entity.system.RainSystemUser">
+	<insert id="insert" parameterType="com.rao.pojo.entity.user.RainSystemUser">
 		<selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
 			SELECT LAST_INSERT_ID()
 		</selectKey>
@@ -134,7 +134,7 @@
 	</insert>
 	
 	<!-- 修改 -->
-	<update id="update" parameterType="com.rao.pojo.entity.system.RainSystemUser">
+	<update id="update" parameterType="com.rao.pojo.entity.user.RainSystemUser">
 		UPDATE	RAIN_SYSTEM_USER
 		<set>
 			<include refid="set_column" />
@@ -177,7 +177,7 @@
 	</select>
 
 	<!-- insertSelective -->
-	<insert id="insertSelective" parameterType="com.rao.pojo.entity.system.RainSystemUser">
+	<insert id="insertSelective" parameterType="com.rao.pojo.entity.user.RainSystemUser">
 		<selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
 			SELECT LAST_INSERT_ID()
 		</selectKey>
@@ -251,7 +251,7 @@
 	</insert>
 
 	<!-- 通过用户名或手机号码查询用户信息 -->
-	<select id="findByUserNameOrPhone" resultType="com.rao.pojo.entity.system.RainSystemUser">
+	<select id="findByUserNameOrPhone" resultType="com.rao.pojo.entity.user.RainSystemUser">
 		SELECT <include refid="base_column" />
 		FROM RAIN_SYSTEM_USER
 		where user_name = #{account,jdbcType=VARCHAR}

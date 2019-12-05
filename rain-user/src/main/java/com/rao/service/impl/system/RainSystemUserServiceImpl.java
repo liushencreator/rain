@@ -1,7 +1,7 @@
 package com.rao.service.impl.system;
 
-import com.rao.dao.admin.RainSystemUserDao;
-import com.rao.pojo.entity.system.RainSystemUser;
+import com.rao.dao.user.RainSystemUserDao;
+import com.rao.pojo.entity.user.RainSystemUser;
 import exception.BusinessException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;

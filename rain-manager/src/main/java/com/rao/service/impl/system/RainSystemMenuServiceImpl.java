@@ -1,7 +1,7 @@
 package com.rao.service.impl.system;
 
-import com.rao.dao.admin.RainSystemMenuDao;
-import com.rao.pojo.entity.system.RainSystemMenu;
+import com.rao.dao.user.RainSystemMenuDao;
+import com.rao.pojo.entity.user.RainSystemMenu;
 import constant.common.StateConstants;
 import exception.BusinessException;
 import org.springframework.beans.BeanUtils;

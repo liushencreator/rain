@@ -1,6 +1,6 @@
 package com.rao.service.system;
 
-import com.rao.pojo.entity.system.RainSystemMenu;
+import com.rao.pojo.entity.user.RainSystemMenu;
 import com.rao.pojo.dto.system.MenuConfigDTO;
 import com.rao.pojo.vo.system.FirstLevelMenuVO;
 import com.rao.pojo.vo.system.MenuTreeVO;

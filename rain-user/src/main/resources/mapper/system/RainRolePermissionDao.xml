@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.rao.dao.system.RainRolePermissionDao">
+	
+	<resultMap id="RainRolePermissionResultMap" type="com.rao.pojo.entity.system.RainRolePermission">
+		<id property="id" column="id"  />
+		<result property="roleId" column="role_id" />
+		<result property="permissionId" column="permission_id" />
+	</resultMap>
+	
+	<!-- 定义可重用的SQL代码段，可以包含在其他语句中 -->
+	<sql id="base_column">
+		 id ,role_id ,permission_id 
+	</sql>
+	
+	<sql id="base_value_column">
+		 #{id},#{roleId},#{permissionId}
+	</sql>
+	
+	<!-- 定义可重用的WHERE SQL公共代码段，可以包含在其他语句中 -->
+	<sql id="where_column">
+		<if test="id != null">
+			AND id = #{id,jdbcType=BIGINT}
+		</if>
+		<if test="roleId != null">
+			AND role_id = #{roleId,jdbcType=BIGINT}
+		</if>
+		<if test="permissionId != null">
+			AND permission_id = #{permissionId,jdbcType=BIGINT}
+		</if>
+	</sql>
+	
+	<!-- 设置语句 -->
+	<sql id="set_column">
+		<if test="id != null">
+			id = #{id,jdbcType=BIGINT},
+		</if>
+		<if test="roleId != null">
+			role_id = #{roleId,jdbcType=BIGINT},
+		</if>
+		<if test="permissionId != null">
+			permission_id = #{permissionId,jdbcType=BIGINT},
+		</if>
+	</sql>
+
+	<!-- 根据ID查询 -->
+	<select id="find" resultMap="RainRolePermissionResultMap">
+		SELECT	<include refid="base_column" />
+		FROM	RAIN_ROLE_PERMISSION
+		WHERE	ID=#{id,jdbcType=BIGINT}
+	</select>
+	
+	<!-- 查询所有 -->
+	<select id="findAll" resultMap="RainRolePermissionResultMap">
+		SELECT	<include refid="base_column" />
+		FROM	RAIN_ROLE_PERMISSION
+	</select>
+	
+	<!-- 统计记录数 -->
+	<select id="count" resultType="int">
+		SELECT COUNT(*) FROM RAIN_ROLE_PERMISSION
+		<where> 
+			<include refid="where_column" />
+		</where>
+	</select>
+	
+	<!-- 插入 -->
+	<insert id="insert" parameterType="com.rao.pojo.entity.system.RainRolePermission">
+		<selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		INSERT RAIN_ROLE_PERMISSION
+				(<include refid="base_column" /> )
+		VALUES	(<include refid="base_value_column" />)
+	</insert>
+	
+	<!-- 修改 -->
+	<update id="update" parameterType="com.rao.pojo.entity.system.RainRolePermission">
+		UPDATE	RAIN_ROLE_PERMISSION
+		<set>
+			<include refid="set_column" />
+		</set>
+		WHERE	ID = #{id,jdbcType=BIGINT}
+	</update>
+	
+	<!-- 删除单条记录 -->
+	<delete id="delete">
+		DELETE	FROM RAIN_ROLE_PERMISSION
+		WHERE	ID = #{id,jdbcType=BIGINT}
+	</delete>
+	
+	<!-- 删除多条记录-->
+	<delete id="deleteAll">
+		DELETE	FROM RAIN_ROLE_PERMISSION
+		WHERE	ID	IN
+    	<foreach item="RainRolePermissionId" index="index" collection="ids" open="(" separator="," close=")">
+	  		#{RainRolePermissionId} 
+		</foreach>
+	</delete>
+	
+	<!-- 根据参数查询列表-->
+	<select id="findByParams" resultMap="RainRolePermissionResultMap">
+		SELECT	<include refid="base_column" />
+		FROM 	RAIN_ROLE_PERMISSION
+		<where> 1=1
+			<include refid="where_column" />
+		</where>
+	</select>
+	
+	<!-- 分页查询-->
+	<select id="findByPage" resultMap="RainRolePermissionResultMap">
+		SELECT
+		<include refid="base_column" />
+		FROM RAIN_ROLE_PERMISSION
+		<where> 1=1
+			<include refid="where_column" />
+		</where>
+	</select>
+
+	<!-- insertSelective -->
+	<insert id="insertSelective" parameterType="com.rao.pojo.entity.system.RainRolePermission">
+		<selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into RAIN_ROLE_PERMISSION
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+				id,
+				<if test="roleId != null">
+					role_id,
+				</if>
+				<if test="permissionId != null">
+					permission_id,
+				</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+				#{id,jdbcType=BIGINT},
+				<if test="roleId != null">
+					#{roleId,jdbcType=BIGINT},
+				</if>
+				<if test="permissionId != null">
+					#{permissionId,jdbcType=BIGINT},
+				</if>
+		</trim>
+	</insert>
+	
+</mapper> 
