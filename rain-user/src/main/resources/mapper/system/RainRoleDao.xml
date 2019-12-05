@@ -8,6 +8,7 @@
 	<resultMap id="RainRoleResultMap" type="com.rao.pojo.entity.system.RainRole">
 		<id property="id" column="id"  />
 		<result property="roleName" column="role_name" />
+		<result property="roleCode" column="role_code" />
 		<result property="roleDesc" column="role_desc" />
 		<result property="platformType" column="platform_type" />
 		<result property="createTime" column="create_time" />
@@ -16,11 +17,11 @@
 	
 	<!-- 定义可重用的SQL代码段，可以包含在其他语句中 -->
 	<sql id="base_column">
-		 id ,role_name ,role_desc ,platform_type ,create_time ,update_time 
+		 id ,role_name ,role_code, role_desc ,platform_type ,create_time ,update_time 
 	</sql>
 	
 	<sql id="base_value_column">
-		 #{id},#{roleName},#{roleDesc},#{platformType},#{createTime},#{updateTime}
+		 #{id},#{roleName},#{roleCode},#{roleDesc},#{platformType},#{createTime},#{updateTime}
 	</sql>
 	
 	<!-- 定义可重用的WHERE SQL公共代码段，可以包含在其他语句中 -->
@@ -31,6 +32,9 @@
 		<if test="roleName != null and roleName != ''">
 			AND role_name = #{roleName,jdbcType=VARCHAR}
 		</if>
+		<if test="roleCode != null and roleCode != ''">
+			AND role_code = #{roleCode,jdbcType=VARCHAR}
+		</if>		
 		<if test="roleDesc != null and roleDesc != ''">
 			AND role_desc = #{roleDesc,jdbcType=VARCHAR}
 		</if>
@@ -52,6 +56,9 @@
 		</if>
 		<if test="roleName != null and roleName != ''">
 			role_name = #{roleName,jdbcType=VARCHAR},
+		</if>
+		<if test="roleCode != null and roleCode != ''">
+			role_code = #{roleCode,jdbcType=VARCHAR},
 		</if>
 		<if test="roleDesc != null and roleDesc != ''">
 			role_desc = #{roleDesc,jdbcType=VARCHAR},
@@ -152,6 +159,9 @@
 				<if test="roleName != null and roleName != ''">
 					role_name,
 				</if>
+				<if test="roleCode != null and roleCode != ''">
+					role_code,
+				</if>
 				<if test="roleDesc != null and roleDesc != ''">
 					role_desc,
 				</if>
@@ -169,6 +179,9 @@
 				#{id,jdbcType=BIGINT},
 				<if test="roleName != null and roleName != ''">
 					#{roleName,jdbcType=VARCHAR},
+				</if>
+				<if test="roleCode != null and roleCode != ''">
+					#{roleCode,jdbcType=VARCHAR},
 				</if>
 				<if test="roleDesc != null and roleDesc != ''">
 					#{roleDesc,jdbcType=VARCHAR},

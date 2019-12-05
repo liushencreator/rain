@@ -26,6 +26,9 @@ public class RainRole {
 	
 	/** 角色名称 */
 	private String roleName;
+
+	/** 角色标识 */
+	private String roleCode;
 	
 	/** 角色描述 */
 	private String roleDesc;

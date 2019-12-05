@@ -29,7 +29,9 @@ public class RainSystemUserController {
      * @return
      */
     @GetMapping("{account}")
-    @PreAuthorize("hasAuthority('USER')")
+//    @PreAuthorize("hasAuthority('admin_user_detail')")
+//    @PreAuthorize("hasAnyAuthority('admin_user_detail')")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResultMessage<SystemUserVO> findByAccount(@PathVariable("account") String account){
         SystemUserVO systemUserVO = rainSystemUserService.findByAccount(account);
         return ResultMessage.success(systemUserVO);
