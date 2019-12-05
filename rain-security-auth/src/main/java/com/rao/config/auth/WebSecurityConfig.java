@@ -62,11 +62,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         // 解决跨域问题
-        http.requestMatchers()
-                // 不拦截 OPTIONS 请求
-                .antMatchers(HttpMethod.OPTIONS, "/oauth/**")
-                .and()
-                .cors()
+        http
+                .authorizeRequests().anyRequest().authenticated()
                 .and()
                 .csrf().disable();
     }

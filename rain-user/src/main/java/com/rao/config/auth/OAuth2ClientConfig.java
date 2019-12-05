@@ -23,16 +23,20 @@ public class OAuth2ClientConfig {
     @Bean
     @ConfigurationProperties(prefix = "security.oauth2.client")
     public ClientCredentialsResourceDetails clientCredentialsResourceDetails() {
+        //配置受保护资源的信息
         return new ClientCredentialsResourceDetails();
     }
 
     @Bean
     public RequestInterceptor oauth2FeignRequestInterceptor() {
+        //配置一个过滤器，存储当前请求和上下文
+        //在request域内创建 AccessTokenRequest 类型的Bean。
         return new OAuth2FeignRequestInterceptor(new DefaultOAuth2ClientContext(), clientCredentialsResourceDetails());
     }
 
     @Bean
     public OAuth2RestTemplate clientCredentialsRestTemplate() {
+        //向Uaa服务请求的
         return new OAuth2RestTemplate(clientCredentialsResourceDetails());
     }
 
