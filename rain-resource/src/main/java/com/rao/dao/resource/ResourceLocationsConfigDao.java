@@ -2,7 +2,7 @@ package com.rao.dao.resource;
 
 
 import com.rao.pojo.entity.resource.ResourceLocationsConfig;
-import util.common.Paramap;
+import com.rao.util.common.Paramap;
 
 import java.util.List;
 import java.util.Map;

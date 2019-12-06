@@ -4,8 +4,8 @@ import com.rao.dao.resource.ResourceLocationsConfigDao;
 import com.rao.pojo.entity.resource.ResourceLocationsConfig;
 import com.rao.service.resource.ResourceLocationsConfigService;
 import org.springframework.stereotype.Service;
-import util.common.PageParamsUtil;
-import util.common.Paramap;
+import com.rao.util.common.PageParamsUtil;
+import com.rao.util.common.Paramap;
 
 import javax.annotation.Resource;
 import java.util.List;

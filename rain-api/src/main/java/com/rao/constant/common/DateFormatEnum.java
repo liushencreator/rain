@@ -1,4 +1,4 @@
-package constant.common;
+package com.rao.constant.common;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -1,9 +1,7 @@
-package exception;
+package com.rao.exception;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 /**
  * 简单业务信息类

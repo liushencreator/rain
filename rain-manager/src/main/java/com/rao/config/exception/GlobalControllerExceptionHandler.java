@@ -6,12 +6,12 @@
 
 package com.rao.config.exception;
 
-import exception.BusinessException;
-import exception.BusinessMessage;
+import com.rao.exception.BusinessException;
+import com.rao.exception.BusinessMessage;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import util.result.ResultMessage;
+import com.rao.util.result.ResultMessage;
 
 /**
  * 全局异常处理器

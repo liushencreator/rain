@@ -1,6 +1,5 @@
-package exception;
+package com.rao.exception;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,16 +16,16 @@ public class BusinessException extends RuntimeException{
     private BusinessMessage businessMessage;
 
     public static BusinessException operate() {
-        DefaultErrorMsgEnum errorMsgEnum = DefaultErrorMsgEnum.FAIL;
+        ErrorMsgEnum errorMsgEnum = ErrorMsgEnum.FAIL;
         return createCodeAndMsg(errorMsgEnum.getCode(), errorMsgEnum.getMsg());
     }
 
     public static BusinessException operate(String msg) {
-        DefaultErrorMsgEnum errorMsgEnum = DefaultErrorMsgEnum.FAIL;
+        ErrorMsgEnum errorMsgEnum = ErrorMsgEnum.FAIL;
         return createCodeAndMsg(errorMsgEnum.getCode(), msg);
     }
 
-    public static BusinessException operate(DefaultErrorMsgEnum errorMsgEnum) {
+    public static BusinessException operate(ErrorMsgEnum errorMsgEnum) {
         return createCodeAndMsg(errorMsgEnum.getCode(), errorMsgEnum.getMsg());
     }
 
