@@ -2,10 +2,10 @@ package com.rao.controller;
 
 import com.rao.pojo.dto.LoginDTO;
 import com.rao.service.LoginService;
+import com.rao.util.result.ResultMessage;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.web.bind.annotation.*;
-import util.result.ResultMessage;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;

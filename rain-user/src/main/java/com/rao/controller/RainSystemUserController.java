@@ -1,13 +1,13 @@
 package com.rao.controller;
 
 import com.rao.service.system.RainSystemUserService;
+import com.rao.util.result.ResultMessage;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pojo.vo.user.SystemUserVO;
-import util.result.ResultMessage;
 
 import javax.annotation.Resource;
 
@@ -31,7 +31,7 @@ public class RainSystemUserController {
     @GetMapping("{account}")
 //    @PreAuthorize("hasAuthority('admin_user_detail')")
 //    @PreAuthorize("hasAnyAuthority('admin_user_detail')")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN1')")
     public ResultMessage<SystemUserVO> findByAccount(@PathVariable("account") String account){
         SystemUserVO systemUserVO = rainSystemUserService.findByAccount(account);
         return ResultMessage.success(systemUserVO);
