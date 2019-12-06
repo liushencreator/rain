@@ -5,8 +5,8 @@ import com.rao.pojo.entity.resource.ResourceNetworkLink;
 import com.rao.service.resource.ResourceNetworkLinkService;
 import org.springframework.stereotype.Service;
 import com.rao.pojo.vo.resource.NetworkLinkVO;
-import util.common.PageParamsUtil;
-import util.common.Paramap;
+import com.rao.util.common.PageParamsUtil;
+import com.rao.util.common.Paramap;
 
 import javax.annotation.Resource;
 import java.util.List;

@@ -1,7 +1,7 @@
 package com.rao.controller.admin;
 
-import annotation.BeanValid;
-import annotation.SimpleValid;
+import com.rao.annotation.BeanValid;
+import com.rao.annotation.SimpleValid;
 import com.rao.pojo.entity.system.RainSystemMenu;
 import org.springframework.web.bind.annotation.*;
 import com.rao.pojo.dto.system.MenuConfigDTO;
@@ -9,7 +9,7 @@ import com.rao.pojo.vo.system.FirstLevelMenuVO;
 import com.rao.pojo.vo.system.MenuTreeVO;
 import com.rao.pojo.vo.system.MenuVO;
 import com.rao.service.system.RainSystemMenuService;
-import util.result.ResultMessage;
+import com.rao.util.result.ResultMessage;
 
 import javax.annotation.Resource;
 import javax.validation.constraints.NotNull;

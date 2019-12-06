@@ -1,4 +1,4 @@
-package util.common;
+package com.rao.util.common;
 
 /**
  * 检查终端类型工具类

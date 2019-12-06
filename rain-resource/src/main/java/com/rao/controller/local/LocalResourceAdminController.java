@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import util.result.PageResult;
-import util.result.ResultMessage;
+import com.rao.util.result.PageResult;
+import com.rao.util.result.ResultMessage;
 
 import javax.annotation.Resource;
 import java.util.List;

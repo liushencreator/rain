@@ -6,8 +6,8 @@
 
 package com.rao.component.aop;
 
-import annotation.BeanValid;
-import annotation.SimpleValid;
+import com.rao.annotation.BeanValid;
+import com.rao.annotation.SimpleValid;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -16,7 +16,7 @@ import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
-import util.result.ResultMessage;
+import com.rao.util.result.ResultMessage;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;

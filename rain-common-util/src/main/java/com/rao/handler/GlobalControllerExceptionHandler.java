@@ -4,14 +4,16 @@
  * e-mail: xwencong@163.com
  */
 
-package com.rao.exception;
+package com.rao.handler;
 
-import exception.BusinessException;
-import exception.BusinessMessage;
+import com.rao.exception.BusinessException;
+import com.rao.exception.BusinessMessage;
+import com.rao.exception.ErrorMsgEnum;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import util.result.ResultMessage;
+import com.rao.util.result.ResultMessage;
 
 /**
  * 全局异常处理器
@@ -31,6 +33,17 @@ public class GlobalControllerExceptionHandler {
     public ResultMessage businessExceptionHandler(BusinessException e) {
         BusinessMessage businessMessage = e.getBusinessMessage();
         return ResultMessage.build(businessMessage.getCode(), businessMessage.getMsg());
+    }
+
+    /**
+     * 越权异常处理器
+     * @param e
+     * @return
+     */
+    @ExceptionHandler(AccessDeniedException.class)
+    public ResultMessage accessDeniedExceptionHandler(AccessDeniedException e){
+        ErrorMsgEnum errorMsgEnum = ErrorMsgEnum.ACCESS_DENIED;
+        return ResultMessage.build(errorMsgEnum.getCode(), errorMsgEnum.getMsg());
     }
 
     /**

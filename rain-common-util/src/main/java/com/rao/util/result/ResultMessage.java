@@ -1,11 +1,8 @@
-package util.result;
+package com.rao.util.result;
 
-import exception.DefaultErrorMsgEnum;
-import exception.DefaultSuccessMsgEnum;
+import com.rao.exception.ErrorMsgEnum;
+import com.rao.exception.DefaultSuccessMsgEnum;
 import lombok.Data;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * 接口返回信息
@@ -16,7 +13,7 @@ import java.util.Map;
 public class ResultMessage<T> {
 	
 	private static DefaultSuccessMsgEnum successMsgEnum = DefaultSuccessMsgEnum.SUCCESS;
-	private static DefaultErrorMsgEnum errorMsgEnum = DefaultErrorMsgEnum.FAIL;
+	private static ErrorMsgEnum errorMsgEnum = ErrorMsgEnum.FAIL;
 
 	/**
 	 * code

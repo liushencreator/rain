@@ -3,7 +3,7 @@ package com.rao.client.resource.fallback;
 import com.rao.client.resource.ResourceAdminClient;
 import feign.hystrix.FallbackFactory;
 import org.springframework.stereotype.Component;
-import util.result.ResultMessage;
+import com.rao.util.result.ResultMessage;
 
 /**
  * 熔断器

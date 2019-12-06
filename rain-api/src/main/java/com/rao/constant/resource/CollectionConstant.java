@@ -1,4 +1,4 @@
-package constant.resource;
+package com.rao.constant.resource;
 
 /**
  * Created by Lenovo on 2018/10/5.

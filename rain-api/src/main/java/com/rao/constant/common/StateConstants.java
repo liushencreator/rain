@@ -1,4 +1,4 @@
-package constant.common;
+package com.rao.constant.common;
 
 /**
  * 状态-常量

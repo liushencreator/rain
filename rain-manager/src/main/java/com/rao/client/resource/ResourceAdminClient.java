@@ -4,7 +4,7 @@ import com.rao.client.resource.fallback.ResourceAdminClientFallback;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import util.result.ResultMessage;
+import com.rao.util.result.ResultMessage;
 
 /**
  * 资源后台方 客户端

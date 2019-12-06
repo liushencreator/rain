@@ -4,7 +4,7 @@
  * e-mail: xwencong@163.com
  */
 
-package annotation;
+package com.rao.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
