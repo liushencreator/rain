@@ -30,7 +30,7 @@ public class WebLogAspect {
     }
 
     @Before("logPointCut()")
-    public void doBefore(JoinPoint joinPoint){
+    public void logPointCut(JoinPoint joinPoint){
         ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = requestAttributes.getRequest();
         logger.info("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -");
@@ -46,13 +46,13 @@ public class WebLogAspect {
      * @throws Throwable
      */
     @AfterReturning(returning = "ret", pointcut = "logPointCut()")
-    public void doAfterReturning(Object ret) throws Throwable {
+    public void logPointCut(Object ret) throws Throwable {
         // 处理完请求，返回内容
         logger.info("返回值 : " + ret);
     }
 
     @Around("logPointCut()")
-    public Object doAround(ProceedingJoinPoint pjp) throws Throwable {
+    public Object logPointCut(ProceedingJoinPoint pjp) throws Throwable {
         long startTime = System.currentTimeMillis();
         // ob 为方法的返回值
         Object ob = pjp.proceed();

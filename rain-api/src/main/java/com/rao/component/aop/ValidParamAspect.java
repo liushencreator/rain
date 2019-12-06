@@ -54,15 +54,15 @@ public class ValidParamAspect implements InitializingBean {
      * 匹配controller下所有类的所有方法
      */
     @Pointcut("execution( * com.rao.controller..*.*(..))")
-    public void validService(){}
+    public void validParam(){}
 
     /**
      *  环绕通知：
      *  环绕通知非常强大，可以决定目标方法是否执行，什么时候执行，执行时是否需要替换方法参数，执行完毕是否需要替换返回值。
      *  环绕通知第一个参数必须是org.aspectj.lang.ProceedingJoinPoint类型
      */
-    @Around("validService()")
-    public Object validService(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
+    @Around("validParam()")
+    public Object validParam(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
 
         // 获取方法的所有参数
         Object[] args = proceedingJoinPoint.getArgs();

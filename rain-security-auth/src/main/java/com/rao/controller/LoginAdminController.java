@@ -1,5 +1,6 @@
 package com.rao.controller;
 
+import com.rao.annotation.IgnoreTokenAuth;
 import com.rao.pojo.dto.LoginDTO;
 import com.rao.service.LoginService;
 import com.rao.util.result.ResultMessage;
@@ -29,6 +30,7 @@ public class LoginAdminController {
      * @param loginDTO
      * @return
      */
+    @IgnoreTokenAuth
     @PostMapping(value = "/login")
     public ResultMessage<String> login(@RequestBody LoginDTO loginDTO) {
         String accessToken = loginService.loginAdmin(loginDTO);

@@ -17,13 +17,22 @@ import java.util.Collection;
 @Getter
 @Setter
 @ToString
-@Accessors(chain = true, fluent = true)
 public class UserExtend extends User {
 
     /**
      * 用户ID（扩展字段）
      */
     private Long id;
+
+    /**
+     * 用户名
+     */
+    private String name;
+
+    /**
+     * 手机号码
+     */
+    private String phone;
 
     /**
      * 昵称（扩展字段）
@@ -42,5 +51,30 @@ public class UserExtend extends User {
     public static UserExtend build(String username, String password, boolean enabled, Collection<? extends GrantedAuthority> authorities){
         return new UserExtend(username, password, enabled, authorities);
     }
-    
+
+    public UserExtend id(Long id){
+        this.id = id;
+        return this;
+    }
+
+    public UserExtend name(String name){
+        this.name = name;
+        return this;
+    }
+
+    public UserExtend phone(String phone){
+        this.phone = phone;
+        return this;
+    }
+
+    public UserExtend nickName(String nickName){
+        this.nickName = nickName;
+        return this;
+    }
+
+    public UserExtend email(String email){
+        this.email = email;
+        return this;
+    }
+
 }

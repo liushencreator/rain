@@ -1,7 +1,10 @@
 package com.rao.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.rao.pojo.bo.CurrentUserInfo;
 import com.rao.service.system.RainSystemUserService;
 import com.rao.util.result.ResultMessage;
+import org.springframework.beans.BeanUtils;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -41,23 +44,13 @@ public class RainSystemUserController {
 //    @PreAuthorize("hasAuthority('admin_user_detail')")
 //    @PreAuthorize("hasAnyAuthority('admin_user_detail')")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResultMessage<SystemUserVO> findByAccount(@PathVariable("account") String account){
-
-
-        Authentication authentication = SecurityContextHolder.getContextHolderStrategy().getContext().getAuthentication();
-        OAuth2Authentication auth2Authentication  = (OAuth2Authentication)authentication;
-        LinkedHashMap details = (LinkedHashMap)auth2Authentication.getUserAuthentication().getDetails();
-        System.out.println("用户信息:" + details);
-
-
-
+    public ResultMessage<SystemUserVO> findByAccount(@PathVariable("account") String account, CurrentUserInfo currentUser){
         SystemUserVO systemUserVO = rainSystemUserService.findByAccount(account);
         return ResultMessage.success(systemUserVO);
     }
     
     @GetMapping("test")
     public String test(){
-        
         return "hello resource";
     }
     

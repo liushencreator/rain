@@ -56,6 +56,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             // 返回用户信息
             return UserExtend.build(userName, systemUser.getPassword(), systemUser.getStatus() == 1, grantedAuthorities)
                     .id(systemUser.getId())
+                    .name(systemUser.getUserName())
+                    .phone(systemUser.getPhone())
                     .nickName(systemUser.getNickName())
                     .email(systemUser.getEmail());
         }else {
