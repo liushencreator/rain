@@ -3,6 +3,7 @@ package com.rao.service.impl;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import lombok.experimental.Accessors;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
@@ -16,6 +17,7 @@ import java.util.Collection;
 @Getter
 @Setter
 @ToString
+@Accessors(chain = true, fluent = true)
 public class UserExtend extends User {
 
     /**
@@ -33,27 +35,12 @@ public class UserExtend extends User {
      */
     private String email;
 
-    private UserExtend(String username, String password, boolean enabled, Collection<? extends GrantedAuthority> authorities) {
-        super(username, password, enabled, true, true, true, authorities);
+    private UserExtend(String username, String password, boolean locked, Collection<? extends GrantedAuthority> authorities) {
+        super(username, password, true, true, true, locked, authorities);
     }
     
     public static UserExtend build(String username, String password, boolean enabled, Collection<? extends GrantedAuthority> authorities){
         return new UserExtend(username, password, enabled, authorities);
-    }
-    
-    public UserExtend id(Long id){
-        this.id = id;
-        return this;
-    }
-    
-    public UserExtend nickName(String nickName){
-        this.nickName = nickName;
-        return this;
-    }
-
-    public UserExtend email(String email){
-        this.email = email;
-        return this;
     }
     
 }

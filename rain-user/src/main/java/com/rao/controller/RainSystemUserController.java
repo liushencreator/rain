@@ -3,8 +3,13 @@ package com.rao.controller;
 import com.rao.service.system.RainSystemUserService;
 import com.rao.util.result.ResultMessage;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.rao.pojo.vo.user.SystemUserVO;
 
 import javax.annotation.Resource;
+import java.lang.reflect.Field;
+import java.util.LinkedHashMap;
 
 /**
  * 系统用户
@@ -36,8 +43,13 @@ public class RainSystemUserController {
     @PreAuthorize("hasRole('ADMIN')")
     public ResultMessage<SystemUserVO> findByAccount(@PathVariable("account") String account){
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        System.out.println("用户信息" + authentication.getPrincipal());
+
+        Authentication authentication = SecurityContextHolder.getContextHolderStrategy().getContext().getAuthentication();
+        OAuth2Authentication auth2Authentication  = (OAuth2Authentication)authentication;
+        LinkedHashMap details = (LinkedHashMap)auth2Authentication.getUserAuthentication().getDetails();
+        System.out.println("用户信息:" + details);
+
+
 
         SystemUserVO systemUserVO = rainSystemUserService.findByAccount(account);
         return ResultMessage.success(systemUserVO);

@@ -11,6 +11,7 @@ import org.springframework.http.MediaType;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.oauth2.common.exceptions.InvalidGrantException;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -61,7 +62,7 @@ public class LoginServiceImpl implements LoginService {
             return response.getAccess_token();
         }catch (Exception e){
             log.info("授权失败:{}", e.getMessage());
-            throw BusinessException.operate("授权失败");
+            throw BusinessException.operate("账号不可用");
         }
     }
 }
