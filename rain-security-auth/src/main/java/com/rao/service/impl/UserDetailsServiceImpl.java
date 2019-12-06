@@ -6,17 +6,13 @@ import com.rao.pojo.bo.UserPermissionBO;
 import com.rao.pojo.entity.RainSystemUser;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
-
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * 自定义认证授权
@@ -58,7 +54,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             });
             
             // 返回用户信息
-            return new User(userName, systemUser.getPassword(), grantedAuthorities);
+            return UserExtend.build(userName, systemUser.getPassword(), systemUser.getStatus() == 1, grantedAuthorities)
+                    .id(systemUser.getId())
+                    .nickName(systemUser.getNickName())
+                    .email(systemUser.getEmail());
         }else {
             // 用户名不匹配
             return null;
