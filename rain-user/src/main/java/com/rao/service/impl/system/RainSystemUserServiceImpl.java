@@ -6,7 +6,7 @@ import com.rao.pojo.entity.user.RainSystemUser;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import com.rao.service.system.RainSystemUserService;
-import pojo.vo.user.SystemUserVO;
+import com.rao.pojo.vo.user.SystemUserVO;
 
 import javax.annotation.Resource;
 

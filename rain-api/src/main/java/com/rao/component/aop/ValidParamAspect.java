@@ -4,10 +4,11 @@
  * e-mail: xwencong@163.com
  */
 
-package com.rao.aop;
+package com.rao.component.aop;
 
 import com.rao.annotation.BeanValid;
 import com.rao.annotation.SimpleValid;
+import com.rao.util.result.ResultMessage;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -16,7 +17,6 @@ import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
-import com.rao.util.result.ResultMessage;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;

@@ -1,4 +1,4 @@
-package com.rao.aop;
+package com.rao.component.aop;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;

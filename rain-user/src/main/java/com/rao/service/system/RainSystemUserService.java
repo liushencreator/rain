@@ -1,5 +1,5 @@
 package com.rao.service.system;
-import pojo.vo.user.SystemUserVO;
+import com.rao.pojo.vo.user.SystemUserVO;
 
 /**
  * 系统用户 service

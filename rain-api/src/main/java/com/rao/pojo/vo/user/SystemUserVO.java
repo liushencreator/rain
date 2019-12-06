@@ -1,4 +1,4 @@
-package pojo.vo.user;
+package com.rao.pojo.vo.user;
 
 import lombok.Data;
 
