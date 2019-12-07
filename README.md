@@ -5,7 +5,7 @@
 ### 项目环境
 
 ##### 前端
-> springboot 2.0.4.RELEASE + freemarker
+> vue
 >
 ##### 后端
 
