@@ -17,8 +17,7 @@ import javax.servlet.http.HttpServletRequest;
  * @date 2019/12/2 14:14
  */
 @RestController
-@RequestMapping(value = "/admin/user")
-public class LoginAdminController {
+public class UserLoginController {
 
     @Resource
     private LoginService loginService;
@@ -31,10 +30,30 @@ public class LoginAdminController {
      * @return
      */
     @IgnoreTokenAuth
-    @PostMapping(value = "/login")
-    public ResultMessage<String> login(@RequestBody LoginDTO loginDTO) {
+    @PostMapping(value = "/login/system_user")
+    public ResultMessage<String> loginSystemUser(@RequestBody LoginDTO loginDTO) {
         String accessToken = loginService.loginAdmin(loginDTO);
         return ResultMessage.success(accessToken).addMessage("登录成功");
+    }
+
+    /**
+     * B 端用户登录
+     * @return
+     */
+    @IgnoreTokenAuth
+    @PostMapping(value = "/login/b_user")
+    public ResultMessage<String> loginBUser(){
+        return ResultMessage.fail().addMessage("暂未实现");
+    }
+
+    /**
+     * C 端用户登录
+     * @return
+     */
+    @IgnoreTokenAuth
+    @PostMapping(value = "/login/c_user")
+    public ResultMessage<String> loginCUser(){
+        return ResultMessage.fail().addMessage("暂未实现");
     }
 
     /**

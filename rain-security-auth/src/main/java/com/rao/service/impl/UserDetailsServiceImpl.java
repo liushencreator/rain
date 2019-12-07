@@ -2,8 +2,11 @@ package com.rao.service.impl;
 
 import com.rao.dao.RainSystemUserDao;
 import com.rao.dao.UserPermissionDao;
+import com.rao.exception.BusinessException;
+import com.rao.pojo.bo.LoginUserBO;
 import com.rao.pojo.bo.UserPermissionBO;
 import com.rao.pojo.entity.RainSystemUser;
+import com.rao.service.UserService;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -25,19 +28,28 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     private final static String ROLE_PREFIX = "ROLE_";
     
     @Resource
-    private RainSystemUserDao rainSystemUserDao;
-    @Resource
     private UserPermissionDao userPermissionDao;
+    @Resource
+    private UserService userService;
     
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-        RainSystemUser systemUser = rainSystemUserDao.findByUserNameOrPhone(userName);
-        if (systemUser != null) {
+
+        // 规则为：userType:userName
+        String[] userType = userName.split(":", 2);
+        if(userType.length != 2){
+            throw BusinessException.operate("内部错误");
+        }
+        String type = userType[0];
+        userName = userType[1];
+
+        // 通过用户名或手机号码，用户类型查询用户信息
+        LoginUserBO loginUser = userService.findByUserNameOrPhoneAndUserType(userName, type);
+        if (loginUser != null) {
             // 查询用户权限信息
-            List<UserPermissionBO> permissionList = userPermissionDao.listPermissionByUserId(systemUser.getId());
+            List<UserPermissionBO> permissionList = userPermissionDao.listPermissionByUserId(loginUser.getId());
 
             List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
-            
             permissionList.forEach(item -> {
                 
                 String roleCode = item.getRoleCode();
@@ -54,12 +66,12 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             });
             
             // 返回用户信息
-            return UserExtend.build(userName, systemUser.getPassword(), systemUser.getStatus() == 1, grantedAuthorities)
-                    .id(systemUser.getId())
-                    .name(systemUser.getUserName())
-                    .phone(systemUser.getPhone())
-                    .nickName(systemUser.getNickName())
-                    .email(systemUser.getEmail());
+            return UserExtend.build(userName, loginUser.getPassword(), loginUser.getStatus() == 1, grantedAuthorities)
+                    .id(loginUser.getId())
+                    .name(loginUser.getUserName())
+                    .phone(loginUser.getPhone())
+                    .nickName(loginUser.getNickName())
+                    .email(loginUser.getEmail());
         }else {
             // 用户名不匹配
             return null;
