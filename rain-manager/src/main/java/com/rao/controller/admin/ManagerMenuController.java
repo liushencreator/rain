@@ -8,7 +8,7 @@ import com.rao.pojo.dto.system.MenuConfigDTO;
 import com.rao.pojo.vo.system.FirstLevelMenuVO;
 import com.rao.pojo.vo.system.MenuTreeVO;
 import com.rao.pojo.vo.system.MenuVO;
-import com.rao.service.system.RainSystemMenuService;
+import com.rao.service.user.RainSystemMenuService;
 import com.rao.util.result.ResultMessage;
 
 import javax.annotation.Resource;

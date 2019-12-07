@@ -14,6 +14,10 @@ import java.util.LinkedHashMap;
  */
 public class CurrentUserUtil {
 
+    /**
+     * 获取当前用户信息（json格式）
+     * @return
+     */
     public static String getCurrentUserInfoJsonFormat(){
         Authentication authentication = SecurityContextHolder.getContextHolderStrategy().getContext().getAuthentication();
         OAuth2Authentication auth2Authentication  = (OAuth2Authentication)authentication;

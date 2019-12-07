@@ -1,4 +1,4 @@
-package com.rao.service.impl.system;
+package com.rao.service.impl.user;
 
 import com.rao.constant.common.StateConstants;
 import com.rao.dao.user.RainSystemMenuDao;
@@ -11,7 +11,7 @@ import com.rao.pojo.dto.system.MenuConfigDTO;
 import com.rao.pojo.vo.system.FirstLevelMenuVO;
 import com.rao.pojo.vo.system.MenuTreeVO;
 import com.rao.pojo.vo.system.MenuVO;
-import com.rao.service.system.RainSystemMenuService;
+import com.rao.service.user.RainSystemMenuService;
 import com.rao.util.common.Paramap;
 import com.rao.util.common.TwiterIdUtil;
 import javax.annotation.Resource;

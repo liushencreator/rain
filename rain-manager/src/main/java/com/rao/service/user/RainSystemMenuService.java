@@ -1,4 +1,4 @@
-package com.rao.service.system;
+package com.rao.service.user;
 
 import com.rao.pojo.entity.user.RainSystemMenu;
 import com.rao.pojo.dto.system.MenuConfigDTO;
