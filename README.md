@@ -10,7 +10,7 @@
 ##### 后端
 
 > springboot + eureka + feign + hystrix + getway + mybatis + mysql
->
+> spring security + oauth2
 
 ### 注意事项
 
