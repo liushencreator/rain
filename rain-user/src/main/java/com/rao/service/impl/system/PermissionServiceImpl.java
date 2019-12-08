@@ -4,6 +4,7 @@ import com.rao.dao.system.RainPermissionDao;
 import com.rao.exception.BusinessException;
 import com.rao.pojo.dto.SavePermissionDTO;
 import com.rao.pojo.entity.system.RainPermission;
+import com.rao.pojo.vo.system.PermissionVO;
 import com.rao.service.system.PermissionService;
 import com.rao.util.common.Paramap;
 import com.rao.util.common.TwiterIdUtil;
@@ -11,7 +12,9 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 权限 service 实现
@@ -45,6 +48,21 @@ public class PermissionServiceImpl implements PermissionService {
         rainPermissionDao.insert(permission);
     }
 
+    @Override
+    public List<PermissionVO> listPermission() {
+        List<RainPermission> permissionList = rainPermissionDao.findAll();
+        List<PermissionVO> permissionVOList = new ArrayList<>();
+        for (RainPermission permission : permissionList) {
+            PermissionVO permissionVO = new PermissionVO();
+            BeanUtils.copyProperties(permission, permissionVO);
+            if(permission.getParentId() < 0){
+                permissionVO.setChildren(buildChildList(permissionList, permission.getId()));
+                permissionVOList.add(permissionVO);
+            }
+        }
+        return permissionVOList;
+    }
+
     /**
      * 获取上级权限id
      * @param parentId
@@ -59,6 +77,25 @@ public class PermissionServiceImpl implements PermissionService {
             throw BusinessException.operate("上级权限不存在");
         }
         return parentId;
+    }
+
+    /**
+     * 递归获取子分类
+     * @param permissionList
+     * @param id
+     * @return
+     */
+    private List<PermissionVO> buildChildList(List<RainPermission> permissionList, Long id){
+        List<PermissionVO> permissionVOList = new ArrayList<>();
+        for (RainPermission permission : permissionList) {
+            if(permission.getParentId().equals(id)){
+                PermissionVO permissionVO = new PermissionVO();
+                BeanUtils.copyProperties(permission, permissionVO);
+                permissionVO.setChildren(buildChildList(permissionList, permission.getId()));
+                permissionVOList.add(permissionVO);
+            }
+        }
+        return permissionVOList;
     }
 
 }

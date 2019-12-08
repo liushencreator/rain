@@ -1,6 +1,9 @@
 package com.rao.service.system;
 
 import com.rao.pojo.dto.SavePermissionDTO;
+import com.rao.pojo.vo.system.PermissionVO;
+
+import java.util.List;
 
 /**
  * 权限 service
@@ -15,4 +18,9 @@ public interface PermissionService {
      */
     void savePermission(SavePermissionDTO permissionDTO);
 
+    /**
+     * 权限列表
+     * @return
+     */
+    List<PermissionVO> listPermission();
 }
