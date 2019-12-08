@@ -12,29 +12,12 @@ import java.util.Map;
  */
 public interface RainUserRoleDao {
 
-    RainUserRole find(Long id);
-
     List<RainUserRole> findAll();
 
     Integer count(Map<String, Object> var1);
 
-    Long insert(RainUserRole video);
-
-    Integer update(RainUserRole video);
-
-    Integer delete(Long id);
-
-    Integer deleteAll(Map<String, Object> var1);
+    Integer insert(RainUserRole video);
 
     List<RainUserRole> findByParams(Map<String, Object> var1);
-
-    List<RainUserRole> findByPage(Map<String, Object> var1);
-
-    /**
-     * insertSelective
-     * @param rainUserRole
-     * @return
-     */
-    Integer insertSelective(RainUserRole rainUserRole);
 
 }

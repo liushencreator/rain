@@ -1,4 +1,4 @@
-package com.rao.controller;
+package com.rao.controller.user;
 
 import com.rao.pojo.bo.CurrentUserInfo;
 import com.rao.service.user.CurrentUserService;

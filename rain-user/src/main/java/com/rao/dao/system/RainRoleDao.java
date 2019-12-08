@@ -36,6 +36,6 @@ public interface RainRoleDao {
      * @param rainRole
      * @return
      */
-    Integer insertSelective(RainRole rainRole);
+    Long insertSelective(RainRole rainRole);
 
 }

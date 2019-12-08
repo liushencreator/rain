@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 
 /**
  * Entity - 用户角色关系表
- * 
+ *
  * @author zijing
  * @version 2.0
  */
@@ -17,15 +17,16 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class RainUserRole {
 
-	private static final long serialVersionUID = 5081846432919091193L;
+    private static final long serialVersionUID = 5081846432919091193L;
 
-	/** id */
-	private Long id;
-	
-	/** 用户id */
-	private Long userId;
-	
-	/** 角色id */
-	private Long roleId;
-	
+    /**
+     * 用户id
+     */
+    private Long userId;
+
+    /**
+     * 角色id
+     */
+    private Long roleId;
+
 }

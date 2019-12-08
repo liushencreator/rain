@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 
 /**
  * Entity - 角色权限关系表
- * 
+ *
  * @author zijing
  * @version 2.0
  */
@@ -17,15 +17,16 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class RainRolePermission {
 
-	private static final long serialVersionUID = 5081846432919091193L;
+    private static final long serialVersionUID = 5081846432919091193L;
 
-	/** id */
-	private Long id;
-	
-	/** 角色id */
-	private Long roleId;
-	
-	/** 权限id */
-	private Long permissionId;
-	
+    /**
+     * 角色id
+     */
+    private Long roleId;
+
+    /**
+     * 权限id
+     */
+    private Long permissionId;
+
 }

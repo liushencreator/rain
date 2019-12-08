@@ -61,7 +61,7 @@ public class UserLoginController {
      * @param request
      * @return
      */
-    @PostMapping(value = "/logout")
+    @PostMapping(value = "/user/logout")
     public ResultMessage logout(HttpServletRequest request){
         String token = request.getParameter("access_token");
         OAuth2AccessToken oAuth2AccessToken = tokenStore.readAccessToken(token);

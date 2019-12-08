@@ -1,6 +1,7 @@
 package com.rao.dao.system;
 
 import com.rao.pojo.entity.system.RainPermission;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Map;
@@ -36,6 +37,12 @@ public interface RainPermissionDao {
      * @param rainPermission
      * @return
      */
-    Integer insertSelective(RainPermission rainPermission);
+    Long insertSelective(RainPermission rainPermission);
 
+    /**
+     * 根据id查询权限列表
+     * @param permissions
+     * @return
+     */
+    List<RainPermission> listByPermissionIds(@Param("permissions") List<Long> permissions);
 }

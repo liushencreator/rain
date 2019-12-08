@@ -1,7 +1,9 @@
 package com.rao.util.common;
 
 /**
- * Created by Lenovo on 2018/9/10.
+ * 生成码工具类
+ * @author raojing
+ * @date 2019/12/8 14:23
  */
 public class TwiterIdUtil {
 
@@ -9,7 +11,6 @@ public class TwiterIdUtil {
     public static final int NODE_SHIFT = 10;
     public static final int SEQ_SHIFT = 12;
 
-    public static final short MAX_NODE = 1024;
     public static final short MAX_SEQUENCE = 4096;
 
     private static short sequence;
@@ -41,6 +42,10 @@ public class TwiterIdUtil {
         return currentTime << NODE_SHIFT << SEQ_SHIFT | node << SEQ_SHIFT | counter;
     }
 
+    /**
+     * 生成分布式id
+     * @return
+     */
     public static Long getTwiterId() {
         return next();
     }
@@ -51,9 +56,10 @@ public class TwiterIdUtil {
      * @param len
      * @return
      */
-    public String getRandomCode(Integer len) {
+    public static String getRandomCode(Integer len) {
         //字符源，可以根据需要删减
-        String generateSource = "23456789abcdefghgklmnpqrstuvwxyz";//去掉1和i ，0和o
+        //去掉1和i ，0和o
+        String generateSource = "23456789abcdefghgklmnpqrstuvwxyz";
         String rtnStr = "";
         for (int i = 0; i < len; i++) {
             //循环随机获得当次字符，并移走选出的字符
@@ -63,11 +69,5 @@ public class TwiterIdUtil {
         }
         return rtnStr.toUpperCase();
     }
-
-
-    public static void main(String[] args) {
-        System.out.println(getTwiterId());
-    }
-
 
 }

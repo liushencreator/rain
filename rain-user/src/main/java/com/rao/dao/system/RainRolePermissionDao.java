@@ -1,6 +1,8 @@
 package com.rao.dao.system;
 
 import com.rao.pojo.entity.system.RainRolePermission;
+import org.apache.ibatis.annotations.Param;
+
 import java.util.List;
 import java.util.Map;
 
@@ -12,29 +14,19 @@ import java.util.Map;
  */
 public interface RainRolePermissionDao {
 
-    RainRolePermission find(Long id);
-
     List<RainRolePermission> findAll();
 
     Integer count(Map<String, Object> var1);
 
-    Long insert(RainRolePermission video);
-
-    Integer update(RainRolePermission video);
-
-    Integer delete(Long id);
-
-    Integer deleteAll(Map<String, Object> var1);
+    Integer insert(RainRolePermission video);
 
     List<RainRolePermission> findByParams(Map<String, Object> var1);
 
-    List<RainRolePermission> findByPage(Map<String, Object> var1);
-
     /**
-     * insertSelective
-     * @param rainRolePermission
+     * 保存角色权限关系
+     * @param rolePermissions
      * @return
      */
-    Integer insertSelective(RainRolePermission rainRolePermission);
+    Integer batchSaveRelation(@Param("rolePermissions") List<RainRolePermission> rolePermissions);
 
 }
