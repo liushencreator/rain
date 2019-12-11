@@ -31,7 +31,7 @@ public class RoleController {
     @PostMapping()
     public ResultMessage saveRole(@BeanValid @RequestBody SaveRoleDTO roleDTO){
         roleService.saveRole(roleDTO);
-        return ResultMessage.success().addMessage("保存角色成功");
+        return ResultMessage.success().message("保存角色成功");
     }
 
 }

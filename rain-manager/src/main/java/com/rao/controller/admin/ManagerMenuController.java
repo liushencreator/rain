@@ -80,7 +80,7 @@ public class ManagerMenuController {
         }catch (Exception e){
             return ResultMessage.fail();
         }
-        return ResultMessage.success().addMessage("保存配置成功");
+        return ResultMessage.success().message("保存配置成功");
     }
 
     /**
@@ -91,7 +91,7 @@ public class ManagerMenuController {
     @PostMapping("/del_menu")
     public ResultMessage delMenu(@SimpleValid @NotNull @RequestParam Long id){
         rainSystemMenuService.delMenu(id);
-        return ResultMessage.success().addMessage("菜单删除成功");
+        return ResultMessage.success().message("菜单删除成功");
     }
     
 }

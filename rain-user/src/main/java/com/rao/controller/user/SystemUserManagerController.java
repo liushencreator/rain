@@ -20,8 +20,8 @@ public class SystemUserManagerController {
      */
     @PostMapping("/init_super_user")
     public ResultMessage initSuperUser(){
-
-        return ResultMessage.success().addMessage("超级管理员初始化成功");
+        
+        return ResultMessage.success().message("超级管理员初始化成功");
     }
 
 }

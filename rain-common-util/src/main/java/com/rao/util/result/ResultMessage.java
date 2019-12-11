@@ -102,7 +102,7 @@ public class ResultMessage<T> {
 	 * @param message
 	 * @return
 	 */
-	public ResultMessage addMessage(String message){
+	public ResultMessage message(String message){
 		this.setMessage(message);
 		return this;
 	}

@@ -89,14 +89,14 @@ public class ValidParamAspect implements InitializingBean {
                         Set<ConstraintViolation<Object>> validResult = this.validator.validate(item, beanValidAnnotation.value());
                         if (!validResult.isEmpty()) {
                             String msg = validResult.iterator().next().getMessage();
-                            return ResultMessage.fail().addMessage(msg);
+                            return ResultMessage.fail().message(msg);
                         }
                     }
                 } else {
                     Set<ConstraintViolation<Object>> validResult = this.validator.validate(args[i], beanValidAnnotation.value());
                     if (!validResult.isEmpty()) {
                         String msg = validResult.iterator().next().getMessage();
-                        return ResultMessage.fail().addMessage(msg);
+                        return ResultMessage.fail().message(msg);
                     }
                 }
                 continue;
@@ -116,7 +116,7 @@ public class ValidParamAspect implements InitializingBean {
             Set<ConstraintViolation<Object>> validResult = this.executableValidator.validateParameters(target, currentMethod, args);
             if (!validResult.isEmpty()) {
                 String msg = validResult.iterator().next().getMessage();
-                return ResultMessage.fail().addMessage(msg);
+                return ResultMessage.fail().message(msg);
             }
         }
 
