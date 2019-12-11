@@ -20,9 +20,9 @@ public interface RainSystemUserDao {
 
     Integer count(Map<String, Object> var1);
 
-    Long insert(RainSystemUser video);
+    Long insert(RainSystemUser rainSystemUser);
 
-    Integer update(RainSystemUser video);
+    Integer update(RainSystemUser rainSystemUser);
 
     Integer delete(Long id);
 
