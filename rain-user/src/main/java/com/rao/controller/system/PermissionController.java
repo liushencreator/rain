@@ -53,7 +53,7 @@ public class PermissionController {
     @PutMapping("/{id}")
     public ResultMessage updatePermission(@PathVariable Long id, @BeanValid @RequestBody SavePermissionDTO permissionDTO) {
         permissionService.updatePermission(id, permissionDTO);
-        return ResultMessage.success().addMessage("更新权限成功");
+        return ResultMessage.success().message("更新权限成功");
     }
 
 }
