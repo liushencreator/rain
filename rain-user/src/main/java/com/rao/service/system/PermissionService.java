@@ -23,4 +23,13 @@ public interface PermissionService {
      * @return
      */
     List<PermissionVO> listPermission();
+
+    /**
+     * 更新权限信息
+     * @param id
+     * @param permissionDTO
+     */
+    void updatePermission(Long id,SavePermissionDTO permissionDTO);
+
+
 }

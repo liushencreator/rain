@@ -63,6 +63,11 @@ public class PermissionServiceImpl implements PermissionService {
         return permissionVOList;
     }
 
+    @Override
+    public void updatePermission(Long id, SavePermissionDTO permissionDTO) {
+
+    }
+
     /**
      * 获取上级权限id
      * @param parentId

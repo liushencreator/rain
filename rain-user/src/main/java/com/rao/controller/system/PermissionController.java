@@ -43,4 +43,17 @@ public class PermissionController {
         return ResultMessage.success(permissionVOList);
     }
 
+    /**
+     * 更新权限
+     *
+     * @param id
+     * @param permissionDTO
+     * @return
+     */
+    @PutMapping("/{id}")
+    public ResultMessage updatePermission(@PathVariable Long id, @BeanValid @RequestBody SavePermissionDTO permissionDTO) {
+        permissionService.updatePermission(id, permissionDTO);
+        return ResultMessage.success().addMessage("更新权限成功");
+    }
+
 }
