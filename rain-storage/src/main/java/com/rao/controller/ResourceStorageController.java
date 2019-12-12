@@ -42,7 +42,7 @@ public class ResourceStorageController {
             FileUploadVO filePath = resourceStorageService.fileUpload(file, projectUrl);
             return ResultMessage.success(filePath);
         }catch (Exception e){
-            return ResultMessage.fail().addMessage("文件上传失败");
+            return ResultMessage.fail().message("文件上传失败");
         }
     }
 

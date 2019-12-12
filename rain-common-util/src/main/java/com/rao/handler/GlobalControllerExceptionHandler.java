@@ -53,7 +53,7 @@ public class GlobalControllerExceptionHandler {
      */
     @ExceptionHandler(Exception.class)
     public ResultMessage defaultExceptionHandler(Exception e) {
-        return ResultMessage.fail().addMessage("系统异常，请稍后重试");
+        return ResultMessage.fail().message("系统异常，请稍后重试");
     }
     
     /**
@@ -62,7 +62,7 @@ public class GlobalControllerExceptionHandler {
      */
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
     public ResultMessage errorRequestMethod(Exception e) {
-        return ResultMessage.fail().addMessage(e.getMessage());
+        return ResultMessage.fail().message(e.getMessage());
     }
 
 }

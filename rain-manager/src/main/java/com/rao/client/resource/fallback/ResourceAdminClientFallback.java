@@ -19,7 +19,7 @@ public class ResourceAdminClientFallback implements FallbackFactory<ResourceAdmi
             
             @Override
             public ResultMessage testLocal() {
-                return ResultMessage.fail().addMessage("获取资源失败");
+                return ResultMessage.fail().message("获取资源失败");
             }
             
         };

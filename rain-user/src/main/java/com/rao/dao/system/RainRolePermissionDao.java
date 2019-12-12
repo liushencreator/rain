@@ -18,7 +18,7 @@ public interface RainRolePermissionDao {
 
     Integer count(Map<String, Object> var1);
 
-    Integer insert(RainRolePermission video);
+    Integer insert(RainRolePermission rolePermission);
 
     List<RainRolePermission> findByParams(Map<String, Object> var1);
 

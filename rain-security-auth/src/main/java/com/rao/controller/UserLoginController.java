@@ -33,7 +33,7 @@ public class UserLoginController {
     @PostMapping(value = "/login/system_user")
     public ResultMessage<String> loginSystemUser(@RequestBody LoginDTO loginDTO) {
         String accessToken = loginService.loginAdmin(loginDTO);
-        return ResultMessage.success(accessToken).addMessage("登录成功");
+        return ResultMessage.success(accessToken).message("登录成功");
     }
 
     /**
@@ -43,7 +43,7 @@ public class UserLoginController {
     @IgnoreTokenAuth
     @PostMapping(value = "/login/b_user")
     public ResultMessage<String> loginBUser(){
-        return ResultMessage.fail().addMessage("暂未实现");
+        return ResultMessage.fail().message("暂未实现");
     }
 
     /**
@@ -53,7 +53,7 @@ public class UserLoginController {
     @IgnoreTokenAuth
     @PostMapping(value = "/login/c_user")
     public ResultMessage<String> loginCUser(){
-        return ResultMessage.fail().addMessage("暂未实现");
+        return ResultMessage.fail().message("暂未实现");
     }
 
     /**
@@ -66,7 +66,7 @@ public class UserLoginController {
         String token = request.getParameter("access_token");
         OAuth2AccessToken oAuth2AccessToken = tokenStore.readAccessToken(token);
         tokenStore.removeAccessToken(oAuth2AccessToken);
-        return ResultMessage.success().addMessage("用户注销成功");
+        return ResultMessage.success().message("用户注销成功");
     }
     
 }

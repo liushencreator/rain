@@ -28,7 +28,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/current/system_user/test").permitAll()
+                .antMatchers("/system/init").permitAll()
                 .anyRequest().authenticated();
     }
 

@@ -30,7 +30,7 @@ public class PermissionController {
     @PostMapping()
     public ResultMessage savePermission(@BeanValid @RequestBody SavePermissionDTO permissionDTO){
         permissionService.savePermission(permissionDTO);
-        return ResultMessage.success().addMessage("保存权限成功");
+        return ResultMessage.success().message("保存权限成功");
     }
 
     /**
