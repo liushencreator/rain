@@ -34,7 +34,7 @@ public class PermissionController {
     }
 
     /**
-     * 获取权限列表
+     * 权限列表
      * @return
      */
     @GetMapping()
