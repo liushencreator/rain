@@ -17,12 +17,13 @@
     </parent>
 
     <modules>
-        <module>rain-api</module>
         <module>rain-common-util</module>
-        <module>rain-storage</module>
+        <module>rain-api</module>
+        <module>rain-server-util</module>
         <module>rain-eureka</module>
         <module>rain-gateway</module>
         <module>rain-security-auth</module>
+        <module>rain-storage</module>
         <module>rain-manager</module>
         <module>rain-resource</module>
         <module>rain-user</module>
@@ -40,6 +41,7 @@
         <hutool.version>4.2.1</hutool.version>
         <shiro.version>1.4.0</shiro.version>
         <rain.api.version>1.0-SNAPSHOT</rain.api.version>
+        <rain.server.util.version>1.0-SNAPSHOT</rain.server.util.version>
     </properties>
 
     <dependencyManagement>
@@ -67,6 +69,12 @@
                 <groupId>com.rao</groupId>
                 <artifactId>rain-api</artifactId>
                 <version>${rain.api.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.rao</groupId>
+                <artifactId>rain-server-util</artifactId>
+                <version>${rain.server.util.version}</version>
             </dependency>
 
             <dependency>

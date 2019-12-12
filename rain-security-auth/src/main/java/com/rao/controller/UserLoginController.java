@@ -1,6 +1,5 @@
 package com.rao.controller;
 
-import com.rao.annotation.IgnoreTokenAuth;
 import com.rao.pojo.dto.LoginDTO;
 import com.rao.service.LoginService;
 import com.rao.util.result.ResultMessage;
@@ -29,7 +28,6 @@ public class UserLoginController {
      * @param loginDTO
      * @return
      */
-    @IgnoreTokenAuth
     @PostMapping(value = "/login/system_user")
     public ResultMessage<String> loginSystemUser(@RequestBody LoginDTO loginDTO) {
         String accessToken = loginService.loginAdmin(loginDTO);
@@ -40,7 +38,6 @@ public class UserLoginController {
      * B 端用户登录
      * @return
      */
-    @IgnoreTokenAuth
     @PostMapping(value = "/login/b_user")
     public ResultMessage<String> loginBUser(){
         return ResultMessage.fail().message("暂未实现");
@@ -50,7 +47,6 @@ public class UserLoginController {
      * C 端用户登录
      * @return
      */
-    @IgnoreTokenAuth
     @PostMapping(value = "/login/c_user")
     public ResultMessage<String> loginCUser(){
         return ResultMessage.fail().message("暂未实现");
