@@ -2,14 +2,13 @@ package com.rao.controller.system;
 
 import com.rao.annotation.BeanValid;
 import com.rao.pojo.dto.SaveRoleDTO;
+import com.rao.pojo.vo.system.RoleVO;
 import com.rao.service.system.RoleService;
 import com.rao.util.result.ResultMessage;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * 角色相关
@@ -32,6 +31,16 @@ public class RoleController {
     public ResultMessage saveRole(@BeanValid @RequestBody SaveRoleDTO roleDTO){
         roleService.saveRole(roleDTO);
         return ResultMessage.success().message("保存角色成功");
+    }
+
+    /**
+     * 角色列表
+     * @return
+     */
+    @GetMapping()
+    public ResultMessage<List<RoleVO>> listRole(){
+        
+        return ResultMessage.success();
     }
 
 }
