@@ -38,6 +38,11 @@ mybatis:
   configuration:
     map-underscore-to-camel-case: true
 
+# 通用 mapper
+mapper:
+  mappers: com.rao.mapper.RainBaseDao
+  identity: MYSQL
+
 # pagehelper
 pagehelper:
   helperDialect: mysql
@@ -59,6 +64,7 @@ eureka:
     serviceUrl:
       defaultZone: http://localhost:8080/eureka/
 
+# security
 security:
   oauth2:
     client:
