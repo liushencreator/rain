@@ -1,0 +1,57 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /quartz
+  session-timeout: 60
+  tomcat:
+    max-threads: 100
+    uri-encoding: UTF-8
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    password: mysql
+    url: jdbc:mysql://47.106.134.89:3306/rain_quartz_task_dev?characterEncoding=utf-8&useSSL=false&serverTimezone=UTC
+    username: root
+  devtools:
+    livereload:
+      enabled: true
+  jpa:
+    database: MYSQL
+    hibernate:
+      ddl-auto: update
+      naming:
+        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    show-sql: true
+  mvc:
+    static-path-pattern: /**
+  quartz:
+    job-store-type: jdbc
+    properties:
+      org:
+        quartz:
+          jobStore:
+            class: org.quartz.impl.jdbcjobstore.JobStoreTX
+            # 设置集群检查间隔20s
+            clusterCheckinInterval: 2000
+            dataSource: quartzDataSource
+            driverDelegateClass: org.quartz.impl.jdbcjobstore.StdJDBCDelegate
+            # 打开集群配置
+            isClustered: true
+            tablePrefix: QRTZ_
+            useProperties: false
+          scheduler:
+            instanceId: AUTO
+            instanceName: clusteredScheduler
+          threadPool:
+            class: org.quartz.simpl.SimpleThreadPool
+            threadCount: 10
+            threadPriority: 5
+
+            threadsInheritContextClassLoaderOfInitializingThread: true
+  thymeleaf:
+    cache: false
+    cache-period: 0
+    mode: HTML
+    template:
+      cache: false
