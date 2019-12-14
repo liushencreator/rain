@@ -1,4 +1,4 @@
-package com.rao.config.auth;
+package com.rao.auth;
 
 import feign.RequestInterceptor;
 import org.springframework.boot.context.properties.ConfigurationProperties;

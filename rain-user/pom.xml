@@ -20,17 +20,6 @@
 
     <dependencies>
 
-        <!-- 自主控制是否需要 feign 客户端 -->
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-openfeign</artifactId>
-        </dependency>
-        <!-- 自主控制是否需要 feign 客户端 -->
-
         <!-- 本地 jar -->
         <dependency>
             <groupId>com.rao</groupId>

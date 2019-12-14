@@ -64,6 +64,10 @@ eureka:
     serviceUrl:
       defaultZone: http://localhost:8080/eureka/
 
+feign:
+  hystrix:
+    enabled: true
+
 # security
 security:
   oauth2:
