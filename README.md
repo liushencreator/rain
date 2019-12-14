@@ -9,7 +9,7 @@
 >
 ##### 后端
 
-> springboot + eureka + feign + hystrix + getway + mybatis + mysql
+> springboot + eureka + feign + hystrix + getway + mybatis + mysql + redis
 >
 > spring security + oauth2
 >
