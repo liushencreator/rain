@@ -18,7 +18,7 @@ import java.util.Arrays;
  * @author raojing
  * @date 2019/11/12 14:12
  */
-@Order(5)
+@Order(8)
 @Aspect
 @Component
 public class WebLogAspect {
