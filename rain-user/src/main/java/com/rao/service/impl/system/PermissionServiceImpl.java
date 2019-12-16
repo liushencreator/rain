@@ -10,6 +10,7 @@ import com.rao.util.common.Paramap;
 import com.rao.util.common.TwiterIdUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import tk.mybatis.mapper.entity.Example;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -34,8 +35,10 @@ public class PermissionServiceImpl implements PermissionService {
 
         // 判断权限标识是否已经存在
         String permissionCode = permissionDTO.getPermissionCode();
-        Paramap paramap = Paramap.create().put("permissionCode", permissionCode);
-        Integer count = rainPermissionDao.count(paramap);
+        Example countExample = new Example(RainPermission.class);
+        countExample.createCriteria().andEqualTo("permissionCode", permissionCode);
+        int count = rainPermissionDao.selectCountByExample(countExample);
+
         if(count > 0){
             throw BusinessException.operate(permissionCode + " 权限标识已存在");
         }
@@ -50,7 +53,7 @@ public class PermissionServiceImpl implements PermissionService {
 
     @Override
     public List<PermissionVO> listPermission() {
-        List<RainPermission> permissionList = rainPermissionDao.findAll();
+        List<RainPermission> permissionList = rainPermissionDao.selectAll();
         List<PermissionVO> permissionVOList = new ArrayList<>();
         for (RainPermission permission : permissionList) {
             PermissionVO permissionVO = new PermissionVO();
@@ -77,7 +80,7 @@ public class PermissionServiceImpl implements PermissionService {
         if(parentId == null || parentId == 0) {
             return -1L;
         }
-        RainPermission parentPermission = rainPermissionDao.find(parentId);
+        RainPermission parentPermission = rainPermissionDao.selectByPrimaryKey(parentId);
         if(parentPermission == null) {
             throw BusinessException.operate("上级权限不存在");
         }

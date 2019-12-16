@@ -24,12 +24,32 @@ spring:
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://localhost:3306/rain_manager_dev
 
+  # redis
+  redis:
+    host: 47.106.134.89
+    port: 6379
+    password: redis
+    database: 0
+
 # mybatis
 mybatis:
   mapper-locations: classpath:mapper/**/*.xml
   type-aliases-package: com.rao.pojo.entity
   configuration:
     map-underscore-to-camel-case: true
+
+# 通用 mapper
+mapper:
+  mappers: com.rao.mapper.RainBaseDao
+  identity: MYSQL
+
+# pagehelper
+pagehelper:
+  helperDialect: mysql
+  reasonable: false
+  supportMethodsArguments: true
+  params: count=countSql
+  returnPageInfo: check
 
 # dao 的日志        
 logging:
@@ -47,3 +67,16 @@ eureka:
 feign:
   hystrix:
     enabled: true
+
+# security
+security:
+  oauth2:
+    client:
+      client-id: client
+      client-secret: secret
+      access-token-uri: http://111.231.191.92:9000/auth/oauth/token
+      user-authorization-uri: http://111.231.191.92:9000/auth/oauth/authorize
+      grant-type: password,refresh_token
+      scope: backend
+    resource:
+      user-info-uri: http://111.231.191.92:9000/auth/user/info

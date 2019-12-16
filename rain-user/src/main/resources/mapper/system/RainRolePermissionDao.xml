@@ -19,56 +19,6 @@
 		 #{roleId},#{permissionId}
 	</sql>
 	
-	<!-- 定义可重用的WHERE SQL公共代码段，可以包含在其他语句中 -->
-	<sql id="where_column">
-		<if test="roleId != null">
-			AND role_id = #{roleId,jdbcType=BIGINT}
-		</if>
-		<if test="permissionId != null">
-			AND permission_id = #{permissionId,jdbcType=BIGINT}
-		</if>
-	</sql>
-	
-	<!-- 设置语句 -->
-	<sql id="set_column">
-		<if test="roleId != null">
-			role_id = #{roleId,jdbcType=BIGINT},
-		</if>
-		<if test="permissionId != null">
-			permission_id = #{permissionId,jdbcType=BIGINT},
-		</if>
-	</sql>
-
-	<!-- 查询所有 -->
-	<select id="findAll" resultMap="RainRolePermissionResultMap">
-		SELECT	<include refid="base_column" />
-		FROM	RAIN_ROLE_PERMISSION
-	</select>
-	
-	<!-- 统计记录数 -->
-	<select id="count" resultType="int">
-		SELECT COUNT(*) FROM RAIN_ROLE_PERMISSION
-		<where> 
-			<include refid="where_column" />
-		</where>
-	</select>
-	
-	<!-- 插入 -->
-	<insert id="insert" parameterType="com.rao.pojo.entity.system.RainRolePermission">
-		INSERT RAIN_ROLE_PERMISSION
-				(<include refid="base_column" /> )
-		VALUES	(<include refid="base_value_column" />)
-	</insert>
-
-    <!-- 根据参数查询列表-->
-	<select id="findByParams" resultMap="RainRolePermissionResultMap">
-		SELECT	<include refid="base_column" />
-		FROM 	RAIN_ROLE_PERMISSION
-		<where> 1=1
-			<include refid="where_column" />
-		</where>
-	</select>
-
 	<!-- 保存角色权限关系 -->
 	<insert id="batchSaveRelation" parameterType="com.rao.pojo.entity.system.RainRolePermission">
 		INSERT INTO RAIN_ROLE_PERMISSION ( <include refid="base_column" /> )

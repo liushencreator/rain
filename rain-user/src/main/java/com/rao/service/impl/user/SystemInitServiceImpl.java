@@ -20,6 +20,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
+import tk.mybatis.mapper.entity.Example;
 
 import javax.annotation.Resource;
 import java.util.Date;
@@ -99,8 +100,9 @@ public class SystemInitServiceImpl implements SystemInitService {
      * @param now
      */
     private Long initPermission(PermissionEnum permissionEnum, Date now){
-        Paramap paramap = Paramap.create().put("permissionCode", permissionEnum.getPermissionCode());
-        List<RainPermission> permissionList = rainPermissionDao.findByParams(paramap);
+        Example example = new Example(RainPermission.class);
+        example.createCriteria().andEqualTo("permissionCode", permissionEnum.getPermissionCode());
+        List<RainPermission> permissionList = rainPermissionDao.selectByExample(example);
         
         long permissionId = TwiterIdUtil.getTwiterId();
         if(CollectionUtils.isEmpty(permissionList)){
@@ -125,8 +127,9 @@ public class SystemInitServiceImpl implements SystemInitService {
      * @param now
      */
     private Long initRole(RoleEnum roleEnum, Date now){
-        Paramap paramap = Paramap.create().put("roleCode", roleEnum.getRoleCode());
-        List<RainRole> roleList = rainRoleDao.findByParams(paramap);
+        Example example = new Example(RainRole.class);
+        example.createCriteria().andEqualTo("roleCode", roleEnum.getRoleCode());
+        List<RainRole> roleList = rainRoleDao.selectByExample(example);
         
         long roleId = TwiterIdUtil.getTwiterId();
         if(CollectionUtils.isEmpty(roleList)){

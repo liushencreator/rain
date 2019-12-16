@@ -20,7 +20,7 @@ import javax.annotation.Resource;
 public class CurrentSystemUserController {
     
     @Resource
-    private CurrentUserService rainSystemUserService;
+    private CurrentUserService currentUserService;
 
     /**
      * 查询当前用户信息
@@ -28,7 +28,7 @@ public class CurrentSystemUserController {
      */
     @GetMapping()
     public ResultMessage<SystemUserVO> findByAccount(CurrentUserInfo currentUser){
-        SystemUserVO systemUserVO = rainSystemUserService.findById(currentUser.getId());
+        SystemUserVO systemUserVO = currentUserService.findById(currentUser.getId());
         return ResultMessage.success(systemUserVO);
     }
     
