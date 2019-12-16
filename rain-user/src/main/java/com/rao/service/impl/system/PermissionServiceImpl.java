@@ -1,6 +1,7 @@
 package com.rao.service.impl.system;
 
 import com.rao.dao.system.RainPermissionDao;
+import com.rao.dao.system.RainRolePermissionDao;
 import com.rao.exception.BusinessException;
 import com.rao.pojo.dto.SavePermissionDTO;
 import com.rao.pojo.entity.system.RainPermission;
@@ -33,7 +34,7 @@ public class PermissionServiceImpl implements PermissionService {
     private RainPermissionDao rainPermissionDao;
 
     @Resource
-    private RainPermissionDao rainRolePermissionDao;
+    private RainRolePermissionDao rainRolePermissionDao;
 
     @Override
     public void savePermission(SavePermissionDTO permissionDTO) {
