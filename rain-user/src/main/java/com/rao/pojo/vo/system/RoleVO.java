@@ -8,7 +8,7 @@ import lombok.Data;
 import java.util.Date;
 
 /**
- * 角色列表
+ * 角色 视图模型
  * @author raojing
  * @date 2019/12/12 14:46
  */

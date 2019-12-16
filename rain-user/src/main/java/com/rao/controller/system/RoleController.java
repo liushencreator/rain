@@ -4,6 +4,8 @@ import com.rao.annotation.BeanValid;
 import com.rao.pojo.dto.SaveRoleDTO;
 import com.rao.pojo.vo.system.RoleVO;
 import com.rao.service.system.RoleService;
+import com.rao.util.page.PageParam;
+import com.rao.util.result.PageResult;
 import com.rao.util.result.ResultMessage;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,9 +40,21 @@ public class RoleController {
      * @return
      */
     @GetMapping()
-    public ResultMessage<List<RoleVO>> listRole(){
-        
-        return ResultMessage.success();
+    public ResultMessage<PageResult<RoleVO>> pageRole(PageParam pageParam){
+        PageResult<RoleVO> pageResult = roleService.pageRole(pageParam);
+        return ResultMessage.success(pageResult);
+    }
+
+    /**
+     * 角色详情
+     *
+     * @param id
+     * @return
+     */
+    @PutMapping("/{id}")
+    public ResultMessage<RoleVO> updatePermission(@PathVariable Long id) {
+        roleService.findById(id);
+        return ResultMessage.success().message("更新权限成功");
     }
 
 }

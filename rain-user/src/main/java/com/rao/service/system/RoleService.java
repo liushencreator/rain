@@ -1,6 +1,9 @@
 package com.rao.service.system;
 
 import com.rao.pojo.dto.SaveRoleDTO;
+import com.rao.pojo.vo.system.RoleVO;
+import com.rao.util.page.PageParam;
+import com.rao.util.result.PageResult;
 
 /**
  * 角色 service
@@ -15,4 +18,17 @@ public interface RoleService {
      */
     void saveRole(SaveRoleDTO roleDTO);
 
+    /**
+     * 权限列表
+     * @param pageParam
+     * @return
+     */
+    PageResult<RoleVO> pageRole(PageParam pageParam);
+
+    /**
+     * 获取角色信息
+     * @param id
+     * @return
+     */
+    RoleVO findById(Long id);
 }

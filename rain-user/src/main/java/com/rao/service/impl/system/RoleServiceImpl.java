@@ -1,5 +1,7 @@
 package com.rao.service.impl.system;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.rao.dao.system.RainPermissionDao;
 import com.rao.dao.system.RainRoleDao;
 import com.rao.dao.system.RainRolePermissionDao;
@@ -8,8 +10,12 @@ import com.rao.pojo.dto.SaveRoleDTO;
 import com.rao.pojo.entity.system.RainPermission;
 import com.rao.pojo.entity.system.RainRole;
 import com.rao.pojo.entity.system.RainRolePermission;
+import com.rao.pojo.vo.system.RoleVO;
 import com.rao.service.system.RoleService;
+import com.rao.util.CopyUtil;
 import com.rao.util.common.TwiterIdUtil;
+import com.rao.util.page.PageParam;
+import com.rao.util.result.PageResult;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -67,5 +73,26 @@ public class RoleServiceImpl implements RoleService {
         }).collect(Collectors.toList());
         rainRolePermissionDao.batchSaveRelation(rolePermissionList);
     }
+
+    @Override
+    public PageResult<RoleVO> pageRole(PageParam pageParam) {
+        // 分页
+        PageHelper.startPage(pageParam.getPageNumber(), pageParam.getPageSize());
+        List<RainRole> rainRoleList = rainRoleDao.selectAll();
+        PageInfo pageInfo = (PageInfo) rainRoleList;
+        // 封装视图模型
+        List<RoleVO> roleVOList = CopyUtil.transToOList(rainRoleList, RoleVO.class);
+
+        return PageResult.build(pageInfo.getTotal(), roleVOList);
+    }
+
+    @Override
+    public RoleVO findById(Long id) {
+        RainRole rainRole = rainRoleDao.selectByPrimaryKey(id);
+        RoleVO roleVO = CopyUtil.transToO(rainRole, RoleVO.class);
+
+        return roleVO;
+    }
+
 
 }

@@ -43,13 +43,4 @@
         where parent_id= #{parentId}
     </select>
 
-	<!-- 根据id和权限标识查询重复权限标识列表 -->
-	<select id="listByIdNotEqualAndPermissionCode" resultType="com.rao.pojo.entity.system.RainPermission">
-		SELECT
-		<include refid="base_column"/>
-		FROM RAIN_PERMISSION
-		where id != #{id} and permission_code = #{permissionCode}
-	</select>
-
-
 </mapper> 

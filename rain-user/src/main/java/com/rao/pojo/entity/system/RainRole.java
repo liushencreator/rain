@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Column;
+import javax.persistence.Id;
 import java.util.Date;
 
 /**
@@ -24,31 +26,37 @@ public class RainRole {
     /**
      * id
      */
+    @Id
     private Long id;
 
     /**
      * 角色名称
      */
+    @Column(name = "role_name")
     private String roleName;
 
     /**
      * 角色标识
      */
+    @Column(name = "roleCode")
     private String roleCode;
 
     /**
      * 角色描述
      */
+    @Column(name = "role_desc")
     private String roleDesc;
 
     /**
      * 创建时间
      */
+    @Column(name = "create_time")
     private Date createTime;
 
     /**
      * 修改时间
      */
+    @Column(name = "update_time")
     private Date updateTime;
 
 }

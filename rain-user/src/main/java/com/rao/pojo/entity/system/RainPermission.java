@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Column;
+import javax.persistence.Id;
 import java.util.Date;
 
 /**
@@ -24,36 +26,43 @@ public class RainPermission {
     /**
      * id
      */
+    @Id
     private Long id;
 
     /**
      * 权限名称
      */
+    @Column(name = "permission_name")
     private String permissionName;
 
     /**
      * 权限码
      */
+    @Column(name = "permission_code")
     private String permissionCode;
 
     /**
      * 权限描述
      */
+    @Column(name = "permission_desc")
     private String permissionDesc;
 
     /**
      * 父id
      */
+    @Column(name = "parent_id")
     private Long parentId;
 
     /**
      * 创建时间
      */
+    @Column(name = "create_time")
     private Date createTime;
 
     /**
      * 修改时间
      */
+    @Column(name = "update_time")
     private Date updateTime;
 
 }

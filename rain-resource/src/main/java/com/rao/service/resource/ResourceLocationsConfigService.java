@@ -23,5 +23,5 @@ public interface ResourceLocationsConfigService {
      * 查询记录数
      * @return
      */
-    int count();
+    Long count();
 }

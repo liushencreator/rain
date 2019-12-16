@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Column;
+
 /**
  * Entity - 用户角色关系表
  *
@@ -22,11 +24,13 @@ public class RainUserRole {
     /**
      * 用户id
      */
+    @Column(name = "user_id")
     private Long userId;
 
     /**
      * 角色id
      */
+    @Column(name = "role_id")
     private Long roleId;
 
 }

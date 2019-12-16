@@ -30,12 +30,4 @@ public interface RainPermissionDao extends RainBaseDao<RainPermission> {
      */
     List<RainPermission> listByParentId(@Param("parentId") Long parentId);
 
-    /**
-     * 根据id和权限标识查询重复权限标识列表
-     *
-     * @param id
-     * @param permissionCode
-     * @return
-     */
-    List<RainPermission> listByIdNotEqualAndPermissionCode(@Param("parentId") Long id, @Param("permissionCode") String permissionCode);
 }
