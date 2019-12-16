@@ -18,7 +18,7 @@ import javax.persistence.Table;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "Rain_Role_Permission")
+@Table(name = "rain_role_permission")
 public class RainRolePermission {
 
     private static final long serialVersionUID = 5081846432919091193L;

@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
+import javax.persistence.Table;
 
 /**
  * Entity - 用户角色关系表
@@ -17,6 +18,7 @@ import javax.persistence.Column;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "rain_user_role")
 public class RainUserRole {
 
     private static final long serialVersionUID = 5081846432919091193L;
