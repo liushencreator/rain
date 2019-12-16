@@ -1,38 +1,55 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- namespace必须指向Dao接口 -->
 <mapper namespace="com.rao.dao.system.RainPermissionDao">
-	
-	<resultMap id="RainPermissionResultMap" type="com.rao.pojo.entity.system.RainPermission">
-		<id property="id" column="id"  />
-		<result property="permissionName" column="permission_name" />
-		<result property="permissionCode" column="permission_code" />
-		<result property="permissionDesc" column="permission_desc" />
-		<result property="parentId" column="parent_id" />
-		<result property="createTime" column="create_time" />
-		<result property="updateTime" column="update_time" />
-	</resultMap>
-	
-	<!-- 定义可重用的SQL代码段，可以包含在其他语句中 -->
-	<sql id="base_column">
+
+    <resultMap id="RainPermissionResultMap" type="com.rao.pojo.entity.system.RainPermission">
+        <id property="id" column="id"/>
+        <result property="permissionName" column="permission_name"/>
+        <result property="permissionCode" column="permission_code"/>
+        <result property="permissionDesc" column="permission_desc"/>
+        <result property="parentId" column="parent_id"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+    <!-- 定义可重用的SQL代码段，可以包含在其他语句中 -->
+    <sql id="base_column">
 		 id ,permission_name ,permission_code ,permission_desc ,parent_id ,create_time ,update_time 
 	</sql>
-	
-	<sql id="base_value_column">
+
+    <sql id="base_value_column">
 		 #{id},#{permissionName},#{permissionCode},#{permissionDesc},#{parentId},#{createTime},#{updateTime}
 	</sql>
-	
-	<!-- 根据id查询权限列表 -->
-	<select id="listByPermissionIds" resultType="com.rao.pojo.entity.system.RainPermission">
+
+    <!-- 根据id查询权限列表 -->
+    <select id="listByPermissionIds" resultType="com.rao.pojo.entity.system.RainPermission">
+        SELECT
+        <include refid="base_column"/>
+        FROM RAIN_PERMISSION
+        where id in
+        <foreach collection="permissions" item="id" index="index" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </select>
+
+    <!-- 根据parentId查询子节点列表，不包括子节点的子节点 -->
+    <select id="listByParentId" resultType="com.rao.pojo.entity.system.RainPermission">
+        SELECT
+        <include refid="base_column"/>
+        FROM RAIN_PERMISSION
+        where parent_id= #{parentId}
+    </select>
+
+	<!-- 根据id和权限标识查询重复权限标识列表 -->
+	<select id="listByIdNotEqualAndPermissionCode" resultType="com.rao.pojo.entity.system.RainPermission">
 		SELECT
-		<include refid="base_column" />
+		<include refid="base_column"/>
 		FROM RAIN_PERMISSION
-		where id in
-		<foreach collection="permissions" item="id" index="index" open="(" separator="," close=")">
-			#{id}
-		</foreach>
+		where id != #{id} and permission_code = #{permissionCode}
 	</select>
+
 
 </mapper> 

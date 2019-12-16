@@ -56,4 +56,16 @@ public class PermissionController {
         return ResultMessage.success().message("更新权限成功");
     }
 
+    /**
+     * 删除权限
+     *
+     * @param id
+     * @return
+     */
+    @DeleteMapping("/{id}")
+    public ResultMessage updatePermission(@PathVariable Long id) {
+        permissionService.deletePermission(id);
+        return ResultMessage.success().message("删除权限成功");
+    }
+
 }

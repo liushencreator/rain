@@ -10,6 +10,7 @@ import com.rao.util.common.Paramap;
 import com.rao.util.common.TwiterIdUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 import tk.mybatis.mapper.entity.Example;
 
 import javax.annotation.Resource;
@@ -68,7 +69,34 @@ public class PermissionServiceImpl implements PermissionService {
 
     @Override
     public void updatePermission(Long id, SavePermissionDTO permissionDTO) {
+        RainPermission permission = rainPermissionDao.selectByPrimaryKey(id);
+        if (null == permission) {
+            throw BusinessException.operate(id + "不存在");
+        }
+        // 判断上级权限是否存在以及存在下级权限的权限无法更改上级权限
+        Long parentId = loadParentId(permissionDTO.getParentId());
+        List<RainPermission> rainPermissions = rainPermissionDao.listByParentId(parentId);
+        if (!CollectionUtils.isEmpty(rainPermissions) && !permission.getParentId().equals(parentId)) {
+            throw BusinessException.operate("该权限存在下级权限，无法更改上级权限");
+        }
+        // 判断权限标识是否已经存在
+        String permissionCode = permissionDTO.getPermissionCode();
+        if (!CollectionUtils.isEmpty(rainPermissionDao.listByIdNotEqualAndPermissionCode(id, permissionCode))) {
+            throw BusinessException.operate(permissionCode + " 权限标识已存在");
+        }
 
+        BeanUtils.copyProperties(permissionDTO, permission);
+        permission.setUpdateTime(new Date());
+        rainPermissionDao.updateByPrimaryKeySelective(permission);
+    }
+
+    @Override
+    public void deletePermission(Long id) {
+        List<RainPermission> rainPermissions = rainPermissionDao.listByParentId(id);
+        if (!CollectionUtils.isEmpty(rainPermissions)) {
+            throw BusinessException.operate("该权限存在下级权限，无法删除");
+        }
+        rainPermissionDao.deleteByPrimaryKey(id);
     }
 
     /**
