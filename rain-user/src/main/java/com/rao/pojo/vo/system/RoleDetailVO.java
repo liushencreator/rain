@@ -47,6 +47,9 @@ public class RoleDetailVO {
      */
     private Date updateTime;
 
-    List<RolePermissionBO> permissionBOList;
+    /**
+     * 权限列表
+     */
+    List<RolePermissionBO> permissionList;
 
 }
