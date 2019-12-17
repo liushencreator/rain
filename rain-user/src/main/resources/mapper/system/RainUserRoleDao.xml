@@ -18,5 +18,16 @@
 	<sql id="base_value_column">
 		 #{userId},#{roleId}
 	</sql>
+
+	<!-- 保存用户角色关系 -->
+	<insert id="batchSaveRelation" parameterType="com.rao.pojo.entity.system.RainUserRole">
+		INSERT INTO RAIN_USER_ROLE ( <include refid="base_column" /> )
+		values
+		<foreach collection="userRoleList" item="item" index="index" separator=",">
+			(
+			#{item.roleId},#{item.userId}
+			)
+		</foreach>
+	</insert>
 	
 </mapper>

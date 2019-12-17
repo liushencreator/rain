@@ -3,6 +3,9 @@ package com.rao.pojo.dto;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
+import java.util.List;
 
 /**
  * 保存系统用户 数据传输模型
@@ -23,5 +26,17 @@ public class SaveSystemUserDTO {
      */
     @NotBlank(message = "密码不能为空")
     private String password;
+
+    /**
+     * 电话
+     */
+    @Pattern(regexp = "^[1][3,4,5,7,8][0-9]{9}$", message = "手机号码不正确")
+    private String phone;
+
+    /**
+     * 角色id
+     */
+    @NotEmpty
+    private List<Long> roleId;
     
 }

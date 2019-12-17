@@ -6,7 +6,7 @@ import com.rao.util.result.ResultMessage;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.rao.pojo.vo.user.SystemUserVO;
+import com.rao.pojo.vo.user.CurrentSystemUserVO;
 
 import javax.annotation.Resource;
 
@@ -27,8 +27,8 @@ public class CurrentSystemUserController {
      * @return
      */
     @GetMapping()
-    public ResultMessage<SystemUserVO> findByAccount(CurrentUserInfo currentUser){
-        SystemUserVO systemUserVO = currentUserService.findById(currentUser.getId());
+    public ResultMessage<CurrentSystemUserVO> findByAccount(CurrentUserInfo currentUser){
+        CurrentSystemUserVO systemUserVO = currentUserService.findById(currentUser.getId());
         return ResultMessage.success(systemUserVO);
     }
     
