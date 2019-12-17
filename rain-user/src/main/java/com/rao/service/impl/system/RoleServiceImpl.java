@@ -10,6 +10,7 @@ import com.rao.pojo.dto.SaveRoleDTO;
 import com.rao.pojo.entity.system.RainPermission;
 import com.rao.pojo.entity.system.RainRole;
 import com.rao.pojo.entity.system.RainRolePermission;
+import com.rao.pojo.vo.system.RoleDetailVO;
 import com.rao.pojo.vo.system.RoleVO;
 import com.rao.service.system.RoleService;
 import com.rao.util.CopyUtil;
@@ -87,11 +88,11 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public RoleVO findById(Long id) {
+    public RoleDetailVO findById(Long id) {
         RainRole rainRole = rainRoleDao.selectByPrimaryKey(id);
-        RoleVO roleVO = CopyUtil.transToO(rainRole, RoleVO.class);
+        RoleDetailVO roleDetailVO = CopyUtil.transToO(rainRole, RoleDetailVO.class);
 
-        return roleVO;
+        return roleDetailVO;
     }
 
 

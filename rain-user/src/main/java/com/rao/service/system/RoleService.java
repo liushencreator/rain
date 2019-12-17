@@ -1,6 +1,7 @@
 package com.rao.service.system;
 
 import com.rao.pojo.dto.SaveRoleDTO;
+import com.rao.pojo.vo.system.RoleDetailVO;
 import com.rao.pojo.vo.system.RoleVO;
 import com.rao.util.page.PageParam;
 import com.rao.util.result.PageResult;
@@ -30,5 +31,5 @@ public interface RoleService {
      * @param id
      * @return
      */
-    RoleVO findById(Long id);
+    RoleDetailVO findById(Long id);
 }

@@ -9,7 +9,9 @@ spring:
   mvc:
     pathmatch:
       use-suffix-pattern: true
-      
+  # 配置文件
+  profiles:
+    active: dev    
   # eureka 注册名称
   application:
     name: rain-auth
