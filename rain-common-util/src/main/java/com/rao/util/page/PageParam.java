@@ -2,6 +2,8 @@ package com.rao.util.page;
 
 import lombok.Data;
 
+import javax.validation.constraints.NotNull;
+
 /**
  * 分页参数
  * @author : hudelin
@@ -15,12 +17,12 @@ public class PageParam<T> {
     /**
      * 页码
      */
-    private Integer pageNumber;
+    private Integer pageNumber = 1;
 
     /**
      * 页大小
      */
-    private Integer pageSize;
+    private Integer pageSize = 10;
 
     /**
      * 参数

@@ -40,7 +40,7 @@ public class RainRole {
     /**
      * 角色标识
      */
-    @Column(name = "roleCode")
+    @Column(name = "role_code")
     private String roleCode;
 
     /**

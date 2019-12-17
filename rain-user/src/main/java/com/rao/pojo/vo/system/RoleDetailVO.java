@@ -1,11 +1,12 @@
 package com.rao.pojo.vo.system;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+import com.rao.pojo.bo.RolePermissionBO;
 import lombok.Data;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * 角色详情 视图模型
@@ -39,13 +40,13 @@ public class RoleDetailVO {
     /**
      * 创建时间
      */
-//    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     private Date createTime;
 
     /**
      * 修改时间
      */
-//    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     private Date updateTime;
-    
+
+    List<RolePermissionBO> permissionBOList;
+
 }

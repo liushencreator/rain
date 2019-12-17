@@ -22,4 +22,6 @@ public interface RainRolePermissionDao extends RainBaseDao<RainRolePermission> {
      */
     Integer batchSaveRelation(@Param("rolePermissions") List<RainRolePermission> rolePermissions);
 
+    List<RainRolePermission> listByRoleId(@Param("roleId") Long roleId);
+
 }

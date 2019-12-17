@@ -80,17 +80,20 @@ public class RoleServiceImpl implements RoleService {
         // 分页
         PageHelper.startPage(pageParam.getPageNumber(), pageParam.getPageSize());
         List<RainRole> rainRoleList = rainRoleDao.selectAll();
-        PageInfo pageInfo = (PageInfo) rainRoleList;
+        PageInfo<RainRole> pageInfo = PageInfo.of(rainRoleList);
         // 封装视图模型
         List<RoleVO> roleVOList = CopyUtil.transToOList(rainRoleList, RoleVO.class);
-
         return PageResult.build(pageInfo.getTotal(), roleVOList);
     }
 
     @Override
     public RoleDetailVO findById(Long id) {
         RainRole rainRole = rainRoleDao.selectByPrimaryKey(id);
+        if(null==rainRole){
+            throw BusinessException.operate(id + "不存在");
+        }
         RoleDetailVO roleDetailVO = CopyUtil.transToO(rainRole, RoleDetailVO.class);
+        List<RainRolePermission> rainRolePermissionList = rainRolePermissionDao.listByRoleId(id);
 
         return roleDetailVO;
     }

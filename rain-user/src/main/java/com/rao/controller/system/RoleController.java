@@ -2,6 +2,7 @@ package com.rao.controller.system;
 
 import com.rao.annotation.BeanValid;
 import com.rao.pojo.dto.SaveRoleDTO;
+import com.rao.pojo.vo.system.RoleDetailVO;
 import com.rao.pojo.vo.system.RoleVO;
 import com.rao.service.system.RoleService;
 import com.rao.util.page.PageParam;
@@ -40,7 +41,7 @@ public class RoleController {
      * @return
      */
     @GetMapping()
-    public ResultMessage<PageResult<RoleVO>> pageRole(PageParam pageParam){
+    public ResultMessage<PageResult<RoleVO>> pageRole(@RequestBody PageParam pageParam){
         PageResult<RoleVO> pageResult = roleService.pageRole(pageParam);
         return ResultMessage.success(pageResult);
     }
@@ -51,10 +52,10 @@ public class RoleController {
      * @param id
      * @return
      */
-    @PutMapping("/{id}")
-    public ResultMessage<RoleVO> updatePermission(@PathVariable Long id) {
-        roleService.findById(id);
-        return ResultMessage.success().message("更新权限成功");
+    @GetMapping("/{id}")
+    public ResultMessage<RoleDetailVO> findRole(@PathVariable Long id) {
+        RoleDetailVO roleDetailVO = roleService.findById(id);
+        return ResultMessage.success(roleDetailVO);
     }
 
 }
