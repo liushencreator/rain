@@ -13,7 +13,7 @@ import java.util.Date;
  * @date 2019/12/12 14:46
  */
 @Data
-public class RoleVO {
+public class PageRoleVO {
 
     /**
      * id

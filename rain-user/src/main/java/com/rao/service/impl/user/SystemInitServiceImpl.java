@@ -52,46 +52,37 @@ public class SystemInitServiceImpl implements SystemInitService {
     @Override
     public void systemInit(String phone) {
         Date now = new Date();
-        
+
         /**
-         * 初始化超级管理员权限
-         * 初始化普通用户权限
+         * 初始化超级管理员权限、角色、账号信息
          */
         // 初始化超级管理员权限
         PermissionEnum permissionEnum = PermissionEnum.SYSTEM_SUPER_MANAGER_PERMISSION;
         Long managerPermissionId = initPermission(permissionEnum, now);
-        // 初始化普通用户权限
-        permissionEnum = PermissionEnum.C_USER_PERMISSION;
-        Long userPermissionId = initPermission(permissionEnum, now);
-
-        /* 
-         * 初始化超级管理员角色
-         * 初始化普通用户角色
-         */
         // 初始化超级管理员角色
         RoleEnum roleEnum = RoleEnum.SYSTEM_SUPER_MANAGER_ROLE;
         Long managerRoleId = initRole(roleEnum, now);
-        // 初始化普通用户角色
-        roleEnum = RoleEnum.C_USER_ROLE;
-        Long userRoleId = initRole(roleEnum, now);
-        
-        /**
-         * 关联权限和管理员角色的关系
-         * 关联权限和普通用户角色的关系
-         */
         // 关联权限和管理员角色的关系
-        relationRolePermission(managerRoleId, managerPermissionId);
-        // 关联权限和普通用户角色的关系
-        relationRolePermission(userRoleId, userPermissionId);
-
         
-        /* 
-         * 初始化超级管理员用户
-         */
+        relationRolePermission(managerRoleId, managerPermissionId);
+        // 初始化超级管理员用户
         SuperAdminInitEnum adminInitEnum = SuperAdminInitEnum.SYSTEM_SUPER_MANAGER;
         Long userId = initSystemUser(adminInitEnum, phone, now);
         // 关联用户和角色的关系
         relationUserRole(userId, managerRoleId);
+
+
+        /**
+         * 初始化普通用户权限、角色信息
+         */
+        // 初始化普通用户权限
+        permissionEnum = PermissionEnum.C_USER_PERMISSION;
+        Long userPermissionId = initPermission(permissionEnum, now);
+        // 初始化普通用户角色
+        roleEnum = RoleEnum.C_USER_ROLE;
+        Long userRoleId = initRole(roleEnum, now);
+        // 关联权限和普通用户角色的关系
+        relationRolePermission(userRoleId, userPermissionId);        
     }
 
     /**

@@ -1,10 +1,12 @@
 package com.rao.controller.system;
 
 import com.rao.annotation.BeanValid;
+import com.rao.constant.permission.user.SystemCodeConstant;
 import com.rao.pojo.dto.SavePermissionDTO;
 import com.rao.pojo.vo.system.PermissionVO;
 import com.rao.service.system.PermissionService;
 import com.rao.util.result.ResultMessage;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -28,6 +30,7 @@ public class PermissionController {
      * @return
      */
     @PostMapping()
+    @PreAuthorize("hasAuthority('" + SystemCodeConstant.ADMIN_PERMISSION_ADD + "')")
     public ResultMessage savePermission(@BeanValid @RequestBody SavePermissionDTO permissionDTO){
         permissionService.savePermission(permissionDTO);
         return ResultMessage.success().message("保存权限成功");
@@ -38,6 +41,7 @@ public class PermissionController {
      * @return
      */
     @GetMapping()
+    @PreAuthorize("hasAuthority('" + SystemCodeConstant.ADMIN_PERMISSION_LIST + "')")
     public ResultMessage<List<PermissionVO>> listPermission(){
         List<PermissionVO> permissionVOList = permissionService.listPermission();
         return ResultMessage.success(permissionVOList);
@@ -51,6 +55,7 @@ public class PermissionController {
      * @return
      */
     @PutMapping("/{id}")
+    @PreAuthorize("hasAuthority('" + SystemCodeConstant.ADMIN_PERMISSION_UPDATE + "')")
     public ResultMessage updatePermission(@PathVariable Long id, @BeanValid @RequestBody SavePermissionDTO permissionDTO) {
         permissionService.updatePermission(id, permissionDTO);
         return ResultMessage.success().message("更新权限成功");
@@ -63,6 +68,7 @@ public class PermissionController {
      * @return
      */
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('" + SystemCodeConstant.ADMIN_PERMISSION_DELETE + "')")
     public ResultMessage deletePermission(@PathVariable Long id) {
         permissionService.deletePermission(id);
         return ResultMessage.success().message("删除权限成功");

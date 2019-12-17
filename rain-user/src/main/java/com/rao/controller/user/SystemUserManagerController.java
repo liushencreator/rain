@@ -2,14 +2,18 @@ package com.rao.controller.user;
 
 import com.rao.annotation.BeanValid;
 import com.rao.annotation.SimpleValid;
+import com.rao.constant.permission.user.SystemCodeConstant;
+import com.rao.constant.permission.user.UserCodeConstant;
 import com.rao.pojo.dto.SaveSystemUserDTO;
 import com.rao.pojo.vo.user.SystemUserVO;
 import com.rao.service.user.SystemUserService;
 import com.rao.util.page.PageParam;
 import com.rao.util.result.PageResult;
 import com.rao.util.result.ResultMessage;
+import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.Range;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.NotNull;
@@ -33,6 +37,7 @@ public class SystemUserManagerController {
      * @return
      */
     @GetMapping("/list")
+    @PreAuthorize("hasAuthority('" + UserCodeConstant.ADMIN_SYSTEM_USER_LIST + "')")
     public ResultMessage<PageResult<SystemUserVO>> list(@RequestBody PageParam pageParam) {
         PageResult<SystemUserVO> systemUserList = systemUserService.getSystemUserList(pageParam);
         return ResultMessage.success(systemUserList);
@@ -45,6 +50,7 @@ public class SystemUserManagerController {
      * @return
      */
     @GetMapping("/{id}")
+    @PreAuthorize("hasAuthority('" + UserCodeConstant.ADMIN_SYSTEM_USER_DETAIL + "')")
     public ResultMessage detail(@PathVariable("id") Long id) {
         SystemUserVO systemUser = systemUserService.findSystemUserById(id);
         return ResultMessage.success(systemUser);
@@ -57,6 +63,7 @@ public class SystemUserManagerController {
      * @return
      */
     @PostMapping()
+    @PreAuthorize("hasAuthority('" + UserCodeConstant.ADMIN_SYSTEM_USER_ADD + "')")
     public ResultMessage addUser(@BeanValid @RequestBody SaveSystemUserDTO systemUserDTO) {
         systemUserService.insertSystemUser(systemUserDTO);
         return ResultMessage.success();
@@ -70,6 +77,7 @@ public class SystemUserManagerController {
      * @return
      */
     @PutMapping("/{id}")
+    @PreAuthorize("hasAuthority('" + UserCodeConstant.ADMIN_SYSTEM_USER_UPDATE + "')")
     public ResultMessage updateUser(@PathVariable("id") Long id,
                                     @BeanValid @RequestBody SaveSystemUserDTO systemUserDTO) {
         systemUserService.updateSystemUser(id,systemUserDTO);
@@ -83,6 +91,7 @@ public class SystemUserManagerController {
      * @return
      */
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('" + UserCodeConstant.ADMIN_SYSTEM_USER_DELETE + "')")
     public ResultMessage deleteUser(@PathVariable("id") Long id) {
         systemUserService.deleteUserById(id);
         return ResultMessage.success();
@@ -96,9 +105,36 @@ public class SystemUserManagerController {
      * @return
      */
     @PostMapping("/status/{id}")
+    @PreAuthorize("hasAuthority('" + UserCodeConstant.ADMIN_SYSTEM_USER_UPDATE_STATUS + "')")
     public ResultMessage status(@PathVariable("id") Long id,
                                 @SimpleValid @NotNull(message = "状态不能为空") @Range(min = 1, max = 2, message = "状态值非法") @RequestParam Integer status) {
         systemUserService.updateUserStatus(id,status);
+        return ResultMessage.success();
+    }
+
+    /**
+     * 重置密码
+     * @param id
+     * @param password
+     * @return
+     */
+    @PostMapping("/reset_password/{id}")
+    @PreAuthorize("hasAuthority('" + UserCodeConstant.ADMIN_SYSTEM_USER_RESET_PASSWORD + "')")
+    public ResultMessage resetPassword(@PathVariable("id") Long id,
+                                       @SimpleValid @NotBlank(message = "密码不能为空") @RequestParam String password){
+        
+        return ResultMessage.success();
+    }
+
+    /**
+     * 用户角色列表
+     * @param id
+     * @return
+     */
+    @GetMapping("/roles/{id}")
+    @PreAuthorize("hasAuthority('" + UserCodeConstant.ADMIN_SYSTEM_USER_ROLE_LIST + "')")
+    public ResultMessage userRoles(@PathVariable("id") Long id){
+        
         return ResultMessage.success();
     }
 

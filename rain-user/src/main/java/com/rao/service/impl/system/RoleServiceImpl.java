@@ -11,7 +11,7 @@ import com.rao.pojo.entity.system.RainPermission;
 import com.rao.pojo.entity.system.RainRole;
 import com.rao.pojo.entity.system.RainRolePermission;
 import com.rao.pojo.vo.system.RoleDetailVO;
-import com.rao.pojo.vo.system.RoleVO;
+import com.rao.pojo.vo.system.PageRoleVO;
 import com.rao.service.system.RoleService;
 import com.rao.util.CopyUtil;
 import com.rao.util.common.TwiterIdUtil;
@@ -76,13 +76,13 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public PageResult<RoleVO> pageRole(PageParam pageParam) {
+    public PageResult<PageRoleVO> pageRole(PageParam pageParam) {
         // 分页
         PageHelper.startPage(pageParam.getPageNumber(), pageParam.getPageSize());
         List<RainRole> rainRoleList = rainRoleDao.selectAll();
         PageInfo<RainRole> pageInfo = PageInfo.of(rainRoleList);
         // 封装视图模型
-        List<RoleVO> roleVOList = CopyUtil.transToOList(rainRoleList, RoleVO.class);
+        List<PageRoleVO> roleVOList = CopyUtil.transToOList(rainRoleList, PageRoleVO.class);
         return PageResult.build(pageInfo.getTotal(), roleVOList);
     }
 

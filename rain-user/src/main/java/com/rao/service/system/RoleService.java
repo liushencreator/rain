@@ -2,7 +2,7 @@ package com.rao.service.system;
 
 import com.rao.pojo.dto.SaveRoleDTO;
 import com.rao.pojo.vo.system.RoleDetailVO;
-import com.rao.pojo.vo.system.RoleVO;
+import com.rao.pojo.vo.system.PageRoleVO;
 import com.rao.util.page.PageParam;
 import com.rao.util.result.PageResult;
 
@@ -24,7 +24,7 @@ public interface RoleService {
      * @param pageParam
      * @return
      */
-    PageResult<RoleVO> pageRole(PageParam pageParam);
+    PageResult<PageRoleVO> pageRole(PageParam pageParam);
 
     /**
      * 获取角色信息
