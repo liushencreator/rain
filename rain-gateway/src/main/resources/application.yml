@@ -6,7 +6,9 @@ server:
 spring:
   application:
     name: rain-gateway
-
+  # 配置文件
+  profiles:
+    active: dev
   # 网关配置    
   cloud:
     gateway:
