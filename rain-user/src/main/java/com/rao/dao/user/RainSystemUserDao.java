@@ -3,6 +3,7 @@ package com.rao.dao.user;
 import com.rao.mapper.RainBaseDao;
 import com.rao.pojo.entity.user.RainSystemUser;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Map;
