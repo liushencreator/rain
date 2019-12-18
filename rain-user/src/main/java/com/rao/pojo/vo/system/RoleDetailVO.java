@@ -38,16 +38,6 @@ public class RoleDetailVO {
     private String roleDesc;
 
     /**
-     * 创建时间
-     */
-    private Date createTime;
-
-    /**
-     * 修改时间
-     */
-    private Date updateTime;
-
-    /**
      * 权限列表
      */
     List<RolePermissionBO> permissionList;

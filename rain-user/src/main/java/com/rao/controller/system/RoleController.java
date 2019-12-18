@@ -3,8 +3,9 @@ package com.rao.controller.system;
 import com.rao.annotation.BeanValid;
 import com.rao.constant.permission.user.SystemCodeConstant;
 import com.rao.pojo.dto.SaveRoleDTO;
-import com.rao.pojo.vo.system.RoleDetailVO;
+import com.rao.pojo.vo.system.ListRoleVO;
 import com.rao.pojo.vo.system.PageRoleVO;
+import com.rao.pojo.vo.system.RoleDetailVO;
 import com.rao.service.system.RoleService;
 import com.rao.util.page.PageParam;
 import com.rao.util.result.PageResult;
@@ -13,6 +14,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * 角色相关
@@ -63,14 +65,40 @@ public class RoleController {
     }
 
     /**
+     * 修改角色
+     *
+     * @param id
+     * @return
+     */
+    @PutMapping("/{id}")
+    @PreAuthorize("hasAuthority('" + SystemCodeConstant.ADMIN_ROLE_UPDATE + "')")
+    public ResultMessage findRole(@PathVariable Long id, @BeanValid @RequestBody SaveRoleDTO roleDTO) {
+        roleService.updateRole(id, roleDTO);
+        return ResultMessage.success();
+    }
+
+    /**
+     * 删除单个角色
+     *
+     * @param id
+     * @return
+     */
+    @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('" + SystemCodeConstant.ADMIN_ROLE_DELETE + "')")
+    public ResultMessage delete(@PathVariable Long id) {
+       roleService.deleteRole(id);
+        return ResultMessage.success("删除角色成功");
+    }
+
+    /**
      * 角色列表（全部-新增用户展示）
      * @return
      */
     @GetMapping("/all")
     @PreAuthorize("hasAuthority('" + SystemCodeConstant.ADMIN_ROLE_LIST_ALL + "')")
     public ResultMessage listRole(){
-        
-        return ResultMessage.success();
+        List<ListRoleVO> roleDetailVOList = roleService.listRole();
+        return ResultMessage.success(roleDetailVOList);
     }
     
 }
