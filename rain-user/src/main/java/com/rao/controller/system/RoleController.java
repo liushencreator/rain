@@ -46,7 +46,7 @@ public class RoleController {
      */
     @GetMapping()
     @PreAuthorize("hasAuthority('" + SystemCodeConstant.ADMIN_ROLE_LIST + "')")
-    public ResultMessage<PageResult<PageRoleVO>> pageRole(@RequestBody PageParam pageParam){
+    public ResultMessage<PageResult<PageRoleVO>> pageRole(PageParam pageParam){
         PageResult<PageRoleVO> pageResult = roleService.pageRole(pageParam);
         return ResultMessage.success(pageResult);
     }

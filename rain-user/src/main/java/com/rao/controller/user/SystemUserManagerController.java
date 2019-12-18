@@ -38,7 +38,7 @@ public class SystemUserManagerController {
      */
     @GetMapping("/list")
     @PreAuthorize("hasAuthority('" + UserCodeConstant.ADMIN_SYSTEM_USER_LIST + "')")
-    public ResultMessage<PageResult<SystemUserVO>> list(@RequestBody PageParam pageParam) {
+    public ResultMessage<PageResult<SystemUserVO>> list(PageParam pageParam) {
         PageResult<SystemUserVO> systemUserList = systemUserService.getSystemUserList(pageParam);
         return ResultMessage.success(systemUserList);
     }

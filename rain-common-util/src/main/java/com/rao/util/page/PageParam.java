@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
  * @date: 2019-12-16 15:31
  */
 @Data
-public class PageParam<T> {
+public class PageParam {
 
     /**
      * 页码
@@ -23,10 +23,5 @@ public class PageParam<T> {
      * 页大小
      */
     private Integer pageSize = 10;
-
-    /**
-     * 参数
-     */
-    private T dto;
 
 }
