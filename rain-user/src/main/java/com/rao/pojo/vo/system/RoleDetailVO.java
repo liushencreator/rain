@@ -2,10 +2,8 @@ package com.rao.pojo.vo.system;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
-import com.rao.pojo.bo.RolePermissionBO;
 import lombok.Data;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -40,6 +38,6 @@ public class RoleDetailVO {
     /**
      * 权限列表
      */
-    List<RolePermissionBO> permissionList;
+    List<Long> permissionList;
 
 }

@@ -19,11 +19,6 @@
 		 #{roleId},#{permissionId}
 	</sql>
 
-	<sql id="base_column_join_permission">
-		 role_id ,permission_id,permission_name,permission_code,permission_desc
-	</sql>
-
-	
 	<!-- 保存角色权限关系 -->
 	<insert id="batchSaveRelation" parameterType="com.rao.pojo.entity.system.RainRolePermission">
 		INSERT INTO RAIN_ROLE_PERMISSION ( <include refid="base_column" /> )
@@ -34,14 +29,5 @@
 			)
 		</foreach>
 	</insert>
-
-	<!-- 根据角色拿权限列表 -->
-	<select id="listByRoleId" resultType="com.rao.pojo.bo.RolePermissionBO">
-		SELECT
-		<include refid="base_column_join_permission"/>
-		FROM RAIN_ROLE_PERMISSION rrp
-		LEFT JOIN rain_permission rp ON rrp.permission_id=rp.id
-		WHERE role_id= #{roleId}
-	</select>
 
 </mapper>

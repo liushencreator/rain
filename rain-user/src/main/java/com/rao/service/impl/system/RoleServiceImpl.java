@@ -6,7 +6,6 @@ import com.rao.dao.system.RainPermissionDao;
 import com.rao.dao.system.RainRoleDao;
 import com.rao.dao.system.RainRolePermissionDao;
 import com.rao.exception.BusinessException;
-import com.rao.pojo.bo.RolePermissionBO;
 import com.rao.pojo.dto.SaveRoleDTO;
 import com.rao.pojo.entity.system.RainPermission;
 import com.rao.pojo.entity.system.RainRole;
@@ -60,7 +59,6 @@ public class RoleServiceImpl implements RoleService {
         role.setCreateTime(now);
         role.setUpdateTime(now);
         rainRoleDao.insert(role);
-
         saveRolePermission(roleId, permissions);
     }
 
@@ -82,9 +80,11 @@ public class RoleServiceImpl implements RoleService {
             throw BusinessException.operate(id + "不存在");
         }
         RoleDetailVO roleDetailVO = CopyUtil.transToO(rainRole, RoleDetailVO.class);
-        List<RainRolePermission> rainRolePermissionList = rainRolePermissionDao.listByRoleId(id);
-        List<RolePermissionBO> rermissionList = CopyUtil.transToOList(rainRolePermissionList, RolePermissionBO.class);
-        roleDetailVO.setPermissionList(rermissionList);
+        Example example = new Example(RainRolePermission.class);
+        example.createCriteria().andEqualTo("roleId", id);
+        List<RainRolePermission> rainRolePermissions = rainRolePermissionDao.selectByExample(example);
+        List<Long> permissionIdList = rainRolePermissions.stream().map(item -> item.getPermissionId()).collect(Collectors.toList());
+        roleDetailVO.setPermissionList(permissionIdList);
         return roleDetailVO;
     }
 
