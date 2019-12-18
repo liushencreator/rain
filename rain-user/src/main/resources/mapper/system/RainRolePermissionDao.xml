@@ -29,5 +29,14 @@
 			)
 		</foreach>
 	</insert>
+	
+	<!-- 删除角色关联的所有 -->
+	<delete id="deleteByRoleIdAndPermissions">
+		DELETE FROM rain_role_permission WHERE role_id = #{roleId} 
+		AND permission_id IN
+		<foreach collection="permissionIds" item="permissionId" index="index" open="(" separator="," close=")">
+			#{permissionId}
+		</foreach>
+	</delete>
 
 </mapper>

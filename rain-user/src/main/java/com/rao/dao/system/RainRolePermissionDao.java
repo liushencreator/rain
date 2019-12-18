@@ -22,4 +22,10 @@ public interface RainRolePermissionDao extends RainBaseDao<RainRolePermission> {
      */
     Integer batchSaveRelation(@Param("rolePermissions") List<RainRolePermission> rolePermissions);
 
+    /**
+     * 删除角色关联的所有
+     * @param roleId
+     * @param permissionIds
+     */
+    void deleteByRoleIdAndPermissions(@Param("roleId") Long roleId, @Param("permissionIds") List<Long> permissionIds);
 }
