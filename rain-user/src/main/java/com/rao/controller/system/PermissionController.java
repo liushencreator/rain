@@ -74,4 +74,14 @@ public class PermissionController {
         return ResultMessage.success().message("删除权限成功");
     }
 
+    /**
+     * 获取权限标识
+     * @return
+     */
+    @GetMapping("/permission_code")
+    public ResultMessage<List<String>> permissionCode(){
+        List<String> codeList = permissionService.permissionCode();
+        return ResultMessage.success(codeList).message("获取权限标识成功");
+    }
+
 }

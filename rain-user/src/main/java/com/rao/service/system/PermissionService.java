@@ -36,4 +36,10 @@ public interface PermissionService {
      * @param id
      */
     void deletePermission(Long id);
+
+    /**
+     * 获取权限标识
+     * @return
+     */
+    List<String> permissionCode();
 }
