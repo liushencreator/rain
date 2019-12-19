@@ -1,30 +1,24 @@
 server:
-  port: 8080
+  port: 8087
   servlet:
     context-path: /quartz
-  session-timeout: 60
-  tomcat:
-    max-threads: 100
-    uri-encoding: UTF-8
+    tomcat:
+      uri-encoding: utf-8
+      
 spring:
-  datasource:
-    driver-class-name: com.mysql.jdbc.Driver
-    password: mysql
-    url: jdbc:mysql://47.106.134.89:3306/rain_quartz_task_dev?characterEncoding=utf-8&useSSL=false&serverTimezone=UTC
-    username: root
-  devtools:
-    livereload:
-      enabled: true
-  jpa:
-    database: MYSQL
-    hibernate:
-      ddl-auto: update
-      naming:
-        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
-        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
-    show-sql: true
   mvc:
-    static-path-pattern: /**
+    pathmatch:
+      use-suffix-pattern: true
+  # 配置文件
+  profiles:
+    active: test
+  # eureka 注册名称
+  application:
+    name: rain-quartz
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+
   quartz:
     job-store-type: jdbc
     properties:
@@ -47,11 +41,38 @@ spring:
             class: org.quartz.simpl.SimpleThreadPool
             threadCount: 10
             threadPriority: 5
-
             threadsInheritContextClassLoaderOfInitializingThread: true
-  thymeleaf:
-    cache: false
-    cache-period: 0
-    mode: HTML
-    template:
-      cache: false
+  
+# mybatis
+mybatis:
+  mapper-locations: classpath:mapper/**/*.xml
+  type-aliases-package: com.rao.pojo.entity
+  configuration:
+    map-underscore-to-camel-case: true
+
+# 通用 mapper
+mapper:
+  mappers: com.rao.mapper.RainBaseDao
+  identity: MYSQL
+
+# pagehelper
+pagehelper:
+  helperDialect: mysql
+  reasonable: false
+  supportMethodsArguments: true
+  params: count=countSql
+  returnPageInfo: check
+
+# dao 的日志
+logging:
+  level:
+    com:
+      rao:
+        dao: debug
+
+# 开启断路器
+feign:
+  hystrix:
+    enabled: true
+  
+  

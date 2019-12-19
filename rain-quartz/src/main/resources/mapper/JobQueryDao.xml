@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.rao.dao.JobQueryDao">
+    
+    <!-- 获取任务列表 -->
+    <select id="listJobByParams" resultType="com.rao.pojo.entity.QuartzEntity">
+        SELECT 
+          job.job_name AS jobname,
+          job.job_group AS jobgroup,
+          job.description AS description,
+          job.job_class_name AS jobclassname,
+          cron.cron_expression AS cronexpression,
+          tri.trigger_name AS triggername,
+          tri.trigger_state AS triggerstate,
+          job.job_name AS oldjobname,
+          job.job_group AS oldjobgroup 
+        FROM
+          qrtz_job_details AS job 
+          LEFT JOIN qrtz_triggers AS tri 
+            ON job.job_name = tri.job_name 
+          LEFT JOIN qrtz_cron_triggers AS cron 
+            ON cron.trigger_name = tri.trigger_name 
+        WHERE tri.trigger_type = 'CRON' 
+        <if test="jobName != null and jobName != ''">
+            AND job.job_name like concat('%', #{jobName}, '%') 
+        </if>        
+    </select>
+
+</mapper> 
