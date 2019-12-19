@@ -49,6 +49,7 @@
     </dependencyManagement>
 
     <build>
+        <finalName>rain-user</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
