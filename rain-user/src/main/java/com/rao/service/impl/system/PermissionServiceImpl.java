@@ -11,6 +11,7 @@ import com.rao.pojo.entity.system.RainPermission;
 import com.rao.pojo.entity.system.RainRolePermission;
 import com.rao.pojo.vo.system.PermissionVO;
 import com.rao.service.system.PermissionService;
+import com.rao.util.common.PackageScanUtil;
 import com.rao.util.common.Paramap;
 import com.rao.util.common.TwiterIdUtil;
 import org.springframework.beans.BeanUtils;
@@ -129,9 +130,10 @@ public class PermissionServiceImpl implements PermissionService {
     @Override
     public List<String> permissionCode() {
         try{
+            // 获取包下所有class
+            List<Class> clazzList = PackageScanUtil.scannerPackage("com.rao.constant.permission");
             // 获取代码中所有的权限标识
-            List<String> codeList = buildCode(SystemCodeConstant.class);
-            codeList.addAll(buildCode(UserCodeConstant.class));
+            List<String> codeList = buildCode(clazzList);
             // 获取数据库中已经添加的权限标识
             List<RainPermission> permissionList = rainPermissionDao.selectAll();
             List<String> existCodeList = permissionList.stream().map(item -> {
@@ -146,16 +148,18 @@ public class PermissionServiceImpl implements PermissionService {
 
     /**
      * 通过反射获取权限标识
-     * @param clazz
+     * @param clazzList
      * @return
      * @throws Exception
      */
-    private List<String> buildCode(Class clazz) throws Exception{
-        Field[] fields = clazz.getDeclaredFields();
+    private List<String> buildCode(List<Class> clazzList) throws Exception{
         List<String> codeList = Lists.newArrayList();
-        for (Field field : fields) {
-            field.setAccessible(true);
-            codeList.add(String.valueOf(field.get(clazz)));
+        for (Class clazz : clazzList) {
+            Field[] fields = clazz.getDeclaredFields();
+            for (Field field : fields) {
+                field.setAccessible(true);
+                codeList.add(String.valueOf(field.get(clazz)));
+            }
         }
         return codeList;
     }

@@ -1,6 +1,7 @@
 package com.rao.controller;
 
 import com.rao.annotation.BeanValid;
+import com.rao.constant.permission.quartz.QuartzCodeConstant;
 import com.rao.pojo.dto.JobKeyDTO;
 import com.rao.pojo.dto.SaveJobDTO;
 import com.rao.pojo.entity.QuartzEntity;
@@ -8,8 +9,8 @@ import com.rao.service.JobService;
 import com.rao.util.page.PageParam;
 import com.rao.util.result.PageResult;
 import com.rao.util.result.ResultMessage;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-
 import javax.annotation.Resource;
 
 /**
@@ -30,6 +31,7 @@ public class JobController {
      * @return
      */
     @PostMapping()
+    @PreAuthorize("hasAuthority('" + QuartzCodeConstant.QUARTZ_TASK_SAVE + "')")
     public ResultMessage save(@BeanValid @RequestBody SaveJobDTO saveJobDTO) {
         jobService.saveJob(saveJobDTO);
         return ResultMessage.success().message("添加任务成功");
@@ -42,6 +44,7 @@ public class JobController {
      * @return
      */
     @GetMapping()
+    @PreAuthorize("hasAuthority('" + QuartzCodeConstant.QUARTZ_TASK_LIST + "')")
     public ResultMessage<PageResult<QuartzEntity>> list(PageParam pageParam, @RequestParam(required = false) String jobName) {
         PageResult<QuartzEntity> pageResult = jobService.listQuartzEntity(pageParam, jobName);
         return ResultMessage.success(pageResult).message("获取任务列表成功");
@@ -53,6 +56,7 @@ public class JobController {
      * @return
      */
     @PostMapping("/trigger")
+    @PreAuthorize("hasAuthority('" + QuartzCodeConstant.QUARTZ_TASK_TRIGGER + "')")
     public ResultMessage trigger(@BeanValid @RequestBody JobKeyDTO jobKeyDTO) {
         jobService.trigger(jobKeyDTO);
         return ResultMessage.success().message("触发任务成功");
@@ -64,6 +68,7 @@ public class JobController {
      * @return
      */
     @PostMapping("/pause")
+    @PreAuthorize("hasAuthority('" + QuartzCodeConstant.QUARTZ_TASK_PAUSE + "')")
     public ResultMessage pause(@BeanValid @RequestBody JobKeyDTO jobKeyDTO) {
         jobService.pause(jobKeyDTO);
         return ResultMessage.success().message("停止任务成功");
@@ -75,6 +80,7 @@ public class JobController {
      * @return
      */
     @PostMapping("/resume")
+    @PreAuthorize("hasAuthority('" + QuartzCodeConstant.QUARTZ_TASK_RESUME + "')")
     public ResultMessage resume(@BeanValid @RequestBody JobKeyDTO jobKeyDTO) {
         jobService.resume(jobKeyDTO);
         return ResultMessage.success().message("恢复任务成功");
@@ -86,6 +92,7 @@ public class JobController {
      * @return
      */
     @DeleteMapping()
+    @PreAuthorize("hasAuthority('" + QuartzCodeConstant.QUARTZ_TASK_DELETE + "')")
     public ResultMessage remove(@BeanValid @RequestBody JobKeyDTO jobKeyDTO) {
         jobService.remove(jobKeyDTO);
         return ResultMessage.success().message("移除任务成功");
