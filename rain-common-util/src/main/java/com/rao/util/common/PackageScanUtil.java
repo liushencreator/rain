@@ -9,36 +9,37 @@ import java.util.*;
 
 /**
  * 包扫描工具类
+ *
  * @author raojing
  * @date 2019/12/19 18:02
  */
 @Slf4j
 public class PackageScanUtil {
 
-    private static List<Class> classHashSet = new ArrayList<>();
-
     /**
      * 获取包下所有类
+     *
      * @param packageName
      * @return
      */
-    public static List<Class> scannerPackage(String packageName){
-        packageName = packageName.replace(".","/");
+    public static List<Class> scannerPackage(String packageName) {
+        List<Class> classHashSet = new ArrayList<>();
+        packageName = packageName.replace(".", "/");
         //得到包 文件夹
         try {
             Enumeration<URL> dirs = Thread.currentThread().getContextClassLoader().getResources(packageName);
             //得到包所在的根路径
             String rootPath = Thread.currentThread().getContextClassLoader().getResource(packageName).getPath();
-            if (rootPath != null){
+            if (rootPath != null) {
                 rootPath = rootPath.substring(rootPath.indexOf(packageName));
             }
-            while (dirs.hasMoreElements()){
+            while (dirs.hasMoreElements()) {
                 URL url = dirs.nextElement();
                 //判断是不是文件  url 有协议
-                if (url.getProtocol().equals("file")){
+                if (url.getProtocol().equals("file")) {
                     File file = new File(url.getPath());
                     //遍历文件夹下所有文件
-                    scannerFolder(file,rootPath);
+                    scannerFolder(file, rootPath, classHashSet);
                 }
             }
             return classHashSet;
@@ -51,10 +52,11 @@ public class PackageScanUtil {
 
     /**
      * 扫描包
+     *
      * @param folder
      * @param rootPath
      */
-    private static void scannerFolder(File folder, String rootPath) {
+    private static void scannerFolder(File folder, String rootPath, List<Class> classHashSet) {
         //1.得到文件夹中所有文件
         File[] files = folder.listFiles();
         //2.遍历
@@ -62,7 +64,7 @@ public class PackageScanUtil {
             File file = files[i];
             if (file.isDirectory()) {
                 //3.是文件夹，递归
-                scannerFolder(file, rootPath + "/" + file.getName());
+                scannerFolder(file, rootPath + "/" + file.getName(), classHashSet);
             } else {
                 //是文件
                 String absolutePath = file.getAbsolutePath();
@@ -80,5 +82,5 @@ public class PackageScanUtil {
             }
         }
     }
-    
+
 }

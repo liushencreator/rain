@@ -1,6 +1,7 @@
 package com.rao.service.system;
 
 import com.rao.pojo.dto.SavePermissionDTO;
+import com.rao.pojo.vo.system.PermissionDescVO;
 import com.rao.pojo.vo.system.PermissionVO;
 
 import java.util.List;
@@ -41,5 +42,5 @@ public interface PermissionService {
      * 获取权限标识
      * @return
      */
-    List<String> permissionCode();
+    List<PermissionDescVO> permissionCode();
 }

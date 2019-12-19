@@ -3,6 +3,7 @@ package com.rao.controller.system;
 import com.rao.annotation.BeanValid;
 import com.rao.constant.permission.user.SystemCodeConstant;
 import com.rao.pojo.dto.SavePermissionDTO;
+import com.rao.pojo.vo.system.PermissionDescVO;
 import com.rao.pojo.vo.system.PermissionVO;
 import com.rao.service.system.PermissionService;
 import com.rao.util.result.ResultMessage;
@@ -79,8 +80,8 @@ public class PermissionController {
      * @return
      */
     @GetMapping("/permission_code")
-    public ResultMessage<List<String>> permissionCode(){
-        List<String> codeList = permissionService.permissionCode();
+    public ResultMessage<List<PermissionDescVO>> permissionCode(){
+        List<PermissionDescVO> codeList = permissionService.permissionCode();
         return ResultMessage.success(codeList).message("获取权限标识成功");
     }
 

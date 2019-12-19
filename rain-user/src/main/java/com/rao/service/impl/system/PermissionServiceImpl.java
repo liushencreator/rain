@@ -1,6 +1,7 @@
 package com.rao.service.impl.system;
 
 import com.google.common.collect.Lists;
+import com.rao.annotation.PermissionDesc;
 import com.rao.constant.permission.user.SystemCodeConstant;
 import com.rao.constant.permission.user.UserCodeConstant;
 import com.rao.dao.system.RainPermissionDao;
@@ -9,6 +10,7 @@ import com.rao.exception.BusinessException;
 import com.rao.pojo.dto.SavePermissionDTO;
 import com.rao.pojo.entity.system.RainPermission;
 import com.rao.pojo.entity.system.RainRolePermission;
+import com.rao.pojo.vo.system.PermissionDescVO;
 import com.rao.pojo.vo.system.PermissionVO;
 import com.rao.service.system.PermissionService;
 import com.rao.util.common.PackageScanUtil;
@@ -45,11 +47,14 @@ public class PermissionServiceImpl implements PermissionService {
 
     @Override
     public void savePermission(SavePermissionDTO permissionDTO) {
-        RainPermission permission = new RainPermission();
-        BeanUtils.copyProperties(permissionDTO, permission);
-
-        // 判断权限标识是否已经存在
         String permissionCode = permissionDTO.getPermissionCode();
+        // 获取代码中所有的权限标识
+        List<String> codeList = allPermissionCode().stream().map(PermissionDescVO::getPermissionCode).collect(Collectors.toList());
+        if(!codeList.contains(permissionCode)){
+            throw BusinessException.operate("非法的权限标识符");
+        }
+        
+        // 判断权限标识是否已经存在
         Example countExample = new Example(RainPermission.class);
         countExample.createCriteria().andEqualTo("permissionCode", permissionCode);
         int count = rainPermissionDao.selectCountByExample(countExample);
@@ -57,7 +62,9 @@ public class PermissionServiceImpl implements PermissionService {
         if (count > 0) {
             throw BusinessException.operate(permissionCode + " 权限标识已存在");
         }
-
+        
+        RainPermission permission = new RainPermission();
+        BeanUtils.copyProperties(permissionDTO, permission);
         Date now = new Date();
         permission.setId(TwiterIdUtil.getTwiterId());
         permission.setParentId(loadParentId(permissionDTO.getParentId()));
@@ -83,6 +90,13 @@ public class PermissionServiceImpl implements PermissionService {
 
     @Override
     public void updatePermission(Long id, SavePermissionDTO permissionDTO) {
+        String permissionCode = permissionDTO.getPermissionCode();
+        // 获取代码中所有的权限标识
+        List<String> codeList = allPermissionCode().stream().map(PermissionDescVO::getPermissionCode).collect(Collectors.toList());
+        if(!codeList.contains(permissionCode)){
+            throw BusinessException.operate("非法的权限标识符");
+        }
+        
         RainPermission permission = rainPermissionDao.selectByPrimaryKey(id);
         if (null == permission) {
             throw BusinessException.operate(id + "不存在");
@@ -96,9 +110,8 @@ public class PermissionServiceImpl implements PermissionService {
                 throw BusinessException.operate("该权限存在下级权限，无法更改上级权限");
             }
         }
+        
         // 判断权限标识是否已经存在
-        String permissionCode = permissionDTO.getPermissionCode();
-
         Example countExample = new Example(RainPermission.class);
         countExample.createCriteria()
                 .andNotEqualTo("id", id)
@@ -128,40 +141,16 @@ public class PermissionServiceImpl implements PermissionService {
     }
 
     @Override
-    public List<String> permissionCode() {
-        try{
-            // 获取包下所有class
-            List<Class> clazzList = PackageScanUtil.scannerPackage("com.rao.constant.permission");
-            // 获取代码中所有的权限标识
-            List<String> codeList = buildCode(clazzList);
-            // 获取数据库中已经添加的权限标识
-            List<RainPermission> permissionList = rainPermissionDao.selectAll();
-            List<String> existCodeList = permissionList.stream().map(item -> {
-                return item.getPermissionCode();
-            }).collect(Collectors.toList());
-            // 求所有的权限标识和已经添加的权限标识的差集
-            return codeList.stream().filter(item -> !existCodeList.contains(item)).collect(Collectors.toList());
-        }catch (Exception e){
-            throw BusinessException.operate("获取权限标识失败");
-        }
-    }
-
-    /**
-     * 通过反射获取权限标识
-     * @param clazzList
-     * @return
-     * @throws Exception
-     */
-    private List<String> buildCode(List<Class> clazzList) throws Exception{
-        List<String> codeList = Lists.newArrayList();
-        for (Class clazz : clazzList) {
-            Field[] fields = clazz.getDeclaredFields();
-            for (Field field : fields) {
-                field.setAccessible(true);
-                codeList.add(String.valueOf(field.get(clazz)));
-            }
-        }
-        return codeList;
+    public List<PermissionDescVO> permissionCode() {
+        // 获取代码中所有的权限标识
+        List<PermissionDescVO> codeList = allPermissionCode();
+        // 获取数据库中已经添加的权限标识
+        List<RainPermission> permissionList = rainPermissionDao.selectAll();
+        List<String> existCodeList = permissionList.stream().map(item -> {
+            return item.getPermissionCode();
+        }).collect(Collectors.toList());
+        // 求所有的权限标识和已经添加的权限标识的差集
+        return codeList.stream().filter(item -> !existCodeList.contains(item.getPermissionCode())).collect(Collectors.toList());
     }
 
     /**
@@ -199,6 +188,42 @@ public class PermissionServiceImpl implements PermissionService {
             }
         }
         return permissionVOList;
+    }
+
+    /**
+     * 获取全部的权限标识
+     * @return
+     */
+    private List<PermissionDescVO> allPermissionCode(){
+        // 获取包下所有class
+        List<Class> clazzList = PackageScanUtil.scannerPackage("com.rao.constant.permission");
+        // 获取代码中所有的权限标识
+        try{
+            return buildCode(clazzList);
+        }catch (Exception e){
+            throw BusinessException.operate("获取权限标识失败");
+        }
+    }
+
+    /**
+     * 通过反射获取权限标识
+     * @param clazzList
+     * @return
+     * @throws Exception
+     */
+    private List<PermissionDescVO> buildCode(List<Class> clazzList) throws Exception{
+        List<PermissionDescVO> codeList = Lists.newArrayList();
+        for (Class clazz : clazzList) {
+            Field[] fields = clazz.getDeclaredFields();
+            for (Field field : fields) {
+                field.setAccessible(true);
+                String code = String.valueOf(field.get(clazz));
+                PermissionDesc annotation = field.getAnnotation(PermissionDesc.class);
+                String desc = annotation != null ? annotation.desc() : "";
+                codeList.add(new PermissionDescVO(code, desc));
+            }
+        }
+        return codeList;
     }
 
 }
