@@ -83,7 +83,7 @@ public class RoleServiceImpl implements RoleService {
         Example example = new Example(RainRolePermission.class);
         example.createCriteria().andEqualTo("roleId", id);
         List<RainRolePermission> rainRolePermissions = rainRolePermissionDao.selectByExample(example);
-        List<Long> permissionIdList = rainRolePermissions.stream().map(item -> item.getPermissionId()).collect(Collectors.toList());
+        List<String> permissionIdList = rainRolePermissions.stream().map(item -> String.valueOf(item.getPermissionId())).collect(Collectors.toList());
         roleDetailVO.setPermissionList(permissionIdList);
         return roleDetailVO;
     }

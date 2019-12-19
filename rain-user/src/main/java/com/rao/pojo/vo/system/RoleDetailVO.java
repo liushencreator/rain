@@ -38,6 +38,6 @@ public class RoleDetailVO {
     /**
      * 权限列表
      */
-    List<Long> permissionList;
+    List<String> permissionList;
 
 }
