@@ -9,27 +9,15 @@ spring:
   mvc:
     pathmatch:
       use-suffix-pattern: true
-
+  # 配置文件
+  profiles:
+    active: test
   # eureka 注册名称
   application:
     name: rain-user
   jackson:
-    date-format: yyyy-MM-dd
+    date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
-
-  # 数据源
-  datasource:
-    username: root
-    password: mysql
-    driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/rain_user_dev
-
-  # redis
-  redis:
-    host: localhost
-    port: 6379
-    password: redis
-    database: 0
 
 # mybatis
 mybatis:
@@ -37,6 +25,11 @@ mybatis:
   type-aliases-package: com.rao.pojo.entity
   configuration:
     map-underscore-to-camel-case: true
+
+# 通用 mapper
+mapper:
+  mappers: com.rao.mapper.RainBaseDao
+  identity: MYSQL
 
 # pagehelper
 pagehelper:
@@ -46,27 +39,15 @@ pagehelper:
   params: count=countSql
   returnPageInfo: check
 
-# dao 的日志        
+# dao 的日志
 logging:
   level:
     com:
       rao:
         dao: debug
 
-# eureka
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://localhost:8080/eureka/
+# 开启断路器
+feign:
+  hystrix:
+    enabled: true
 
-security:
-  oauth2:
-    client:
-      client-id: client
-      client-secret: secret
-      access-token-uri: http://localhost:8086/auth/oauth/token
-      user-authorization-uri: http://localhost:8086/auth/oauth/authorize
-      grant-type: password,refresh_token
-      scope: backend
-    resource:
-      user-info-uri: http://localhost:8086/auth/user/info

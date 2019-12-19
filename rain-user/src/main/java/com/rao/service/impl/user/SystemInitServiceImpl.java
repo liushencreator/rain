@@ -1,5 +1,6 @@
 package com.rao.service.impl.user;
 
+import com.google.common.collect.Lists;
 import com.rao.constant.system.PermissionEnum;
 import com.rao.constant.system.RoleEnum;
 import com.rao.constant.user.SuperAdminInitEnum;
@@ -20,8 +21,11 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
+import tk.mybatis.mapper.entity.Example;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -51,46 +55,124 @@ public class SystemInitServiceImpl implements SystemInitService {
     @Override
     public void systemInit(String phone) {
         Date now = new Date();
-        
-        /**
-         * 初始化超级管理员权限
-         * 初始化普通用户权限
-         */
-        // 初始化超级管理员权限
-        PermissionEnum permissionEnum = PermissionEnum.SYSTEM_SUPER_MANAGER_PERMISSION;
-        Long managerPermissionId = initPermission(permissionEnum, now);
-        // 初始化普通用户权限
-        permissionEnum = PermissionEnum.C_USER_PERMISSION;
-        Long userPermissionId = initPermission(permissionEnum, now);
 
-        /* 
-         * 初始化超级管理员角色
-         * 初始化普通用户角色
+        /**
+         * 初始化超级管理员权限、角色、账号信息
          */
+        // 初始化超级管理员权限        
+        List<Long> permissionIdList = new ArrayList(20);
+        // 权限组
+        PermissionEnum permissionEnum = PermissionEnum.ADMIN_PERMISSION_GROUP;
+        Long permissionId = initPermission(permissionEnum, now, -1L);
+        permissionIdList.add(permissionId);
+        
+        // 新增权限
+        permissionEnum = PermissionEnum.ADMIN_PERMISSION_ADD;
+        permissionIdList.add(initPermission(permissionEnum, now, permissionId));
+        
+        // 删除权限
+        permissionEnum = PermissionEnum.ADMIN_PERMISSION_DELETE;
+        permissionIdList.add(initPermission(permissionEnum, now, permissionId));
+        
+        // 修改权限
+        permissionEnum = PermissionEnum.ADMIN_PERMISSION_UPDATE;
+        permissionIdList.add(initPermission(permissionEnum, now, permissionId));
+        
+        // 权限列表
+        permissionEnum = PermissionEnum.ADMIN_PERMISSION_LIST;
+        permissionIdList.add(initPermission(permissionEnum, now, permissionId));
+        
+        // 角色组
+        permissionEnum = PermissionEnum.ADMIN_ROLE_GROUP;
+        permissionId = initPermission(permissionEnum, now, -1L);
+        permissionIdList.add(permissionId);
+        
+        // 新增角色
+        permissionEnum = PermissionEnum.ADMIN_ROLE_ADD;
+        permissionIdList.add(initPermission(permissionEnum, now, permissionId));
+        
+        // 角色删除
+        permissionEnum = PermissionEnum.ADMIN_ROLE_DELETE;
+        permissionIdList.add(initPermission(permissionEnum, now, permissionId));
+        
+        // 角色修改
+        permissionEnum = PermissionEnum.ADMIN_ROLE_UPDATE;
+        permissionIdList.add(initPermission(permissionEnum, now, permissionId));
+        
+        // 角色列表
+        permissionEnum = PermissionEnum.ADMIN_ROLE_LIST;
+        permissionIdList.add(initPermission(permissionEnum, now, permissionId));
+        
+        // 角色列表(全部)
+        permissionEnum = PermissionEnum.ADMIN_ROLE_LIST_ALL;
+        permissionIdList.add(initPermission(permissionEnum, now, permissionId));
+        
+        // 角色详情
+        permissionEnum = PermissionEnum.ADMIN_ROLE_DETAIL;
+        permissionIdList.add(initPermission(permissionEnum, now, permissionId));
+        
+        // 系统用户组
+        permissionEnum = PermissionEnum.ADMIN_SYSTEM_USER_GROUP;
+        permissionId = initPermission(permissionEnum, now, -1L);
+        permissionIdList.add(permissionId);
+        
+        // 系统用户新增
+        permissionEnum = PermissionEnum.ADMIN_SYSTEM_USER_ADD;
+        permissionIdList.add(initPermission(permissionEnum, now, permissionId));
+        
+        // 系统用户删除
+        permissionEnum = PermissionEnum.ADMIN_SYSTEM_USER_DELETE;
+        permissionIdList.add(initPermission(permissionEnum, now, permissionId));
+        
+        // 系统用户修改
+        permissionEnum = PermissionEnum.ADMIN_SYSTEM_USER_UPDATE;
+        permissionIdList.add(initPermission(permissionEnum, now, permissionId));
+        
+        // 系统用户状态修改
+        permissionEnum = PermissionEnum.ADMIN_SYSTEM_USER_UPDATE_STATUS;
+        permissionIdList.add(initPermission(permissionEnum, now, permissionId));
+        
+        // 系统用户列表
+        permissionEnum = PermissionEnum.ADMIN_SYSTEM_USER_LIST;
+        permissionIdList.add(initPermission(permissionEnum, now, permissionId));
+        
+        // 系统用户角色列表
+        permissionEnum = PermissionEnum.ADMIN_SYSTEM_USER_ROLE_LIST;
+        permissionIdList.add(initPermission(permissionEnum, now, permissionId));
+        
+        // 系统用户详情
+        permissionEnum = PermissionEnum.ADMIN_SYSTEM_USER_DETAIL;
+        permissionIdList.add(initPermission(permissionEnum, now, permissionId));
+        
+        // 修改密码
+        permissionEnum = PermissionEnum.ADMIN_SYSTEM_USER_RESET_PASSWORD;
+        permissionIdList.add(initPermission(permissionEnum, now, permissionId));
+        
+        
         // 初始化超级管理员角色
         RoleEnum roleEnum = RoleEnum.SYSTEM_SUPER_MANAGER_ROLE;
         Long managerRoleId = initRole(roleEnum, now);
-        // 初始化普通用户角色
-        roleEnum = RoleEnum.C_USER_ROLE;
-        Long userRoleId = initRole(roleEnum, now);
-        
-        /**
-         * 关联权限和管理员角色的关系
-         * 关联权限和普通用户角色的关系
-         */
-        // 关联权限和管理员角色的关系
-        relationRolePermission(managerRoleId, managerPermissionId);
-        // 关联权限和普通用户角色的关系
-        relationRolePermission(userRoleId, userPermissionId);
-
-        
-        /* 
-         * 初始化超级管理员用户
-         */
+        // 关联权限和管理员角色的关系        
+        relationRolePermission(managerRoleId, permissionIdList);
+        // 初始化超级管理员用户
         SuperAdminInitEnum adminInitEnum = SuperAdminInitEnum.SYSTEM_SUPER_MANAGER;
         Long userId = initSystemUser(adminInitEnum, phone, now);
         // 关联用户和角色的关系
         relationUserRole(userId, managerRoleId);
+
+
+        /**
+         * 初始化普通用户权限、角色信息
+         */
+        // 初始化普通用户权限
+        permissionEnum = PermissionEnum.C_USER_PERMISSION;
+        Long userPermissionId = initPermission(permissionEnum, now, -1L);
+        List<Long> userPermissionIds = Arrays.asList(userPermissionId);
+        // 初始化普通用户角色
+        roleEnum = RoleEnum.C_USER_ROLE;
+        Long userRoleId = initRole(roleEnum, now);
+        // 关联权限和普通用户角色的关系
+        relationRolePermission(userRoleId, userPermissionIds);
     }
 
     /**
@@ -98,18 +180,19 @@ public class SystemInitServiceImpl implements SystemInitService {
      * @param permissionEnum
      * @param now
      */
-    private Long initPermission(PermissionEnum permissionEnum, Date now){
-        Paramap paramap = Paramap.create().put("permissionCode", permissionEnum.getPermissionCode());
-        List<RainPermission> permissionList = rainPermissionDao.findByParams(paramap);
+    private Long initPermission(PermissionEnum permissionEnum, Date now, Long parentId){
+        Example example = new Example(RainPermission.class);
+        example.createCriteria().andEqualTo("permissionCode", permissionEnum.getPermissionCode());
+        List<RainPermission> permissionList = rainPermissionDao.selectByExample(example);
         
         long permissionId = TwiterIdUtil.getTwiterId();
         if(CollectionUtils.isEmpty(permissionList)){
             RainPermission permission = new RainPermission();
-            permission.setId(TwiterIdUtil.getTwiterId());
+            permission.setId(permissionId);
             permission.setPermissionName(permissionEnum.getPermissionName());
             permission.setPermissionCode(permissionEnum.getPermissionCode());
             permission.setPermissionDesc(permissionEnum.getPermissionDesc());
-            permission.setParentId(-1L);
+            permission.setParentId(parentId);
             permission.setCreateTime(now);
             permission.setUpdateTime(now);
             rainPermissionDao.insert(permission);
@@ -125,8 +208,9 @@ public class SystemInitServiceImpl implements SystemInitService {
      * @param now
      */
     private Long initRole(RoleEnum roleEnum, Date now){
-        Paramap paramap = Paramap.create().put("roleCode", roleEnum.getRoleCode());
-        List<RainRole> roleList = rainRoleDao.findByParams(paramap);
+        Example example = new Example(RainRole.class);
+        example.createCriteria().andEqualTo("roleCode", roleEnum.getRoleCode());
+        List<RainRole> roleList = rainRoleDao.selectByExample(example);
         
         long roleId = TwiterIdUtil.getTwiterId();
         if(CollectionUtils.isEmpty(roleList)){
@@ -174,13 +258,17 @@ public class SystemInitServiceImpl implements SystemInitService {
     /**
      * 关联角色和权限
      * @param roleId
-     * @param permissionId
+     * @param permissionIds
      */
-    private void relationRolePermission(Long roleId, Long permissionId){
-        RainRolePermission rolePermission = new RainRolePermission();
-        rolePermission.setRoleId(roleId);
-        rolePermission.setPermissionId(permissionId);
-        rainRolePermissionDao.insert(rolePermission);
+    private void relationRolePermission(Long roleId, List<Long> permissionIds){
+        // 删除这个角色关联的所有权限
+        rainRolePermissionDao.deleteByRoleIdAndPermissions(roleId, permissionIds);
+        // 保存角色和权限的关系
+        List<RainRolePermission> rolePermissionList = new ArrayList<>(permissionIds.size());
+        for (Long permissionId : permissionIds) {
+            rolePermissionList.add(new RainRolePermission(roleId, permissionId));
+        }
+        rainRolePermissionDao.insertList(rolePermissionList);
     }
 
     /**

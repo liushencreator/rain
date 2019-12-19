@@ -2,6 +2,7 @@ package com.rao.controller.local;
 
 import com.rao.pojo.entity.resource.ResourceLocationsConfig;
 import com.rao.service.resource.ResourceLocationsConfigService;
+import com.rao.util.page.PageParam;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,10 +25,9 @@ public class LocalResourceAdminController {
     private ResourceLocationsConfigService resourceLocationsConfigService;
 
     @GetMapping("/list")
-    public ResultMessage<PageResult<ResourceLocationsConfig>> configList(@RequestParam(defaultValue = "1") Integer pageNumber,
-                                    @RequestParam(defaultValue = "10") Integer pageSize){
-        List<ResourceLocationsConfig> locationsConfigList = resourceLocationsConfigService.listConfigByPage(pageNumber, pageSize);
-        int totalSize = resourceLocationsConfigService.count();
+    public ResultMessage<PageResult<ResourceLocationsConfig>> configList(PageParam pageParam){
+        List<ResourceLocationsConfig> locationsConfigList = resourceLocationsConfigService.listConfigByPage(pageParam.getPageNumber(), pageParam.getPageSize());
+        Long totalSize = resourceLocationsConfigService.count();
         PageResult<ResourceLocationsConfig> pageResult = PageResult.build(totalSize, locationsConfigList);
         return ResultMessage.success(pageResult);
     }

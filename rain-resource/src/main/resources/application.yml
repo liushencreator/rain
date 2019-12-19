@@ -24,12 +24,24 @@ spring:
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://localhost:3306/rain_resource_dev
 
+  # redis
+  redis:
+    host: localhost
+    port: 6379
+    password: redis
+    database: 0  
+
 # mybatis
 mybatis:
   mapper-locations: classpath:mapper/**/*.xml
   type-aliases-package: com.rao.pojo.entity
   configuration:
     map-underscore-to-camel-case: true
+
+# 通用 mapper
+mapper:
+  mappers: com.rao.mapper.RainBaseDao
+  identity: MYSQL
 
 # pagehelper
 pagehelper:
@@ -51,6 +63,23 @@ eureka:
   client:
     serviceUrl:
       defaultZone: http://localhost:8080/eureka/    
+
+feign:
+  hystrix:
+    enabled: true
+
+# security
+security:
+  oauth2:
+    client:
+      client-id: client
+      client-secret: secret
+      access-token-uri: http://localhost:8086/auth/oauth/token
+      user-authorization-uri: http://localhost:8086/auth/oauth/authorize
+      grant-type: password,refresh_token
+      scope: backend
+    resource:
+      user-info-uri: http://localhost:8086/auth/user/info
 
 # 本地 oss 配置
 local-oss:

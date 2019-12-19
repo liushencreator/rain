@@ -32,9 +32,9 @@ public class ResourceLocationsConfigServiceImpl implements ResourceLocationsConf
 	}
 
 	@Override
-	public int count() {
+	public Long count() {
 		Paramap paramap = Paramap.create();
-		return resourceLocationsConfigDao.count(paramap);
+		return Long.valueOf(resourceLocationsConfigDao.count(paramap));
 	}
 
 }

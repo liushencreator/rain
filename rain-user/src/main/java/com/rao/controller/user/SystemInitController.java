@@ -3,13 +3,13 @@ package com.rao.controller.user;
 import com.rao.annotation.SimpleValid;
 import com.rao.service.user.SystemInitService;
 import com.rao.util.result.ResultMessage;
+import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import javax.validation.constraints.NotBlank;
 
 /**
  * 系统用户管理 controller

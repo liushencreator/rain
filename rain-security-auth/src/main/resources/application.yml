@@ -9,28 +9,15 @@ spring:
   mvc:
     pathmatch:
       use-suffix-pattern: true
-      
+  # 配置文件
+  profiles:
+    active: dev    
   # eureka 注册名称
   application:
     name: rain-auth
   jackson:
     date-format: yyyy-MM-dd
     time-zone: GMT+8
-
-  # 数据源  
-  datasource:
-    username: root
-    password: mysql
-    driver-class-name: com.mysql.jdbc.Driver
-    jdbc-url: jdbc:mysql://localhost:3306/rain_user_dev
-    url: jdbc:mysql://localhost:3306/rain_user_dev
-  
-  # redis  
-  redis:
-    host: localhost
-    port: 6379
-    password: redis
-    database: 0
 
 # mybatis
 mybatis:
@@ -45,9 +32,3 @@ logging:
     com:
       rao:
         dao: debug
-    
-# eureka    
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://localhost:8080/eureka/

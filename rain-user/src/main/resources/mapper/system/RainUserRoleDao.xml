@@ -18,55 +18,16 @@
 	<sql id="base_value_column">
 		 #{userId},#{roleId}
 	</sql>
-	
-	<!-- 定义可重用的WHERE SQL公共代码段，可以包含在其他语句中 -->
-	<sql id="where_column">
-		<if test="userId != null">
-			AND user_id = #{userId,jdbcType=BIGINT}
-		</if>
-		<if test="roleId != null">
-			AND role_id = #{roleId,jdbcType=BIGINT}
-		</if>
-	</sql>
-	
-	<!-- 设置语句 -->
-	<sql id="set_column">
-		<if test="userId != null">
-			user_id = #{userId,jdbcType=BIGINT},
-		</if>
-		<if test="roleId != null">
-			role_id = #{roleId,jdbcType=BIGINT},
-		</if>
-	</sql>
 
-	<!-- 查询所有 -->
-	<select id="findAll" resultMap="RainUserRoleResultMap">
-		SELECT	<include refid="base_column" />
-		FROM	RAIN_USER_ROLE
-	</select>
-	
-	<!-- 统计记录数 -->
-	<select id="count" resultType="int">
-		SELECT COUNT(*) FROM RAIN_USER_ROLE
-		<where> 
-			<include refid="where_column" />
-		</where>
-	</select>
-	
-	<!-- 插入 -->
-	<insert id="insert" parameterType="com.rao.pojo.entity.system.RainUserRole">
-		INSERT RAIN_USER_ROLE
-				(<include refid="base_column" /> )
-		VALUES	(<include refid="base_value_column" />)
+	<!-- 保存用户角色关系 -->
+	<insert id="batchSaveRelation" parameterType="com.rao.pojo.entity.system.RainUserRole">
+		INSERT INTO RAIN_USER_ROLE ( <include refid="base_column" /> )
+		values
+		<foreach collection="userRoleList" item="item" index="index" separator=",">
+			(
+			#{item.roleId},#{item.userId}
+			)
+		</foreach>
 	</insert>
-	
-	<!-- 根据参数查询列表-->
-	<select id="findByParams" resultMap="RainUserRoleResultMap">
-		SELECT	<include refid="base_column" />
-		FROM 	RAIN_USER_ROLE
-		<where> 1=1
-			<include refid="where_column" />
-		</where>
-	</select>
 	
 </mapper>

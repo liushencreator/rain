@@ -1,5 +1,6 @@
 package com.rao.dao.system;
 
+import com.rao.mapper.RainBaseDao;
 import com.rao.pojo.entity.system.RainPermission;
 import org.apache.ibatis.annotations.Param;
 
@@ -12,32 +13,7 @@ import java.util.Map;
  * @author zijing
  * @version 2.0
  */
-public interface RainPermissionDao {
-
-    RainPermission find(Long id);
-
-    List<RainPermission> findAll();
-
-    Integer count(Map<String, Object> var1);
-
-    Long insert(RainPermission rainPermission);
-
-    Integer update(RainPermission rainPermission);
-
-    Integer delete(Long id);
-
-    Integer deleteAll(Map<String, Object> var1);
-
-    List<RainPermission> findByParams(Map<String, Object> var1);
-
-    List<RainPermission> findByPage(Map<String, Object> var1);
-
-    /**
-     * insertSelective
-     * @param rainPermission
-     * @return
-     */
-    Long insertSelective(RainPermission rainPermission);
+public interface RainPermissionDao extends RainBaseDao<RainPermission> {
 
     /**
      * 根据id查询权限列表
@@ -45,4 +21,13 @@ public interface RainPermissionDao {
      * @return
      */
     List<RainPermission> listByPermissionIds(@Param("permissions") List<Long> permissions);
+
+    /**
+     * 根据parentId查询子节点列表，不包括子节点的子节点
+     *
+     * @param parentId
+     * @return
+     */
+    List<RainPermission> listByParentId(@Param("parentId") Long parentId);
+
 }

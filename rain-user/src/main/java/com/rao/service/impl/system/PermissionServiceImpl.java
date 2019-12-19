@@ -1,23 +1,35 @@
 package com.rao.service.impl.system;
 
+import com.google.common.collect.Lists;
+import com.rao.constant.permission.user.SystemCodeConstant;
+import com.rao.constant.permission.user.UserCodeConstant;
 import com.rao.dao.system.RainPermissionDao;
+import com.rao.dao.system.RainRolePermissionDao;
 import com.rao.exception.BusinessException;
 import com.rao.pojo.dto.SavePermissionDTO;
 import com.rao.pojo.entity.system.RainPermission;
+import com.rao.pojo.entity.system.RainRolePermission;
 import com.rao.pojo.vo.system.PermissionVO;
 import com.rao.service.system.PermissionService;
 import com.rao.util.common.Paramap;
 import com.rao.util.common.TwiterIdUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
+import tk.mybatis.mapper.entity.Example;
 
 import javax.annotation.Resource;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 权限 service 实现
+ *
  * @author raojing
  * @date 2019/12/8 14:23
  */
@@ -27,6 +39,9 @@ public class PermissionServiceImpl implements PermissionService {
     @Resource
     private RainPermissionDao rainPermissionDao;
 
+    @Resource
+    private RainRolePermissionDao rainRolePermissionDao;
+
     @Override
     public void savePermission(SavePermissionDTO permissionDTO) {
         RainPermission permission = new RainPermission();
@@ -34,9 +49,11 @@ public class PermissionServiceImpl implements PermissionService {
 
         // 判断权限标识是否已经存在
         String permissionCode = permissionDTO.getPermissionCode();
-        Paramap paramap = Paramap.create().put("permissionCode", permissionCode);
-        Integer count = rainPermissionDao.count(paramap);
-        if(count > 0){
+        Example countExample = new Example(RainPermission.class);
+        countExample.createCriteria().andEqualTo("permissionCode", permissionCode);
+        int count = rainPermissionDao.selectCountByExample(countExample);
+
+        if (count > 0) {
             throw BusinessException.operate(permissionCode + " 权限标识已存在");
         }
 
@@ -50,12 +67,12 @@ public class PermissionServiceImpl implements PermissionService {
 
     @Override
     public List<PermissionVO> listPermission() {
-        List<RainPermission> permissionList = rainPermissionDao.findAll();
+        List<RainPermission> permissionList = rainPermissionDao.selectAll();
         List<PermissionVO> permissionVOList = new ArrayList<>();
         for (RainPermission permission : permissionList) {
             PermissionVO permissionVO = new PermissionVO();
             BeanUtils.copyProperties(permission, permissionVO);
-            if(permission.getParentId() < 0){
+            if (permission.getParentId() < 0) {
                 permissionVO.setChildren(buildChildList(permissionList, permission.getId()));
                 permissionVOList.add(permissionVO);
             }
@@ -65,20 +82,96 @@ public class PermissionServiceImpl implements PermissionService {
 
     @Override
     public void updatePermission(Long id, SavePermissionDTO permissionDTO) {
+        RainPermission permission = rainPermissionDao.selectByPrimaryKey(id);
+        if (null == permission) {
+            throw BusinessException.operate(id + "不存在");
+        }
+        // 更改上级权限parentId时,判断上级权限是否存在以及是否存在下级权限的权限无法
+        Long parentId = permissionDTO.getParentId();
+        if (!permission.getParentId().equals(parentId)) {
+            parentId = loadParentId(parentId);
+            List<RainPermission> rainPermissions = rainPermissionDao.listByParentId(parentId);
+            if (!CollectionUtils.isEmpty(rainPermissions)) {
+                throw BusinessException.operate("该权限存在下级权限，无法更改上级权限");
+            }
+        }
+        // 判断权限标识是否已经存在
+        String permissionCode = permissionDTO.getPermissionCode();
 
+        Example countExample = new Example(RainPermission.class);
+        countExample.createCriteria()
+                .andNotEqualTo("id", id)
+                .andEqualTo("permissionCode", permissionCode);
+        int count = rainPermissionDao.selectCountByExample(countExample);
+        if (count > 0) {
+            throw BusinessException.operate(permissionCode + " 权限标识已存在");
+        }
+
+        BeanUtils.copyProperties(permissionDTO, permission);
+        permission.setUpdateTime(new Date());
+        rainPermissionDao.updateByPrimaryKeySelective(permission);
+    }
+
+    @Override
+    @Transactional(rollbackFor = RuntimeException.class)
+    public void deletePermission(Long id) {
+        List<RainPermission> rainPermissions = rainPermissionDao.listByParentId(id);
+        if (!CollectionUtils.isEmpty(rainPermissions)) {
+            throw BusinessException.operate("该权限存在下级权限，无法删除");
+        }
+        rainPermissionDao.deleteByPrimaryKey(id);
+        //删除角色权限中间表
+        Example deleteExample = new Example(RainRolePermission.class);
+        deleteExample.createCriteria().andEqualTo("permissionId", id);
+        rainRolePermissionDao.deleteByExample(deleteExample);
+    }
+
+    @Override
+    public List<String> permissionCode() {
+        try{
+            // 获取代码中所有的权限标识
+            List<String> codeList = buildCode(SystemCodeConstant.class);
+            codeList.addAll(buildCode(UserCodeConstant.class));
+            // 获取数据库中已经添加的权限标识
+            List<RainPermission> permissionList = rainPermissionDao.selectAll();
+            List<String> existCodeList = permissionList.stream().map(item -> {
+                return item.getPermissionCode();
+            }).collect(Collectors.toList());
+            // 求所有的权限标识和已经添加的权限标识的差集
+            return codeList.stream().filter(item -> !existCodeList.contains(item)).collect(Collectors.toList());
+        }catch (Exception e){
+            throw BusinessException.operate("获取权限标识失败");
+        }
+    }
+
+    /**
+     * 通过反射获取权限标识
+     * @param clazz
+     * @return
+     * @throws Exception
+     */
+    private List<String> buildCode(Class clazz) throws Exception{
+        Field[] fields = clazz.getDeclaredFields();
+        List<String> codeList = Lists.newArrayList();
+        for (Field field : fields) {
+            field.setAccessible(true);
+            codeList.add(String.valueOf(field.get(clazz)));
+        }
+        return codeList;
     }
 
     /**
      * 获取上级权限id
+     *
      * @param parentId
      * @return
      */
-    private Long loadParentId(Long parentId){
-        if(parentId == null || parentId == 0) {
+    private Long loadParentId(Long parentId) {
+        if (parentId == null || parentId == 0) {
             return -1L;
         }
-        RainPermission parentPermission = rainPermissionDao.find(parentId);
-        if(parentPermission == null) {
+        RainPermission parentPermission = rainPermissionDao.selectByPrimaryKey(parentId);
+        if (parentPermission == null) {
             throw BusinessException.operate("上级权限不存在");
         }
         return parentId;
@@ -86,14 +179,15 @@ public class PermissionServiceImpl implements PermissionService {
 
     /**
      * 递归获取子分类
+     *
      * @param permissionList
      * @param id
      * @return
      */
-    private List<PermissionVO> buildChildList(List<RainPermission> permissionList, Long id){
+    private List<PermissionVO> buildChildList(List<RainPermission> permissionList, Long id) {
         List<PermissionVO> permissionVOList = new ArrayList<>();
         for (RainPermission permission : permissionList) {
-            if(permission.getParentId().equals(id)){
+            if (permission.getParentId().equals(id)) {
                 PermissionVO permissionVO = new PermissionVO();
                 BeanUtils.copyProperties(permission, permissionVO);
                 permissionVO.setChildren(buildChildList(permissionList, permission.getId()));

@@ -6,7 +6,7 @@ import com.rao.pojo.entity.user.RainSystemUser;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import com.rao.service.user.CurrentUserService;
-import com.rao.pojo.vo.user.SystemUserVO;
+import com.rao.pojo.vo.user.CurrentSystemUserVO;
 
 import javax.annotation.Resource;
 
@@ -22,10 +22,10 @@ public class CurrentUserServiceImpl implements CurrentUserService {
     private RainSystemUserDao rainSystemUserDao;
 
     @Override
-    public SystemUserVO findById(Long id) {
-        RainSystemUser systemUser = rainSystemUserDao.find(id);
+    public CurrentSystemUserVO findById(Long id) {
+        RainSystemUser systemUser = rainSystemUserDao.selectByPrimaryKey(id);
         if(systemUser != null){
-            SystemUserVO systemUserVO = new SystemUserVO();
+            CurrentSystemUserVO systemUserVO = new CurrentSystemUserVO();
             BeanUtils.copyProperties(systemUser, systemUserVO);
             return systemUserVO;
         }else{

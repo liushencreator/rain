@@ -5,6 +5,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Column;
+import javax.persistence.Table;
+
 /**
  * Entity - 角色权限关系表
  *
@@ -15,6 +18,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "rain_role_permission")
 public class RainRolePermission {
 
     private static final long serialVersionUID = 5081846432919091193L;
@@ -22,11 +26,13 @@ public class RainRolePermission {
     /**
      * 角色id
      */
+    @Column(name = "role_id")
     private Long roleId;
 
     /**
      * 权限id
      */
+    @Column(name = "permission_id")
     private Long permissionId;
 
 }

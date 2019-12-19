@@ -1,5 +1,5 @@
 package com.rao.service.user;
-import com.rao.pojo.vo.user.SystemUserVO;
+import com.rao.pojo.vo.user.CurrentSystemUserVO;
 
 /**
  * 系统用户 service
@@ -13,6 +13,6 @@ public interface CurrentUserService {
      * @param id
      * @return
      */
-    SystemUserVO findById(Long id);
+    CurrentSystemUserVO findById(Long id);
     
 }

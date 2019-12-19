@@ -31,5 +31,15 @@ public interface PermissionService {
      */
     void updatePermission(Long id,SavePermissionDTO permissionDTO);
 
+    /**
+     * 删除权限
+     * @param id
+     */
+    void deletePermission(Long id);
 
+    /**
+     * 获取权限标识
+     * @return
+     */
+    List<String> permissionCode();
 }

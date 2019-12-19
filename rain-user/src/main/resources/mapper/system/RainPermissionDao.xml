@@ -1,212 +1,46 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- namespace必须指向Dao接口 -->
 <mapper namespace="com.rao.dao.system.RainPermissionDao">
-	
-	<resultMap id="RainPermissionResultMap" type="com.rao.pojo.entity.system.RainPermission">
-		<id property="id" column="id"  />
-		<result property="permissionName" column="permission_name" />
-		<result property="permissionCode" column="permission_code" />
-		<result property="permissionDesc" column="permission_desc" />
-		<result property="parentId" column="parent_id" />
-		<result property="createTime" column="create_time" />
-		<result property="updateTime" column="update_time" />
-	</resultMap>
-	
-	<!-- 定义可重用的SQL代码段，可以包含在其他语句中 -->
-	<sql id="base_column">
+
+    <resultMap id="RainPermissionResultMap" type="com.rao.pojo.entity.system.RainPermission">
+        <id property="id" column="id"/>
+        <result property="permissionName" column="permission_name"/>
+        <result property="permissionCode" column="permission_code"/>
+        <result property="permissionDesc" column="permission_desc"/>
+        <result property="parentId" column="parent_id"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+    <!-- 定义可重用的SQL代码段，可以包含在其他语句中 -->
+    <sql id="base_column">
 		 id ,permission_name ,permission_code ,permission_desc ,parent_id ,create_time ,update_time 
 	</sql>
-	
-	<sql id="base_value_column">
+
+    <sql id="base_value_column">
 		 #{id},#{permissionName},#{permissionCode},#{permissionDesc},#{parentId},#{createTime},#{updateTime}
 	</sql>
-	
-	<!-- 定义可重用的WHERE SQL公共代码段，可以包含在其他语句中 -->
-	<sql id="where_column">
-		<if test="id != null">
-			AND id = #{id,jdbcType=BIGINT}
-		</if>
-		<if test="permissionName != null and permissionName != ''">
-			AND permission_name = #{permissionName,jdbcType=VARCHAR}
-		</if>
-		<if test="permissionCode != null and permissionCode != ''">
-			AND permission_code = #{permissionCode,jdbcType=VARCHAR}
-		</if>
-		<if test="permissionDesc != null and permissionDesc != ''">
-			AND permission_desc = #{permissionDesc,jdbcType=VARCHAR}
-		</if>
-		<if test="parentId != null">
-			AND parent_id = #{parentId,jdbcType=BIGINT}
-		</if>
-		<if test="createTime != null">
-			AND create_time = #{createTime,jdbcType=TIMESTAMP}
-		</if>
-		<if test="updateTime != null">
-			AND update_time = #{updateTime,jdbcType=TIMESTAMP}
-		</if>
-	</sql>
-	
-	<!-- 设置语句 -->
-	<sql id="set_column">
-		<if test="id != null">
-			id = #{id,jdbcType=BIGINT},
-		</if>
-		<if test="permissionName != null and permissionName != ''">
-			permission_name = #{permissionName,jdbcType=VARCHAR},
-		</if>
-		<if test="permissionCode != null and permissionCode != ''">
-			permission_code = #{permissionCode,jdbcType=VARCHAR},
-		</if>
-		<if test="permissionDesc != null and permissionDesc != ''">
-			permission_desc = #{permissionDesc,jdbcType=VARCHAR},
-		</if>
-		<if test="parentId != null">
-			parent_id = #{parentId,jdbcType=BIGINT},
-		</if>
-		<if test="createTime != null">
-			create_time = #{createTime,jdbcType=TIMESTAMP},
-		</if>
-		<if test="updateTime != null">
-			update_time = #{updateTime,jdbcType=TIMESTAMP},
-		</if>
-	</sql>
 
-	<!-- 根据ID查询 -->
-	<select id="find" resultMap="RainPermissionResultMap">
-		SELECT	<include refid="base_column" />
-		FROM	RAIN_PERMISSION
-		WHERE	ID=#{id,jdbcType=BIGINT}
-	</select>
-	
-	<!-- 查询所有 -->
-	<select id="findAll" resultMap="RainPermissionResultMap">
-		SELECT	<include refid="base_column" />
-		FROM	RAIN_PERMISSION
-	</select>
-	
-	<!-- 统计记录数 -->
-	<select id="count" resultType="int">
-		SELECT COUNT(*) FROM RAIN_PERMISSION
-		<where> 
-			<include refid="where_column" />
-		</where>
-	</select>
-	
-	<!-- 插入 -->
-	<insert id="insert" parameterType="com.rao.pojo.entity.system.RainPermission">
-		<selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
-			SELECT LAST_INSERT_ID()
-		</selectKey>
-		INSERT RAIN_PERMISSION
-				(<include refid="base_column" /> )
-		VALUES	(<include refid="base_value_column" />)
-	</insert>
-	
-	<!-- 修改 -->
-	<update id="update" parameterType="com.rao.pojo.entity.system.RainPermission">
-		UPDATE	RAIN_PERMISSION
-		<set>
-			<include refid="set_column" />
-		</set>
-		WHERE	ID = #{id,jdbcType=BIGINT}
-	</update>
-	
-	<!-- 删除单条记录 -->
-	<delete id="delete">
-		DELETE	FROM RAIN_PERMISSION
-		WHERE	ID = #{id,jdbcType=BIGINT}
-	</delete>
-	
-	<!-- 删除多条记录-->
-	<delete id="deleteAll">
-		DELETE	FROM RAIN_PERMISSION
-		WHERE	ID	IN
-    	<foreach item="RainPermissionId" index="index" collection="ids" open="(" separator="," close=")">
-	  		#{RainPermissionId} 
-		</foreach>
-	</delete>
-	
-	<!-- 根据参数查询列表-->
-	<select id="findByParams" resultMap="RainPermissionResultMap">
-		SELECT	<include refid="base_column" />
-		FROM 	RAIN_PERMISSION
-		<where> 1=1
-			<include refid="where_column" />
-		</where>
-	</select>
-	
-	<!-- 分页查询-->
-	<select id="findByPage" resultMap="RainPermissionResultMap">
-		SELECT
-		<include refid="base_column" />
-		FROM RAIN_PERMISSION
-		<where> 1=1
-			<include refid="where_column" />
-		</where>
-	</select>
+    <!-- 根据id查询权限列表 -->
+    <select id="listByPermissionIds" resultType="com.rao.pojo.entity.system.RainPermission">
+        SELECT
+        <include refid="base_column"/>
+        FROM RAIN_PERMISSION
+        where id in
+        <foreach collection="permissions" item="id" index="index" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </select>
 
-	<!-- insertSelective -->
-	<insert id="insertSelective" parameterType="com.rao.pojo.entity.system.RainPermission">
-		<selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
-			SELECT LAST_INSERT_ID()
-		</selectKey>
-		insert into RAIN_PERMISSION
-		<trim prefix="(" suffix=")" suffixOverrides=",">
-				id,
-				<if test="permissionName != null and permissionName != ''">
-					permission_name,
-				</if>
-				<if test="permissionCode != null and permissionCode != ''">
-					permission_code,
-				</if>
-				<if test="permissionDesc != null and permissionDesc != ''">
-					permission_desc,
-				</if>
-				<if test="parentId != null">
-					parent_id,
-				</if>
-				<if test="createTime != null">
-					create_time,
-				</if>
-				<if test="updateTime != null">
-					update_time,
-				</if>
-		</trim>
-		<trim prefix="values (" suffix=")" suffixOverrides=",">
-				#{id,jdbcType=BIGINT},
-				<if test="permissionName != null and permissionName != ''">
-					#{permissionName,jdbcType=VARCHAR},
-				</if>
-				<if test="permissionCode != null and permissionCode != ''">
-					#{permissionCode,jdbcType=VARCHAR},
-				</if>
-				<if test="permissionDesc != null and permissionDesc != ''">
-					#{permissionDesc,jdbcType=VARCHAR},
-				</if>
-				<if test="parentId != null">
-					#{parentId,jdbcType=BIGINT},
-				</if>
-				<if test="createTime != null">
-					#{createTime,jdbcType=TIMESTAMP},
-				</if>
-				<if test="updateTime != null">
-					#{updateTime,jdbcType=TIMESTAMP},
-				</if>
-		</trim>
-	</insert>
-
-	<!-- 根据id查询权限列表 -->
-	<select id="listByPermissionIds" resultType="com.rao.pojo.entity.system.RainPermission">
-		SELECT
-		<include refid="base_column" />
-		FROM RAIN_PERMISSION
-		where id in
-		<foreach collection="permissions" item="id" index="index" open="(" separator="," close=")">
-			#{id}
-		</foreach>
-	</select>
+    <!-- 根据parentId查询子节点列表，不包括子节点的子节点 -->
+    <select id="listByParentId" resultType="com.rao.pojo.entity.system.RainPermission">
+        SELECT
+        <include refid="base_column"/>
+        FROM RAIN_PERMISSION
+        where parent_id= #{parentId}
+    </select>
 
 </mapper> 

@@ -16,14 +16,14 @@ public class PageResult<T> {
     /**
      * 总数
      */
-    private Integer total;
+    private Long total;
 
     /**
      * 数据
      */
     private List<T> data;
     
-    public static<T> PageResult<T> build(Integer total, List<T> data){
+    public static<T> PageResult<T> build(Long total, List<T> data){
         return new PageResult<>(total, data);
     }
     
