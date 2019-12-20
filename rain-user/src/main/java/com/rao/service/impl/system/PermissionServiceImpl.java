@@ -2,8 +2,6 @@ package com.rao.service.impl.system;
 
 import com.google.common.collect.Lists;
 import com.rao.annotation.PermissionDesc;
-import com.rao.constant.permission.user.SystemCodeConstant;
-import com.rao.constant.permission.user.UserCodeConstant;
 import com.rao.dao.system.RainPermissionDao;
 import com.rao.dao.system.RainRolePermissionDao;
 import com.rao.exception.BusinessException;
@@ -13,8 +11,7 @@ import com.rao.pojo.entity.system.RainRolePermission;
 import com.rao.pojo.vo.system.PermissionDescVO;
 import com.rao.pojo.vo.system.PermissionVO;
 import com.rao.service.system.PermissionService;
-import com.rao.util.common.PackageScanUtil;
-import com.rao.util.common.Paramap;
+import com.rao.util.common.PermissionClazzUtil;
 import com.rao.util.common.TwiterIdUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
@@ -25,7 +22,6 @@ import tk.mybatis.mapper.entity.Example;
 import javax.annotation.Resource;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -196,9 +192,9 @@ public class PermissionServiceImpl implements PermissionService {
      */
     private List<PermissionDescVO> allPermissionCode(){
         // 获取包下所有class
-        List<Class> clazzList = PackageScanUtil.scannerPackage("com.rao.constant.permission");
-        // 获取代码中所有的权限标识
+        List<Class> clazzList = PermissionClazzUtil.allPermissionClazz();
         try{
+            // 获取代码中所有的权限标识
             return buildCode(clazzList);
         }catch (Exception e){
             throw BusinessException.operate("获取权限标识失败");
