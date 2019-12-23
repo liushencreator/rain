@@ -19,11 +19,6 @@
         <!--quartz依赖-->
 
         <!-- 本地 jar -->
-        <dependency>
-            <groupId>com.rao</groupId>
-            <artifactId>rain-api</artifactId>
-        </dependency>
-
         <!-- 微服务基本 jar -->
         <dependency>
             <groupId>com.rao</groupId>

@@ -102,8 +102,7 @@
         <!-- 本地jar -->
         <dependency>
             <groupId>com.rao</groupId>
-            <artifactId>rain-common-util</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <artifactId>rain-api</artifactId>
         </dependency>
         <!-- 本地jar -->
 
