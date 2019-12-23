@@ -8,7 +8,7 @@ spring:
     name: rain-gateway
   # 配置文件
   profiles:
-    active: dev
+    active: test
   # 网关配置    
   cloud:
     gateway:
@@ -37,6 +37,11 @@ spring:
         uri: lb://rain-auth
         predicates:
           - Path=/auth/**
+          
+      - id: rain-quartz
+        uri: lb://rain-quartz
+        predicates:
+          - Path=/quartz/**
 
 management:
   endpoint:
