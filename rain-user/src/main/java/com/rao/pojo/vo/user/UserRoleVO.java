@@ -1,5 +1,7 @@
 package com.rao.pojo.vo.user;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -23,12 +25,11 @@ public class UserRoleVO {
     /**
      * id
      */
-    @Id
+    @JsonSerialize(using= ToStringSerializer.class)
     private Long id;
 
     /**
      * 角色名称
      */
-    @Column(name = "role_name")
     private String roleName;
 }

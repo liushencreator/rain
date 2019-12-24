@@ -1,11 +1,12 @@
 package com.rao.controller.user;
 
+import com.rao.annotation.BeanValid;
 import com.rao.pojo.bo.CurrentUserInfo;
+import com.rao.pojo.dto.RePasswordDTO;
+import com.rao.pojo.vo.user.UserInfoVO;
 import com.rao.service.user.CurrentUserService;
 import com.rao.util.result.ResultMessage;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import com.rao.pojo.vo.user.CurrentSystemUserVO;
 
 import javax.annotation.Resource;
@@ -18,7 +19,7 @@ import javax.annotation.Resource;
 @RestController
 @RequestMapping("/current/system_user")
 public class CurrentSystemUserController {
-    
+
     @Resource
     private CurrentUserService currentUserService;
 
@@ -31,10 +32,31 @@ public class CurrentSystemUserController {
         CurrentSystemUserVO systemUserVO = currentUserService.findById(currentUser.getId());
         return ResultMessage.success(systemUserVO);
     }
-    
+
+    /**
+     * 查询当前用户个人信息
+     * @return
+     */
+    @GetMapping("info")
+    public ResultMessage<UserInfoVO> findUserInfo(CurrentUserInfo currentUser) {
+        UserInfoVO userInfoVO = currentUserService.info(currentUser.getId());
+        return ResultMessage.success(userInfoVO);
+    }
+
+    /**
+     * 查询当前用户个人信息
+     * @return
+     */
+    @PutMapping("password")
+    public ResultMessage rePassword(CurrentUserInfo currentUser, @BeanValid @RequestBody RePasswordDTO rePasswordDTO) {
+        currentUserService.rePassword(currentUser.getId(), rePasswordDTO.getOldPassword(), rePasswordDTO.getNewPassword(),rePasswordDTO.getRePassword());
+        return ResultMessage.success();
+    }
+
+
     @GetMapping("test")
     public String test(){
         return "hello resource";
     }
-    
+
 }
