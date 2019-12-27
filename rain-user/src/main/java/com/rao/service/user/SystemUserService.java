@@ -1,6 +1,7 @@
 package com.rao.service.user;
 
 import com.rao.pojo.dto.SaveSystemUserDTO;
+import com.rao.pojo.vo.user.SystemUserDetailVO;
 import com.rao.pojo.vo.user.SystemUserVO;
 import com.rao.util.page.PageParam;
 import com.rao.util.result.PageResult;
@@ -33,7 +34,7 @@ public interface SystemUserService {
      * @throws Exception
      * @return com.rao.pojo.entity.user.RainSystemUser
      */
-    SystemUserVO findSystemUserById(Long id);
+    SystemUserDetailVO findSystemUserById(Long id);
 
     /**
      *
@@ -80,4 +81,11 @@ public interface SystemUserService {
      * @return void
      */
     void updateUserStatus(Long id, Integer status);
+
+    /**
+     * 管理员重新设置密码
+     * @param id
+     * @param password
+     */
+    void resetPassword(Long id,String password);
 }

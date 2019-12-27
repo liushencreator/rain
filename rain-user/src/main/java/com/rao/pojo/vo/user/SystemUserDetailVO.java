@@ -6,13 +6,13 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * @ClassName : SystemUserVO  //类名
- * @Description : 平台用户相关视图  //描述
- * @Author : xujianjie  //作者
- * @Date: 2019-12-16 17:28  //时间
+ * @author : hudelin
+ * @className :SystemUserDetailVO
+ * @description : 系统用户详情
+ * @date: 2019-12-27 10:22
  */
 @Data
-public class SystemUserVO {
+public class SystemUserDetailVO {
 
     /**
      * 用户名
@@ -44,4 +44,8 @@ public class SystemUserVO {
      */
     private Date createTime;
 
+    /**
+     * 角色列表
+     */
+    private List<UserRoleVO> userRoleVOList;
 }

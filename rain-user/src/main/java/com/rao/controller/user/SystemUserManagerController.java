@@ -5,6 +5,7 @@ import com.rao.annotation.SimpleValid;
 import com.rao.constant.permission.user.SystemCodeConstant;
 import com.rao.constant.permission.user.UserCodeConstant;
 import com.rao.pojo.dto.SaveSystemUserDTO;
+import com.rao.pojo.vo.user.SystemUserDetailVO;
 import com.rao.pojo.vo.user.SystemUserVO;
 import com.rao.service.user.SystemUserService;
 import com.rao.util.page.PageParam;
@@ -51,8 +52,8 @@ public class SystemUserManagerController {
      */
     @GetMapping("/{id}")
     @PreAuthorize("hasAuthority('" + UserCodeConstant.ADMIN_SYSTEM_USER_DETAIL + "')")
-    public ResultMessage detail(@PathVariable("id") Long id) {
-        SystemUserVO systemUser = systemUserService.findSystemUserById(id);
+    public ResultMessage<SystemUserDetailVO> detail(@PathVariable("id") Long id) {
+        SystemUserDetailVO systemUser = systemUserService.findSystemUserById(id);
         return ResultMessage.success(systemUser);
     }
 
@@ -121,8 +122,8 @@ public class SystemUserManagerController {
     @PostMapping("/reset_password/{id}")
     @PreAuthorize("hasAuthority('" + UserCodeConstant.ADMIN_SYSTEM_USER_RESET_PASSWORD + "')")
     public ResultMessage resetPassword(@PathVariable("id") Long id,
-                                       @SimpleValid @NotBlank(message = "密码不能为空") @RequestParam String password){
-        
+                                       @SimpleValid @NotBlank(message = "密码不能为空") @RequestParam String password) {
+        systemUserService.resetPassword(id, password);
         return ResultMessage.success();
     }
 

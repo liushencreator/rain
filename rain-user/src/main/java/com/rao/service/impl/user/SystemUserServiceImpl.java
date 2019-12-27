@@ -9,6 +9,7 @@ import com.rao.pojo.dto.SaveSystemUserDTO;
 import com.rao.pojo.entity.system.RainPermission;
 import com.rao.pojo.entity.system.RainUserRole;
 import com.rao.pojo.entity.user.RainSystemUser;
+import com.rao.pojo.vo.user.SystemUserDetailVO;
 import com.rao.pojo.vo.user.SystemUserVO;
 import com.rao.pojo.vo.user.UserRoleVO;
 import com.rao.service.user.SystemUserService;
@@ -34,6 +35,7 @@ import java.util.stream.Collectors;
  * @Date: 2019-12-16 16:43  //时间
  */
 @Service
+
 public class SystemUserServiceImpl implements SystemUserService {
 
     @Resource
@@ -55,9 +57,9 @@ public class SystemUserServiceImpl implements SystemUserService {
     }
 
     @Override
-    public SystemUserVO findSystemUserById(Long id) {
+    public SystemUserDetailVO findSystemUserById(Long id) {
         RainSystemUser rainSystemUser = rainSystemUserDao.selectByPrimaryKey(id);
-        SystemUserVO systemUserVO = CopyUtil.transToO(rainSystemUser, SystemUserVO.class);
+        SystemUserDetailVO systemUserDetailVO = CopyUtil.transToO(rainSystemUser, SystemUserDetailVO.class);
 
         //查询用户下的角色
         Example userRoleExample = new Example(RainUserRole.class);
@@ -68,8 +70,8 @@ public class SystemUserServiceImpl implements SystemUserService {
 
         //封装用户角色信息
         List<UserRoleVO> userRoleVOList = CopyUtil.transToOList(userRoleList, UserRoleVO.class);
-        systemUserVO.setUserRoleVOList(userRoleVOList);
-        return systemUserVO;
+        systemUserDetailVO.setUserRoleVOList(userRoleVOList);
+        return systemUserDetailVO;
     }
 
     @Transactional(rollbackFor = Exception.class)
@@ -153,5 +155,16 @@ public class SystemUserServiceImpl implements SystemUserService {
         rainSystemUser.setStatus(status);
         rainSystemUser.setUpdateTime(new Date());
         rainSystemUserDao.updateByPrimaryKeySelective(rainSystemUser);
+    }
+
+    @Override
+    public void resetPassword(Long id, String password) {
+        RainSystemUser rainSystemUser = rainSystemUserDao.selectByPrimaryKey(id);
+        if (null == rainSystemUser) {
+            throw BusinessException.operate(id + "不存在");
+        }
+        RainSystemUser systemUser=new RainSystemUser();
+        systemUser.setPassword(passwordEncoder.encode(password));
+        rainSystemUserDao.updateByPrimaryKey(systemUser);
     }
 }
