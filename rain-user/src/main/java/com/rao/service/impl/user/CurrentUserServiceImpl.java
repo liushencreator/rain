@@ -64,10 +64,10 @@ public class CurrentUserServiceImpl implements CurrentUserService {
             Example userRoleExample = new Example(RainUserRole.class);
             userRoleExample.createCriteria().andEqualTo("userId", id);
             List<RainUserRole> rainUserRoleList = userRoleDao.selectByExample(userRoleExample);
-            Example roleIdExample = new Example(RainUserRole.class);
 
             //查询角色
             if(!CollectionUtils.isEmpty(rainUserRoleList)){
+                Example roleIdExample = new Example(RainUserRole.class);
                 roleIdExample.createCriteria().andIn("id",rainUserRoleList.stream().map(item->item.getRoleId()).collect(Collectors.toList()));
                 List<RainRole> rainRoleList = rainRoleDao.selectByExample(roleIdExample);
                 List<UserRoleVO> userRoleVOList = CopyUtil.transToOList(rainRoleList, UserRoleVO.class);
@@ -84,16 +84,18 @@ public class CurrentUserServiceImpl implements CurrentUserService {
         RainSystemUser systemUser = rainSystemUserDao.selectByPrimaryKey(id);
         if (systemUser != null) {
             if(!newPassword.equals(rePassword)){
-                throw BusinessException.operate("两次密码不一致");
+                throw BusinessException.operate("新密码与确认密码不一致");
             }
             //校验旧密码
             boolean matched = passwordEncoder.matches(oldPassword, systemUser.getPassword());
             if (matched) {
                 if(oldPassword.equals(newPassword)){
-                    throw BusinessException.operate("新密码不能与旧密码相同");
+                    throw BusinessException.operate("新密码与旧密码相同");
                 }
-                systemUser.setPassword(passwordEncoder.encode(newPassword));
-                rainSystemUserDao.updateByPrimaryKey(systemUser);
+                RainSystemUser updateUser = new RainSystemUser();
+                updateUser.setId(id);
+                updateUser.setPassword(passwordEncoder.encode(newPassword));
+                rainSystemUserDao.updateByPrimaryKeySelective(updateUser);
             }else{
                 throw BusinessException.operate("旧密码错误");
             }

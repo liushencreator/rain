@@ -34,29 +34,23 @@ public class CurrentSystemUserController {
     }
 
     /**
-     * 查询当前用户个人信息
+     * 查询当前用户详细信息
      * @return
      */
-    @GetMapping("info")
+    @GetMapping("/info")
     public ResultMessage<UserInfoVO> findUserInfo(CurrentUserInfo currentUser) {
         UserInfoVO userInfoVO = currentUserService.info(currentUser.getId());
         return ResultMessage.success(userInfoVO);
     }
 
     /**
-     * 查询当前用户个人信息
+     * 修改用户密码
      * @return
      */
-    @PutMapping("password")
+    @PutMapping("/password")
     public ResultMessage rePassword(CurrentUserInfo currentUser, @BeanValid @RequestBody RePasswordDTO rePasswordDTO) {
         currentUserService.rePassword(currentUser.getId(), rePasswordDTO.getOldPassword(), rePasswordDTO.getNewPassword(),rePasswordDTO.getRePassword());
         return ResultMessage.success();
-    }
-
-
-    @GetMapping("test")
-    public String test(){
-        return "hello resource";
     }
 
 }
