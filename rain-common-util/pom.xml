@@ -34,6 +34,14 @@
             <artifactId>lombok</artifactId>
             <version>1.16.22</version>
         </dependency>
+
+        <dependency>
+            <groupId>eu.bitwalker</groupId>
+            <artifactId>UserAgentUtils</artifactId>
+            <version>1.21</version>
+        </dependency>
+
+
     </dependencies>
 
     <build>
