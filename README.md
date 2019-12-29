@@ -9,9 +9,13 @@
 >
 ##### 后端
 
-> springboot + eureka + feign + hystrix + getway + mybatis + mysql + redis
+> springboot + eureka + feign + hystrix 
+>
+> gateway + mybatis + mysql + redis + rocketMQ
 >
 > spring security + oauth2
+>
+> quartz
 >
 
 ### 注意事项
