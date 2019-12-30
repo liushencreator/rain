@@ -28,6 +28,7 @@
         <module>rain-resource</module>
         <module>rain-user</module>
         <module>rain-quartz</module>
+        <module>rain-log</module>
     </modules>
 
     <properties>
