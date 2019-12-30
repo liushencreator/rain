@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull;
  * 分页参数
  * @author : hudelin
  * @className :PageParam
- * @description :
+ * @description :分页请求
  * @date: 2019-12-16 15:31
  */
 @Data
