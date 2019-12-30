@@ -3,6 +3,7 @@ package com.rao.service.user;
 import com.rao.pojo.dto.SaveSystemUserDTO;
 import com.rao.pojo.vo.user.SystemUserDetailVO;
 import com.rao.pojo.vo.user.SystemUserVO;
+import com.rao.pojo.vo.user.UserRoleListVO;
 import com.rao.util.page.PageParam;
 import com.rao.util.result.PageResult;
 
@@ -88,4 +89,11 @@ public interface SystemUserService {
      * @param password
      */
     void resetPassword(Long id,String password);
+
+    /**
+     * 根据用户id查询角色列表
+     * @param id
+     * @return
+     */
+    UserRoleListVO userRoles(Long id);
 }

@@ -2,15 +2,18 @@ package com.rao.service.impl.user;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.rao.dao.system.RainRoleDao;
 import com.rao.dao.system.RainUserRoleDao;
 import com.rao.dao.user.RainSystemUserDao;
 import com.rao.exception.BusinessException;
 import com.rao.pojo.dto.SaveSystemUserDTO;
 import com.rao.pojo.entity.system.RainPermission;
+import com.rao.pojo.entity.system.RainRole;
 import com.rao.pojo.entity.system.RainUserRole;
 import com.rao.pojo.entity.user.RainSystemUser;
 import com.rao.pojo.vo.user.SystemUserDetailVO;
 import com.rao.pojo.vo.user.SystemUserVO;
+import com.rao.pojo.vo.user.UserRoleListVO;
 import com.rao.pojo.vo.user.UserRoleVO;
 import com.rao.service.user.SystemUserService;
 import com.rao.util.CopyUtil;
@@ -21,9 +24,11 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 import tk.mybatis.mapper.entity.Example;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -44,6 +49,9 @@ public class SystemUserServiceImpl implements SystemUserService {
     private RainUserRoleDao userRoleDao;
     @Resource
     private BCryptPasswordEncoder passwordEncoder;
+
+    @Resource
+    private RainRoleDao rainRoleDao;
 
     @Override
     public PageResult<SystemUserVO> getSystemUserList(PageParam pageParam) {
@@ -112,7 +120,15 @@ public class SystemUserServiceImpl implements SystemUserService {
 
     @Override
     public void deleteUserById(Long id) {
-
+        RainSystemUser rainSystemUser = rainSystemUserDao.selectByPrimaryKey(id);
+        if (null == rainSystemUser) {
+            throw BusinessException.operate(id + "不存在");
+        }
+        RainSystemUser user=new RainSystemUser();
+        user.setId(id);
+        user.setStatus(4);
+        user.setDeleteTime(new Date());
+        rainSystemUserDao.updateByPrimaryKeySelective(user);
     }
 
     @Override
@@ -166,5 +182,24 @@ public class SystemUserServiceImpl implements SystemUserService {
         RainSystemUser systemUser=new RainSystemUser();
         systemUser.setPassword(passwordEncoder.encode(password));
         rainSystemUserDao.updateByPrimaryKey(systemUser);
+    }
+
+    @Override
+    public UserRoleListVO userRoles(Long id) {
+        //查询用户角色关联
+        Example userRoleExample = new Example(RainUserRole.class);
+        userRoleExample.createCriteria().andEqualTo("userId", id);
+        List<RainUserRole> rainUserRoleList = userRoleDao.selectByExample(userRoleExample);
+
+        //查询角色
+        if(!CollectionUtils.isEmpty(rainUserRoleList)){
+            Example roleIdExample = new Example(RainUserRole.class);
+            roleIdExample.createCriteria().andIn("id",rainUserRoleList.stream().map(item->item.getRoleId()).collect(Collectors.toList()));
+            List<RainRole> rainRoleList = rainRoleDao.selectByExample(roleIdExample);
+            List<UserRoleVO> userRoleVOList = CopyUtil.transToOList(rainRoleList, UserRoleVO.class);
+            return UserRoleListVO.builder().roleList(userRoleVOList).build();
+        }else{
+            return UserRoleListVO.builder().roleList(new ArrayList<>()).build();
+        }
     }
 }
