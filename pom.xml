@@ -45,6 +45,7 @@
         <hutool.version>4.2.1</hutool.version>
         <shiro.version>1.4.0</shiro.version>
         <rain.api.version>1.0-SNAPSHOT</rain.api.version>
+        <swagger.version>2.9.1</swagger.version>
         <rain.server.util.version>1.0-SNAPSHOT</rain.server.util.version>
     </properties>
 
@@ -85,6 +86,19 @@
                 <groupId>com.rao</groupId>
                 <artifactId>rain-api</artifactId>
                 <version>${rain.api.version}</version>
+            </dependency>
+
+           <!--整合swagger-ui-->
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-swagger2</artifactId>
+                <version>${swagger.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-swagger-ui</artifactId>
+                <version>${swagger.version}</version>
             </dependency>
 
             <dependency>

@@ -28,6 +28,15 @@
         </dependency>
         <!-- 微服务基本 jar -->
         <!-- 本地 jar -->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+        </dependency>
 
     </dependencies>
 
