@@ -180,6 +180,7 @@ public class SystemUserServiceImpl implements SystemUserService {
             throw BusinessException.operate(id + "不存在");
         }
         RainSystemUser systemUser=new RainSystemUser();
+        systemUser.setId(rainSystemUser.getId());
         systemUser.setPassword(passwordEncoder.encode(password));
         rainSystemUserDao.updateByPrimaryKey(systemUser);
     }
@@ -190,12 +191,13 @@ public class SystemUserServiceImpl implements SystemUserService {
         Example userRoleExample = new Example(RainUserRole.class);
         userRoleExample.createCriteria().andEqualTo("userId", id);
         List<RainUserRole> rainUserRoleList = userRoleDao.selectByExample(userRoleExample);
+        userRoleExample.clear();
 
         //查询角色
         if(!CollectionUtils.isEmpty(rainUserRoleList)){
-            Example roleIdExample = new Example(RainUserRole.class);
-            roleIdExample.createCriteria().andIn("id",rainUserRoleList.stream().map(item->item.getRoleId()).collect(Collectors.toList()));
-            List<RainRole> rainRoleList = rainRoleDao.selectByExample(roleIdExample);
+            userRoleExample = new Example(RainUserRole.class);
+            userRoleExample.createCriteria().andIn("id",rainUserRoleList.stream().map(item->item.getRoleId()).collect(Collectors.toList()));
+            List<RainRole> rainRoleList = rainRoleDao.selectByExample(userRoleExample);
             List<UserRoleVO> userRoleVOList = CopyUtil.transToOList(rainRoleList, UserRoleVO.class);
             return UserRoleListVO.builder().roleList(userRoleVOList).build();
         }else{
