@@ -41,12 +41,6 @@ public class CurrentSystemUserController {
      */
     @GetMapping("/info")
     @ApiOperation(value = "查询当前用户详细信息",httpMethod = "GET")
-    @ApiResponses({
-            @ApiResponse(code = 401, message = "未登录"),
-            @ApiResponse(code = 403, message = "未授权"),
-            @ApiResponse(code = 404, message = "请求路径不存在"),
-            @ApiResponse(code = 500, message = "服务器内部错误"),
-    })
     public ResultMessage<UserInfoVO> findUserInfo(CurrentUserInfo currentUser) {
         UserInfoVO userInfoVO = currentUserService.info(currentUser.getId());
         return ResultMessage.success(userInfoVO);

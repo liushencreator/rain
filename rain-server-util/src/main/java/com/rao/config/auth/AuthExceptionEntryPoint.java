@@ -1,4 +1,4 @@
-package com.rao.auth;
+package com.rao.config.auth;
 
 import com.alibaba.fastjson.JSON;
 import com.rao.util.result.ResultMessage;

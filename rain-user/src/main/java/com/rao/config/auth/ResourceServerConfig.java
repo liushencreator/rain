@@ -1,6 +1,5 @@
 package com.rao.config.auth;
 
-import com.rao.auth.AuthExceptionEntryPoint;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
