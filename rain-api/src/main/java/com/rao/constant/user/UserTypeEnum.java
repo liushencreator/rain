@@ -16,11 +16,6 @@ public enum UserTypeEnum {
     ADMIN("admin"),
 
     /**
-     * B 端用户
-     */
-    B_USER("b_user"),
-
-    /**
      * C 端用户
      */
     C_USER("c_user"),

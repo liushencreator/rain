@@ -1,5 +1,6 @@
 package com.rao.config.auth;
 
+import com.rao.service.impl.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
@@ -37,6 +38,11 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     private AuthenticationManager authenticationManager;
     @Autowired
     private RedisConnectionFactory redisConnectionFactory;
+
+    @Bean
+    public UserDetailsService userDetailsService() {
+        return new UserDetailsServiceImpl();
+    }
     
 
     @Bean
@@ -63,7 +69,8 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
         // 用于支持密码模式
         endpoints
                 .authenticationManager(authenticationManager)
-                .tokenStore(tokenStore());
+                .tokenStore(tokenStore())
+                .userDetailsService(userDetailsService());
     }
 
     @Override

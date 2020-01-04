@@ -3,12 +3,12 @@ package com.rao.pojo.dto;
 import lombok.Data;
 
 /**
- * 登录参数
+ * 密码登录
  * @author raojing
  * @date 2019/12/2 14:18
  */
 @Data
-public class LoginDTO {
+public class PasswordLoginDTO {
 
     /**
      * 用户名

@@ -29,9 +29,6 @@ public class UserServiceImpl implements UserService {
             RainSystemUser systemUser = rainSystemUserDao.findByUserNameOrPhone(userName);
             loginUser = new LoginUserBO();
             BeanUtils.copyProperties(systemUser, loginUser);
-        }else if(UserTypeEnum.B_USER.getValue().equals(type)){
-            // B 端用户(暂无)
-
         }else if(UserTypeEnum.C_USER.getValue().equals(type)){
             // C 端用户(暂无)
 
