@@ -25,7 +25,9 @@ import java.util.Iterator;
 import java.util.Map;
 
 /**
- * Created by zj on 2018/10/26.
+ * 微信小程序工具类
+ * @author raojing
+ * @date 2020/1/6 15:45
  */
 public class WxAppletUtils {
 
