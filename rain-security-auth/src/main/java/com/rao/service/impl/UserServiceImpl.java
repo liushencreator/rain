@@ -1,8 +1,12 @@
 package com.rao.service.impl;
 
+import com.rao.constant.common.StateConstants;
+import com.rao.constant.sms.SmsOperationTypeEnum;
 import com.rao.constant.user.UserTypeEnum;
 import com.rao.dao.RainSystemUserDao;
+import com.rao.exception.BusinessException;
 import com.rao.pojo.bo.LoginUserBO;
+import com.rao.pojo.dto.SmsSendDTO;
 import com.rao.pojo.entity.RainSystemUser;
 import com.rao.service.UserService;
 import org.springframework.beans.BeanUtils;
@@ -31,9 +35,39 @@ public class UserServiceImpl implements UserService {
             BeanUtils.copyProperties(systemUser, loginUser);
         }else if(UserTypeEnum.C_USER.getValue().equals(type)){
             // C 端用户(暂无)
-
+            
         }
         return loginUser;
+    }
+
+    @Override
+    public void checkAccount(SmsSendDTO smsSendDTO) {
+        SmsOperationTypeEnum operationType = SmsOperationTypeEnum.ofType(smsSendDTO.getType());
+        UserTypeEnum userType = UserTypeEnum.ofValue(smsSendDTO.getAccountType());
+        LoginUserBO userBO = this.findByUserNameOrPhoneAndUserType(smsSendDTO.getPhone(), userType.getValue());
+        switch (operationType){
+            case LOGIN:
+                // 登录
+            case RESET_PWD:
+                // 找回密码
+            case VERIFY_IDENTITY:
+                // 验证身份
+                if(userBO == null){
+                    throw BusinessException.operate("用户不存在哦");
+                }
+                if(!userBO.getStatus().equals(StateConstants.STATE_ENABLE)){
+                    throw BusinessException.operate("账户不可用");
+                }
+                break;
+            case REGISTER:
+                // 注册
+                if(userBO != null){
+                    throw BusinessException.operate("用户已注册");
+                }
+                break;
+            default:
+                throw BusinessException.operate("检查账号失败");
+        }
     }
 
 }

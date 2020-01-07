@@ -28,7 +28,7 @@ public class SmsCodeServiceImpl implements SmsCodeService {
          * 此处不做账户的校验，直接发送短信
          */
         SmsOperationTypeEnum operationType = SmsOperationTypeEnum.ofType(smsSendDTO.getType());
-        String cacheKey = MessageCacheKey.smsCacheKey(operationType, smsSendDTO.getPhone());
+        String cacheKey = MessageCacheKey.smsCacheKey(operationType, smsSendDTO.getAccountType(), smsSendDTO.getPhone());
         this.checkOperation(cacheKey);
         
         // todo 发送短信

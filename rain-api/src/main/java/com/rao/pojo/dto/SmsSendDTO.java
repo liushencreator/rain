@@ -15,6 +15,12 @@ import javax.validation.constraints.NotNull;
 public class SmsSendDTO {
 
     /**
+     * 账号类型
+     */
+    @NotBlank(message = "账号类型不能为空")
+    private String accountType;
+
+    /**
      * 手机号码
      */
     @NotBlank(message = "手机号码不能为空")

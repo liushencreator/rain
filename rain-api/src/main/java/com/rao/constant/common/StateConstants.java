@@ -16,5 +16,15 @@ public interface StateConstants {
      * 禁用
      */
     Integer STATE_FORBID = 2;
+
+    /**
+     * 锁定
+     */
+    Integer STATE_LOCK = 3;
+
+    /**
+     * 删除
+     */
+    Integer STATE_DELETE = 4;    
     
 }

@@ -12,11 +12,12 @@ public class MessageCacheKey {
     /**
      * 构建短信缓存健
      * @param operationType
+     * @param accountType
      * @param phone
      * @return
      */
-    public static String smsCacheKey(SmsOperationTypeEnum operationType, String phone){
-        return "sms:" + operationType.getType() + ":" + phone;
+    public static String smsCacheKey(SmsOperationTypeEnum operationType, String accountType, String phone){
+        return "sms:" + operationType.getType() + ":" + accountType + ":" + phone;
     }
     
 }

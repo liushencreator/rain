@@ -1,5 +1,6 @@
 package com.rao.constant.user;
 
+import com.rao.exception.BusinessException;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -26,5 +27,14 @@ public enum UserTypeEnum {
      */
     @Getter
     private String value;
-
+    
+    public static UserTypeEnum ofValue(String value){
+        for (UserTypeEnum userTypeEnum : values()) {
+            if(userTypeEnum.getValue().equals(value)){
+                return userTypeEnum;
+            }
+        }
+        throw BusinessException.operate("没有匹配的用户类型");
+    }
+    
 }

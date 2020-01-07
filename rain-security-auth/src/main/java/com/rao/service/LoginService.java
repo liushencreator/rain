@@ -1,6 +1,7 @@
 package com.rao.service;
 
 import com.rao.pojo.dto.PasswordLoginDTO;
+import com.rao.pojo.dto.RefreshTokenDTO;
 import com.rao.pojo.dto.SmsCodeLoginDTO;
 import com.rao.pojo.dto.WxLoginDTO;
 import com.rao.pojo.vo.LoginSuccessVO;
@@ -21,11 +22,10 @@ public interface LoginService {
 
     /**
      * 刷新用户token
-     * @param accountType
-     * @param refreshToken
+     * @param refreshTokenDTO
      * @return
      */
-    LoginSuccessVO refreshToken(Integer accountType, String refreshToken);
+    LoginSuccessVO refreshToken(RefreshTokenDTO refreshTokenDTO);
 
     /**
      * 后台用户短信验证码登录

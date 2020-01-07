@@ -1,6 +1,7 @@
 package com.rao.service;
 
 import com.rao.pojo.bo.LoginUserBO;
+import com.rao.pojo.dto.SmsSendDTO;
 
 /**
  * 用户 service
@@ -17,4 +18,9 @@ public interface UserService {
      */
     LoginUserBO findByUserNameOrPhoneAndUserType(String userName, String type);
 
+    /**
+     * 检查账号状态
+     * @param smsSendDTO
+     */
+    void checkAccount(SmsSendDTO smsSendDTO);
 }

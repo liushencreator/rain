@@ -7,6 +7,7 @@ import com.rao.dto.WxUserInfo;
 import com.rao.exception.BusinessException;
 import com.rao.pojo.bo.OauthTokenResponse;
 import com.rao.pojo.dto.PasswordLoginDTO;
+import com.rao.pojo.dto.RefreshTokenDTO;
 import com.rao.pojo.dto.SmsCodeLoginDTO;
 import com.rao.pojo.dto.WxLoginDTO;
 import com.rao.pojo.vo.LoginSuccessVO;
@@ -65,7 +66,9 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public LoginSuccessVO refreshToken(Integer accountType, String refreshToken) {
+    public LoginSuccessVO refreshToken(RefreshTokenDTO refreshTokenDTO) {
+        Integer accountType = refreshTokenDTO.getAccountType();
+        String refreshToken = refreshTokenDTO.getRefreshToken();
         String type = accountType == 1 ? UserTypeEnum.ADMIN.getValue() : UserTypeEnum.C_USER.getValue();
         return requestAccessToken(buildRefreshTokenParam(type, refreshToken), OPERATION_REFRESH_TOKEN);
     }

@@ -1,13 +1,11 @@
 package com.rao.controller;
 
-import com.rao.annotation.SimpleValid;
-import com.rao.pojo.dto.PasswordLoginDTO;
-import com.rao.pojo.dto.SmsCodeLoginDTO;
-import com.rao.pojo.dto.WxLoginDTO;
+import com.rao.annotation.BeanValid;
+import com.rao.pojo.dto.*;
 import com.rao.pojo.vo.LoginSuccessVO;
 import com.rao.service.LoginService;
+import com.rao.service.UserService;
 import com.rao.util.result.ResultMessage;
-import org.hibernate.validator.constraints.Range;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,8 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 
 /**
  * 登录管理
@@ -29,6 +25,8 @@ public class UserLoginController {
 
     @Resource
     private LoginService loginService;
+    @Resource    
+    private UserService userService;
     @Resource
     private TokenStore tokenStore;
 
@@ -76,15 +74,24 @@ public class UserLoginController {
 
     /**
      * 刷新token
-     * @param accountType
-     * @param refreshToken
+     * @param refreshTokenDTO
      * @return
      */
     @PostMapping(value = "/refresh_token")
-    public ResultMessage<LoginSuccessVO> refreshToken(@SimpleValid @NotNull(message = "用户类型不能为空") @Range(min = 1, max = 2, message = "用户类型非法") Integer accountType,
-                                                      @SimpleValid @NotBlank(message = "refreshToken 不能为空") String refreshToken){
-        LoginSuccessVO loginSuccessVO = loginService.refreshToken(accountType, refreshToken);
+    public ResultMessage<LoginSuccessVO> refreshToken(@BeanValid @RequestBody RefreshTokenDTO refreshTokenDTO){
+        LoginSuccessVO loginSuccessVO = loginService.refreshToken(refreshTokenDTO);
         return ResultMessage.success(loginSuccessVO).message("令牌刷新成功");
+    }
+
+    /**
+     * 检查账号（验证码发送前校验）
+     * @param smsSendDTO
+     * @return
+     */
+    @PostMapping(value = "/check_account")
+    public ResultMessage checkAccount(@BeanValid @RequestBody SmsSendDTO smsSendDTO){
+        userService.checkAccount(smsSendDTO);
+        return ResultMessage.success();
     }
 
     /**

@@ -25,9 +25,9 @@ public enum SmsOperationTypeEnum {
     REGISTER(2, "注册"),
 
     /**
-     * 重置密码
+     * 找回密码
      */
-    RESET_PWD(3, "重置密码"),
+    RESET_PWD(3, "找回密码"),
 
     /**
      * 验证身份
