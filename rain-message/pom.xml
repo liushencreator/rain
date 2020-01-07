@@ -19,8 +19,12 @@
     </parent>
 
     <dependencies>
-        
+
         <!-- 本地 jar -->
+        <dependency>
+            <groupId>com.rao</groupId>
+            <artifactId>rain-extend-util</artifactId>
+        </dependency>
         <!-- 微服务基本 jar -->
         <dependency>
             <groupId>com.rao</groupId>
