@@ -1,4 +1,4 @@
-package com.rao.component.listener;
+package com.rao.component;
 
 import org.apache.rocketmq.spring.annotation.RocketMQMessageListener;
 import org.apache.rocketmq.spring.core.RocketMQListener;
@@ -12,11 +12,11 @@ import org.springframework.stereotype.Service;
  */
 @Service
 @RocketMQMessageListener(topic = "topic", consumerGroup = "GroupA")
-public class LoginLogoutListener implements RocketMQListener {
+public class AnotherListener implements RocketMQListener {
 
 
     @Override
     public void onMessage(Object o) {
-        System.out.println("LoginLogoutListener"+o);
+        System.out.println("AnotherListener"+o);
     }
 }

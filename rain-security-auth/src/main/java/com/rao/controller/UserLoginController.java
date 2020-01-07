@@ -1,5 +1,6 @@
 package com.rao.controller;
 
+import com.rao.component.LoginLogoutProducer;
 import com.rao.pojo.dto.LoginDTO;
 import com.rao.service.LoginService;
 import com.rao.util.result.ResultMessage;
@@ -22,6 +23,8 @@ public class UserLoginController {
     private LoginService loginService;
     @Resource
     private TokenStore tokenStore;
+    @Resource
+    private LoginLogoutProducer loginLogoutProducer;
 
     /**
      * 后台用户登录
@@ -31,6 +34,7 @@ public class UserLoginController {
     @PostMapping(value = "/login/system_user")
     public ResultMessage<String> loginSystemUser(@RequestBody LoginDTO loginDTO) {
         String accessToken = loginService.loginAdmin(loginDTO);
+        loginLogoutProducer.sendMsg();
         return ResultMessage.success(accessToken).message("登录成功");
     }
 
