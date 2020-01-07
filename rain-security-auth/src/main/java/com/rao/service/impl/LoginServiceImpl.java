@@ -1,10 +1,15 @@
 package com.rao.service.impl;
 
+import com.rao.component.LoginLogoutProducer;
 import com.rao.constant.user.UserTypeEnum;
+import com.rao.dto.IpInfo;
 import com.rao.exception.BusinessException;
 import com.rao.pojo.bo.OauthTokenResponse;
+import com.rao.pojo.bo.SystemUserLoginLogoutLogBO;
 import com.rao.pojo.dto.LoginDTO;
 import com.rao.service.LoginService;
+import com.rao.util.CopyUtil;
+import com.rao.util.common.UserAgentUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -17,8 +22,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author raojing
@@ -35,6 +43,9 @@ public class LoginServiceImpl implements LoginService {
     @Resource
     private RestTemplate restTemplate;
 
+    @Resource
+    private LoginLogoutProducer loginLogoutProducer;
+
     @Override
     public String loginAdmin(LoginDTO loginDTO) {
         // 认证
@@ -46,7 +57,16 @@ public class LoginServiceImpl implements LoginService {
             throw BusinessException.operate("密码错误，请重试");
         }
         // 获取 access_token
-        return requestAccessToken(userName, loginDTO.getPassword());
+        String accessToken = requestAccessToken(userName, loginDTO.getPassword());
+
+        //发送登录日志
+        ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        HttpServletRequest request = requestAttributes.getRequest();
+        IpInfo ipInfo = UserAgentUtils.getIpInfo(UserAgentUtils.getIpAddr(request));
+        SystemUserLoginLogoutLogBO systemUserLoginLogoutLogBO = CopyUtil.transToO(ipInfo, SystemUserLoginLogoutLogBO.class);
+        loginLogoutProducer.sendMsg(systemUserLoginLogoutLogBO);
+
+        return accessToken;
     }
 
     /**

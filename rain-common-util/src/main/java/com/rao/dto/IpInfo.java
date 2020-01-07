@@ -16,16 +16,34 @@ public class IpInfo implements Serializable {
 
     private String ip;
 
+    /**
+     * 国家
+     */
     private String country;
 
+    /**
+     * 区县
+     */
     private String area;
 
+    /**
+     * 省份
+     */
     private String region;
 
+    /**
+     * 城市
+     */
     private String city;
 
+    /**
+     * 县
+     */
     private String county;
 
+    /**
+     * 互联网服务提供商
+     */
     private String isp;
 
     private String country_id;

@@ -1,11 +1,7 @@
 package com.rao.component;
 
-import org.apache.rocketmq.client.producer.SendResult;
-import org.apache.rocketmq.common.message.MessageConst;
-import org.apache.rocketmq.spring.annotation.RocketMQTransactionListener;
+import com.rao.pojo.bo.SystemUserLoginLogoutLogBO;
 import org.apache.rocketmq.spring.core.RocketMQTemplate;
-import org.springframework.messaging.Message;
-import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -22,15 +18,8 @@ public class LoginLogoutProducer {
     @Resource
     private RocketMQTemplate rocketMQTemplate;
 
-    public void sendMsg() {
-
-        for(int i=0;i<10;i++){
-            Message<?> a=MessageBuilder.withPayload(i).build();
-            rocketMQTemplate.sendMessageInTransaction("test","topic", a,null);
-        }
-
-
-
+    public void sendMsg(SystemUserLoginLogoutLogBO systemUserLoginLogoutLogBO) {
+        rocketMQTemplate.convertAndSend("topic", systemUserLoginLogoutLogBO);
     }
 
 }
