@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.rao.dao.RainMemberDao">
+	
+	<resultMap id="RainMemberResultMap" type="com.rao.pojo.entity.RainMember">
+		<id property="id" column="id"  />
+		<result property="userName" column="user_name" />
+		<result property="phone" column="phone" />
+		<result property="password" column="password" />
+		<result property="nickname" column="nickname" />
+		<result property="wxOpenid" column="wx_openid" />
+		<result property="wxNickname" column="wx_nickname" />
+		<result property="email" column="email" />
+		<result property="avatar" column="avatar" />
+		<result property="gender" column="gender" />
+		<result property="status" column="status" />
+		<result property="personalSignature" column="personal_signature" />
+		<result property="birthday" column="birthday" />
+		<result property="createTime" column="create_time" />
+		<result property="updateTime" column="update_time" />
+	</resultMap>
+	
+	<!-- 定义可重用的SQL代码段，可以包含在其他语句中 -->
+	<sql id="base_column">
+		 id ,user_name ,phone ,password ,nickname ,wx_openid ,wx_nickname ,email ,avatar ,gender ,status ,personal_signature ,birthday ,create_time ,update_time 
+	</sql>
+	
+	<sql id="base_value_column">
+		 #{id},#{userName},#{phone},#{password},#{nickname},#{wxOpenid},#{wxNickname},#{email},#{avatar},#{gender},#{status},#{personalSignature},#{birthday},#{createTime},#{updateTime}
+	</sql>
+	
+	<!-- 定义可重用的WHERE SQL公共代码段，可以包含在其他语句中 -->
+	<sql id="where_column">
+		<if test="id != null">
+			AND id = #{id,jdbcType=BIGINT}
+		</if>
+		<if test="userName != null and userName != ''">
+			AND user_name = #{userName,jdbcType=VARCHAR}
+		</if>
+		<if test="phone != null and phone != ''">
+			AND phone = #{phone,jdbcType=VARCHAR}
+		</if>
+		<if test="password != null and password != ''">
+			AND password = #{password,jdbcType=VARCHAR}
+		</if>
+		<if test="nickname != null and nickname != ''">
+			AND nickname = #{nickname,jdbcType=VARCHAR}
+		</if>
+		<if test="wxOpenid != null and wxOpenid != ''">
+			AND wx_openid = #{wxOpenid,jdbcType=VARCHAR}
+		</if>
+		<if test="wxNickname != null and wxNickname != ''">
+			AND wx_nickname = #{wxNickname,jdbcType=VARCHAR}
+		</if>
+		<if test="email != null and email != ''">
+			AND email = #{email,jdbcType=VARCHAR}
+		</if>
+		<if test="avatar != null and avatar != ''">
+			AND avatar = #{avatar,jdbcType=VARCHAR}
+		</if>
+		<if test="gender != null">
+			AND gender = #{gender,jdbcType=INTEGER}
+		</if>
+		<if test="status != null">
+			AND status = #{status,jdbcType=INTEGER}
+		</if>
+		<if test="personalSignature != null and personalSignature != ''">
+			AND personal_signature = #{personalSignature,jdbcType=VARCHAR}
+		</if>
+		<if test="birthday != null">
+			AND birthday = #{birthday,jdbcType=TIMESTAMP}
+		</if>
+		<if test="createTime != null">
+			AND create_time = #{createTime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="updateTime != null">
+			AND update_time = #{updateTime,jdbcType=TIMESTAMP}
+		</if>
+	</sql>
+	
+	<!-- 设置语句 -->
+	<sql id="set_column">
+		<if test="id != null">
+			id = #{id,jdbcType=BIGINT},
+		</if>
+		<if test="userName != null and userName != ''">
+			user_name = #{userName,jdbcType=VARCHAR},
+		</if>
+		<if test="phone != null and phone != ''">
+			phone = #{phone,jdbcType=VARCHAR},
+		</if>
+		<if test="password != null and password != ''">
+			password = #{password,jdbcType=VARCHAR},
+		</if>
+		<if test="nickname != null and nickname != ''">
+			nickname = #{nickname,jdbcType=VARCHAR},
+		</if>
+		<if test="wxOpenid != null and wxOpenid != ''">
+			wx_openid = #{wxOpenid,jdbcType=VARCHAR},
+		</if>
+		<if test="wxNickname != null and wxNickname != ''">
+			wx_nickname = #{wxNickname,jdbcType=VARCHAR},
+		</if>
+		<if test="email != null and email != ''">
+			email = #{email,jdbcType=VARCHAR},
+		</if>
+		<if test="avatar != null and avatar != ''">
+			avatar = #{avatar,jdbcType=VARCHAR},
+		</if>
+		<if test="gender != null">
+			gender = #{gender,jdbcType=INTEGER},
+		</if>
+		<if test="status != null">
+			status = #{status,jdbcType=INTEGER},
+		</if>
+		<if test="personalSignature != null and personalSignature != ''">
+			personal_signature = #{personalSignature,jdbcType=VARCHAR},
+		</if>
+		<if test="birthday != null">
+			birthday = #{birthday,jdbcType=TIMESTAMP},
+		</if>
+		<if test="createTime != null">
+			create_time = #{createTime,jdbcType=TIMESTAMP},
+		</if>
+		<if test="updateTime != null">
+			update_time = #{updateTime,jdbcType=TIMESTAMP},
+		</if>
+	</sql>
+
+	<!-- 根据ID查询 -->
+	<select id="find" resultMap="RainMemberResultMap">
+		SELECT	<include refid="base_column" />
+		FROM	RAIN_MEMBER
+		WHERE	ID=#{id,jdbcType=BIGINT}
+	</select>
+	
+	<!-- 查询所有 -->
+	<select id="findAll" resultMap="RainMemberResultMap">
+		SELECT	<include refid="base_column" />
+		FROM	RAIN_MEMBER
+	</select>
+	
+	<!-- 统计记录数 -->
+	<select id="count" resultType="long">
+		SELECT COUNT(*) FROM RAIN_MEMBER
+		<where> 
+			<include refid="where_column" />
+		</where>
+	</select>
+	
+	<!-- 插入 -->
+	<insert id="insert" parameterType="com.rao.pojo.entity.RainMember">
+		INSERT RAIN_MEMBER
+				(<include refid="base_column" /> )
+		VALUES	(<include refid="base_value_column" />)
+	</insert>
+	
+	<!-- 修改 -->
+	<update id="update" parameterType="com.rao.pojo.entity.RainMember">
+		UPDATE	RAIN_MEMBER
+		<set>
+			<include refid="set_column" />
+		</set>
+		WHERE	ID = #{id,jdbcType=BIGINT}
+	</update>
+	
+	<!-- 删除单条记录 -->
+	<delete id="delete">
+		DELETE	FROM RAIN_MEMBER
+		WHERE	ID = #{id,jdbcType=BIGINT}
+	</delete>
+	
+	<!-- 删除多条记录-->
+	<delete id="deleteAll">
+		DELETE	FROM RAIN_MEMBER
+		WHERE	ID	IN
+    	<foreach item="RainMemberId" index="index" collection="ids" open="(" separator="," close=")">
+	  		#{RainMemberId} 
+		</foreach>
+	</delete>
+	
+	<!-- 根据参数查询列表-->
+	<select id="findByParams" resultMap="RainMemberResultMap">
+		SELECT	<include refid="base_column" />
+		FROM 	RAIN_MEMBER
+		<where> 1=1
+			<include refid="where_column" />
+		</where>
+	</select>
+	
+	<!-- 分页查询-->
+	<select id="findByPage" resultMap="RainMemberResultMap">
+		SELECT
+		<include refid="base_column" />
+		FROM RAIN_MEMBER
+		<where> 1=1
+			<include refid="where_column" />
+		</where>
+	</select>
+
+	<!-- insertSelective -->
+	<insert id="insertSelective" parameterType="com.rao.pojo.entity.RainMember">
+		insert into RAIN_MEMBER
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			id,
+			<if test="userName != null and userName != ''">
+				user_name,
+			</if>
+			<if test="phone != null and phone != ''">
+				phone,
+			</if>
+			<if test="password != null and password != ''">
+				password,
+			</if>
+			<if test="nickname != null and nickname != ''">
+				nickname,
+			</if>
+			<if test="wxOpenid != null and wxOpenid != ''">
+				wx_openid,
+			</if>
+			<if test="wxNickname != null and wxNickname != ''">
+				wx_nickname,
+			</if>
+			<if test="email != null and email != ''">
+				email,
+			</if>
+			<if test="avatar != null and avatar != ''">
+				avatar,
+			</if>
+			<if test="gender != null">
+				gender,
+			</if>
+			<if test="status != null">
+				status,
+			</if>
+			<if test="personalSignature != null and personalSignature != ''">
+				personal_signature,
+			</if>
+			<if test="birthday != null">
+				birthday,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="updateTime != null">
+				update_time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			#{id,jdbcType=BIGINT},
+			<if test="userName != null and userName != ''">
+				#{userName,jdbcType=VARCHAR},
+			</if>
+			<if test="phone != null and phone != ''">
+				#{phone,jdbcType=VARCHAR},
+			</if>
+			<if test="password != null and password != ''">
+				#{password,jdbcType=VARCHAR},
+			</if>
+			<if test="nickname != null and nickname != ''">
+				#{nickname,jdbcType=VARCHAR},
+			</if>
+			<if test="wxOpenid != null and wxOpenid != ''">
+				#{wxOpenid,jdbcType=VARCHAR},
+			</if>
+			<if test="wxNickname != null and wxNickname != ''">
+				#{wxNickname,jdbcType=VARCHAR},
+			</if>
+			<if test="email != null and email != ''">
+				#{email,jdbcType=VARCHAR},
+			</if>
+			<if test="avatar != null and avatar != ''">
+				#{avatar,jdbcType=VARCHAR},
+			</if>
+			<if test="gender != null">
+				#{gender,jdbcType=INTEGER},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=INTEGER},
+			</if>
+			<if test="personalSignature != null and personalSignature != ''">
+				#{personalSignature,jdbcType=VARCHAR},
+			</if>
+			<if test="birthday != null">
+				#{birthday,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	
+</mapper> 

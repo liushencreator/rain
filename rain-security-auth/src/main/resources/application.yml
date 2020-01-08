@@ -16,7 +16,7 @@ spring:
   application:
     name: rain-auth
   jackson:
-    date-format: yyyy-MM-dd
+    date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
 
 # mybatis
