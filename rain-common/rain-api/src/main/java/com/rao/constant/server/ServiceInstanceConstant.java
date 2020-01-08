@@ -31,4 +31,15 @@ public interface ServiceInstanceConstant {
      * 日志服务
      */
     String RAIN_LOG = "RAIN-LOG";
+
+    /**
+     * 消息服务
+     */
+    String RAIN_MESSAGE = "RAIN-MESSAGE";
+
+    /**
+     * 支付服务
+     */
+    String RAIN_PAYMENT = "RAIN-PAYMENT";
+    
 }

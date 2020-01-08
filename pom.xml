@@ -28,6 +28,7 @@
         <module>rain-quartz</module>
         <module>rain-log</module>
         <module>rain-message</module>
+        <module>rain-payment</module>
     </modules>
 
     <properties>

@@ -43,6 +43,21 @@ spring:
         predicates:
           - Path=/quartz/**
 
+      - id: rain-log
+        uri: lb://rain-log
+        predicates:
+          - Path=/log/**
+
+      - id: rain-message
+        uri: lb://rain-message
+        predicates:
+          - Path=/message/**
+
+      - id: rain-payment
+        uri: lb://rain-payment
+        predicates:
+          - Path=/payment/**
+          
 management:
   endpoint:
     conditions:
