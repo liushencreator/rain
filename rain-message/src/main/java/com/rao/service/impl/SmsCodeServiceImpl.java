@@ -2,6 +2,7 @@ package com.rao.service.impl;
 
 import com.rao.cache.key.MessageCacheKey;
 import com.rao.constant.sms.SmsOperationTypeEnum;
+import com.rao.constant.user.UserTypeEnum;
 import com.rao.exception.BusinessException;
 import com.rao.pojo.dto.SmsSendDTO;
 import com.rao.service.SmsCodeService;
@@ -27,8 +28,9 @@ public class SmsCodeServiceImpl implements SmsCodeService {
          * 用户在点发送短信验证码之前，需要通过手机号码做检验账号是否存在，是否锁定等操作
          * 此处不做账户的校验，直接发送短信
          */
+        UserTypeEnum userTypeEnum = UserTypeEnum.ofValue(smsSendDTO.getAccountType());
         SmsOperationTypeEnum operationType = SmsOperationTypeEnum.ofType(smsSendDTO.getType());
-        String cacheKey = MessageCacheKey.smsCacheKey(operationType, smsSendDTO.getAccountType(), smsSendDTO.getPhone());
+        String cacheKey = MessageCacheKey.smsCacheKey(operationType, userTypeEnum.getValue(), smsSendDTO.getPhone());
         this.checkOperation(cacheKey);
         
         // todo 发送短信

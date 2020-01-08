@@ -36,7 +36,7 @@ public class UserLoginController {
      * @return
      */
     @PostMapping(value = "/login/system_user")
-    public ResultMessage<LoginSuccessVO> loginSystemUser(@RequestBody PasswordLoginDTO passwordLoginDTO) {
+    public ResultMessage<LoginSuccessVO> loginSystemUser(@BeanValid @RequestBody PasswordLoginDTO passwordLoginDTO) {
         LoginSuccessVO loginSuccessVO = loginService.loginAdmin(passwordLoginDTO);
         return ResultMessage.success(loginSuccessVO).message("登录成功");
     }
@@ -47,7 +47,7 @@ public class UserLoginController {
      * @return
      */
     @PostMapping(value = "/login/sms_code/system_user")
-    public ResultMessage<LoginSuccessVO> smsCodeLoginSystemUser(@RequestBody SmsCodeLoginDTO smsCodeLoginDTO){
+    public ResultMessage<LoginSuccessVO> smsCodeLoginSystemUser(@BeanValid @RequestBody SmsCodeLoginDTO smsCodeLoginDTO){
         LoginSuccessVO loginSuccessVO = loginService.smsCodeLoginSystemUser(smsCodeLoginDTO);
         return ResultMessage.success(loginSuccessVO).message("登录成功");
     }
@@ -67,7 +67,7 @@ public class UserLoginController {
      * @return
      */
     @PostMapping(value = "/login/wx/c_user")
-    public ResultMessage wxLoginCUser(@RequestBody WxLoginDTO wxLoginDTO){
+    public ResultMessage wxLoginCUser(@BeanValid @RequestBody WxLoginDTO wxLoginDTO){
         LoginSuccessVO loginSuccessVO = loginService.wxLoginCUser(wxLoginDTO);
         return ResultMessage.success(loginSuccessVO).message("登录成功");
     }

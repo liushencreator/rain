@@ -1,8 +1,13 @@
 package com.rao.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
+import com.rao.cache.key.MessageCacheKey;
+import com.rao.constant.common.StateConstants;
 import com.rao.constant.server.ServiceInstanceConstant;
+import com.rao.constant.sms.SmsOperationTypeEnum;
+import com.rao.constant.user.UserCommonConstant;
 import com.rao.constant.user.UserTypeEnum;
+import com.rao.dao.RainSystemUserDao;
 import com.rao.dto.WxUserInfo;
 import com.rao.exception.BusinessException;
 import com.rao.pojo.bo.OauthTokenResponse;
@@ -10,8 +15,10 @@ import com.rao.pojo.dto.PasswordLoginDTO;
 import com.rao.pojo.dto.RefreshTokenDTO;
 import com.rao.pojo.dto.SmsCodeLoginDTO;
 import com.rao.pojo.dto.WxLoginDTO;
+import com.rao.pojo.entity.RainSystemUser;
 import com.rao.pojo.vo.LoginSuccessVO;
 import com.rao.service.LoginService;
+import com.rao.util.cache.RedisTemplateUtils;
 import com.rao.util.wx.WxAppletUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
@@ -20,8 +27,6 @@ import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
@@ -39,11 +44,10 @@ import javax.annotation.Resource;
 @Service
 public class LoginServiceImpl implements LoginService {
 
-    private final static int OPERATION_LOGIN = 1;
-    private final static int OPERATION_REFRESH_TOKEN = 2;
-
     @Resource
-    private UserDetailsService userDetailsService;
+    private RainSystemUserDao rainSystemUserDao;
+    @Resource
+    private RedisTemplateUtils redisTemplateUtils;
     @Resource
     private BCryptPasswordEncoder passwordEncoder;
     @Resource
@@ -54,15 +58,20 @@ public class LoginServiceImpl implements LoginService {
     @Override
     public LoginSuccessVO loginAdmin(PasswordLoginDTO passwordLoginDTO) {
         // 认证
-        String userName = UserTypeEnum.ADMIN.getValue() + ":" + passwordLoginDTO.getUsername();
-        UserDetails userDetails = userDetailsService.loadUserByUsername(userName);
-        if(userDetails == null){
-            throw BusinessException.operate("用户不存在");
-        }else if(!passwordEncoder.matches(passwordLoginDTO.getPassword(), userDetails.getPassword())){
-            throw BusinessException.operate("密码错误，请重试");
+        String userName = passwordLoginDTO.getUsername();
+        RainSystemUser systemUser = rainSystemUserDao.findByUserNameOrPhone(userName);
+        if(systemUser == null){
+            throw BusinessException.operate("账号不存在");
+        }else{
+            if(!systemUser.getStatus().equals(StateConstants.STATE_ENABLE)){
+                throw BusinessException.operate("账号不可用");
+            }
+            if(!passwordEncoder.matches(passwordLoginDTO.getPassword(), systemUser.getPassword())){
+                throw BusinessException.operate("密码错误，请重新输入");
+            }
         }
         // 获取 access_token
-        return requestAccessToken(buildLoginParam(userName, passwordLoginDTO.getPassword()), OPERATION_LOGIN);
+        return requestAccessToken(buildLoginParam(UserTypeEnum.ADMIN.getValue(), userName, passwordLoginDTO.getPassword(), true));
     }
 
     @Override
@@ -70,13 +79,30 @@ public class LoginServiceImpl implements LoginService {
         Integer accountType = refreshTokenDTO.getAccountType();
         String refreshToken = refreshTokenDTO.getRefreshToken();
         String type = accountType == 1 ? UserTypeEnum.ADMIN.getValue() : UserTypeEnum.C_USER.getValue();
-        return requestAccessToken(buildRefreshTokenParam(type, refreshToken), OPERATION_REFRESH_TOKEN);
+        return requestAccessToken(buildRefreshTokenParam(type, refreshToken, refreshTokenDTO.getLoginType().equals(UserCommonConstant.PWD_LOGIN)));
     }
 
     @Override
     public LoginSuccessVO smsCodeLoginSystemUser(SmsCodeLoginDTO smsCodeLoginDTO) {
-
-        return null;
+        String phone = smsCodeLoginDTO.getPhone();
+        String smsCode = smsCodeLoginDTO.getSmsCode();
+        // 通过手机号码查询用户信息
+        RainSystemUser systemUser = rainSystemUserDao.findByUserNameOrPhone(phone);
+        if(systemUser == null || !systemUser.getStatus().equals(StateConstants.STATE_ENABLE)){
+            throw BusinessException.operate("账号不存在或不可用");
+        }
+        String smsCacheKey = MessageCacheKey.smsCacheKey(SmsOperationTypeEnum.LOGIN, UserTypeEnum.ADMIN.getValue(), phone);
+        if(!redisTemplateUtils.isExists(smsCacheKey)){
+            throw BusinessException.operate("验证码已过期，请重新获取");
+        }
+        // 校验验证码
+        String smsCacheCode = redisTemplateUtils.get(smsCacheKey);
+        if(!smsCacheCode.equals(smsCode)){
+            throw BusinessException.operate("验证码不正确");
+        }
+        // 获取 access_token
+        LoginSuccessVO loginSuccessVO = requestAccessToken(buildLoginParam(UserTypeEnum.ADMIN.getValue(), phone, "", false));
+        return loginSuccessVO;
     }
 
     @Override
@@ -87,7 +113,7 @@ public class LoginServiceImpl implements LoginService {
         if(StringUtils.isBlank(openId)||StringUtils.isBlank(sessionKey)){
             throw BusinessException.operate("参数无效");
         }
-
+        
         // 获取微信用户信息
         WxUserInfo userInfo = WxAppletUtils.getUserInfo(wxLoginDTO.getEncryptedData(), sessionKey, wxLoginDTO.getIv());
 
@@ -97,10 +123,9 @@ public class LoginServiceImpl implements LoginService {
     /**
      * 获取 access_token
      * @param requestParam
-     * @param operationType
      * @return
      */
-    private LoginSuccessVO requestAccessToken(MultiValueMap<String, String> requestParam, Integer operationType){
+    private LoginSuccessVO requestAccessToken(MultiValueMap<String, String> requestParam){
         ServiceInstance serviceInstance = loadBalancerClient.choose(ServiceInstanceConstant.RAIN_AUTH);
         if(serviceInstance == null){
             throw BusinessException.operate("当前系统不稳定，请检查注册中心状态");
@@ -126,17 +151,23 @@ public class LoginServiceImpl implements LoginService {
 
     /**
      * 构建登录请求参数
+     * @param accountType
      * @param userName
      * @param password
+     * @param pwdLogin
      * @return
      */
-    private MultiValueMap<String, String> buildLoginParam(String userName, String password){
+    private MultiValueMap<String, String> buildLoginParam(String accountType, String userName, String password, boolean pwdLogin){
         MultiValueMap<String, String> param= new LinkedMultiValueMap<String, String>();
         param.add("username", userName);
         param.add("password", password);
         param.add("grant_type", "password");
         param.add("client_id", "client");
         param.add("client_secret", "secret");
+        // 刷新token的用户类型
+        param.add("account_type", accountType);
+        // 是否密码登录
+        param.add("pwdLogin", pwdLogin ? "true" : "false");
         return param;
     }
 
@@ -146,7 +177,7 @@ public class LoginServiceImpl implements LoginService {
      * @param refreshToken
      * @return
      */
-    private MultiValueMap<String, String> buildRefreshTokenParam(String accountType, String refreshToken){
+    private MultiValueMap<String, String> buildRefreshTokenParam(String accountType, String refreshToken, boolean pwdLogin){
         MultiValueMap<String, String> param= new LinkedMultiValueMap<String, String>();
         param.add("refresh_token", refreshToken);
         param.add("grant_type", "refresh_token");
@@ -154,6 +185,8 @@ public class LoginServiceImpl implements LoginService {
         param.add("client_secret", "secret");
         // 刷新token的用户类型
         param.add("account_type", accountType);
+        // 是否密码登录
+        param.add("pwdLogin", pwdLogin ? "true" : "false");
         return param;
     }
 

@@ -1,9 +1,8 @@
-package com.rao.service.impl;
+package com.rao.pojo.bo;
 
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import lombok.experimental.Accessors;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 

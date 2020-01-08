@@ -13,7 +13,6 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
  * @date 2019/12/2 13:16
  */
 @EnableEurekaClient
-@EnableResourceServer
 @EnableDiscoveryClient
 @MapperScan(value = "com.rao.dao")
 @SpringBootApplication

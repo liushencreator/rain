@@ -25,5 +25,11 @@ public class RefreshTokenDTO {
      */
     @NotBlank(message = "refreshToken 不能为空")
     private String refreshToken;
+
+    /**
+     * 登录类型 1-密码登录 2-非密码登录
+     */
+    @NotNull(message = "登录类型不能为空") @Range(min = 1, max = 2, message = "登录类型非法")
+    private Integer loginType;
     
 }

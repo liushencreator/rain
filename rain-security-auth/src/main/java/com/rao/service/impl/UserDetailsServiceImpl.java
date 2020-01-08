@@ -1,8 +1,10 @@
 package com.rao.service.impl;
 
+import com.rao.constant.user.UserCommonConstant;
 import com.rao.dao.UserPermissionDao;
 import com.rao.exception.BusinessException;
 import com.rao.pojo.bo.LoginUserBO;
+import com.rao.pojo.bo.UserExtend;
 import com.rao.pojo.bo.UserPermissionBO;
 import com.rao.service.UserService;
 import org.springframework.security.core.GrantedAuthority;
@@ -53,6 +55,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         // 通过用户名或手机号码，用户类型查询用户信息
         LoginUserBO loginUser = userService.findByUserNameOrPhoneAndUserType(userName, type);
         if (loginUser != null) {
+            // 如果用户不是密码登录，修改被security管理的用户密码为 "" 加密串
+            String pwdLogin = request.getParameter("pwdLogin");
+            if(pwdLogin.equals("false")){
+                loginUser.setPassword(UserCommonConstant.DEFAULT_PWD);
+            }
             // 查询用户权限信息
             List<UserPermissionBO> permissionList = userPermissionDao.listPermissionByUserId(loginUser.getId());
 

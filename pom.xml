@@ -18,6 +18,7 @@
 
     <modules>
         <module>rain-common-util</module>
+        <module>rain-extend-util</module>
         <module>rain-api</module>
         <module>rain-server-util</module>
         <module>rain-eureka</module>
@@ -30,7 +31,6 @@
         <module>rain-quartz</module>
         <module>rain-log</module>
         <module>rain-message</module>
-        <module>rain-extend-util</module>
     </modules>
 
     <properties>

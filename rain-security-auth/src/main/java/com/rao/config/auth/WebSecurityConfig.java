@@ -58,8 +58,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         web.ignoring()
                 .antMatchers(
                         "/login/system_user", 
-                        "/login/b_user", 
-                        "/login/c_user", 
+                        "/login/sms_code/system_user", 
+                        "/login/c_user",
+                        "/login/wx/c_user",
                         "/check_account");
     }
 
