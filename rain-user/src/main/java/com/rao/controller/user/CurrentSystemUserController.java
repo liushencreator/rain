@@ -6,6 +6,8 @@ import com.rao.pojo.dto.RePasswordDTO;
 import com.rao.pojo.vo.user.UserInfoVO;
 import com.rao.service.user.CurrentUserService;
 import com.rao.util.result.ResultMessage;
+//import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.*;
 import org.springframework.web.bind.annotation.*;
 import com.rao.pojo.vo.user.CurrentSystemUserVO;
 
@@ -38,6 +40,7 @@ public class CurrentSystemUserController {
      * @return
      */
     @GetMapping("/info")
+    @ApiOperation(value = "查询当前用户详细信息",httpMethod = "GET")
     public ResultMessage<UserInfoVO> findUserInfo(CurrentUserInfo currentUser) {
         UserInfoVO userInfoVO = currentUserService.info(currentUser.getId());
         return ResultMessage.success(userInfoVO);

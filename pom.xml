@@ -17,9 +17,7 @@
     </parent>
 
     <modules>
-        <module>rain-common-util</module>
-        <module>rain-api</module>
-        <module>rain-server-util</module>
+        <module>rain-common</module>
         <module>rain-eureka</module>
         <module>rain-gateway</module>
         <module>rain-security-auth</module>
@@ -29,6 +27,7 @@
         <module>rain-user</module>
         <module>rain-quartz</module>
         <module>rain-log</module>
+        <module>rain-message</module>
     </modules>
 
     <properties>
@@ -44,6 +43,15 @@
         <jsoup.version>1.11.3</jsoup.version>
         <hutool.version>4.2.1</hutool.version>
         <shiro.version>1.4.0</shiro.version>
+        <swagger.version>2.9.1</swagger.version>
+        <fastjson.version>1.2.58</fastjson.version>
+        <user_agent_utils.version>1.21</user_agent_utils.version>
+        <bcprov-jdk16.version>1.46</bcprov-jdk16.version>
+        <jackson.databind.version>2.9.10.1</jackson.databind.version>
+        <hibernate.validator.version>5.4.1.Final</hibernate.validator.version>
+        <springcloud.oauth2.version>1.2.2.RELEASE</springcloud.oauth2.version>
+        <rain.common.util.version>1.0-SNAPSHOT</rain.common.util.version>
+        <rain.extend.util.version>1.0-SNAPSHOT</rain.extend.util.version>
         <rain.api.version>1.0-SNAPSHOT</rain.api.version>
         <rain.server.util.version>1.0-SNAPSHOT</rain.server.util.version>
     </properties>
@@ -51,23 +59,23 @@
     <dependencyManagement>
         <dependencies>
 
+            <!-- mybatis -->
             <dependency>
                 <groupId>org.mybatis.spring.boot</groupId>
                 <artifactId>mybatis-spring-boot-starter</artifactId>
                 <version>${mybatis.version}</version>
             </dependency>
-
             <dependency>
                 <groupId>com.github.pagehelper</groupId>
                 <artifactId>pagehelper-spring-boot-starter</artifactId>
                 <version>${mybatis.pagehelper.version}</version>
             </dependency>
-
             <dependency>
                 <groupId>tk.mybatis</groupId>
                 <artifactId>mapper-spring-boot-starter</artifactId>
                 <version>${mybatis.mapper.version}</version>
             </dependency>
+            <!-- mybatis -->
 
             <dependency>
                 <groupId>commons-fileupload</groupId>
@@ -82,22 +90,91 @@
             </dependency>
 
             <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-all</artifactId>
+                <version>${hutool.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>${fastjson.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>eu.bitwalker</groupId>
+                <artifactId>UserAgentUtils</artifactId>
+                <version>${user_agent_utils.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.bouncycastle</groupId>
+                <artifactId>bcprov-jdk16</artifactId>
+                <version>${bcprov-jdk16.version}</version>
+            </dependency>
+
+            <!-- validate -->
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>${jackson.databind.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-validator</artifactId>
+                <version>${hibernate.validator.version}</version>
+            </dependency>
+            <!-- validate -->
+
+            <!-- springcloud.oauth2 -->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-starter-oauth2</artifactId>
+                <version>${springcloud.oauth2.version}</version>
+            </dependency>
+            <!-- springcloud.oauth2 -->
+
+            <!--整合swagger-ui-->
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-swagger2</artifactId>
+                <version>${swagger.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-swagger-ui</artifactId>
+                <version>${swagger.version}</version>
+            </dependency>
+            <!-- 整合swagger-ui -->
+
+            <!-- 本地jar -->
+            <dependency>
+                <groupId>com.rao</groupId>
+                <artifactId>rain-common-util</artifactId>
+                <version>${rain.common.util.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.rao</groupId>
+                <artifactId>rain-extend-util</artifactId>
+                <version>${rain.extend.util.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>com.rao</groupId>
                 <artifactId>rain-api</artifactId>
                 <version>${rain.api.version}</version>
             </dependency>
-
             <dependency>
                 <groupId>com.rao</groupId>
                 <artifactId>rain-server-util</artifactId>
                 <version>${rain.server.util.version}</version>
             </dependency>
-
-            <dependency>
-                <groupId>cn.hutool</groupId>
-                <artifactId>hutool-all</artifactId>
-                <version>${hutool.version}</version>
-            </dependency>
+            <!-- 本地jar -->
 
         </dependencies>
     </dependencyManagement>

@@ -80,6 +80,7 @@ public class PermissionController {
      * @return
      */
     @GetMapping("/permission_code")
+//    @ApiOperation(value = "通过这个方法可以获取到cookies的值",httpMethod ="GET")
     public ResultMessage<List<PermissionDescVO>> permissionCode(){
         List<PermissionDescVO> codeList = permissionService.permissionCode();
         return ResultMessage.success(codeList).message("获取权限标识成功");

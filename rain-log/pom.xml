@@ -52,7 +52,7 @@
     </dependencyManagement>
 
     <build>
-        <finalName>rain-user</finalName>
+        <finalName>rain-log</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

@@ -1,11 +1,11 @@
 package com.rao.service.impl;
 
-import com.rao.dao.RainSystemUserDao;
+import com.rao.constant.user.UserCommonConstant;
 import com.rao.dao.UserPermissionDao;
 import com.rao.exception.BusinessException;
 import com.rao.pojo.bo.LoginUserBO;
+import com.rao.pojo.bo.UserExtend;
 import com.rao.pojo.bo.UserPermissionBO;
-import com.rao.pojo.entity.RainSystemUser;
 import com.rao.service.UserService;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -13,7 +13,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
+
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,7 +38,12 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-
+        // 从request域中获取 account_type 用户类型（刷新token 请求会放入 account_type 值），如果不为空，拼接用户名用于区分不同用户类型
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+        String accountType = request.getParameter("account_type");
+        if(accountType != null){
+            userName = accountType + ":" + userName;
+        }
         // 规则为：userType:userName
         String[] userType = userName.split(":", 2);
         if(userType.length != 2){
@@ -46,6 +55,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         // 通过用户名或手机号码，用户类型查询用户信息
         LoginUserBO loginUser = userService.findByUserNameOrPhoneAndUserType(userName, type);
         if (loginUser != null) {
+            // 如果用户不是密码登录，修改被security管理的用户密码为 "" 加密串
+            String pwdLogin = request.getParameter("pwdLogin");
+            if(pwdLogin.equals("false")){
+                loginUser.setPassword(UserCommonConstant.DEFAULT_PWD);
+            }
             // 查询用户权限信息
             List<UserPermissionBO> permissionList = userPermissionDao.listPermissionByUserId(loginUser.getId());
 

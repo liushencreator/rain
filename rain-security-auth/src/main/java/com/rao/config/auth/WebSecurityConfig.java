@@ -56,7 +56,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring()
-                .antMatchers("/login/system_user", "/login/b_user", "/login/c_user");
+                .antMatchers(
+                        "/login/system_user", 
+                        "/login/sms_code/system_user", 
+                        "/login/c_user",
+                        "/login/wx/c_user",
+                        "/check_account");
     }
 
     @Override

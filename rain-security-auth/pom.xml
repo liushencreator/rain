@@ -40,7 +40,6 @@
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-oauth2</artifactId>
-            <version>1.2.2.RELEASE</version>
         </dependency>
 
         <dependency>
@@ -83,7 +82,12 @@
             <groupId>com.rao</groupId>
             <artifactId>rain-api</artifactId>
         </dependency>
-
+        <dependency>
+            <groupId>com.rao</groupId>
+            <artifactId>rain-extend-util</artifactId>
+        </dependency>
+        <!-- 本地 jar -->
+        
     </dependencies>
 
     <dependencyManagement>
