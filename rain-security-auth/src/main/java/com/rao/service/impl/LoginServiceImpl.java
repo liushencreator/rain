@@ -2,15 +2,18 @@ package com.rao.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
 import com.rao.cache.key.MessageCacheKey;
+import com.rao.component.LoginLogoutProducer;
 import com.rao.constant.common.StateConstants;
 import com.rao.constant.server.ServiceInstanceConstant;
 import com.rao.constant.sms.SmsOperationTypeEnum;
 import com.rao.constant.user.UserCommonConstant;
 import com.rao.constant.user.UserTypeEnum;
 import com.rao.dao.RainSystemUserDao;
+import com.rao.dto.IpInfo;
 import com.rao.dto.WxUserInfo;
 import com.rao.exception.BusinessException;
 import com.rao.pojo.bo.OauthTokenResponse;
+import com.rao.pojo.bo.UserLoginLogoutLogBO;
 import com.rao.pojo.dto.PasswordLoginDTO;
 import com.rao.pojo.dto.RefreshTokenDTO;
 import com.rao.pojo.dto.SmsCodeLoginDTO;
@@ -18,7 +21,9 @@ import com.rao.pojo.dto.WxLoginDTO;
 import com.rao.pojo.entity.RainSystemUser;
 import com.rao.pojo.vo.LoginSuccessVO;
 import com.rao.service.LoginService;
+import com.rao.util.CopyUtil;
 import com.rao.util.cache.RedisTemplateUtils;
+import com.rao.util.common.UserAgentUtils;
 import com.rao.util.wx.WxAppletUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
@@ -32,8 +37,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * 登录 service 实现
@@ -74,14 +82,14 @@ public class LoginServiceImpl implements LoginService {
             }
         }
         // 获取 access_token
-        String accessToken = requestAccessToken(buildLoginParam(UserTypeEnum.ADMIN.getValue(), userName, passwordLoginDTO.getPassword(), true));
+        LoginSuccessVO loginSuccessVO = requestAccessToken(buildLoginParam(UserTypeEnum.ADMIN.getValue(), userName, passwordLoginDTO.getPassword(), true));
         //发送登录日志
         ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = requestAttributes.getRequest();
         IpInfo ipInfo = UserAgentUtils.getIpInfo(UserAgentUtils.getIpAddr(request));
-        SystemUserLoginLogoutLogBO systemUserLoginLogoutLogBO = CopyUtil.transToO(ipInfo, SystemUserLoginLogoutLogBO.class);
-        loginLogoutProducer.sendMsg(systemUserLoginLogoutLogBO);
-        return accessToken;
+        UserLoginLogoutLogBO userLoginLogoutLogBO = CopyUtil.transToO(ipInfo, UserLoginLogoutLogBO.class);
+        loginLogoutProducer.sendMsg(userLoginLogoutLogBO);
+        return loginSuccessVO;
     }
 
     @Override

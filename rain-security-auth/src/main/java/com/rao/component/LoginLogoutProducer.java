@@ -1,6 +1,6 @@
 package com.rao.component;
 
-import com.rao.pojo.bo.SystemUserLoginLogoutLogBO;
+import com.rao.pojo.bo.UserLoginLogoutLogBO;
 import org.apache.rocketmq.spring.core.RocketMQTemplate;
 import org.springframework.stereotype.Component;
 
@@ -18,8 +18,8 @@ public class LoginLogoutProducer {
     @Resource
     private RocketMQTemplate rocketMQTemplate;
 
-    public void sendMsg(SystemUserLoginLogoutLogBO systemUserLoginLogoutLogBO) {
-        rocketMQTemplate.convertAndSend("topic", systemUserLoginLogoutLogBO);
+    public void sendMsg(UserLoginLogoutLogBO userLoginLogoutLogBO) {
+        rocketMQTemplate.convertAndSend("LoginLogout", userLoginLogoutLogBO);
     }
 
 }

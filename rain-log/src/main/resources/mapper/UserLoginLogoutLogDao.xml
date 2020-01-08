@@ -3,9 +3,9 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- namespace必须指向Dao接口 -->
-<mapper namespace="com.rao.dao.SystemUserLoginLogoutLogDao">
+<mapper namespace="com.rao.dao.UserLoginLogoutLogDao">
 
-    <resultMap id="SystemUserLoginLogoutLogResultMap" type="com.rao.pojo.entity.SystemUserLoginLogoutLog">
+    <resultMap id="UserLoginLogoutLogResultMap" type="com.rao.pojo.entity.UserLoginLogoutLog">
         <id property="id" column="id"  />
         <result property="userId" column="user_id" />
         <result property="userName" column="user_name" />

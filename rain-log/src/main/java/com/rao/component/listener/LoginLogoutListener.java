@@ -1,8 +1,8 @@
 package com.rao.component.listener;
 
-import com.rao.dao.SystemUserLoginLogoutLogDao;
-import com.rao.pojo.bo.SystemUserLoginLogoutLogBO;
-import com.rao.pojo.entity.SystemUserLoginLogoutLog;
+import com.rao.dao.UserLoginLogoutLogDao;
+import com.rao.pojo.bo.UserLoginLogoutLogBO;
+import com.rao.pojo.entity.UserLoginLogoutLog;
 import com.rao.util.CopyUtil;
 import com.rao.util.common.TwiterIdUtil;
 import org.apache.rocketmq.spring.annotation.RocketMQMessageListener;
@@ -20,16 +20,16 @@ import java.util.Date;
  */
 @Service
 @RocketMQMessageListener(topic = "LoginLogout", consumerGroup = "LoginLogoutGroup")
-public class LoginLogoutListener implements RocketMQListener<SystemUserLoginLogoutLogBO> {
+public class LoginLogoutListener implements RocketMQListener<UserLoginLogoutLogBO> {
 
     @Resource
-    private SystemUserLoginLogoutLogDao systemUserLoginLogoutLogDao;
+    private UserLoginLogoutLogDao userLoginLogoutLogDao;
 
     @Override
-    public void onMessage(SystemUserLoginLogoutLogBO systemUserLoginLogoutLogBO) {
-        SystemUserLoginLogoutLog systemUserLoginLogoutLog = CopyUtil.transToO(systemUserLoginLogoutLogBO, SystemUserLoginLogoutLog.class);
-        systemUserLoginLogoutLog.setId(TwiterIdUtil.getTwiterId());
-        systemUserLoginLogoutLog.setCreateTime(new Date());
-        systemUserLoginLogoutLogDao.insertSelective(systemUserLoginLogoutLog);
+    public void onMessage(UserLoginLogoutLogBO userLoginLogoutLogBO) {
+        UserLoginLogoutLog userLoginLogoutLog = CopyUtil.transToO(userLoginLogoutLogBO, UserLoginLogoutLog.class);
+        userLoginLogoutLog.setId(TwiterIdUtil.getTwiterId());
+        userLoginLogoutLog.setCreateTime(new Date());
+        userLoginLogoutLogDao.insertSelective(userLoginLogoutLog);
     }
 }
