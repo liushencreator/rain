@@ -17,10 +17,7 @@
     </parent>
 
     <modules>
-        <module>rain-common-util</module>
-        <module>rain-extend-util</module>
-        <module>rain-api</module>
-        <module>rain-server-util</module>
+        <module>rain-common</module>
         <module>rain-eureka</module>
         <module>rain-gateway</module>
         <module>rain-security-auth</module>

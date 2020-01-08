@@ -11,7 +11,7 @@
     <!-- 父工程 -->
     <parent>
         <groupId>com.rao</groupId>
-        <artifactId>rain</artifactId>
+        <artifactId>rain-common</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 
