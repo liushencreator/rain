@@ -10,6 +10,7 @@ import java.util.Collection;
 
 /**
  * 用户扩展信息
+ *
  * @author raojing
  * @date 2019/12/6 15:17
  */
@@ -51,32 +52,32 @@ public class UserExtend extends User {
     private UserExtend(String username, String password, boolean locked, Collection<? extends GrantedAuthority> authorities) {
         super(username, password, true, true, true, locked, authorities);
     }
-    
-    public static UserExtend build(String username, String password, boolean enabled, Collection<? extends GrantedAuthority> authorities){
+
+    public static UserExtend build(String username, String password, boolean enabled, Collection<? extends GrantedAuthority> authorities) {
         return new UserExtend(username, password, enabled, authorities);
     }
 
-    public UserExtend id(Long id){
+    public UserExtend id(Long id) {
         this.id = id;
         return this;
     }
 
-    public UserExtend name(String name){
+    public UserExtend name(String name) {
         this.name = name;
         return this;
     }
 
-    public UserExtend phone(String phone){
+    public UserExtend phone(String phone) {
         this.phone = phone;
         return this;
     }
 
-    public UserExtend nickName(String nickName){
+    public UserExtend nickName(String nickName) {
         this.nickName = nickName;
         return this;
     }
 
-    public UserExtend email(String email){
+    public UserExtend email(String email) {
         this.email = email;
         return this;
     }

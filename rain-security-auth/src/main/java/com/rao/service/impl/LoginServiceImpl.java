@@ -126,7 +126,7 @@ public class LoginServiceImpl implements LoginService {
         String token = request.getParameter("access_token");
         OAuth2AccessToken oAuth2AccessToken = tokenStore.readAccessToken(token);
         tokenStore.removeAccessToken(oAuth2AccessToken);
-        //发送登录日志
+        //发送登出日志
         loginLogoutProducer.sendLogMsg(OperationTypeEnum.LOG_OUT);
     }
 

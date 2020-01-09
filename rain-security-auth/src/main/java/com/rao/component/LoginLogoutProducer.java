@@ -21,7 +21,7 @@ import java.util.LinkedHashMap;
 /**
  * @author : hudelin
  * @className :LogInLogoutProducer
- * @description : 登录登出生产者
+ * @description : 登录登出mq生产者
  * @date: 2019-12-31 10:59
  */
 @Component
@@ -47,9 +47,9 @@ public class LoginLogoutProducer {
 
     public UserLoginLogoutLogBO getCurrentUserInfo(){
         Authentication authentication = SecurityContextHolder.getContextHolderStrategy().getContext().getAuthentication();
-        OAuth2Authentication auth2Authentication  = (OAuth2Authentication)authentication;
-        LinkedHashMap details = (LinkedHashMap)auth2Authentication.getUserAuthentication().getDetails();
-        LinkedHashMap principal = (LinkedHashMap)details.get("principal");
+        OAuth2Authentication auth2Authentication = (OAuth2Authentication) authentication;
+        LinkedHashMap details = (LinkedHashMap) auth2Authentication.getUserAuthentication().getDetails();
+        LinkedHashMap principal = (LinkedHashMap) details.get("principal");
         UserLoginLogoutLogBO userLoginLogoutLogBO = JSON.parseObject(JSON.toJSONString(principal), UserLoginLogoutLogBO.class);
         return userLoginLogoutLogBO;
     }
