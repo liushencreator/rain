@@ -42,7 +42,7 @@ public class UserLoginLogoutLogBO {
     /**
      * 类型 1-登录 2-登出
      */
-    private String type;
+    private Integer type;
 
     /**
      * ip

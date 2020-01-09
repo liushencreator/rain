@@ -14,21 +14,21 @@ public enum OperationTypeEnum {
     /**
      * 登录
      */
-    LOG_IN("logIn"),
+    LOG_IN(1),
 
     /**
      * 登出
      */
-    LOG_OUT("logOut"),
+    LOG_OUT(2),
     ;
 
     /**
      * 用户类型
      */
     @Getter
-    private String value;
+    private Integer value;
     
-    public static OperationTypeEnum ofValue(String value){
+    public static OperationTypeEnum ofValue(Integer value){
         for (OperationTypeEnum userTypeEnum : values()) {
             if(userTypeEnum.getValue().equals(value)){
                 return userTypeEnum;

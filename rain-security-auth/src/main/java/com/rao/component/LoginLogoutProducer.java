@@ -30,13 +30,13 @@ public class LoginLogoutProducer {
     @Resource
     private RocketMQTemplate rocketMQTemplate;
 
-    public void sendLogMsg(OperationTypeEnum type) {
+    public void sendLogMsg() {
         UserLoginLogoutLogBO currentUserInfo = getCurrentUserInfo();
         ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = requestAttributes.getRequest();
         IpInfo ipInfo = UserAgentUtils.getIpInfo(UserAgentUtils.getIpAddr(request));
         UserLoginLogoutLogBO userLoginLogoutLogBO = CopyUtil.transToO(ipInfo, UserLoginLogoutLogBO.class);
-        userLoginLogoutLogBO.setType(type.getValue());
+        userLoginLogoutLogBO.setType(OperationTypeEnum.LOG_OUT.getValue());
         userLoginLogoutLogBO.setUserId(currentUserInfo.getId());
         userLoginLogoutLogBO.setUserName(currentUserInfo.getUserName());
         userLoginLogoutLogBO.setPhone(currentUserInfo.getPhone());
@@ -45,7 +45,25 @@ public class LoginLogoutProducer {
         rocketMQTemplate.convertAndSend("LoginLogout", userLoginLogoutLogBO);
     }
 
-    public UserLoginLogoutLogBO getCurrentUserInfo(){
+    public void LoginSendLogMsg(UserLoginLogoutLogBO currentUserInfo){
+        ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        HttpServletRequest request = requestAttributes.getRequest();
+        IpInfo ipInfo = UserAgentUtils.getIpInfo(UserAgentUtils.getIpAddr(request));
+        UserLoginLogoutLogBO userLoginLogoutLogBO = CopyUtil.transToO(ipInfo, UserLoginLogoutLogBO.class);
+        userLoginLogoutLogBO.setType(OperationTypeEnum.LOG_IN.getValue());
+        userLoginLogoutLogBO.setUserId(currentUserInfo.getId());
+        userLoginLogoutLogBO.setUserName(currentUserInfo.getUserName());
+        userLoginLogoutLogBO.setPhone(currentUserInfo.getPhone());
+        userLoginLogoutLogBO.setUserType(currentUserInfo.getUserType());
+        userLoginLogoutLogBO.setProvince(ipInfo.getRegion());
+        rocketMQTemplate.convertAndSend("LoginLogout", userLoginLogoutLogBO);
+    }
+
+    /**
+     * 通过
+     * @return
+     */
+    private UserLoginLogoutLogBO getCurrentUserInfo(){
         Authentication authentication = SecurityContextHolder.getContextHolderStrategy().getContext().getAuthentication();
         OAuth2Authentication auth2Authentication = (OAuth2Authentication) authentication;
         LinkedHashMap details = (LinkedHashMap) auth2Authentication.getUserAuthentication().getDetails();

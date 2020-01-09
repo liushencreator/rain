@@ -6,13 +6,13 @@ import com.rao.component.LoginLogoutProducer;
 import com.rao.constant.common.StateConstants;
 import com.rao.constant.server.ServiceInstanceConstant;
 import com.rao.constant.sms.SmsOperationTypeEnum;
-import com.rao.constant.user.OperationTypeEnum;
 import com.rao.constant.user.UserCommonConstant;
 import com.rao.constant.user.UserTypeEnum;
 import com.rao.dao.RainSystemUserDao;
 import com.rao.dto.WxUserInfo;
 import com.rao.exception.BusinessException;
 import com.rao.pojo.bo.OauthTokenResponse;
+import com.rao.pojo.bo.UserLoginLogoutLogBO;
 import com.rao.pojo.dto.PasswordLoginDTO;
 import com.rao.pojo.dto.RefreshTokenDTO;
 import com.rao.pojo.dto.SmsCodeLoginDTO;
@@ -20,6 +20,7 @@ import com.rao.pojo.dto.WxLoginDTO;
 import com.rao.pojo.entity.RainSystemUser;
 import com.rao.pojo.vo.LoginSuccessVO;
 import com.rao.service.LoginService;
+import com.rao.util.CopyUtil;
 import com.rao.util.cache.RedisTemplateUtils;
 import com.rao.util.wx.WxAppletUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -84,7 +85,9 @@ public class LoginServiceImpl implements LoginService {
         // 获取 access_token
         LoginSuccessVO loginSuccessVO = requestAccessToken(buildLoginParam(UserTypeEnum.ADMIN.getValue(), userName, passwordLoginDTO.getPassword(), true));
         //发送登录日志
-        loginLogoutProducer.sendLogMsg(OperationTypeEnum.LOG_IN);
+        UserLoginLogoutLogBO userLoginLogoutLogBO= CopyUtil.transToO(systemUser,UserLoginLogoutLogBO.class);
+        userLoginLogoutLogBO.setUserType(UserTypeEnum.ADMIN.getValue());
+        loginLogoutProducer.LoginSendLogMsg(userLoginLogoutLogBO);
         return loginSuccessVO;
     }
 
@@ -127,7 +130,7 @@ public class LoginServiceImpl implements LoginService {
         OAuth2AccessToken oAuth2AccessToken = tokenStore.readAccessToken(token);
         tokenStore.removeAccessToken(oAuth2AccessToken);
         //发送登出日志
-        loginLogoutProducer.sendLogMsg(OperationTypeEnum.LOG_OUT);
+        loginLogoutProducer.sendLogMsg();
     }
 
     @Override

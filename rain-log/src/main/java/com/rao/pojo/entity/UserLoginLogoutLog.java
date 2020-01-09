@@ -49,7 +49,7 @@ public class UserLoginLogoutLog {
      * 类型 1-登录 2-登出
      */
     @Column(name = "type")
-    private String type;
+    private Integer type;
 
     /**
      * ip

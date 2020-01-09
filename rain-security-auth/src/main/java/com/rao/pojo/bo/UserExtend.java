@@ -47,7 +47,7 @@ public class UserExtend extends User {
     /**
      * 用户类型（扩展字段）
      */
-    private String type;
+    private String userType;
 
     private UserExtend(String username, String password, boolean locked, Collection<? extends GrantedAuthority> authorities) {
         super(username, password, true, true, true, locked, authorities);
@@ -83,7 +83,7 @@ public class UserExtend extends User {
     }
 
     public UserExtend type(String type) {
-        this.type = type;
+        this.userType = type;
         return this;
     }
 
