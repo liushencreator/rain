@@ -85,7 +85,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                     .name(loginUser.getUserName())
                     .phone(loginUser.getPhone())
                     .nickName(loginUser.getNickName())
-                    .email(loginUser.getEmail());
+                    .email(loginUser.getEmail())
+                    .type(type);
         }else {
             // 用户名不匹配
             return null;

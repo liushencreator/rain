@@ -7,8 +7,8 @@ import org.springframework.messaging.Message;
 
 /**
  * @author : hudelin
- * @className :TransanctionListener
- * @description :
+ * @className :TransactionListener
+ * @description : mq事务
  * @date: 2020-01-06 16:25
  */
 @RocketMQTransactionListener(txProducerGroup="test")

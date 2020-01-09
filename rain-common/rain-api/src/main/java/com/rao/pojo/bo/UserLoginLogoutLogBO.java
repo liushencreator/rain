@@ -78,4 +78,9 @@ public class UserLoginLogoutLogBO {
      * 创建时间
      */
     private Date createTime;
+
+    /**
+     * 用户类型
+     */
+    private String userType;
 }

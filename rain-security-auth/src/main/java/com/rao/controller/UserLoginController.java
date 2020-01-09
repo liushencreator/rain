@@ -6,14 +6,11 @@ import com.rao.pojo.vo.LoginSuccessVO;
 import com.rao.service.LoginService;
 import com.rao.service.UserService;
 import com.rao.util.result.ResultMessage;
-import org.springframework.security.oauth2.common.OAuth2AccessToken;
-import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * 登录管理
@@ -27,8 +24,7 @@ public class UserLoginController {
     private LoginService loginService;
     @Resource    
     private UserService userService;
-    @Resource
-    private TokenStore tokenStore;
+
 
     /**
      * 后台用户账号密码登录
@@ -96,14 +92,11 @@ public class UserLoginController {
 
     /**
      * 注销
-     * @param request
      * @return
      */
     @PostMapping(value = "/user/logout")
-    public ResultMessage logout(HttpServletRequest request){
-        String token = request.getParameter("access_token");
-        OAuth2AccessToken oAuth2AccessToken = tokenStore.readAccessToken(token);
-        tokenStore.removeAccessToken(oAuth2AccessToken);
+    public ResultMessage logout(){
+        loginService.logout();
         return ResultMessage.success().message("用户注销成功");
     }
     

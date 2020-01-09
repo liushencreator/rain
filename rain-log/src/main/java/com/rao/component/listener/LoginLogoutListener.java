@@ -31,5 +31,6 @@ public class LoginLogoutListener implements RocketMQListener<UserLoginLogoutLogB
         userLoginLogoutLog.setId(TwiterIdUtil.getTwiterId());
         userLoginLogoutLog.setCreateTime(new Date());
         userLoginLogoutLogDao.insertSelective(userLoginLogoutLog);
+        System.out.println(userLoginLogoutLog);
     }
 }

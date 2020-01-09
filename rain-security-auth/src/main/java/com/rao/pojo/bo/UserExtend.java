@@ -43,6 +43,11 @@ public class UserExtend extends User {
      */
     private String email;
 
+    /**
+     * 用户类型（扩展字段）
+     */
+    private String type;
+
     private UserExtend(String username, String password, boolean locked, Collection<? extends GrantedAuthority> authorities) {
         super(username, password, true, true, true, locked, authorities);
     }
@@ -73,6 +78,11 @@ public class UserExtend extends User {
 
     public UserExtend email(String email){
         this.email = email;
+        return this;
+    }
+
+    public UserExtend type(String type) {
+        this.type = type;
         return this;
     }
 

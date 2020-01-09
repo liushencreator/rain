@@ -6,14 +6,13 @@ import com.rao.component.LoginLogoutProducer;
 import com.rao.constant.common.StateConstants;
 import com.rao.constant.server.ServiceInstanceConstant;
 import com.rao.constant.sms.SmsOperationTypeEnum;
+import com.rao.constant.user.OperationTypeEnum;
 import com.rao.constant.user.UserCommonConstant;
 import com.rao.constant.user.UserTypeEnum;
 import com.rao.dao.RainSystemUserDao;
-import com.rao.dto.IpInfo;
 import com.rao.dto.WxUserInfo;
 import com.rao.exception.BusinessException;
 import com.rao.pojo.bo.OauthTokenResponse;
-import com.rao.pojo.bo.UserLoginLogoutLogBO;
 import com.rao.pojo.dto.PasswordLoginDTO;
 import com.rao.pojo.dto.RefreshTokenDTO;
 import com.rao.pojo.dto.SmsCodeLoginDTO;
@@ -21,9 +20,7 @@ import com.rao.pojo.dto.WxLoginDTO;
 import com.rao.pojo.entity.RainSystemUser;
 import com.rao.pojo.vo.LoginSuccessVO;
 import com.rao.service.LoginService;
-import com.rao.util.CopyUtil;
 import com.rao.util.cache.RedisTemplateUtils;
-import com.rao.util.common.UserAgentUtils;
 import com.rao.util.wx.WxAppletUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
@@ -33,6 +30,8 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.oauth2.common.OAuth2AccessToken;
+import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -62,7 +61,8 @@ public class LoginServiceImpl implements LoginService {
     private RestTemplate restTemplate;
     @Resource
     private LoadBalancerClient loadBalancerClient;
-
+    @Resource
+    private TokenStore tokenStore;
     @Resource
     private LoginLogoutProducer loginLogoutProducer;
 
@@ -71,24 +71,20 @@ public class LoginServiceImpl implements LoginService {
         // 认证
         String userName = passwordLoginDTO.getUsername();
         RainSystemUser systemUser = rainSystemUserDao.findByUserNameOrPhone(userName);
-        if(systemUser == null){
+        if (systemUser == null) {
             throw BusinessException.operate("账号不存在");
-        }else{
-            if(!systemUser.getStatus().equals(StateConstants.STATE_ENABLE)){
+        } else {
+            if (!systemUser.getStatus().equals(StateConstants.STATE_ENABLE)) {
                 throw BusinessException.operate("账号不可用");
             }
-            if(!passwordEncoder.matches(passwordLoginDTO.getPassword(), systemUser.getPassword())){
+            if (!passwordEncoder.matches(passwordLoginDTO.getPassword(), systemUser.getPassword())) {
                 throw BusinessException.operate("密码错误，请重新输入");
             }
         }
         // 获取 access_token
         LoginSuccessVO loginSuccessVO = requestAccessToken(buildLoginParam(UserTypeEnum.ADMIN.getValue(), userName, passwordLoginDTO.getPassword(), true));
         //发送登录日志
-        ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-        HttpServletRequest request = requestAttributes.getRequest();
-        IpInfo ipInfo = UserAgentUtils.getIpInfo(UserAgentUtils.getIpAddr(request));
-        UserLoginLogoutLogBO userLoginLogoutLogBO = CopyUtil.transToO(ipInfo, UserLoginLogoutLogBO.class);
-        loginLogoutProducer.sendMsg(userLoginLogoutLogBO);
+        loginLogoutProducer.sendLogMsg(OperationTypeEnum.LOG_IN);
         return loginSuccessVO;
     }
 
@@ -121,6 +117,17 @@ public class LoginServiceImpl implements LoginService {
         // 获取 access_token
         LoginSuccessVO loginSuccessVO = requestAccessToken(buildLoginParam(UserTypeEnum.ADMIN.getValue(), phone, "", false));
         return loginSuccessVO;
+    }
+
+    @Override
+    public void logout() {
+        ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        HttpServletRequest request = requestAttributes.getRequest();
+        String token = request.getParameter("access_token");
+        OAuth2AccessToken oAuth2AccessToken = tokenStore.readAccessToken(token);
+        tokenStore.removeAccessToken(oAuth2AccessToken);
+        //发送登录日志
+        loginLogoutProducer.sendLogMsg(OperationTypeEnum.LOG_OUT);
     }
 
     @Override

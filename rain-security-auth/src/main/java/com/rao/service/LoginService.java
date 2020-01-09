@@ -28,6 +28,11 @@ public interface LoginService {
     LoginSuccessVO refreshToken(RefreshTokenDTO refreshTokenDTO);
 
     /**
+     * 注销
+     */
+    void logout();
+
+    /**
      * 后台用户短信验证码登录
      * 通过手机号码查询用户信息，如果用户不存在，抛出异常，用户不存在
      * 如果存在，在缓存中获取之前发送成功的短信验证码（key = sms:***）
@@ -48,4 +53,5 @@ public interface LoginService {
      * @return
      */
     LoginSuccessVO wxLoginCUser(WxLoginDTO wxLoginDTO);
+
 }
