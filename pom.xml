@@ -18,6 +18,8 @@
 
     <modules>
         <module>rain-common</module>
+        <module>rain-feign</module>
+        <module>rain-configuration</module>
         <module>rain-eureka</module>
         <module>rain-gateway</module>
         <module>rain-security-auth</module>
@@ -50,11 +52,15 @@
         <bcprov-jdk16.version>1.46</bcprov-jdk16.version>
         <jackson.databind.version>2.9.10.1</jackson.databind.version>
         <hibernate.validator.version>5.4.1.Final</hibernate.validator.version>
+        <spring.cloud.openfeign>2.0.1.RELEASE</spring.cloud.openfeign>
+        <spring.cloud.netflix.hystrix>2.0.1.RELEASE</spring.cloud.netflix.hystrix>
         <springcloud.oauth2.version>1.2.2.RELEASE</springcloud.oauth2.version>
         <rain.common.util.version>1.0-SNAPSHOT</rain.common.util.version>
         <rain.extend.util.version>1.0-SNAPSHOT</rain.extend.util.version>
         <rain.api.version>1.0-SNAPSHOT</rain.api.version>
         <rain.server.util.version>1.0-SNAPSHOT</rain.server.util.version>
+        <rain.configuration.feign>1.0-SNAPSHOT</rain.configuration.feign>
+        <rain.payment.feign.client>1.0-SNAPSHOT</rain.payment.feign.client>
     </properties>
 
     <dependencyManagement>
@@ -133,6 +139,19 @@
             </dependency>
             <!-- validate -->
 
+            <!-- feign + hystrix -->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-starter-openfeign</artifactId>
+                <version>${spring.cloud.openfeign}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
+                <version>${spring.cloud.netflix.hystrix}</version>
+            </dependency>
+            <!-- feign + hystrix -->
+
             <!-- springcloud.oauth2 -->
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
@@ -155,6 +174,7 @@
             <!-- 整合swagger-ui -->
 
             <!-- 本地jar -->
+            <!-- common -->
             <dependency>
                 <groupId>com.rao</groupId>
                 <artifactId>rain-common-util</artifactId>
@@ -175,6 +195,23 @@
                 <artifactId>rain-server-util</artifactId>
                 <version>${rain.server.util.version}</version>
             </dependency>
+            <!-- common -->
+            
+            <!-- configuration -->
+            <dependency>
+                <groupId>com.rao</groupId>
+                <artifactId>rain-configuration-feign</artifactId>
+                <version>${rain.configuration.feign}</version>
+            </dependency>
+            <!-- configuration -->
+            
+            <!-- feign-client -->
+            <dependency>
+                <groupId>com.rao</groupId>
+                <artifactId>rain-payment-feign-client</artifactId>
+                <version>${rain.payment.feign.client}</version>
+            </dependency>
+            <!-- feign-client -->
             <!-- 本地jar -->
 
         </dependencies>

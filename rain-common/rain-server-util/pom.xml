@@ -72,16 +72,12 @@
         </dependency>
         <!-- eureka-client -->
 
-        <!-- 断路器和 feign 客户端 -->
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
-        </dependency>
+        <!-- feign 客户端 -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-openfeign</artifactId>
         </dependency>
-        <!-- 断路器和 feign 客户端 -->
+        <!-- feign 客户端 -->
         
         <!-- security-oauth2 -->
         <dependency>

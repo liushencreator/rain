@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    
+    <groupId>com.rao</groupId>
+    <artifactId>rain-feign</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <!-- 父工程 -->
+    <parent>
+        <artifactId>rain</artifactId>
+        <groupId>com.rao</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    
+    <modules>
+        <module>rain-payment-feign-client</module>
+    </modules>
+
+    <dependencies>
+        
+        <!-- feign + hystrix -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
+        </dependency>
+        <!-- feign + hystrix -->
+
+        <!-- 本地jar -->
+        <dependency>
+            <groupId>com.rao</groupId>
+            <artifactId>rain-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.rao</groupId>
+            <artifactId>rain-configuration-feign</artifactId>
+        </dependency>
+        <!-- 本地jar -->
+        
+    </dependencies>
+
+</project>
