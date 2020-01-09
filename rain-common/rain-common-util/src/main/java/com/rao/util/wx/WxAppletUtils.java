@@ -121,7 +121,6 @@ public class WxAppletUtils {
         return result;
     }
 
-
     /**
      * 解密用户敏感数据获取用户信息
      *
@@ -164,7 +163,6 @@ public class WxAppletUtils {
         }
     }
 
-
     private static WxUserInfo praseUserInfoJson(JSONObject jsonObject) {
         WxUserInfo user = null;
         String phoneNumber = jsonObject.getString("phoneNumber");
@@ -178,20 +176,6 @@ public class WxAppletUtils {
             user.setCountryCode(jsonObject.getString("countryCode"));
         }
         return user;
-    }
-
-    public static void main(String[] args) {
-        String encryptedData = "Gd1HEeaBNhSBMvL+PKymiMKi75SdF8A3T5YxoYQ0jWxVvvr7q/5UR8+0dlfmT+tqq84xAAx04yi/hZxnVaGF1FHMzHGcuJAujyQxEX5px4cynf7uHOQh1/LpCpz7bdz431Kr+GiyWbD7ro9rGU4yJceQpr4Qfpi96QhXesg4TbJMUUc0V7qItco5uyn6MzMTy6UPUc/tXH+P4zh5vG14OQ==";
-        String iv = "1RZhNUP2hH7qFvJc2SMaRw==";
-
-        JSONObject sessionKeyOropenid = WxAppletUtils.getSessionKeyOropenid("0230Qiup025n6q1V0evp0d9fup00Qiuf");
-        String session_key = sessionKeyOropenid.getString("session_key");
-        System.out.println(sessionKeyOropenid);
-        System.out.println(session_key);
-        System.out.println("=====================================================================");
-        WxUserInfo userInfo = WxAppletUtils.getUserInfo(encryptedData, session_key, iv);
-        System.out.println(userInfo);
-
     }
 
 }

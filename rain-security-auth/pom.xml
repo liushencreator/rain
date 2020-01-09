@@ -72,6 +72,10 @@
             <groupId>com.rao</groupId>
             <artifactId>rain-extend-util</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.rao</groupId>
+            <artifactId>rain-payment-feign-client</artifactId>
+        </dependency>
         <!-- 本地 jar -->
 
         <!-- 热部署插件 -->

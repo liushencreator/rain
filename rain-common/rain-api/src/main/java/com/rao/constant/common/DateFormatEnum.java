@@ -13,6 +13,12 @@ import lombok.Getter;
 public enum DateFormatEnum {
 
     //
+    FORMAT_CONNECT_BASE("yyyyMMdd", "20190808"),
+
+    //
+    FORMAT_CONNECT_EXTEND("yyyyMMddHHmmss", "20190808122015"),
+    
+    //
     FORMAT_SYMBOL_BASE("yyyy-MM-dd", "2019-08-08"),
 
     //

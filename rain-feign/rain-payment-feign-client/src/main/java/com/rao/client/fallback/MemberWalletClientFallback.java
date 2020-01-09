@@ -4,6 +4,7 @@ import com.rao.client.MemberWalletClient;
 import com.rao.util.result.ResultMessage;
 import feign.hystrix.FallbackFactory;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.PostMapping;
 
 /**
  * 熔断器
@@ -16,6 +17,7 @@ public class MemberWalletClientFallback implements FallbackFactory<MemberWalletC
     public MemberWalletClient create(Throwable throwable) {
         return new MemberWalletClient(){
 
+            @PostMapping("/member/wallet/init")
             @Override
             public ResultMessage init() {
                 return ResultMessage.fail().message("初始化会员钱包失败");

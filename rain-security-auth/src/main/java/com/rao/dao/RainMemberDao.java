@@ -2,6 +2,7 @@ package com.rao.dao;
 
 import com.rao.pojo.entity.RainMember;
 import com.rao.pojo.entity.RainSystemUser;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Map;
@@ -39,4 +40,11 @@ public interface RainMemberDao {
      */
     Integer insertSelective(RainMember rainMember);
 
+    /**
+     * 通过微信openID查询用户信息
+     * @param wxOpenId
+     * @return
+     */
+    RainMember findByWxOpenId(@Param("wxOpenid") String wxOpenId);
+    
 }
