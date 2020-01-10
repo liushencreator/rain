@@ -21,3 +21,10 @@
 ### 注意事项
 
 > 项目启动前需要在自行初始化数据库表，sql脚本在项目的 resources -> sql
+
+### 其他
+
+![image](https://github.com/raoxiaosi/this-document/blob/master/images/framework.png)
+---
+![image](https://github.com/raoxiaosi/this-document/blob/master/images/maven.png)
+
